@@ -1,12 +1,15 @@
 require('./bootstrap');
 require('flowbite');
 
-import { createApp } from 'vue';
-
-import TestView from './components/Test'
-
-const app = createApp({})
-
-app.component('test-view', TestView)
-
+import { createApp} from 'vue';
+import {createRouter,createWebHistory} from 'vue-router';
+import App from './App.vue';
+import routes from './routes';
+const router = createRouter({
+    history:createWebHistory(),
+    routes,
+})
+const app = createApp(App)
+// app.component('test-view', TestView)
+app.use(router);
 app.mount('#app')
