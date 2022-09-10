@@ -17,21 +17,22 @@ const routes = [
             {
                 path: "/order",
                 component: Order
-            }
+            },
+            {
+                path: "/login",
+                component: Login,
+            },
+            {
+                path: '/tienviet',
+                component: ListTienViet
+            },
+            {
+               path: '/filter',
+               component: Filter
+            },
         ],
     },
-    {
-        path: "/login",
-        component: Login,
-    },
-    {
-        path: '/tienviet',
-        component: ListTienViet
-    },
-    {
-       path: '/filter',
-       component: Filter
-    },
+   
 
     { path: '/:catchAll(.*)', redirect: '/' },
 

@@ -6,7 +6,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <div class="container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]">
+    <div class="w-full container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-hidden">
         <aside
             class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative "
         >
@@ -30,7 +30,7 @@
         <section class="m-6 relative ">
             <header>
                 <div
-                    class="top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]"
+                    class="bg-white top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]"
                 >
                     <div class="black_client">
                         <i class="fa-regular fa-moon text-4xl ml-6"></i>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </header>
-            <main>
+            <main class="relative">
                 <router-view></router-view>
             </main>
             <footer>

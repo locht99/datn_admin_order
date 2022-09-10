@@ -20816,6 +20816,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      filterAction: true,
+      filterTranform: this.styleFilter
+    };
+  },
+  components: {},
+  props: {
+    filter: Boolean,
+    styleFilter: String
+  },
+  methods: {
+    filters_action: function filters_action() {
+      this.$emit('filter_action', 'duration-300');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Tienviet/ListTienVietComponent.vue?vue&type=script&lang=js":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Tienviet/ListTienVietComponent.vue?vue&type=script&lang=js ***!
@@ -20828,12 +20860,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _AddTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddTienVietComponent.vue */ "./resources/js/components/Admin/Tienviet/AddTienVietComponent.vue");
+/* harmony import */ var _FilterComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterComponent.vue */ "./resources/js/components/Admin/Tienviet/FilterComponent.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    AddTienViet: _AddTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  data: function data() {
+    return {
+      openFilter: true,
+      styleFilter: ''
+    };
   },
-  data: function data() {}
+  components: {
+    AddTienViet: _AddTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Filter: _FilterComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    open_filter: function open_filter() {
+      this.openFilter = !this.openFilter;
+      this.styleFilter = 'translate-x-[-360px] duration-300';
+    },
+    updateOpenFilter: function updateOpenFilter(newVal) {
+      this.styleFilter = newVal;
+    }
+  }
 });
 
 /***/ }),
@@ -21034,39 +21083,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex"
-};
-var _hoisted_2 = {
   "class": "bg-white max-w-[350px] h-screen drop-shadow-md border"
 };
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "fillter"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "filter-header bg-gray-100 p-4"
 };
-var _hoisted_5 = {
+var _hoisted_4 = {
   "class": "filter-title flex items-center justify-between"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "text-black text-[20px] font-medium"
 }, "Bộ lọc tìm kiếm", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = {
-  "class": "text-[20px] cursor-pointer"
-};
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"filter-main\"><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo Ngày</label><div class=\"flex w-[90%] mx-auto pb-3 mt-3 border-b\"><div class=\"h-10\"><input type=\"date\" class=\"w-[100%] py-2\"></div><div class=\"border-r-2\"></div><div class=\"w-[70%]\"><input type=\"date\" class=\"w-[80%] py-2\"></div></div></div></div><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo tài khoản</label><div class=\"flex w-[90%] mx-auto pb-3 mt-3 border-b\"><input class=\"appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-medium\" type=\"text\" placeholder=\"Tài khoản\" aria-label=\"Full name\"></div></div></div><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo loại</label><div class=\"flex mx-auto w-[90%] pb-3 mt-3 border-b\"><select class=\"w-full\" name=\"\" id=\"\"><option value=\"\">Loại</option></select></div></div></div></div><div class=\"filter-footer relative flex justify-center\"><div class=\"fixed bottom-0\"><div class=\"flex justify-around m-2\"><div class=\"button mr-3\"><button class=\"border-2 border-rose-600 px-3 py-2 text-rose-600 font-medium hover:bg-rose-600 hover:text-white duration-300\">THIẾT LẬP LẠI</button></div><div class=\"button mr-3\"><button class=\"bg-rose-600 px-5 py-[10px] text-white font-medium hover:bg-rose-800 duration-300\">ÁP DỤNG</button></div></div></div></div>", 2);
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"filter-main\"><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo Ngày</label><div class=\"flex w-[90%] mx-auto pb-3 mt-3 border-b\"><div class=\"h-10\"><input type=\"date\" class=\"w-[100%] py-2\"></div><div class=\"border-r-2\"></div><div class=\"w-[70%]\"><input type=\"date\" class=\"w-[80%] py-2\"></div></div></div></div><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo tài khoản</label><div class=\"flex w-[90%] mx-auto pb-3 mt-3 border-b\"><input class=\"appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-medium\" type=\"text\" placeholder=\"Tài khoản\" aria-label=\"Full name\"></div></div></div><div class=\"filter-children\"><div class=\"label py-4\"><label for=\"\" class=\"w-full ml-2\">Theo loại</label><div class=\"flex mx-auto w-[90%] pb-3 mt-3 border-b\"><select class=\"w-full\" name=\"\" id=\"\"><option value=\"\">Loại</option></select></div></div></div></div><div class=\"filter-footer relative flex justify-center\"><div class=\"fixed bottom-0\"><div class=\"flex justify-around m-2\"><div class=\"button mr-3\"><button class=\"border-2 border-rose-600 px-3 py-2 text-rose-600 font-medium hover:bg-rose-600 hover:text-white duration-300\">THIẾT LẬP LẠI</button></div><div class=\"button mr-3\"><button class=\"bg-rose-600 px-5 py-[10px] text-white font-medium hover:bg-rose-800 duration-300\">ÁP DỤNG</button></div></div></div></div>", 2);
-
-function render(_ctx, _cache) {
+function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["absolute flex right-[-380px] z-10 top-[-90px] overflow-hidden filterProduct dark:bg-gray-700 shadow", [$props.styleFilter, $data.filterTranform]])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "text-[25px] cursor-pointer",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $options.filters_action();
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
     icon: "fa fa-times-square"
-  })])])]), _hoisted_8])])]);
+  })])])]), _hoisted_6])])], 2
+  /* CLASS */
+  );
 }
 
 /***/ }),
@@ -21085,34 +21136,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "container mx-auto"
+  "class": "relative"
 };
 var _hoisted_2 = {
-  "class": "bg-white"
+  "class": ""
 };
 var _hoisted_3 = {
-  "class": "flex flex-column"
-};
-var _hoisted_4 = {
-  "class": "overflow-x-auto sm:-mx-6 lg:-mx-8"
-};
-var _hoisted_5 = {
-  "class": "flex justify-between items-center px-5"
+  "class": "flex justify-between items-center"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "title mx-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "text-[#566A7F] text-[23px] font-medium"
+  "class": "text-[#5c646b] text-[23px] font-medium"
 }, "Tiền Việt")], -1
 /* HOISTED */
 );
 
-var _hoisted_7 = {
+var _hoisted_5 = {
   "class": "flex justify-between items-center mx-5"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "p-3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "data-modal-toggle": "large-modal",
@@ -21121,20 +21166,34 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = {
+var _hoisted_7 = {
   "class": "text-[23px] cursor-pointer"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"py-2 inline-block w-screen sm:px-6 lg:px-8\"><div class=\"overflow-hidden rounded-t-[13px]\"><table class=\"min-w-full border text-center\"><thead class=\"\"><tr class=\"bg-[#FF3F3A] uppercase leading-normal\"><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> STT </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> NGÀY </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> LOẠI </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> TÀI KHOẢN </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> ĐƠN HÀNG </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> GÓI HÀNG </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> SỐ TIỀN </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> SỐ DƯ </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> NỘI DUNG </th><th scope=\"col\" class=\"text-[14px] font-bold text-white px-7 py-2\"> NGÀY TẠO </th></tr></thead><tbody><tr class=\"border-b\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr></tbody></table></div></div>", 1);
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"py-2 inline-block\"><div class=\"overflow-hidden rounded-t-[13px] bg-white w-[1250px]\"><table class=\"w-[100%] table-auto border text-center\"><thead class=\"\"><tr class=\"bg-[#FF3F3A] uppercase leading-normal\"><th class=\"text-[14px] font-bold text-white py-2\"> STT </th><th class=\"text-[14px] font-bold text-white py-2\"> NGÀY </th><th class=\"text-[14px] font-bold text-white py-2\"> LOẠI </th><th class=\"text-[14px] font-bold text-white py-2\"> TÀI KHOẢN </th><th class=\"text-[14px] font-bold text-white py-2\"> ĐƠN HÀNG </th><th class=\"text-[14px] font-bold text-white py-2\"> GÓI HÀNG </th><th class=\"text-[14px] font-bold text-white py-2\"> SỐ TIỀN </th><th class=\"text-[14px] font-bold text-white py-2\"> SỐ DƯ </th><th class=\"text-[14px] font-bold text-white py-2\"> NỘI DUNG </th><th class=\"text-[14px] font-bold text-white py-2\"> NGÀY TẠO </th></tr></thead><tbody><tr class=\"border-b hover:bg-gray-50 dark:hover:bg-gray-600\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"><a href=\"\" class=\"hover:text-blue-900\">demo1</a></td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b hover:bg-gray-50 dark:hover:bg-gray-600\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"><a href=\"\">demo1</a></td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b hover:bg-gray-50 dark:hover:bg-gray-600\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"><a href=\"\">demo1</a></td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr><tr class=\"border-b hover:bg-gray-50 dark:hover:bg-gray-600\"><td class=\"px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900\">1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 25-05-20 03:48 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Phí kiện hàng </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> Demo1 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"><a href=\"\">demo1</a></td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 1,446,700 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 0 </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> HÀ NỘI </td><td class=\"text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap\"> 08-07-22 09:14 </td></tr></tbody></table><div class=\"p-10\"></div></div></div>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
 
+  var _component_Filter = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Filter");
+
   var _component_AddTienViet = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTienViet");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $options.open_filter();
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
     icon: "fas fa-sliders-h"
-  })])])])])])]), _hoisted_10])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTienViet)], 64
+  })])])])])])]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Filter, {
+    onFilter_action: _cache[1] || (_cache[1] = function ($event) {
+      return $options.updateOpenFilter($event);
+    }),
+    filter: this.openFilter,
+    styleFilter: this.styleFilter
+  }, null, 8
+  /* PROPS */
+  , ["filter", "styleFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTienViet)], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -21386,7 +21445,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* STABLE */
 
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: ""
+    to: "/tienviet"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_13];
@@ -21467,7 +21526,7 @@ var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_2 = {
-  "class": "container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]"
+  "class": "w-full container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-hidden"
 };
 var _hoisted_3 = {
   "class": "fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative"
@@ -21504,9 +21563,13 @@ var _hoisted_8 = {
   "class": "m-6 relative"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<header data-v-bafdabb6><div class=\"top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]\" data-v-bafdabb6><div class=\"black_client\" data-v-bafdabb6><i class=\"fa-regular fa-moon text-4xl ml-6\" data-v-bafdabb6></i></div><div class=\"user\" data-v-bafdabb6><img class=\"w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]\" src=\"/images/avt.jpg\" alt=\"\" data-v-bafdabb6></div></div></header>", 1);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<header data-v-bafdabb6><div class=\"bg-white top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]\" data-v-bafdabb6><div class=\"black_client\" data-v-bafdabb6><i class=\"fa-regular fa-moon text-4xl ml-6\" data-v-bafdabb6></i></div><div class=\"user\" data-v-bafdabb6><img class=\"w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]\" src=\"/images/avt.jpg\" alt=\"\" data-v-bafdabb6></div></div></header>", 1);
 
-var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_10 = {
+  "class": "relative"
+};
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-[16px] absolute bottom-0 text-[#7e7373]"
   }, "© 2022 , hệ thống được thiết kế và vận hành bởi Order Việt Trung")], -1
@@ -21525,7 +21588,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.aside_action && $options.aside_action.apply($options, arguments);
     })
-  }, _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]), _hoisted_10])])], 64
+  }, _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]), _hoisted_11])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -21637,16 +21700,16 @@ var routes = [{
   }, {
     path: "/order",
     component: _components_admin_OrderComponent__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }, {
+    path: "/login",
+    component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, {
+    path: '/tienviet',
+    component: _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }, {
+    path: '/filter',
+    component: _components_Admin_Tienviet_FilterComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }]
-}, {
-  path: "/login",
-  component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
-}, {
-  path: '/tienviet',
-  component: _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-}, {
-  path: '/filter',
-  component: _components_Admin_Tienviet_FilterComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/:catchAll(.*)',
   redirect: '/'
@@ -45699,12 +45762,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _FilterComponent_vue_vue_type_template_id_7af1aec1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FilterComponent.vue?vue&type=template&id=7af1aec1 */ "./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=template&id=7af1aec1");
-/* harmony import */ var D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _FilterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterComponent.vue?vue&type=script&lang=js */ "./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
-const script = {}
+
+
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_1__["default"])(script, [['render',_FilterComponent_vue_vue_type_template_id_7af1aec1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Admin/Tienviet/FilterComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FilterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FilterComponent_vue_vue_type_template_id_7af1aec1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Admin/Tienviet/FilterComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -45893,6 +45958,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./App.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/App.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FilterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FilterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FilterComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Tienviet/FilterComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
