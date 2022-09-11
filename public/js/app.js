@@ -46076,7 +46076,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 ;
-<<<<<<< HEAD
 const __exports__ = /*#__PURE__*/(0,D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_App_vue_vue_type_template_id_f348271a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/App.vue"]])
 /* hot reload */
 if (false) {}
@@ -46214,9 +46213,6 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 const __exports__ = /*#__PURE__*/(0,D_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ListTienVietComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ListTienVietComponent_vue_vue_type_template_id_503de49b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Admin/Tienviet/ListTienVietComponent.vue"]])
-=======
-const __exports__ = /*#__PURE__*/(0,D_d_n_t_t_nghi_p_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_App_vue_vue_type_template_id_f348271a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/App.vue"]])
->>>>>>> 0f3994be680f8cea127fd913913999c49d0ab393
 /* hot reload */
 if (false) {}
 
