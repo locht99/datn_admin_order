@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\Auth\AdminController;
+use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
 Route::middleware('auth:api')->group(function () {
     Route::get('/test', [TestController::class, 'test']);
+    Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
 });
