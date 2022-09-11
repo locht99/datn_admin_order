@@ -6,7 +6,8 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <div class="w-screen container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-x-hidden">
+    <div class="bg-[#f9f9f9]">
+        <div class="w-screen container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-x-hidden">
         <aside
             class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-300"
         >
@@ -52,6 +53,7 @@
                 >
             </footer>
         </section>
+    </div>
     </div>
 </template>
 
