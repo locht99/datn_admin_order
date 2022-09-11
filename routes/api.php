@@ -24,3 +24,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/test', [TestController::class, 'test']);
     Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
 });
+
+Route::get('test',[TestController::class,'index']);
