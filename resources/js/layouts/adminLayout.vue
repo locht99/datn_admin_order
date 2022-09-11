@@ -6,9 +6,9 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <div class="w-screen container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-x-hidden">
+    <div class="container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]">
         <aside
-            class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-300"
+            class="relative w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5"
         >
             <div class="img mt-2 mb-4">
                 <img
@@ -30,19 +30,21 @@
         <section class="m-6 relative ">
             <header>
                 <div
-                    class="bg-white top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]"
+                    class="top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]"
                 >
                     <div class="black_client">
                         <i class="fa-regular fa-moon text-4xl ml-6"></i>
                     </div>
                     <div class="user">
-                        <img class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]" src="/images/avt.jpg"
+                        <img
+                            class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
+                            src="/images/avt.jpg"
                             alt=""
                         />
                     </div>
                 </div>
             </header>
-            <main class="relative">
+            <main>
                 <router-view></router-view>
             </main>
             <footer>
