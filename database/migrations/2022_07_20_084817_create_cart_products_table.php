@@ -14,7 +14,7 @@ class CreateCartProductsTable extends Migration
     public function up()
     {
         Schema::create('cart_products', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('cart_id');
@@ -36,9 +36,9 @@ class CreateCartProductsTable extends Migration
             $table->string('image_detail', 1000)->nullable()->default('');
             $table->text('note')->nullable();
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
             $table->decimal('unit_price_cn', 15)->nullable()->comment('giá 1 sản phẩm trung quốc');
             $table->decimal('unit_price_vn', 15)->nullable()->comment('giá 1 sản phẩm việt nam');
+            $table->dateTime('created_at')->nullable();
         });
     }
 

@@ -14,7 +14,7 @@ class CreateAdminTransactionsTypesTable extends Migration
     public function up()
     {
         Schema::create('admin_transactions_types', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->string('name', 200)->nullable();
             $table->string('lang', 50)->nullable();
             $table->integer('cn')->nullable();

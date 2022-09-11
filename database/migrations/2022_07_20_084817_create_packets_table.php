@@ -14,7 +14,7 @@ class CreatePacketsTable extends Migration
     public function up()
     {
         Schema::create('packets', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('order_id');
@@ -45,8 +45,8 @@ class CreatePacketsTable extends Migration
             $table->dateTime('time_lost')->nullable()->comment('thời điểm hàng bị thất lạc');
             $table->dateTime('time_cancel')->nullable()->comment('thời điểm người mua hủy bỏ hàng');
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
             $table->boolean('checked')->nullable()->default(false);
+            $table->dateTime('created_at')->nullable();
         });
     }
 

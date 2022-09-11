@@ -14,7 +14,7 @@ class CreateComplainsTable extends Migration
     public function up()
     {
         Schema::create('complains', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id')->nullable();
             $table->text('image')->nullable();
@@ -23,7 +23,7 @@ class CreateComplainsTable extends Migration
             $table->text('method_handle')->nullable();
             $table->integer('situation')->nullable()->default(0);
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 
