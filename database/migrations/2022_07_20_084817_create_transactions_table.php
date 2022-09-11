@@ -14,7 +14,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('order_id')->nullable();
@@ -22,10 +22,10 @@ class CreateTransactionsTable extends Migration
             $table->text('content')->nullable();
             $table->decimal('point', 15)->nullable()->default(0);
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
             $table->decimal('point_transaction', 15)->nullable()->default(0);
             $table->text('code_transaction')->nullable();
             $table->integer('new_column')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

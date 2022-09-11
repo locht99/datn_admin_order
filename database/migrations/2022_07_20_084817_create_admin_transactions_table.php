@@ -14,7 +14,7 @@ class CreateAdminTransactionsTable extends Migration
     public function up()
     {
         Schema::create('admin_transactions', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('type_id');
             $table->integer('user_id')->nullable();
             $table->integer('order_id')->nullable();
@@ -26,8 +26,8 @@ class CreateAdminTransactionsTable extends Migration
             $table->decimal('exchange_rate', 15)->nullable();
             $table->decimal('surplus', 15)->nullable();
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
             $table->integer('admin_packet_id')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

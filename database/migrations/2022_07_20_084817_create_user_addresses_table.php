@@ -14,13 +14,13 @@ class CreateUserAddressesTable extends Migration
     public function up()
     {
         Schema::create('user_addresses', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('user_id');
             $table->string('name', 50);
             $table->text('address');
             $table->text('note')->nullable();
             $table->string('phone', 15);
-            $table->dateTime('create_at')->nullable();
+            $table->timestamps();
         });
     }
 

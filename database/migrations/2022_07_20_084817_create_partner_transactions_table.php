@@ -14,7 +14,7 @@ class CreatePartnerTransactionsTable extends Migration
     public function up()
     {
         Schema::create('partner_transactions', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('transaction_id');
             $table->integer('type_id');
@@ -22,7 +22,7 @@ class CreatePartnerTransactionsTable extends Migration
             $table->integer('out_point')->nullable()->default(0);
             $table->integer('in_point')->nullable()->default(0);
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 
