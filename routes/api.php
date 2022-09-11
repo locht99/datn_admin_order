@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\Auth\UserController;
+use App\Http\Controllers\api\Auth\AdminController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [UserController::class, 'getLogin']);
+Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
 Route::middleware('auth:api')->group(function () {
     Route::get('/test', [TestController::class, 'test']);
