@@ -22,3 +22,5 @@ Route::post('/login', [AdminController::class, 'getLogin']);
 Route::middleware('auth:api')->group(function () {
     Route::get('/test', [TestController::class, 'test']);
 });
+
+Route::get('test',[TestController::class,'index']);
