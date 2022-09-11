@@ -17,4 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
         require("tailwindcss"),
         
     ]);
-mix.disableNotifications()
+    mix.disableNotifications()
