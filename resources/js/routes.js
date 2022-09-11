@@ -2,6 +2,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Home from "./components/admin/HomeComponent";
 import Order from "./components/admin/OrderComponent";
 import Login from "./components/LoginComponent";
+import ChineseMoney from "./components/admin/ChineseMoneyComponent"
 const routes = [
     {
         path: "/",
@@ -14,6 +15,10 @@ const routes = [
             {
                 path: "/order",
                 component: Order
+            },
+            {
+                path: "chinese-money",
+                component: ChineseMoney
             }
         ],
     },
