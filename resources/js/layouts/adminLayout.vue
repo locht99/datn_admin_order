@@ -6,9 +6,9 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <div class="w-full container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-hidden">
+    <div class="w-screen container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] overflow-x-hidden">
         <aside
-            class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative "
+            class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-300"
         >
             <div class="img mt-2 mb-4">
                 <img
@@ -36,9 +36,7 @@
                         <i class="fa-regular fa-moon text-4xl ml-6"></i>
                     </div>
                     <div class="user">
-                        <img
-                            class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
-                            src="/images/avt.jpg"
+                        <img class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]" src="/images/avt.jpg"
                             alt=""
                         />
                     </div>

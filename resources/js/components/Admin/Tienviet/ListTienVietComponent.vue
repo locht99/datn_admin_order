@@ -1,6 +1,6 @@
 <template>
 
-    <div class="relative ">
+    <div class="relative duration-300   ">
         <div class="">
             <div class="flex justify-between items-center ">
                 <div class="title mx-5">
@@ -15,8 +15,8 @@
 
                         </div>
                         <div>
-                            <span class="text-[23px] cursor-pointer">
-                                <button @click="open_filter()">
+                            <span class="text-[23px] cursor-pointer hover:bg-white px-4  rounded-full" @click="open_filter()">
+                                <button >
                                     <font-awesome-icon icon="fas fa-sliders-h" />
                                 </button>
                             </span>
@@ -196,18 +196,21 @@
 
                         </tbody>
                     </table>
-                    <div class="p-10"></div>
+                    <div class="p-10">
+                         
+                    </div>
                 </div>
             </div>
-            <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
         </div>
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
+
     </div>
 
     <AddTienViet />
 </template>
 <script>
 import AddTienViet from './AddTienVietComponent.vue';
-import Filter from './FilterComponent.vue';
+import Filter from '../Filter/FilterComponent.vue';
 export default {
     data() {
         return {
@@ -224,7 +227,7 @@ export default {
     methods:{
         open_filter(){
             this.openFilter =! this.openFilter;
-            this.styleFilter ='translate-x-[-360px] duration-300';
+            this.styleFilter ='translate-x-[-360px] duration-300 ';
         },
         updateOpenFilter(newVal){
             this.styleFilter = newVal;
