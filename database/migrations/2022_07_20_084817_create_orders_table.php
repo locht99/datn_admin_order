@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('order_status_id');
@@ -39,12 +39,12 @@ class CreateOrdersTable extends Migration
             $table->text('note')->nullable();
             $table->string('source', 20)->nullable()->default('');
             $table->float('is_delete', 10, 0)->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
             $table->text('cancel_note')->nullable();
             $table->boolean('payed')->nullable()->default(false);
             $table->string('source_order_id')->nullable();
             $table->string('waybill_code_link', 500)->nullable();
             $table->text('method_receive')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

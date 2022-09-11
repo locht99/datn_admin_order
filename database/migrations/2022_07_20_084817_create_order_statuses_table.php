@@ -14,12 +14,12 @@ class CreateOrderStatusesTable extends Migration
     public function up()
     {
         Schema::create('order_statuses', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->string('status_name', 200)->nullable()->default('');
             $table->string('code_language', 50)->nullable()->default('');
             $table->integer('is_running')->nullable()->default(1);
             $table->integer('serial')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 
