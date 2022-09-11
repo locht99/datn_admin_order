@@ -974,7 +974,6 @@ input:checked + .toggle-bg {
     max-width: 1536px;
   }
 }
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -986,7 +985,6 @@ input:checked + .toggle-bg {
   white-space: nowrap;
   border-width: 0;
 }
-
 .visible {
   visibility: visible;
 }
