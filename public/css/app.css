@@ -1016,6 +1016,8 @@ input:checked + .toggle-bg {
     max-width: 1536px;
   }
 }
+<<<<<<< HEAD
+=======
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1027,6 +1029,7 @@ input:checked + .toggle-bg {
   white-space: nowrap;
   border-width: 0;
 }
+>>>>>>> main
 .visible {
   visibility: visible;
 }
@@ -1101,37 +1104,6 @@ input:checked + .toggle-bg {
 }
 .m-10 {
   margin: 2.5rem;
-}
-.m-2 {
-  margin: 0.5rem;
-}
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-}
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
