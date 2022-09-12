@@ -1,5 +1,5 @@
 <template>
-    <div class=" mt-7">
+    <div class=" mt-7  ">
         <nav>
             <ul>
                 <li style="background-color:#E93B3B; " class="text-white my-2 py-2 pl-5 rounded-[10px]">
