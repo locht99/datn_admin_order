@@ -24,8 +24,8 @@
                     </div>
                 </div>
             </div>
-            <div class="py-2 inline-block ">
-                <div class="overflow-hidden rounded-t-[13px] bg-white w-[1250px]">
+            <div class="py-2  ">
+                <div class="overflow-hidden rounded-t-[13px] bg-white">
                     <table class="w-[100%] table-auto  border text-center">
                         <thead class="">
                             <tr class="bg-[#FF3F3A]    uppercase leading-normal ">
