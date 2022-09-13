@@ -9,7 +9,7 @@
                     </router-link>
                 </li>
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
-                    <router-link to="/donhang">
+                    <router-link to="/order">
                         <font-awesome-icon icon="fa fa-shopping-cart" />
                         Đơn Hàng
                     </router-link>
@@ -31,12 +31,12 @@
                     Tiền Trung</router-link>
                 </li>
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
-                    <router-link to="/tienviet">
+                    <router-link to="/money-vietnamese">
                         <font-awesome-icon icon="fa fa-money-bill" />
                         Tiền Việt</router-link>
                 </li>
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
-                    <router-link to="/baohang">
+                    <router-link to="/bag">
                         <font-awesome-icon  icon="fa fa-luggage-cart" />
                         Bao Hàng</router-link>
                 </li>

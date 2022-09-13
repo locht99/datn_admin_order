@@ -37,7 +37,7 @@
                             <tr class="hover:bg-gray-100 border-b">
                                 <td>1</td>
                                 <td>
-                                    <router-link to="/chitietdonhang">1</router-link>
+                                    <router-link to="/orderdetail">1</router-link>
                                 </td>
                                 <td>1</td>
                                 <td>1</td>
@@ -50,7 +50,7 @@
                             <tr class="hover:bg-gray-100 border-b">
                                 <td>1</td>
                                 <td>
-                                    <router-link to="/chitietdonhang">1</router-link>
+                                    <router-link to="/orderdetail">1</router-link>
                                 </td>
                                 <td>1</td>
                                 <td>1</td>
@@ -63,7 +63,7 @@
                             <tr class="hover:bg-gray-100">
                                 <td>1</td>
                                 <td>
-                                    <router-link to="/chitietdonhang">1</router-link>
+                                    <router-link to="/orderdetail">1</router-link>
                                 </td>
                                 <td>1</td>
                                 <td>1</td>
@@ -78,10 +78,10 @@
                 </div>
             </div>
         </div>
-        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
 
     </div>
-    
+    <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
+
 </template>
 <script>
 import Filter from '../Filter/FilterComponent.vue';
@@ -153,7 +153,7 @@ export default {
 
     methods: {
         open_filter() {
-            this.openFilter = !this.openFilter;
+            this.openFilter =!this.openFilter;
             this.styleFilter = 'right-[-18px] duration-300 ';
         },
         updateOpenFilter(newVal) {

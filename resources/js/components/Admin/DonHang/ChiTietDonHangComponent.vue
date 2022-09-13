@@ -8,30 +8,7 @@
             </div>
             <div class="main-order-detail">
                 <div class="info-order-detail bg-white rounded">
-                    <div class="flex justify-between items-center">
-                        <div class="code-order flex items-center">
-                            <div class="p-2">
-                                <span class="bg-red-600 p-1 rounded text-white">Mã #00123</span>
-                            </div>
-                            <div>
-                                <div class="date">
-                                    <p>Tạo ngày 27-08-2022 11:07</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="flex items-center">
-                            <div>Trạng thái:</div>
-                            <div class="flex items-center justify-around m-3">
-                                <div class="m-3">
-                                    <button class="bg-red-600 rounded p-1 text-white">Đang giao hàng</button>
-                                </div>
-                                <div>
-                                    <button class="bg-red-600 rounded p-1 text-white">Lấy mã vận đơn</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <HeadDonHang/>
                     <div class="border-b w-[95%] mx-auto"></div>
                     <div class="flex ">
                         <div class="border-r w-[60%]">
@@ -167,11 +144,16 @@
 
 </style>
 <script>
+import HeadDonHang from './HeadDonHangComponent.vue';
 export default {
+
     data() {
         return {
             data: [1, 2, 3, 4, 5, 6]
         }
+    },
+    components: {
+        HeadDonHang
     }
 }
 </script>
