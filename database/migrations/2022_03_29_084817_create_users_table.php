@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id('id');
             $table->integer('partner_id');
             $table->string('username', 50);
             $table->string('password', 64);
@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('uid');
             $table->integer('vip_level')->nullable()->default(0);
             $table->integer('warehouse_id')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -23,7 +23,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            <test-view/>
+           
         </div>
     </body>
 
