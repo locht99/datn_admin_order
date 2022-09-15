@@ -1,4 +1,4 @@
-<template>
+<template >
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -6,7 +6,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <div class="container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]">
+    <div class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full">
         <aside
             class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative "
         >
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </header>
-            <main>
+            <main class="w-full">
                 <router-view></router-view>
             </main>
             <footer>
@@ -74,7 +74,7 @@ export default {
     methods: {
         aside_action() {
             let aside = document.getElementsByTagName("aside")[0];
-            let container = document.getElementsByClassName('container')[0]
+            let container = document.getElementsByClassName('layout')[0]
             let icon = document.getElementById('icon')
             if (aside.style.transform === "translateX(-230px)") {
                 aside.style.transform = "translateX(0px)";

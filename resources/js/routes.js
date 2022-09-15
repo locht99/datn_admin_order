@@ -1,7 +1,9 @@
 import AdminLayout from "./layouts/AdminLayout";
 import Home from "./components/admin/HomeComponent";
-import Order from "./components/admin/OrderComponent";
-import Login from "./components/LoginComponent";
+import Login from "./components/DangNhapComponent";
+import TienHang from "./components/admin/TienHangComponent"
+import KhachHang from "./components/admin/KhachHangComponent"
+
 const routes = [
     {
         path: "/",
@@ -12,9 +14,13 @@ const routes = [
                 component: Home,
             },
             {
-                path: "/order",
-                component: Order
-            }
+                path: "/tien-hang",
+                component: TienHang
+            },
+            {
+                path: "/khach-hang",
+                component: KhachHang
+            },
         ],
     },
     {
