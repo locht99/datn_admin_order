@@ -8,7 +8,7 @@
                 <div>
                     <div class="flex justify-between items-center mx-5">
                         <div class="p-3">
-                            <router-link to="/baohang/add" data-modal-toggle="large-modal"
+                            <router-link to="/bag/add" data-modal-toggle="large-modal"
                                 class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded ">+
                                 Tạo mới bao hàng</router-link>
                         </div>

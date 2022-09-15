@@ -10,7 +10,7 @@
                     placeholder="Tìm kiếm">
             </div>
         </div>
-        <div class="flex justify-between items-center mt-5">
+        <div class="md:flex justify-between  mt-5 pb-10">
             <div class="bg-white w-[30%]  rounded">
                 <div class="flex justify-between mx-auto items-center p-3 border-b-2 w-[95%]">
                     <div clas="w-[40%]">
@@ -156,32 +156,68 @@
                         </div>
                         <div class="w-[60%]">
                             <div class="flex flex-wrap items-stretch  relative">
-                               <select class="w-full  rounded border-gray-400 focus:ring-gray-400 text-gray-400">
-                                 <option value="">Tình trạng</option>
-                               </select>
+                              <input type="text" class="w-full border-gray-400 rounded focus:ring-gray-400">
                             </div>
                         </div>
                     </div>
                     <div class=" flex justify-between mx-auto items-center p-3 ">
                         <div class="w-[40%]">
-                            <label for="kg" class="text-gray-600">Phí khác</label>
+                            <label for="kg" class="text-gray-600">Ghi chú</label>
                         </div>
                         <div class="w-[60%]">
                             <div class="flex flex-wrap items-stretch  relative">
-                                <input type="text"
-                                    class="flex-shrink flex-grow focus:border-gray-400 focus:ring-gray-400 leading-normal w-[90%] flex-1 border h-10 border-gray-300 rounded rounded-r-none px-3 relative"
-                                    placeholder="">
-                                <div class="flex -mr-px">
-                                    <span class="p-1 flex items-center leading-normal bg-gray-300 rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-white text-sm ">VNĐ</span>
-                                </div>
+                               <textarea name="" id="" cols="30" rows="3" class="w-full focus:ring-gray-400"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="border-b w-[95%] mx-auto"></div>
+                <div class=" mx-auto w-[95%] p-1 py-3">
+                        <button class="bg-red-600 hover:bg-red-700 duration-300 rounded p-1 w-full text-white">Tạo mới</button>
+                    </div>
                 </div>
             </div>
-            <div class="w-[70%]">
+            
+            <div class="w-[70%] mx-2">
+                <div class="bg-white  overflow-hidden">
+                    <table class="w-[100%] table-auto  border text-center">
+                        <thead class="">
+                            <tr class="bg-[#FF3F3A]    uppercase leading-normal ">
+                                <th class="text-[14px] font-bold text-white  py-2 ">
+                                    STT
+                                </th>
+                                <th class="text-[14px] font-bold text-white  py-2 ">
+                                    ĐƠN HÀNG
+                                </th>
+                                <th class="text-[14px] font-bold text-white  py-2 ">
+                                    MÃ VẬN ĐƠN
+                                </th>
+                                <th class="text-[14px] font-bold text-white  py-2">
+                                    KHÁC
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">1
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
+                                    PX20220731_0001
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
+                                   1446700
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
+                                    Sửa
+                                </td>
+                                
+                            
 
+                            </tr>
+                         
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
