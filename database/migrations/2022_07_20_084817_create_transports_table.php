@@ -14,7 +14,7 @@ class CreateTransportsTable extends Migration
     public function up()
     {
         Schema::create('transports', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('order_id');
@@ -24,7 +24,7 @@ class CreateTransportsTable extends Migration
             $table->string('phone', 15)->nullable();
             $table->text('address')->nullable();
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

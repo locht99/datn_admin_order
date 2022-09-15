@@ -14,11 +14,11 @@ class CreateTypeTransactionsTable extends Migration
     public function up()
     {
         Schema::create('type_transactions', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->string('type_name', 200)->nullable();
             $table->string('code_language', 50)->nullable();
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

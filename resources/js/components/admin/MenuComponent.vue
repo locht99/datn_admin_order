@@ -2,6 +2,7 @@
     <div class=" mt-7  ">
         <nav>
             <ul>
+
                 <li style="background-color:#E93B3B; " class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/">
                         <font-awesome-icon icon="fa fa-home" />
@@ -45,6 +46,7 @@
                         <font-awesome-icon icon="fa fa-handshake-alt" />
                         Đối Tác</router-link>
                 </li>
+
             </ul>
         </nav>
     </div>

@@ -1,6 +1,7 @@
 <template>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative">
         <div class="container h-screen  overflow-x-hidden mx-auto grid grid-cols-[230px,_1fr] bg-[#f9f9f9]" id="main">
@@ -39,7 +40,8 @@
                 </footer>
             </section>
         </div>
-    </div>
+        </div>
+
 </template>
 
 <style lang="css" scoped>

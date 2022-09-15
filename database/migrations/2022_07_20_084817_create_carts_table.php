@@ -14,7 +14,7 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->string('source', 20)->nullable()->default('');
@@ -30,7 +30,7 @@ class CreateCartsTable extends Migration
             $table->smallInteger('opt_wood_pack')->nullable()->default(0);
             $table->smallInteger('opt_private_wood_pack')->nullable()->default(0);
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

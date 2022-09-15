@@ -14,11 +14,11 @@ class CreateAdminPacketItemsTable extends Migration
     public function up()
     {
         Schema::create('admin_packet_items', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->text('waybill_code')->nullable()->comment('mã vận đơn');
             $table->integer('order_id')->nullable()->comment('đơn hàng');
             $table->integer('admin_packet_id')->nullable()->comment('kiện hàng');
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
             $table->integer('is_delete')->nullable()->default(0);
         });
     }

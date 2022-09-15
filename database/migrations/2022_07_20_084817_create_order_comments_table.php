@@ -14,14 +14,14 @@ class CreateOrderCommentsTable extends Migration
     public function up()
     {
         Schema::create('order_comments', function (Blueprint $table) {
-            $table->bigInteger('id', true);
+            $table->id();
             $table->integer('partner_id');
             $table->integer('user_id');
             $table->integer('order_id');
             $table->integer('admin_id');
             $table->text('content')->nullable();
             $table->integer('is_delete')->nullable()->default(0);
-            $table->dateTime('create_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
     }
 

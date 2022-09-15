@@ -22429,6 +22429,32 @@ function render(_ctx, _cache) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "mt-6"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex justify-between\"><h1 class=\"text-[#566a7f] text-[28px] font-[700]\">Tiền trung</h1><div class=\"mr-5 flex items-center\"><a href=\"\" class=\"mx-10 border-2 rounded-lg px-14 py-1 bg-[#FF3F3A] text-white font-semibold\"><h1 class=\"\">+ Giao dịch mới</h1></a><img class=\"w-[32px] h-[32px] cursor-pointer\" src=\"/images/filter.png\" alt=\"\"></div></div><div class=\"main mt-6\"><table class=\"w-full rounded-t-md overflow-hidden bg-white\"><thead class=\"bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]\"><tr class=\"px-2 text-left\"><th class=\"text-center\">STT</th><th class=\"pl-5\">NGÀY</th><th>USER</th><th>ĐƠN HÀNG</th><th>LOẠI</th><th>NỘI DUNG</th><th>SỐ TIỀN</th></tr></thead><tbody><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr><tr class=\"border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]\"><td class=\"font-bold text-center\">1</td><td class=\"pl-5\">25-5-20 03:38</td><td>demo1</td><td>DH-2708022</td><td>đặt cọc</td><td>đặt cộc cho đơn hàng 001</td><td>1,400,000</td></tr></tbody></table></div>", 2);
+
+var _hoisted_4 = [_hoisted_2];
+function render(_ctx, _cache) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_4);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/HomeComponent.vue?vue&type=template&id=e72929fa&scoped=true":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/HomeComponent.vue?vue&type=template&id=e72929fa&scoped=true ***!
@@ -22832,14 +22858,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_HomeComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/admin/HomeComponent */ "./resources/js/components/admin/HomeComponent.vue");
 /* harmony import */ var _components_admin_OrderComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/admin/OrderComponent */ "./resources/js/components/admin/OrderComponent.vue");
 /* harmony import */ var _components_LoginComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LoginComponent */ "./resources/js/components/LoginComponent.vue");
-/* harmony import */ var _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Admin/Tienviet/ListTienVietComponent.vue */ "./resources/js/components/Admin/Tienviet/ListTienVietComponent.vue");
-/* harmony import */ var _components_Admin_BaoHang_ListBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Admin/BaoHang/ListBaoHangComponent.vue */ "./resources/js/components/Admin/BaoHang/ListBaoHangComponent.vue");
-/* harmony import */ var _components_Admin_BaoHang_AddBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Admin/BaoHang/AddBaoHangComponent.vue */ "./resources/js/components/Admin/BaoHang/AddBaoHangComponent.vue");
-/* harmony import */ var _components_Admin_DonHang_DonHangComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Admin/DonHang/DonHangComponent.vue */ "./resources/js/components/Admin/DonHang/DonHangComponent.vue");
-/* harmony import */ var _components_Admin_DonHang_ChiTietDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Admin/DonHang/ChiTietDonHangComponent.vue */ "./resources/js/components/Admin/DonHang/ChiTietDonHangComponent.vue");
-/* harmony import */ var _components_Admin_DonHang_GoiHangComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Admin/DonHang/GoiHangComponent.vue */ "./resources/js/components/Admin/DonHang/GoiHangComponent.vue");
-/* harmony import */ var _components_Admin_DonHang_TinhTrangDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Admin/DonHang/TinhTrangDonHangComponent.vue */ "./resources/js/components/Admin/DonHang/TinhTrangDonHangComponent.vue");
-/* harmony import */ var _components_Admin_DonHang_TienPhiComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Admin/DonHang/TienPhiComponent.vue */ "./resources/js/components/Admin/DonHang/TienPhiComponent.vue");
+/* harmony import */ var _components_admin_ChineseMoneyComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/admin/ChineseMoneyComponent */ "./resources/js/components/admin/ChineseMoneyComponent.vue");
+/* harmony import */ var _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Admin/Tienviet/ListTienVietComponent.vue */ "./resources/js/components/Admin/Tienviet/ListTienVietComponent.vue");
+/* harmony import */ var _components_Admin_BaoHang_ListBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Admin/BaoHang/ListBaoHangComponent.vue */ "./resources/js/components/Admin/BaoHang/ListBaoHangComponent.vue");
+/* harmony import */ var _components_Admin_BaoHang_AddBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Admin/BaoHang/AddBaoHangComponent.vue */ "./resources/js/components/Admin/BaoHang/AddBaoHangComponent.vue");
+/* harmony import */ var _components_Admin_DonHang_DonHangComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Admin/DonHang/DonHangComponent.vue */ "./resources/js/components/Admin/DonHang/DonHangComponent.vue");
+/* harmony import */ var _components_Admin_DonHang_ChiTietDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Admin/DonHang/ChiTietDonHangComponent.vue */ "./resources/js/components/Admin/DonHang/ChiTietDonHangComponent.vue");
+/* harmony import */ var _components_Admin_DonHang_GoiHangComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Admin/DonHang/GoiHangComponent.vue */ "./resources/js/components/Admin/DonHang/GoiHangComponent.vue");
+/* harmony import */ var _components_Admin_DonHang_TinhTrangDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Admin/DonHang/TinhTrangDonHangComponent.vue */ "./resources/js/components/Admin/DonHang/TinhTrangDonHangComponent.vue");
+/* harmony import */ var _components_Admin_DonHang_TienPhiComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Admin/DonHang/TienPhiComponent.vue */ "./resources/js/components/Admin/DonHang/TienPhiComponent.vue");
+
 
 
 
@@ -22860,28 +22888,28 @@ var routes = [{
     component: _components_admin_HomeComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   }, {
     path: '/money-vietnamese',
-    component: _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_Admin_Tienviet_ListTienVietComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/bag',
-    component: _components_Admin_BaoHang_ListBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_Admin_BaoHang_ListBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/bag/add',
-    component: _components_Admin_BaoHang_AddBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_Admin_BaoHang_AddBaoHangComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/order',
-    component: _components_Admin_DonHang_DonHangComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _components_Admin_DonHang_DonHangComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/orderdetail',
-    component: _components_Admin_DonHang_ChiTietDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_Admin_DonHang_ChiTietDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: '/orderdetail/package',
-    component: _components_Admin_DonHang_GoiHangComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _components_Admin_DonHang_GoiHangComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     path: '/orderdetail/fee',
-    component: _components_Admin_DonHang_TienPhiComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _components_Admin_DonHang_TienPhiComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: '/orderdetail/status',
-    component: _components_Admin_DonHang_TinhTrangDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _components_Admin_DonHang_TinhTrangDonHangComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }]
 }, {
   path: "/login",
@@ -47230,6 +47258,32 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/ChineseMoneyComponent.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/admin/ChineseMoneyComponent.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ChineseMoneyComponent_vue_vue_type_template_id_6da7cb8f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f */ "./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f");
+/* harmony import */ var d_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+const script = {}
+
+;
+const __exports__ = /*#__PURE__*/(0,d_FPT_POLYTECHNIC_DATN_datn_admin_order_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_1__["default"])(script, [['render',_ChineseMoneyComponent_vue_vue_type_template_id_6da7cb8f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/admin/ChineseMoneyComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/HomeComponent.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/components/admin/HomeComponent.vue ***!
@@ -47740,6 +47794,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_template_id_4d2414bf__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_template_id_4d2414bf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LoginComponent.vue?vue&type=template&id=4d2414bf */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LoginComponent.vue?vue&type=template&id=4d2414bf");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ChineseMoneyComponent_vue_vue_type_template_id_6da7cb8f__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ChineseMoneyComponent_vue_vue_type_template_id_6da7cb8f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/ChineseMoneyComponent.vue?vue&type=template&id=6da7cb8f");
 
 
 /***/ }),
