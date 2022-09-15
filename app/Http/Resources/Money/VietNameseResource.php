@@ -4,7 +4,7 @@ namespace App\Http\Resources\Money;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChinaResource extends JsonResource
+class VietNameseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,7 @@ class ChinaResource extends JsonResource
             'order_code' => $this->order_id ? str_pad($this->order_id, 5, '0', STR_PAD_LEFT) : null,
             'order_id' => $this->order_id,
             'packet_id' => $this->packet_id,
-            'point_cn' => $this->point_cn,
+            'point_vn' => $this->point_vn,
             'surplus' => $this->surplus,
             'content' => $this->content,
             'created_at' => $this->created_at

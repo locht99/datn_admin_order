@@ -21911,7 +21911,7 @@ var _hoisted_2 = {
   "class": "container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]"
 };
 var _hoisted_3 = {
-  "class": "relative w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5"
+  "class": "fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative"
 };
 
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
