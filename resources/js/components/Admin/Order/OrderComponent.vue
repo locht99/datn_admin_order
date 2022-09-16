@@ -78,9 +78,9 @@
                 </div>
             </div>
         </div>
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
 
     </div>
-    <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter" />
 
 </template>
 <script>
