@@ -20,8 +20,6 @@ const routes = [
                 path: "/",
                 component: Home,
             },
-         
-            
             {
                 path: '/money-vietnamese',
                 component: ListMoneyVietNam
