@@ -8,59 +8,62 @@
             </div>
             <div class="main-order-detail">
                 <div class="info-order-detail bg-white rounded">
-                    <HeadDonHang />
+                    <HeadOrder />
                     <div class="border-b w-[95%] mx-auto"></div>
                     <div class="md:flex">
                         <div class="border-r md:w-[60%]">
                             <div class="p-4 ">
                                 <div class="flex items-center mb-3">
-                                    <p class="font-medium text-gray-800 text-[25px]">Chi tiết gói hàng:</p>
+                                    <p class="font-medium text-gray-800 text-[25px]">Chi tiết phí dịch vụ:</p>
                                 </div>
                                 <div class="mb-3 bg-gray-200 p-3">
-                                    <p>Số lượng khách đặt mua: 0123456789</p>
+                                    <p>Phí giao hàng TQ-VN: 0đ</p>
                                 </div>
                                 <div class="mb-3 p-3">
-                                    Mã vận đơn: 123
+                                    Phí giao hàng trong TQ: 10 Y
                                 </div>
                                 <div class="mb-3 bg-gray-200 p-3">
-                                    Tỷ giá (NDT/VNĐ): 3,400
+                                    Phí mua hàng: 3,400
                                 </div>
                                 <div class="mb-3 p-3">
-                                    Khối lượng: 10kg
+                                    Phí kiểm hàng: 10kg
                                 </div>
                                 <div class="mb-3 bg-gray-200 p-3">
-                                    Thể tích: 10kg
+                                    Phí kí gửi: 10kg
                                 </div>
                                 <div class="mb-3  p-3">
-                                    Khối lượng quy đổi: 0kg
+                                    Phí đóng gỗ: 0kg
+                                </div>
+                                <div class="mb-3  p-3">
+                                    Phí đóng gỗ riêng: 0kg
                                 </div>
                             </div>
 
                         </div>
-                        <div class="md:w-[40%] p-3">
-                            <div class="note-titl font-medium text-gray-800 text-[25px] p-[6px]">Tùy chọn gói hàng: </div>
+                        <div class="md:w-[40%] py-3 relative overflow-hidden">
+                            <div class="p-3">
+                                <div class="note-titl font-medium text-gray-800 text-[25px] p-[6px] ">Tùy chọn gói hàng:
+                                </div>
                                 <div class="mb-3 bg-gray-200 p-3">
-                                    <p>Kiểm hàng: 0123456789</p>
+                                    <p>Bảo hiểm hàng giá trị cao: 0123456789</p>
                                 </div>
                                 <div class="mb-3 p-3">
-                                    Đóng gỗ: 123
+                                    Tự động giao hàng: 0đ
                                 </div>
                                 <div class="mb-3 bg-gray-200 p-3">
-                                    Đóng gỗ riêng: 3,400
+                                    Giao hàng tiết kiệm: 0đ
                                 </div>
                                 <div class="mb-3 p-3">
-                                   Ký gửi: 10kg
+                                    Giao hàng nhanh: 0đ
                                 </div>
-                                <div class="mb-3 bg-gray-200 p-3">
-                                    Tự động giao hàng: 10kg
-                                </div>
-                                <div class="mb-3  p-3">
-                                   Giao hàng tiết kiệm: 0kg
-                                </div>
-                                <div class="mb-3 bg-gray-200 p-3">
-                                   Giao hàng nhanh: 10kg
-                                </div>
+                            </div>
+
+                            <div class=" bg-red-600 absolute bottom-0 w-full py-3 px-3 text-white">
+                                Tổng:
+                            </div>
+
                         </div>
+
                     </div>
                     <div class="border-b mx-auto w-[95%]"></div>
 
@@ -74,7 +77,7 @@
 
 </style>
 <script>
-import HeadDonHang from './HeadDonHangComponent.vue';
+import HeadOrder from './HeadOrderComponent.vue';
 
 export default {
 
@@ -85,7 +88,7 @@ export default {
     },
 
     components: {
-        HeadDonHang
+        HeadOrder
     }
 }
 </script>

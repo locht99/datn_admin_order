@@ -206,10 +206,10 @@
 
     </div>
 
-    <AddTienViet />
+    <AddMoneyVietNam />
 </template>
 <script>
-import AddTienViet from './AddTienVietComponent.vue';
+import AddMoneyVietNam from './AddMoneyVietNamComponent.vue';
 import Filter from '../Filter/FilterComponent.vue';
 export default {
     data() {
@@ -220,7 +220,7 @@ export default {
     },
     
     components: {
-        AddTienViet,
+        AddMoneyVietNam,
         Filter
     },
   

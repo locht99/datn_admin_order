@@ -1,16 +1,16 @@
 import AdminLayout from "./layouts/AdminLayout";
 import Home from "./components/admin/HomeComponent";
-import Order from "./components/admin/OrderComponent";
+// import Order from "./components/admin/OrderComponent";
 import Login from "./components/LoginComponent";
 import ChineseMoney from "./components/admin/ChineseMoneyComponent"
-import ListTienViet from './components/Admin/Tienviet/ListTienVietComponent.vue';
-import ListBaoHang from './components/Admin/BaoHang/ListBaoHangComponent.vue';
-import AddBaoHang from './components/Admin/BaoHang/AddBaoHangComponent.vue';
-import DonHang from './components/Admin/DonHang/DonHangComponent.vue';
-import ChiTietDonHang from './components/Admin/DonHang/ChiTietDonHangComponent.vue';
-import GoiHang from './components/Admin/DonHang/GoiHangComponent.vue';
-import TinhTrangDonHang from './components/Admin/DonHang/TinhTrangDonHangComponent.vue';
-import TienPhi from './components/Admin/DonHang/TienPhiComponent.vue'
+import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
+import ListBag from './components/Admin/Bag/ListBagComponent.vue';
+import AddBag from './components/Admin/Bag/AddBagComponent.vue';
+import Order from './components/Admin/Order/OrderComponent.vue';
+import OrderDetail from './components/Admin/Order/OrderDetailComponent.vue';
+import Package from './components/Admin/Order/PackageComponent.vue';
+import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
+import Fee from './components/Admin/Order/FeeComponent.vue'
 const routes = [
     {
         path: "/",
@@ -24,35 +24,35 @@ const routes = [
             
             {
                 path: '/money-vietnamese',
-                component: ListTienViet
+                component: ListMoneyVietNam
             },
             {
                 path:'/bag',
-                component: ListBaoHang,
+                component: ListBag,
             },
             {
                 path: '/bag/add',
-                component: AddBaoHang
+                component: AddBag
             },
             {
                 path: '/order',
-                component:DonHang
+                component:Order
             },
             {
                 path: '/orderdetail',
-                component: ChiTietDonHang
+                component: OrderDetail
             },
             {
                 path: '/orderdetail/package',
-                component: GoiHang
+                component: Package
             },
             {
                 path: '/orderdetail/fee',
-                component:TienPhi
+                component:Fee
             },
             {
                 path: '/orderdetail/status',
-                component: TinhTrangDonHang
+                component: OrderStatus
             }
         ],
     },
