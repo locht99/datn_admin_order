@@ -8,7 +8,7 @@
             </div>
             <div class="main-order-detail">
                 <div class="info-order-detail bg-white rounded">
-                <HeadDonHang/>
+                    <HeadOrder />
                     <div class="border-b w-[95%] mx-auto"></div>
                     <div class="flex ">
                         <div class="border-r w-[60%]">
@@ -144,7 +144,8 @@
 
 </style>
 <script>
-import HeadDonHang from './HeadDonHangComponent.vue';
+import HeadOrder from './HeadOrderComponent.vue';
+
 export default {
 
     data() {
@@ -152,8 +153,9 @@ export default {
             data: [1, 2, 3, 4, 5, 6]
         }
     },
+
     components: {
-        HeadDonHang
+        HeadOrder
     }
 }
 </script>
