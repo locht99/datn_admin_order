@@ -21378,12 +21378,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_Admin_Menu_MenuComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Admin/Menu/MenuComponent */ "./resources/js/components/Admin/Menu/MenuComponent.vue");
+/* harmony import */ var _components_Admin_Menu_MenuComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Admin/Menu/MenuComponent.vue */ "./resources/js/components/Admin/Menu/MenuComponent.vue");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {},
   components: {
-    MenuComponentVue: _components_Admin_Menu_MenuComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    MenuComponentVue: _components_Admin_Menu_MenuComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
     aside_action: function aside_action() {
@@ -23319,10 +23319,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.aside_action && $options.aside_action.apply($options, arguments);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-    icon: "fa-solid fa-angle-left ",
+    icon: "fa-solid fa-angle-left",
     "class": "mt-1"
   })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-    icon: "fa-regular fa-moon ",
+    icon: "fa-regular fa-moon",
     "class": "text-4xl ml-6 mt-3"
   })]), _hoisted_9])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]), _hoisted_11])])]);
 }
