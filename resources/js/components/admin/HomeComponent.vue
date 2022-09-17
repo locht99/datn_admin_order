@@ -1,6 +1,8 @@
 <template>
-    <div class="mt-6">
-        <h1 class="page">Trang chủ</h1>
+    <div class="pt-6">
+        <div class="title">
+            <h1 class="text-[#566a7f] text-[28px] font-[700]">Trang Chủ</h1>
+        </div>
         <div class="main mt-6">
             <div class="form">
                 <div class="head">
@@ -45,12 +47,6 @@
 </template>
 
 <style scoped>
-.page {
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 28px;
-    color: #566a7f;
-}
 .main {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -1,13 +1,22 @@
 <template>
-    <div class="mt-6">
+    <div class="pt-6 relative duration-300">
         <div class="flex justify-between">
-            <h1 class="text-[#566a7f] text-[28px] font-[700]">Tiền hàng</h1>
-            <div class="mr-5">
-                <img
-                    class="w-[32px] h-[32px] cursor-pointer"
-                    src="/images/filter.png"
-                    alt=""
-                />
+            <div class="title">
+                <h1 class="text-[#566a7f] text-[28px] font-[700]">
+                    Tiền Hàng
+                </h1>
+            </div>
+            <div class="flex justify-between items-center mx-5">
+                <div>
+                    <span
+                        class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
+                        @click="open_filter()"
+                    >
+                        <button>
+                            <font-awesome-icon icon="fas fa-sliders-h" />
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="main mt-6">
@@ -106,11 +115,36 @@
                 </tbody>
             </table>
         </div>
+        <Filter
+            v-on:filter_action="updateOpenFilter($event)"
+            :filter="this.openFilter"
+            :styleFilter="this.styleFilter"
+        />
     </div>
 </template>
 <script>
+import Filter from "../Filter/FilterComponent";
+
 export default {
-    setup() {},
-   
+    data() {
+        return {
+            openFilter: true,
+            styleFilter: "",
+        };
+    },
+
+    components: {
+        Filter,
+    },
+
+    methods: {
+        open_filter() {
+            this.openFilter = !this.openFilter;
+            this.styleFilter = "translate-x-[-360px] duration-300 ";
+        },
+        updateOpenFilter(newVal) {
+            this.styleFilter = newVal;
+        },
+    },
 };
 </script>
