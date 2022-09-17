@@ -68,7 +68,7 @@ header .top .black_client i {
 </style>
 
 <script>
-import MenuComponentVue from "../components/admin/MenuComponent";
+import MenuComponentVue from "../components/Admin/Menu/MenuComponent";
 export default {
     setup() {},
     components: {

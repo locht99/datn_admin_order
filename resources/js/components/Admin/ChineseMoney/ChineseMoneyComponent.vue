@@ -132,7 +132,7 @@
 </template>
 
 <script>
-    // lỗi báo warning ở đây anh em comment dòng này lại là hết 
+    // lỗi báo warning ở đây anh em comment dòng này lại là hết
 import Filter from "../Filter/FilterComponent";
 
 export default {

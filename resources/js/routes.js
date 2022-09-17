@@ -1,5 +1,5 @@
 import AdminLayout from "./layouts/AdminLayout";
-import Home from "./components/admin/HomeComponent";
+import Home from "./components/Admin/Home/HomeComponent";
 import PayFist from "./components/Admin/PayFist/PayFistComponent"
 import User from "./components/Admin/user/UserComponent"
 import Partner from "./components/Admin/Partner/PartnerComponent"
