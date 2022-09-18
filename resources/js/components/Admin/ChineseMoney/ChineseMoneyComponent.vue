@@ -133,8 +133,7 @@
 
 <script>
     // lỗi báo warning ở đây anh em comment dòng này lại là hết
-import Filter from "../Filter/FilterComponent";
-
+    import Filter from '../../Admin/Filter/FilterComponent.vue';
 export default {
     data() {
         return {
