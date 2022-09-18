@@ -21310,7 +21310,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Admin_Filter_FilterComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Admin/Filter/FilterComponent.vue */ "./resources/js/components/Admin/Filter/FilterComponent.vue");
-// lỗi báo warning ở đây anh em comment dòng này lại là hết
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
