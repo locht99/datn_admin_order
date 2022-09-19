@@ -34,7 +34,7 @@
                     <router-view></router-view>
                 </main>
                 <footer>
-                    <span class="text-[16px] absolute bottom-0 text-[#7e7373]">© 2022 , hệ thống được thiết kế và vận
+                    <span class="text-[16px]  text-[#7e7373]">© 2022 , hệ thống được thiết kế và vận
                         hành bởi Order Việt
                         Trung</span>
                 </footer>

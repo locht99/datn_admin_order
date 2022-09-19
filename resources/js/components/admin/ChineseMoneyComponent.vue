@@ -1,7 +1,7 @@
 <template>
     <div class="mt-6">
         <div class=" flex justify-between">
-            <h1 class="text-[#566a7f] text-[28px] font-[700]">Tiền trung</h1>
+            <h1 class="text-[#566a7f] text-[28px] font-[700]">Giao Dịch Tiền trung</h1>
             <div class="mr-5 flex items-center">
                 <a href="" class="mx-10 border-2 rounded-lg px-14 py-1 bg-[#FF3F3A] text-white font-semibold">
                     <h1 class="">+ Giao dịch mới</h1>

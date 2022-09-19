@@ -53,6 +53,9 @@ const routes = [
                 component: OrderStatus
             }
         ],
+        meta:{
+            requiresAuth: true
+        }
     },
     {
         path: "/login",

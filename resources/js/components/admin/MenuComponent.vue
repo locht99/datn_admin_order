@@ -29,12 +29,12 @@
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="">
                         <font-awesome-icon icon="fa fa-money-bill" />    
-                    Tiền Trung</router-link>
+                   Giao Dịch Tiền Trung</router-link>
                 </li>
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/money-vietnamese">
                         <font-awesome-icon icon="fa fa-money-bill" />
-                        Tiền Việt</router-link>
+                        Giao Dịch Tiền Việt </router-link>
                 </li>
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/bag">

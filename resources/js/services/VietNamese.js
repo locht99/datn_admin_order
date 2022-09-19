@@ -1,5 +1,5 @@
 import config from '../config/config.js';
-const url = '/vietnamese-type-transaction';
+const url = '/vietnamese-transaction';
 
 export const getAll = () => {
     return config.get(`${url}`);

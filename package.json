@@ -30,8 +30,13 @@
         "@fortawesome/free-regular-svg-icons": "^6.1.2",
         "@fortawesome/free-solid-svg-icons": "^6.1.2",
         "@fortawesome/vue-fontawesome": "^3.0.1",
+        "v-pagination-3": "^0.1.7",
         "vue": "^3.2.36",
+        "vue-loading-overlay": "5.0",
         "vue-recaptcha": "^2.0.2",
-        "vue-router": "^4.1.5"
+        "vue-router": "^4.1.5",
+        "vue-sweetalert2": "^5.0.5",
+        "vue-tailwind": "^2.5.1",
+        "vue-tailwind-modal": "^1.0.7"
     }
 }
