@@ -28,7 +28,7 @@
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <div><label for="">Loại giao dịch</label><select name="admin_transactions[type_id]"
-                                            id="admin_transactions_type"
+                                            v-model="data.type" id="admin_transactions_type"
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1">
                                             <option value="0"> -- Chọn loại giao dịch -- </option>
                                             <option value="2">Thanh toán</option>
@@ -39,25 +39,23 @@
                                         </select>
                                         <!--v-if-->
                                     </div>
-                                    <div class="relative"><label for="">Ngày</label><input
-                                            name="admin_transactions[date]" type="text"
-                                            class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100"></div>
-                                    <div><label for="">Số tiền</label><input name="admin_transactions_point" type="text"
+                                    <div class="relative"><label for="">Ngày</label>
+                                        <Datepicker name="admin_transactions[date]" type="text" v-model="data.date"
+                                            class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100" />
+                                    </div>
+                                    <div><label for="">Số tiền</label><input name="admin_transactions_point"
+                                            v-model="data.point_vn" type="text"
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1"></div>
                                     <!--v-if-->
                                 </div>
                                 <div>
                                     <div><label for="">Nội dung</label><textarea name="admin_transactions[content]"
+                                            v-model="data.content"
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1"></textarea>
                                         <!--v-if-->
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="my-2"><button type="submit"
-                                    class="my-4 bg-red-600 hover:bg-red-800 text-white px-2 py-2 w-full rounded-md"
-                                    id="submit-point"><span class="spinner-border spinner-border-sm d-none"
-                                        role="status" aria-hidden="true"></span> Tạo mới </button></div>
                         </form>
                     </div>
                 </div>
@@ -70,7 +68,7 @@
                     </button>
                     <button
                         class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button" v-on:click="toggleModal()">
+                        type="button" @click="createTransaction()">
                         Lưu thay đổi
                     </button>
                 </div>
@@ -83,17 +81,26 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import { insert } from '../../../services/VietNamese';
+import Datepicker from 'vue3-datepicker'
 export default {
     data() {
         return {
             showModal: this.showModalAction,
             modal: false,
-            isLoading: true,
+            isLoading: false,
             backGroundcolor: '#E93B3B',
+            data: {
+                type: 0,
+                date: new Date(),
+                point_vn: 0,
+                content: ''
+            },
         }
     },
     components: {
-        Loading
+        Loading,
+        Datepicker
     },
     props: {
         showModalAction: Boolean,
@@ -101,6 +108,30 @@ export default {
     methods: {
         toggleModal: function () {
             this.$emit('showModal', this.showModalAction)
+        },
+        createTransaction() {
+            this.isLoading = true;
+            insert(this.data).then((response) => {
+                if (response.data.errors) {
+                    this.$swal(response.data.errors);
+
+                } else {
+                    this.data = response.data.data;
+                    // console.log(response.data)
+                    this.$swal(response.data.message);
+                    this.$router.push('/money-vietnamese');
+
+                }
+                this.data.type = 0;
+                this.data.point_vn = 0;
+                this.data.content = '';
+
+            }).catch(error => {
+                this.$swal(error.data.message);
+                console.log(error);
+            }).finally(() => {
+                this.isLoading = false
+            })
         }
     }
 }

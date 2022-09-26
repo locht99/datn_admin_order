@@ -8,7 +8,7 @@ export const get = (id) => {
     return config.get(`${url}/${id}`);
 }
 export const insert = (data) => {
-    return config.post(url, data);
+    return config.post(`${url}/create`, data);
 
 }
 export const update = (id, data) => {
