@@ -1,67 +1,138 @@
 <template>
-<div id="large-modal" tabindex="-1"
-        class="hidden duration-300  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-        <div class="relative  p-4 w-full max-w-4xl h-full md:h-auto">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+    <div v-if="this.showModalAction"
+        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex	 ease-in-out duration-500">
+        <loading v-model:active="isLoading" :color="backGroundcolor" />
+
+        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+            <!--content-->
+            <div
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <h3 class="text-3xl font-semibold">
                         Nạp tiền, điều chỉnh
                     </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="large-modal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
+                    <button
+                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        v-on:click="toggleModal()">
+                        <span
+                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            ×
+                        </span>
                     </button>
                 </div>
-                <!-- Modal body -->
-                <div class="form-point my-4 mx-4">
-                    <form>
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <div><label for="">Loại giao dịch</label><select name="admin_transactions[type_id]"
-                                        id="admin_transactions_type"
-                                        class="w-full border-gray-300 rounded my-2 px-2 py-1">
-                                        <option value="0"> -- Chọn loại giao dịch -- </option>
-                                        <option value="2">Thanh toán</option>
-                                        <option value="3">Phí kho</option>
-                                        <option value="4">Phí vận chuyển</option>
-                                        <option value="5">Chi phí nhân viên</option>
-                                        <option value="6">Khác</option>
-                                    </select>
+                <!--body-->
+                <div class="relative p-6 flex-auto">
+                    <div class="form-point my-4 mx-4">
+                        <form>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <div><label for="">Loại giao dịch</label><select name="admin_transactions[type_id]"
+                                            v-model="data.type" id="admin_transactions_type"
+                                            class="w-full border-gray-300 rounded my-2 px-2 py-1">
+                                            <option value="0"> -- Chọn loại giao dịch -- </option>
+                                            <option value="2">Thanh toán</option>
+                                            <option value="3">Phí kho</option>
+                                            <option value="4">Phí vận chuyển</option>
+                                            <option value="5">Chi phí nhân viên</option>
+                                            <option value="6">Khác</option>
+                                        </select>
+                                        <!--v-if-->
+                                    </div>
+                                    <div class="relative"><label for="">Ngày</label>
+                                        <Datepicker name="admin_transactions[date]" type="text" v-model="data.date"
+                                            class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100" />
+                                    </div>
+                                    <div><label for="">Số tiền</label><input name="admin_transactions_point"
+                                            v-model="data.point_vn" type="text"
+                                            class="w-full border-gray-300 rounded my-2 px-2 py-1"></div>
                                     <!--v-if-->
                                 </div>
-                                <div class="relative"><label for="">Ngày</label><input name="admin_transactions[date]"
-                                        type="text"
-                                        class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100"></div>
-                                <div><label for="">Số tiền</label><input name="admin_transactions_point" type="text"
-                                        class="w-full border-gray-300 rounded my-2 px-2 py-1"></div>
-                                <!--v-if-->
-                            </div>
-                            <div>
-                                <div><label for="">Nội dung</label><textarea name="admin_transactions[content]"
-                                        class="w-full border-gray-300 rounded my-2 px-2 py-1"></textarea>
-                                    <!--v-if-->
+                                <div>
+                                    <div><label for="">Nội dung</label><textarea name="admin_transactions[content]"
+                                            v-model="data.content"
+                                            class="w-full border-gray-300 rounded my-2 px-2 py-1"></textarea>
+                                        <!--v-if-->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="my-2"><button type="submit"
-                                class="my-4 bg-red-600 hover:bg-red-800 text-white px-2 py-2 w-full rounded-md"
-                                id="submit-point"><span class="spinner-border spinner-border-sm d-none" role="status"
-                                    aria-hidden="true"></span> Tạo mới </button></div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-                <!-- Modal footer -->
-             
+                <!--footer-->
+                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <button
+                        class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button" v-on:click="toggleModal()">
+                        Đóng
+                    </button>
+                    <button
+                        class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button" @click="createTransaction()">
+                        Lưu thay đổi
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+    <div v-if="this.showModalAction" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
 </template>
+
+<script>
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+import { insert } from '../../../services/VietNamese';
+import Datepicker from 'vue3-datepicker'
+export default {
+    data() {
+        return {
+            showModal: this.showModalAction,
+            modal: false,
+            isLoading: false,
+            backGroundcolor: '#E93B3B',
+            data: {
+                type: 0,
+                date: new Date(),
+                point_vn: 0,
+                content: ''
+            },
+        }
+    },
+    components: {
+        Loading,
+        Datepicker
+    },
+    props: {
+        showModalAction: Boolean,
+    },
+    methods: {
+        toggleModal: function () {
+            this.$emit('showModal', this.showModalAction)
+        },
+        createTransaction() {
+            this.isLoading = true;
+            insert(this.data).then((response) => {
+                if (response.data.errors) {
+                    this.$swal(response.data.errors);
+
+                } else {
+                    this.data = response.data.data;
+                    // console.log(response.data)
+                    this.$swal(response.data.message);
+                    this.$router.push('/money-vietnamese');
+
+                }
+                this.data.type = 0;
+                this.data.point_vn = 0;
+                this.data.content = '';
+
+            }).catch(error => {
+                this.$swal(error.data.message);
+                console.log(error);
+            }).finally(() => {
+                this.isLoading = false
+            })
+        }
+    }
+}
+</script>

@@ -26,6 +26,6 @@
            
         </div>
     </body>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </html>

@@ -131,7 +131,7 @@ class VietNameseController extends Controller
             );
 
             if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
+                return response()->json(['errors' => $validator->errors()],422);
             }
 
             $data = [
@@ -144,7 +144,7 @@ class VietNameseController extends Controller
             return response()->json([
                 'message' => 'Tạo mới giao dịch thành công',
                 'data'  => $newTran
-            ]);
+            ],200);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,
