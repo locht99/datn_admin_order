@@ -7,7 +7,7 @@
         <div class="container h-screen  overflow-x-hidden mx-auto grid grid-cols-[230px,_1fr] bg-[#f9f9f9]" id="main">
             <aside class="duration-300  w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative ">
                 <div class="img mt-2 mb-4">
-                    <img class="w-20 m-auto rounded-full" src="/images/logo.png" alt="" />
+                    <img class="w-30 h-5 m-auto rounded-full" src="/images/order.png" alt="" />
                 </div>
                 <hr />
                 <menu-component-vue />
@@ -63,14 +63,14 @@ export default {
             let aside = document.getElementsByTagName("aside")[0];
             let container = document.getElementsByClassName('container')[0]
             let icon = document.getElementById('icon')
-            if (aside.style.transform === "translateX(-230px)") {
+            if (aside.style.transform === "translateX(-170px)") {
                 aside.style.transform = "translateX(0px)";
                 icon.style.transform = "rotate(0deg)"
                 container.style.gridTemplateColumns = '230px 1fr'
             } else {
-                aside.style.transform = "translateX(-230px)";
+                aside.style.transform = "translateX(-170px)";
                 icon.style.transform = "rotate(180deg)"
-                container.style.gridTemplateColumns = '30px 1fr'
+                container.style.gridTemplateColumns = '80px 1fr'
             }
         },
     },
