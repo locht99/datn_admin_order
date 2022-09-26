@@ -3,8 +3,8 @@
         <div class="">
             <div class="flex justify-between items-center ">
                 <div class="title mx-5">
-                    <p class="text-[#5c646b] text-[23px] font-medium">Bao Hàng</p>
-                </div>
+                    <h1 class="text-[#566a7f] text-[28px] font-[700]">Bao Hàng</h1>
+                </div>   
                 <div>
                     <div class="flex justify-between items-center mx-5">
                         <div class="p-3">
