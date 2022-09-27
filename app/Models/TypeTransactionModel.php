@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TypeTransactionModel extends Model
 {
+    protected $table = 'type_transactions';
     use HasFactory;
 }
