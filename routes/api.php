@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
 Route::middleware('auth:api')->group(function () {
+    // api trang chu
+    Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
+    Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
+    //api don hang
+    // Route::get('/orders', [OrderController::class, 'getOrders']);
+    //api tien hang
+    Route::get('/get-money', [MoneyController::class, 'getMoneys']);
 });
-// api trang chu
-Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
-Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
-//api don hang
-// Route::get('/orders', [OrderController::class, 'getOrders']);
-//api tien hang
-Route::get('/get-money', [MoneyController::class, 'getMoneys']);
