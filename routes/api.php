@@ -4,7 +4,6 @@ use App\Http\Controllers\api\Auth\AdminController;
 
 use App\Http\Controllers\api\Money\MoneyController;
 use App\Http\Controllers\api\OrderController;
-=======
 use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
@@ -37,7 +36,6 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/orders', [OrderController::class, 'getOrders']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
-=======
     Route::get('/test', [TestController::class, 'test']);
 
     // api china money
