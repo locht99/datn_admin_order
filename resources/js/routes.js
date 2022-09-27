@@ -1,8 +1,10 @@
 import AdminLayout from "./layouts/AdminLayout";
-import Home from "./components/admin/HomeComponent";
-// import Order from "./components/admin/OrderComponent";
+import Home from "./components/Admin/Home/HomeComponent";
+import PayFist from "./components/Admin/PayFist/PayFistComponent"
+import User from "./components/Admin/user/UserComponent"
+import Partner from "./components/Admin/Partner/PartnerComponent"
 import Login from "./components/Auth/LoginComponent";
-import ChineseMoney from "./components/admin/ChineseMoneyComponent"
+import ChineseMoney from "./components/admin/ChineseMoney/ChineseMoneyComponent"
 import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
 import ListBag from './components/Admin/Bag/ListBagComponent.vue';
 import AddBag from './components/Admin/Bag/AddBagComponent.vue';
@@ -19,6 +21,18 @@ const routes = [
             {
                 path: "/",
                 component: Home,
+            },
+            {
+                path:"pay-fist",
+                component: PayFist
+            },
+            {
+                path:"user",
+                component: User
+            },
+            {
+                path:"Chinese-money",
+                component:ChineseMoney
             },
             {
                 path: '/money-vietnamese',
@@ -51,11 +65,12 @@ const routes = [
             {
                 path: '/orderdetail/status',
                 component: OrderStatus
+            },
+            {
+                path: '/partner',
+                component: Partner
             }
         ],
-        meta:{
-            requiresAuth: true
-        }
     },
     {
         path: "/login",

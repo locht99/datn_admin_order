@@ -1,10 +1,10 @@
 <template>
-    <div class="relative">
+    <div class=" pt-6 relative">
         <div>
             <div class="order">
                 <div class="head-order flex justify-between items-center ">
                     <div class="title-order">
-                        <p class="text-medium text-gray-800 text-[20px] p-3">Đơn hàng</p>
+                        <h1 class="text-[#566a7f] text-[28px] font-[700]">Đơn Hàng</h1>
                     </div>
                     <div class="filter-order">
                         <span class="text-[23px] cursor-pointer hover:bg-white px-4  rounded-full"
@@ -17,7 +17,7 @@
                 </div>
                 <div class="main-order">
                     <div class="status-table flex  items-center bg-red-600 rounded-t-[10px]">
-                        <div v-for="data in status"
+                        <div v-for="data in status" :key="data.id"
                             class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[26px] text-[13px] cursor-pointer">
                             <button>
                                 {{data.name}}
