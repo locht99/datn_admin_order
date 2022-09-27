@@ -7,7 +7,7 @@
         <div class="container h-screen  overflow-x-hidden mx-auto grid grid-cols-[230px,_1fr] bg-[#f9f9f9]" id="main">
             <aside class="duration-300  w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative ">
                 <div class="img mt-2 mb-4">
-                    <img class="w-30 h-5 m-auto rounded-full" src="/images/order.png" alt="" />
+                    <img class="w-40 m-auto" src="/images/order.png" alt="" />
                 </div>
                 <hr />
                 <menu-component-vue />
