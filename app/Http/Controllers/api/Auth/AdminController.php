@@ -31,6 +31,7 @@ class AdminController extends Controller
             $credentials = request(['username', 'password']);
             if (!Auth::attempt($credentials)) {
                 return response()->json([
+                    $credentials,
                     'message' => 'Tài khoản hoặc mật khẩu không đúng.'
                 ], ResponseAlias::HTTP_UNAUTHORIZED);
             }

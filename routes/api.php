@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\api\Auth\AdminController;
+
+use App\Http\Controllers\api\Money\MoneyController;
+use App\Http\Controllers\api\OrderController;
+=======
 use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +29,15 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
 Route::middleware('auth:api')->group(function () {
+
+    // api trang chu
+    Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
+    Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
+    //api don hang
+    // Route::get('/orders', [OrderController::class, 'getOrders']);
+    //api tien hang
+    Route::get('/get-money', [MoneyController::class, 'getMoneys']);
+=======
     Route::get('/test', [TestController::class, 'test']);
 
     // api china money
@@ -49,5 +63,3 @@ Route::middleware('auth:api')->group(function () {
         'create', 'store', 'update', 'index'
     ]);
 });
-
-Route::get('test',[TestController::class,'index']);
