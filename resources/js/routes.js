@@ -1,11 +1,18 @@
 import AdminLayout from "./layouts/AdminLayout";
-import Home from "./components/admin/HomeComponent";
-import Order from "./components/admin/OrderComponent";
-import Login from "./components/LoginComponent";
-import ChineseMoney from "./components/admin/ChineseMoneyComponent"
-import ListTienViet from './components/Admin/Tienviet/ListTienVietComponent.vue';
-import ListBaoHang from './components/Admin/BaoHang/ListBaoHangComponent.vue';
-import AddBaoHang from './components/Admin/BaoHang/AddBaoHangComponent.vue';
+import Home from "./components/Admin/Home/HomeComponent";
+import PayFist from "./components/Admin/PayFist/PayFistComponent"
+import User from "./components/Admin/user/UserComponent"
+import Partner from "./components/Admin/Partner/PartnerComponent"
+import Login from "./components/Auth/LoginComponent";
+import ChineseMoney from "./components/admin/ChineseMoney/ChineseMoneyComponent"
+import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
+import ListBag from './components/Admin/Bag/ListBagComponent.vue';
+import AddBag from './components/Admin/Bag/AddBagComponent.vue';
+import Order from './components/Admin/Order/OrderComponent.vue';
+import OrderDetail from './components/Admin/Order/OrderDetailComponent.vue';
+import Package from './components/Admin/Order/PackageComponent.vue';
+import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
+import Fee from './components/Admin/Order/FeeComponent.vue'
 const routes = [
     {
         path: "/",
@@ -16,30 +23,58 @@ const routes = [
                 component: Home,
             },
             {
-                path: "/order",
-                component: Order
+                path:"pay-fist",
+                component: PayFist
             },
             {
-                path: "chinese-money",
-                component: ChineseMoney
+                path:"user",
+                component: User
             },
             {
-                path: "/login",
-                component: Login,
+                path:"Chinese-money",
+                component:ChineseMoney
             },
             {
-                path: '/tienviet',
-                component: ListTienViet
+                path: '/money-vietnamese',
+                component: ListMoneyVietNam
             },
             {
-                path:'/baohang',
-                component: ListBaoHang,
+                path:'/bag',
+                component: ListBag,
             },
             {
-                path: '/baohang/add',
-                component: AddBaoHang
+                path: '/bag/add',
+                component: AddBag
+            },
+            {
+                path: '/order',
+                component:Order
+            },
+            {
+                path: '/orderdetail',
+                component: OrderDetail
+            },
+            {
+                path: '/orderdetail/package',
+                component: Package
+            },
+            {
+                path: '/orderdetail/fee',
+                component:Fee
+            },
+            {
+                path: '/orderdetail/status',
+                component: OrderStatus
+            },
+            {
+                path: '/partner',
+                component: Partner
             }
         ],
+    },
+    {
+        path: "/login",
+        component: Login,
     },
    
 
