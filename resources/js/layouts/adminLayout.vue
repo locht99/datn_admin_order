@@ -71,26 +71,16 @@ export default {
     methods: {
         aside_action() {
             let aside = document.getElementsByTagName("aside")[0];
-<<<<<<< HEAD
-            let container = document.getElementsByClassName('container')[0]
-            let icon = document.getElementById('icon')
-=======
             let container = document.getElementsByClassName("layout")[0];
             let icon = document.getElementById("icon");
->>>>>>> edbb8df98939babb708329e6b772902350fb55d8
             if (aside.style.transform === "translateX(-230px)") {
                 aside.style.transform = "translateX(0px)";
                 icon.style.transform = "rotate(0deg)";
                 container.style.gridTemplateColumns = "230px 1fr";
             } else {
                 aside.style.transform = "translateX(-230px)";
-<<<<<<< HEAD
-                icon.style.transform = "rotate(180deg)"
-                container.style.gridTemplateColumns = '30px 1fr'
-=======
                 icon.style.transform = "rotate(180deg)";
                 container.style.gridTemplateColumns = "30px 1fr";
->>>>>>> edbb8df98939babb708329e6b772902350fb55d8
             }
         },
     },
