@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin']);
+Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
 // protected api
 Route::middleware('auth:api')->group(function () {
     Route::get('/test', [TestController::class, 'test']);

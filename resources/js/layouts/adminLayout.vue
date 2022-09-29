@@ -8,7 +8,7 @@
             >
                 <div class="img mt-2 mb-4">
                     <img
-                        class="w-20 m-auto "
+                        class="w-20 m-auto cursor-pointer"
                         src="/images/order.png"
                         alt=""
                     />
@@ -33,7 +33,7 @@
                         </div>
                         <div class="user">
                             <img
-                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
+                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
                                 src="/images/avt.jpg"
                                 alt=""
                             />

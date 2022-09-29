@@ -24,11 +24,11 @@ class Auth {
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     }
-    login(token, expires_at) {
-        window.localStorage.setItem('token', token);
-        window.localStorage.setItem('expires_at', expires_at);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        this.token = token;
+    login(data) {
+        window.localStorage.setItem('token', data.access_token);
+        window.localStorage.setItem('expires_at', data.expires_at);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.access_token;
+        this.token = data.access_token;
         // this.user = user;
     }
     check() {

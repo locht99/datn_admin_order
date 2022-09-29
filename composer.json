@@ -11,7 +11,9 @@
         "php": "^7.3|^8.0.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
+        "google/recaptcha": "^1.2",
         "guzzlehttp/guzzle": "^7.0.1",
+        "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/framework": "^8.0",
         "laravel/passport": "*",
         "laravel/tinker": "^2.0"
