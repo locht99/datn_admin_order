@@ -39,12 +39,11 @@
                     <vue-recaptcha ref="recaptcha" sitekey="6LdupAQiAAAAAOl8y9dp3a1uCJbWa9BgT1ACJR1y"
                         @expired="onCaptchaExpired" @verify="onCaptchaVerify">
                     </vue-recaptcha>
-                </div> 
+                </div>
                 <div class="mt-3">
                     <VueLoadingButton aria-label="Post message" class="mt-7  w-[315px] h-[45px]  bg-gradient-to-br	from-[#e93c3b] to-[#f26435]
                  rounded-[8px] font-bold font-[18px] text-white
-                " @click.native="submitLogin"
-                    :loading="isLoading" :styled="isStyled">Đăng nhập</VueLoadingButton>
+                " @click.native="submitLogin" :loading="isLoading" :styled="isStyled">Đăng nhập</VueLoadingButton>
                 </div>
 
 
@@ -90,7 +89,7 @@ export default {
 
             this.$refs.recaptcha.execute();
         },
-        
+
         onCaptchaVerify(token) {
             const self = this;
             self.status = "Submitting";
@@ -102,18 +101,19 @@ export default {
         },
         submitLogin() {
             this.isLoading = true;
-            
+
             login(this.form).then((response) => {
                 this.isLoading = false
                 const { data } = response;
                 this.form.access_token = data.access_token
                 if (this.form.access_token) {
                     Auth.login(data);
+                    this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
+
                     setTimeout(() => {
                         this.$router.push('/');
                     }, 3000)
                 }
-                this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
             }).catch(error => {
                 this.isLoading = false
                 const { response } = error;
