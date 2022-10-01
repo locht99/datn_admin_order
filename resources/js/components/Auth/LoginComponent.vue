@@ -3,7 +3,7 @@
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <div class="layout h-screen bg-gradient-to-br from-[#e93c3b] to-[#f26435] w-full">
-        <form action="" class="bg-white
+        <form action="" autocomplete="off" method="post" @submit.prevent="submitLogin" class="bg-white
         w-3/4 h-[593px] m-auto translate-y-[70px]
         rounded-[10px] grid grid-cols-[1fr,_1fr]
         
@@ -53,8 +53,8 @@
 </template>
 <script>
 import { VueRecaptcha } from 'vue-recaptcha';
-import { login } from '../../services/Auth/auth.js';
-import Auth from '../../config/auth.js';
+// import { login } from '../../services/Auth/auth.js';
+// import Auth from '../../config/auth.js';
 import { useToast } from "vue-toastification";
 import VueLoadingButton from '../loading-button/vue-loading-button.vue'
 export default {
@@ -67,7 +67,10 @@ export default {
                 'g-recaptcha-response': ''
             },
             isLoading: false,
-            isStyled: false
+            isStyled: false,
+            error: false,
+            errors: {},
+            success: false
         }
     },
     components: {
@@ -101,35 +104,39 @@ export default {
         },
         submitLogin() {
             this.isLoading = true;
-
-            login(this.form).then((response) => {
+            // var redirect = this.$auth.redirect();
+            var app = this;
+            this.$auth.login({
+                data: this.form,
+                redirect: null,
+                rememberMe: true,
+                fetchUser: true,
+            }).then((response)=>{
+                console.log(response.data)
                 this.isLoading = false
                 const { data } = response;
                 this.form.access_token = data.access_token
                 if (this.form.access_token) {
-                    Auth.login(data);
+                   
                     this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
-
                     setTimeout(() => {
                         this.$router.push('/');
                     }, 3000)
                 }
-            }).catch(error => {
+            }).catch(error=>{
                 this.isLoading = false
                 const { response } = error;
                 const { data } = response;
                 const { message } = data;
                 this.$swal(message);
                 this.$refs.recaptcha.reset();
-            }).finally(() => {
-                console.log("finnaly");
             });
         }
     },
     created() {
-        if (Auth.check()) {
-            this.$router.push('/')
-        }
+        // if (Auth.check()) {
+        //     this.$router.push('/')
+        // }
     }
 }
 </script>
