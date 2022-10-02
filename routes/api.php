@@ -50,7 +50,7 @@ Route::middleware('auth:api')->group(function () {
     ]);
     Route::get('users',[AdminController::class,'getUser']);
     Route::get('refresh',[AdminController::class,'refresh']);
-    Route::get('logout',[AdminController::class,'logout']);
+    Route::post('logout',[AdminController::class,'logout']);
 });
 
 Route::get('test',[TestController::class,'index']);

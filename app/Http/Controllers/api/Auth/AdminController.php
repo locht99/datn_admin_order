@@ -65,9 +65,11 @@ class AdminController extends Controller
         } catch (\Throwable $th) {
         }
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        $this->guard()->logout();
+        Auth::guard('web')->logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         return response()->json([
             'status' => 'success',
             'msg' => 'Logged out Successfully.'

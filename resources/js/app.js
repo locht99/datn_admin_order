@@ -52,7 +52,7 @@ var auth = createAuth({
         router: driverRouterVueRouter,
         tokenDefaultName: 'access_token',
         tokenStore: ['localStorage'],
-
+        
         rememberkey: 'auth_remember',
         tokenDefaultKey: 'auth_token_default',
         tokenImpersonateKey: 'auth_token_impersonate',
