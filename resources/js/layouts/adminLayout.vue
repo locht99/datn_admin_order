@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative" >
+    <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative" v-if="$auth.check()">
         <div class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full overflow-x-hidden">
             <aside class=" w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative">
                 <div class="img mt-2 mb-4">
@@ -21,10 +21,12 @@
                             <font-awesome-icon icon="fa-regular fa-moon" class="text-4xl ml-6 mt-3" />
                         </div>
                         <div class="user">
-                            <img @click="isClickDisplayMenu" class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
+                            <img @click="isClickDisplayMenu"
+                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
                                 src="/images/avt.jpg" />
-                             
-                            <div :class="this.isDisplayProfile==false ? 'hidden' : 'block ease-in duration-300 '"  class=" bg-white absolute text-base z-[999] float-left py-2 list-none text-left rounded shadow-lg min-w-48  right-0 top-[75px]">
+
+                            <div :class="this.isDisplayProfile==false ? 'hidden' : 'block ease-in duration-300 '"
+                                class=" bg-white absolute text-base z-[999] float-left py-2 list-none text-left rounded shadow-lg min-w-48  right-0 top-[75px]">
                                 <a
                                     class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                                     Thông tin </a>
@@ -70,9 +72,9 @@ export default {
     components: {
         MenuComponentVue,
     },
-    data(){
+    data() {
         return {
-            isDisplayProfile:false
+            isDisplayProfile: false
         }
     },
     methods: {
@@ -90,13 +92,14 @@ export default {
                 container.style.gridTemplateColumns = "30px 1fr";
             }
         },
-        isClickDisplayMenu(){
+        isClickDisplayMenu() {
             console.log(this.isDisplayProfile);
-            this.isDisplayProfile=!this.isDisplayProfile;
+            this.isDisplayProfile = !this.isDisplayProfile;
         },
-        logout(){
-        //    Auth.logout();
-           this.$router.push('/login');
+        logout() {
+            //    Auth.logout();
+            $this.auth.logout();
+            this.$router.push('/login');
         }
     },
 };
