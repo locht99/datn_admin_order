@@ -41,12 +41,14 @@ class ChinaApiController extends Controller
     public function createChinaMoneyTransaction(Request $request)
     {
         try {
-            $type = $request->type ? $request->type : null;
+
+            // $type = $request->type ? $request->type : null;
+            $type = $request->post('type',0);
             $point_cn = $request->point_cn ? $request->point_cn : null;
             $surplus = $request->surplus ? $request->surplus : null;
             $content = $request->content ? $request->content : null;
             $exchange_rate = ConfigModel::where('key', 'EXCHANGE_RATE')->first()->value;
-
+            
             if (!$type && !$request->additional_grouped) {
                 return response()->json(['errors' => ['type' => 'Chọn loại giao dịch!']]);
             }
