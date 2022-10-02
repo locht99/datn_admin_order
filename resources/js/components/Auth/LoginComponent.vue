@@ -108,7 +108,6 @@ export default {
             var app = this;
             this.$auth.login({
                 data: this.form,
-                redirect: '',
                 authType: "bearer",
                 rememberMe: true,
                 fetchUser: true,
@@ -137,9 +136,9 @@ export default {
         }
     },
     created() {
-        if (this.$auth.check()) {
-            this.$router.push('/')
-        }
+        // if (this.$auth.check()) {
+        //     this.$router.push('/')
+        // }
     }
 }
 </script>
