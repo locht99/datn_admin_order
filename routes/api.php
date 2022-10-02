@@ -40,7 +40,7 @@ Route::middleware('auth:api')->group(function () {
 
     // api china money
     Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);
-    Route::get('/hina-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
+    Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
     Route::post('china-transaction/create', [ChinaApiController::class, 'createChinaMoneyTransaction']);
 
     // api vietnam money

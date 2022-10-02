@@ -9,7 +9,7 @@
             <div class="flex justify-between items-center mx-5">
                 <div class="p-3">
                     <button
-                        data-modal-toggle="large-modal"
+                    @click="open_modal()"
                         class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded"
                     >
                         + Giao dịch mới
@@ -129,20 +129,25 @@
             :styleFilter="this.styleFilter"
         />
     </div>
+    <AddMoneyChinaComponent  v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals"></AddMoneyChinaComponent>
 </template>
 
 <script>
     import Filter from '../../Admin/Filter/FilterComponent.vue';
+    import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
 export default {
     data() {
         return {
             openFilter: true,
             styleFilter: "",
+            showModals: false,
+
         };
     },
 
     components: {
         Filter,
+        AddMoneyChinaComponent
     },
 
     methods: {
@@ -152,6 +157,13 @@ export default {
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
+        },
+        open_modal() {
+            this.showModals = !this.showModals;
+        },
+        updateOpenModal(event) {
+
+            this.showModals = !event;
         },
     },
 };

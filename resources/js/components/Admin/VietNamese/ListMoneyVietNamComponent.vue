@@ -122,6 +122,11 @@ import Filter from '../Filter/FilterComponent.vue';
 import { getAll } from '../../../services/VietNamese';
 
 export default {
+    components: {
+        AddMoneyVietNam,
+        Filter,
+        Loading
+    },
     data() {
         return {
             openFilter: true,
@@ -133,16 +138,11 @@ export default {
 
         }
     },
-
-    components: {
-        AddMoneyVietNam,
-        Filter,
-        Loading
-    },
-    async mounted() {
+    
+    created() {
         this.getListVietNamese();
     },
-
+   
     methods: {
         open_filter() {
             this.openFiter = !this.openFilter;
@@ -158,7 +158,7 @@ export default {
 
             this.showModals = !event;
         },
-        getListVietNamese() {
+        getListVietNamese(){
             getAll().then((response) => {
                 const { data } = response;
                 this.dataListVietNam = data.data;
@@ -167,6 +167,7 @@ export default {
                 this.isLoading = false;
             })
         }
+
     },
 
 }
