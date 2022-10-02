@@ -17,9 +17,16 @@ const routes = [
     {
         path: "/",
         component: AdminLayout,
+        meta: {
+            auth:true
+        },
         children: [
             {
                 path: "/",
+                component: Home,
+            },
+            {
+                path: "/home",
                 component: Home,
             },
             {
@@ -75,6 +82,9 @@ const routes = [
     {
         path: "/login",
         component: Login,
+        meta:{
+            auth:false
+        }
     },
    
 

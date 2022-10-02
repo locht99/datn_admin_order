@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin']);
+Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
 // protected api
 Route::middleware('auth:api')->group(function () {
 
@@ -60,4 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index'
     ]);
+    Route::get('users',[AdminController::class,'getUser']);
+    Route::get('refresh',[AdminController::class,'refresh']);
+    Route::post('logout',[AdminController::class,'logout']);
 });
