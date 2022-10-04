@@ -83,12 +83,12 @@ export default {
 
         };
     },
-
     components: {
         Loading,
         Filter,
         AddMoneyChinaComponent
     },
+ 
     created() {
         this.getAllChinese();
     },

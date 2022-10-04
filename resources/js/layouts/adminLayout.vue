@@ -1,5 +1,7 @@
 <template>
+   
     <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative" v-if="$auth.check()">
+
         <div class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full overflow-x-hidden">
             <aside class=" w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative">
                 <div class="img mt-2 mb-4">
@@ -66,15 +68,19 @@ header .top .black_client i {
 
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
-// import Auth from '../config/auth.js'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
     setup() { },
     components: {
         MenuComponentVue,
+        Loading
     },
     data() {
         return {
-            isDisplayProfile: false
+            isDisplayProfile: false,
+            isLoading: true,
+            backGroundcolor: '#E93B3B',
         }
     },
     methods: {

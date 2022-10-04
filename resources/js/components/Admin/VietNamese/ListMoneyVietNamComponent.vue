@@ -27,10 +27,12 @@
                 </div>
             </div>
             <div class="py-2  ">
-                <div class="overflow-hidden rounded-t-[13px] bg-white">
-                    <table class="w-[100%] table-auto  border text-center">
-                        <thead class="">
-                            <tr class="bg-[#FF3F3A]    uppercase leading-normal ">
+                <div class="py-5">
+                    <div class='overflow-x-auto w-full'>
+                        <table
+                            class='  w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
+                            <thead class="bg-[#FF3F3A]  ">
+                                <tr class="  uppercase leading-normal ">
                                 <th class="text-[14px] font-bold text-white  py-2 ">
                                     STT
                                 </th>
@@ -52,9 +54,7 @@
                                 <th class="text-[14px] font-bold text-white  py-2">
                                     SỐ TIỀN
                                 </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    SỐ DƯ
-                                </th>
+                               
                                 <th class="text-[14px] font-bold text-white  py-2">
                                     NỘI DUNG
                                 </th>
@@ -62,8 +62,8 @@
                                     NGÀY TẠO
                                 </th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
                             <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600"
                                 v-for="(item,index) in this.dataListVietNam" :key="index">
                                 <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">{{index+1}}
@@ -87,9 +87,7 @@
                                 <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                                     {{item.point_vn}}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    {{item.surplus}}
-                                </td>
+                             
                                 <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                                     {{item.content}}
                                 </td>
@@ -100,10 +98,9 @@
                             </tr>
 
 
-                        </tbody>
-                    </table>
-                    <div class="p-10">
-
+                          
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -138,11 +135,11 @@ export default {
 
         }
     },
-    
+
     created() {
         this.getListVietNamese();
     },
-   
+
     methods: {
         open_filter() {
             this.openFiter = !this.openFilter;
@@ -155,10 +152,9 @@ export default {
             this.showModals = !this.showModals;
         },
         updateOpenModal(event) {
-
             this.showModals = !event;
         },
-        getListVietNamese(){
+        getListVietNamese() {
             getAll().then((response) => {
                 const { data } = response;
                 this.dataListVietNam = data.data;

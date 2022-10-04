@@ -98,6 +98,9 @@ export default {
             },
         }
     },
+    emits: {
+        showModal:Boolean
+    },
     components: {
         Loading,
         Datepicker
