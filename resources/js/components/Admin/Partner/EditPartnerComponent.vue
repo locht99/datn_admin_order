@@ -87,6 +87,7 @@
                                                     v-for="(error, index) of v$.form.is_running.$errors" :key="index">
                                                     <div class="error-msg">{{ error.$message }}</div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +121,7 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Datepicker from 'vue3-datepicker';
-import { update } from '../../../services/partner/partner.js';
+import { update, get } from '../../../services/partner/partner.js';
 import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 export default {
@@ -132,10 +133,11 @@ export default {
             isLoading: false,
             backGroundcolor: '#E93B3B',
             form: {
+                id: '',
                 name: '',
-                phone: '',
+                phone: Number,
                 point: '',
-                is_running: false
+                is_running: Boolean
             }
 
 
@@ -162,7 +164,8 @@ export default {
     emits: {
         showModal: Boolean,
         foobar: Function,
-        data: Object
+        isLoadingEdit: Boolean,
+        item: Object, 
     },
 
     components: {
@@ -172,21 +175,29 @@ export default {
     props: {
         showModalAction: Boolean,
         foobar: Function,
-        data: Object
+        isLoadingEdit: Boolean,
+        item: Object,
+      
     },
-    created(){
+    mounted() {
+        // Emits on mount
+        this.emitInterface();
     },
     methods: {
         toggleModal: function () {
             this.$emit('showModal', this.showModalAction);
         },
+
+        getPartner(item) {
+            this.form = {...item}
+        },
         updatePartner() {
+            console.log(this.form);
             this.isLoading = true;
-            update(this.id, this.form).then((response) => {
+            update(this.form.id, this.form).then((response) => {
                 const { error, message } = response.data;
                 console.log(message);
                 if (error) {
-                    this.form.phone = '';
                     this.$swal(message.phone[0]);
                 } else {
                     this.$swal('Chỉnh sửa đối tác thành công');
@@ -198,6 +209,11 @@ export default {
                 }
             }).finally(() => {
                 this.isLoading = false;
+            });
+        },
+        emitInterface() {
+            this.$emit("interface", {
+                getPartner: (item) => this.getPartner(item)
             });
         }
 

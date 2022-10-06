@@ -48,7 +48,7 @@
                         <td>{{item.is_delete==0 ?'Hoạt động': 'Đã khóa'}}</td>
                         <td>{{item.created_at}}</td>
                         <td class="">
-                            <button @click="updatePartner(item.id)">
+                            <button @click="getPartner(item.id)">
                                 <font-awesome-icon icon="fa-regular fa-pen-to-square "
                                     class="mt-1 text-[#FF3F3A] text-[20px] cursor-pointer" />
                             </button>
@@ -57,7 +57,7 @@
                 </tbody>
             </table>
         </div>
-        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" 
             :styleFilter="this.styleFilter" />
 
     </div>
@@ -65,7 +65,7 @@
         @foobar="getListPartner">
     </AddPartnerComponent>
     <EditPartnerComponent v-on:showModal="updateOpenModalEdit($event)" :showModalAction="this.showModalsUpdate"
-        @foobar="getListPartner" :id="id_Partner"></EditPartnerComponent>
+        @foobar="getListPartner" :isLoadingEdit="this.isLoadingEdit" :item="this.item" @interface="getChildPartner"></EditPartnerComponent>
 </template>
 <script>
 import Loading from 'vue-loading-overlay';
@@ -76,6 +76,9 @@ import EditPartnerComponent from './EditPartnerComponent.vue';
 import { getAll,get } from '../../../services/partner/partner.js';
 
 export default {
+    childInterface: {
+        getPartner: (item) => {}
+    },
     data() {
         return {
             openFilter: true,
@@ -83,9 +86,11 @@ export default {
             showModals: false,
             showModalsUpdate: false,
             isLoading: true,
+            isLoadingEdit: true,
             backGroundcolor: '#E93B3B',
             data: [],
-            id_Partner: ''
+            id_Partner: '',
+            item: Object,
         }
     },
 
@@ -114,28 +119,37 @@ export default {
         },
         getListPartner() {
             this.isLoading = true;
+            this.isLoadingEdit = true;
             getAll().then((response) => {
                 const { data } = response;
                 this.data = data.data;
             }).finally(() => {
+                this.isLoadingEdit = false;
                 this.isLoading = false;
             })
         },
         updateOpenModalEdit(event) {
             this.showModalsUpdate = !event;   
         },
-        updatePartner(id){
-            this.id_Partner = id;
+        getChildPartner(childInterface){
+            this.$options.childInterface = childInterface;
+
+        },
+        getPartner(id){
+            const data = this.data.find((item)=>item.id == id);
+            this.item = data;
+            this.isLoading = true;
             get(id).then((response)=>{
                const {data} = response;
-               console.log(data);
+               this.showModalsUpdate=!this.showModalsUpdate;
             }).catch((error)=>{
 
             }).finally(()=>{
-
+                  this.isLoading = false;
             });
-            this.showModalsUpdate=!this.showModalsUpdate;
+            this.$options.childInterface.getPartner(this.item );
         }
+
     }
 };
 </script>

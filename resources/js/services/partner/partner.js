@@ -4,7 +4,7 @@ export const getAll = () => {
     return config.get(url);
 }
 export const get = (id) => {
-    return config.get(`${url}/show/${id}`);
+    return config.get(`${url}/${id}`);
 }
 export const insert = (data) => {
     return config.post(url, data);

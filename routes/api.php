@@ -56,8 +56,9 @@ Route::middleware('auth:api')->group(function () {
     ]);
 
     // api partner
-    Route::apiResource('partner', PartnerController::class);
-    Route::get('partner/show/{id}',[PartnerController::class,'show']);
+    Route::resource('partner', PartnerController::class)->only([
+        'create', 'store', 'update', 'index', 'show'
+    ]);
     Route::get('users',[AdminController::class,'getUser']);
     Route::get('refresh',[AdminController::class,'refresh']);
     Route::post('logout',[AdminController::class,'logout']);
