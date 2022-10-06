@@ -1,5 +1,6 @@
 <template>
     <div class=" pt-6 relative duration-300">
+        <loading v-model:active="isLoading" :color="backGroundcolor" />
         <div class="flex justify-between">
             <div class="title">
                 <h1 class="text-[#566a7f] text-[28px] font-[700]">
@@ -37,17 +38,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">PX20220731_0001</td>
-                        <td>Có</td>
-                        <td>Không</td>
-                        <td>1,446,700</td>
-                        <td>0</td>
-                        <td>Chưa thanh toán</td>
+                    <tr class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
+                        v-for="(item,index) in  this.data" :key="index">
+                        <td class="font-bold text-center">{{index+1}}</td>
+                        <td class="pl-5">{{item.name}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.point}}</td>
+                        <td>{{item.is_running ==1 ? 'Đã kích hoạt' : 'Chưa kích hoạt'}}</td>
+                        <td>{{item.is_delete==0 ?'Hoạt động': 'Đã khóa'}}</td>
+                        <td>{{item.created_at}}</td>
                         <td class="">
-                            <font-awesome-icon icon="fa-regular fa-pen-to-square "
-                                class="mt-1 text-[#FF3F3A] text-[20px] cursor-pointer" />
+                            <button @click="updatePartner(item.id)">
+                                <font-awesome-icon icon="fa-regular fa-pen-to-square "
+                                    class="mt-1 text-[#FF3F3A] text-[20px] cursor-pointer" />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -57,13 +61,19 @@
             :styleFilter="this.styleFilter" />
 
     </div>
-    <AddPartnerComponent v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals">
+    <AddPartnerComponent v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals"
+        @foobar="getListPartner">
     </AddPartnerComponent>
+    <EditPartnerComponent v-on:showModal="updateOpenModalEdit($event)" :showModalAction="this.showModalsUpdate"
+        @foobar="getListPartner" :id="id_Partner"></EditPartnerComponent>
 </template>
 <script>
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import Filter from '../Filter/FilterComponent';
 import AddPartnerComponent from './AddPartnerComponent.vue';
-import { getAll } from '../../../services/partner/partner.js';
+import EditPartnerComponent from './EditPartnerComponent.vue';
+import { getAll,get } from '../../../services/partner/partner.js';
 
 export default {
     data() {
@@ -71,14 +81,23 @@ export default {
             openFilter: true,
             styleFilter: '',
             showModals: false,
+            showModalsUpdate: false,
+            isLoading: true,
+            backGroundcolor: '#E93B3B',
+            data: [],
+            id_Partner: ''
         }
     },
 
     components: {
         Filter,
         AddPartnerComponent,
+        EditPartnerComponent,
+        Loading
     },
-
+    created() {
+        this.getListPartner();
+    },
     methods: {
         open_filter() {
             this.openFilter = !this.openFilter;
@@ -92,6 +111,30 @@ export default {
         },
         updateOpenModal(event) {
             this.showModals = !event;
+        },
+        getListPartner() {
+            this.isLoading = true;
+            getAll().then((response) => {
+                const { data } = response;
+                this.data = data.data;
+            }).finally(() => {
+                this.isLoading = false;
+            })
+        },
+        updateOpenModalEdit(event) {
+            this.showModalsUpdate = !event;   
+        },
+        updatePartner(id){
+            this.id_Partner = id;
+            get(id).then((response)=>{
+               const {data} = response;
+               console.log(data);
+            }).catch((error)=>{
+
+            }).finally(()=>{
+
+            });
+            this.showModalsUpdate=!this.showModalsUpdate;
         }
     }
 };

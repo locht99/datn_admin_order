@@ -49,7 +49,7 @@
                 <main class="w-full">
                     <router-view></router-view>
                 </main>
-                <footer>
+                <footer class="pt-8">
                     <span class="text-[16px] absolute bottom-0 text-[#7e7373]">© 2022 , hệ thống được thiết kế và vận
                         hành bởi Order
                         Việt Trung</span>

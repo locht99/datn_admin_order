@@ -111,7 +111,8 @@ export default {
         }
     },
     emits: {
-        showModal: Boolean
+        showModal: Boolean,
+        foobar: Function
     },
    
     components: {
@@ -120,6 +121,7 @@ export default {
     },
     props: {
         showModalAction: Boolean,
+        foobar: Function
     },
 
     methods: {
@@ -132,9 +134,15 @@ export default {
                 const {error,message} = response.data;
                 console.log(message);
                 if(error){
+                    this.form.phone = '';
                     this.$swal(message.phone[0]);
                 }else{
                     this.$swal('Thêm đối tác thành công');
+                    this.$emit('showModal', true);
+                    this.$emit('foobar');
+                    this.form.name = '';
+                    this.form.phone = '';
+
                 }
             }).finally(()=>{
                 this.isLoading = false;
