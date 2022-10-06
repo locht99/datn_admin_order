@@ -145,4 +145,25 @@ class PartnerController extends Controller
             ]);
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $partner = PartnerModel::findOrFail($id);
+            return response()->json([
+                'data' =>$partner
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => true,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
 }

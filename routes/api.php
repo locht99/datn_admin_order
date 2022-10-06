@@ -46,7 +46,7 @@ Route::middleware('auth:api')->group(function () {
 
     // api partner
     Route::resource('partner', PartnerController::class)->only([
-        'create', 'store', 'update', 'index'
+        'create', 'store', 'update', 'index', 'show'
     ]);
 });
 
