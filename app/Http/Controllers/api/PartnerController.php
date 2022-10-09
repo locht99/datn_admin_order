@@ -43,10 +43,7 @@ class PartnerController extends Controller
             }
 
             $data = $partner->paginate(config('const.pagination.per_page'));
-
-            return response()->json([
-                'data' => PartnerResource::collection($data)
-            ]);
+            return  PartnerResource::collection($data);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,
@@ -157,7 +154,7 @@ class PartnerController extends Controller
         try {
             $partner = PartnerModel::findOrFail($id);
             return response()->json([
-                'data' =>$partner
+                'data' => $partner
             ]);
         } catch (\Throwable $th) {
             return response()->json([

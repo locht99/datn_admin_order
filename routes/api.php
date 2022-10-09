@@ -36,7 +36,6 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/orders', [OrderController::class, 'getOrders']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
-    Route::get('/test', [TestController::class, 'test']);
 
     // api china money
     Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);

@@ -5,7 +5,7 @@ return [
         'adjust' => 6
     ],
     'pagination' => [
-        'per_page' => 50,
+        'per_page' => 10,
     ],
     'admin_transaction_type' => [
         'currency_exchange' => 1,
