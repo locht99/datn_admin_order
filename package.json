@@ -40,6 +40,7 @@
         "vee-validate": "^3.4.14",
         "vue": "^3.2.36",
         "vue-axios": "^3.4.1",
+        "vue-currency-input": "^3.0.1",
         "vue-loading-button": "^0.2.0",
         "vue-loading-overlay": "5.0",
         "vue-recaptcha": "^2.0.2",

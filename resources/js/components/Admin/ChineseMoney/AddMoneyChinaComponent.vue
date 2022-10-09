@@ -24,7 +24,7 @@
                 <!--body-->
                 <div class="relative p-6 flex-auto">
                     <div class="form-point my-4 mx-4">
-                        <form >
+                        <form>
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <div><label for="">Loại giao dịch</label><select v-model="v$.form.type.$model"
@@ -43,8 +43,7 @@
                                         <!--v-if-->
                                     </div>
                                     <div class="relative"><label for="">Ngày</label>
-                                        <Datepicker name="admin_transactions[date]" type="text"
-                                            v-model="v$.form.date.$model"
+                                        <Datepicker v-model="v$.form.date.$model"
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100" />
                                         <div class="input-errors" v-for="(error, index) of v$.form.date.$errors"
                                             :key="index">
@@ -53,7 +52,7 @@
 
                                     </div>
                                     <div><label for="">Số tiền</label><input name="admin_transactions_point"
-                                            v-model="v$.form.point_cn.$model" type="text"
+                                            v-model="v$.form.point_cn.$model" v-on:keyup="formatCurrency(this.form.point_cn)" type="text"
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1">
                                         <div class="input-errors" v-for="(error, index) of v$.form.point_cn.$errors"
                                             :key="index">
@@ -86,7 +85,7 @@
                         </form>
                     </div>
                 </div>
-               
+
                 <!--footer-->
                 <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                     <button
@@ -110,9 +109,9 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { insert } from '../../../services/ChinaMoney/ChinaMoney';
 import Datepicker from 'vue3-datepicker';
-import { required,decimal } from '@vuelidate/validators';
+import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
-import { reactive, computed } from 'vue';
+import { ref } from 'vue';
 export default {
     data() {
         return {
@@ -123,8 +122,8 @@ export default {
             backGroundcolor: '#E93B3B',
             form: {
                 type: '',
-                data: new Date(),
-                point_cn: '',
+                date: ref(new Date()),
+                point_cn: '333333',
                 content: '',
                 surplus: ''
             }
@@ -143,20 +142,20 @@ export default {
                 },
                 date: { required },
                 point_cn: {
-                    required,decimal
+                    required, decimal
                 },
                 content: {
                     required
                 },
                 surplus: {
-                    required,decimal
+                    required, decimal
                 }
             }
         }
     },
     components: {
         Loading,
-        Datepicker
+        Datepicker,
     },
     emits: {
         showModal: Boolean,
@@ -196,7 +195,11 @@ export default {
             }).finally(() => {
                 this.isLoading = false
             })
-        }
+        },
+        formatCurrency(value) {
+            let val = (value / 1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }   
     }
 }
 </script>

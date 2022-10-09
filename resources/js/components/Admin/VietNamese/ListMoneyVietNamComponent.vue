@@ -13,7 +13,6 @@
                             <button @click="open_modal()"
                                 class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded ">+
                                 Giao dịch mới</button>
-
                         </div>
                         <div>
                             <span class="text-[23px] cursor-pointer hover:bg-white px-4  rounded-full"
@@ -109,7 +108,7 @@
             :styleFilter="this.styleFilter" />
     </div>
 
-    <AddMoneyVietNam v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals" />
+    <AddMoneyVietNam v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals" @foobar="getListVietNamese()" />
 </template>
 <script>
 import Loading from 'vue-loading-overlay';

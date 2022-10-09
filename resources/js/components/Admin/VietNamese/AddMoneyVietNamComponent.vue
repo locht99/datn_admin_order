@@ -99,7 +99,8 @@ export default {
         }
     },
     emits: {
-        showModal:Boolean
+        showModal:Boolean,
+        foobar: Function
     },
     components: {
         Loading,
@@ -122,13 +123,12 @@ export default {
                     this.data = response.data.data;
                     // console.log(response.data)
                     this.$swal(response.data.message);
-                    this.$router.push('/money-vietnamese');
-
+                    this.$emit('foobar');
                 }
                 this.data.type = 0;
                 this.data.point_vn = 0;
                 this.data.content = '';
-
+                this.$emit('showModal',true);
             }).catch(error => {
                 this.$swal(error.data.message);
                 console.log(error);
