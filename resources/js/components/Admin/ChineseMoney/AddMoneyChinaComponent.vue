@@ -51,9 +51,15 @@
                                         </div>
 
                                     </div>
-                                    <div><label for="">Số tiền</label><input name="admin_transactions_point"
-                                            v-model="v$.form.point_cn.$model" v-on:keyup="formatCurrency(this.form.point_cn)" type="text"
-                                            class="w-full border-gray-300 rounded my-2 px-2 py-1">
+                                    <div><label for="">Số tiền</label>
+                                        <CurrencyInput  v-model="v$.form.point_cn.$model" :options="{
+                                          currency: 'VND',
+                                          currencyDisplay: 'hidden',
+                                          hideCurrencySymbolOnFocus: false,
+                                          hideGroupingSeparatorOnFocus: false,
+                                          hideNegligibleDecimalDigitsOnFocus: false,
+                                        }"   class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+                                       
                                         <div class="input-errors" v-for="(error, index) of v$.form.point_cn.$errors"
                                             :key="index">
                                             <div class="error-msg">{{ error.$message }}</div>
@@ -61,8 +67,14 @@
                                     </div>
                                     <div>
                                         <label for="">Số dư</label>
-                                        <input type="text" v-model="v$.form.surplus.$model"
-                                            class="w-full border-gray-300 rouned my-2 px-2 py-1 rounded">
+                                        <CurrencyInput  v-model="v$.form.surplus.$model" :options="{
+                                          currency: 'VND',
+                                          currencyDisplay: 'hidden',
+                                          hideCurrencySymbolOnFocus: true,
+                                          hideGroupingSeparatorOnFocus: false,
+                                          hideNegligibleDecimalDigitsOnFocus: false,
+                                        }"   class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+                                       
                                         <div class="input-errors" v-for="(error, index) of v$.form.surplus.$errors"
                                             :key="index">
                                             <div class="error-msg">{{ error.$message }}</div>
@@ -110,6 +122,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import { insert } from '../../../services/ChinaMoney/ChinaMoney';
 import Datepicker from 'vue3-datepicker';
 import { required, decimal } from '@vuelidate/validators';
+import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 import useVuelidate from '@vuelidate/core';
 import { ref } from 'vue';
 export default {
@@ -123,7 +136,7 @@ export default {
             form: {
                 type: '',
                 date: ref(new Date()),
-                point_cn: '333333',
+                point_cn: '',
                 content: '',
                 surplus: ''
             }
@@ -156,6 +169,7 @@ export default {
     components: {
         Loading,
         Datepicker,
+        CurrencyInput
     },
     emits: {
         showModal: Boolean,
@@ -199,7 +213,7 @@ export default {
         formatCurrency(value) {
             let val = (value / 1).toFixed(2).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        }   
+        }
     }
 }
 </script>

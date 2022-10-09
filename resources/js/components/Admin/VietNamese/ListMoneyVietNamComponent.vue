@@ -77,7 +77,7 @@
                                     {{item.username}}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    <a href="" class="hover:text-blue-900">demo1</a>
+                                    <a href="" class="hover:text-blue-900">{{item.order_code}}</a>
 
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">

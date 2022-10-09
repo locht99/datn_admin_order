@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="main mt-6">
+        <div class="main mt-6 bg-white">
             <table class="w-full rounded-t-md overflow-hidden bg-white">
                 <thead class="bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]">
                     <tr class="px-2 text-left">
@@ -40,7 +40,7 @@
                 <tbody>
                     <tr class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
                         v-for="(item,index) in  this.data" :key="index">
-                        <td class="font-bold text-center">{{index+1}}</td>
+                        <td class="font-bold text-center">  {{ index + 1 + (this.page - 1) * 10 }}</td>
                         <td class="pl-5">{{item.name}}</td>
                         <td>{{item.phone}}</td>
                         <td>{{item.point}}</td>
@@ -56,8 +56,10 @@
                     </tr>
                 </tbody>
             </table>
+            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                @pagination-change-page="getListPartner"></Pagination>
         </div>
-        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" 
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
             :styleFilter="this.styleFilter" />
 
     </div>
@@ -65,7 +67,8 @@
         @foobar="getListPartner">
     </AddPartnerComponent>
     <EditPartnerComponent v-on:showModal="updateOpenModalEdit($event)" :showModalAction="this.showModalsUpdate"
-        @foobar="getListPartner" :isLoadingEdit="this.isLoadingEdit" :item="this.item" @interface="getChildPartner"></EditPartnerComponent>
+        @foobar="getListPartner" :isLoadingEdit="this.isLoadingEdit" :item="this.item" @interface="getChildPartner">
+    </EditPartnerComponent>
 </template>
 <script>
 import Loading from 'vue-loading-overlay';
@@ -73,11 +76,11 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Filter from '../Filter/FilterComponent';
 import AddPartnerComponent from './AddPartnerComponent.vue';
 import EditPartnerComponent from './EditPartnerComponent.vue';
-import { getAll,get } from '../../../services/partner/partner.js';
-
+import { getAll, get } from '../../../services/partner/partner.js';
+import Pagination from '../../pagination/Pagination.vue';
 export default {
     childInterface: {
-        getPartner: (item) => {}
+        getPartner: (item) => { }
     },
     data() {
         return {
@@ -91,6 +94,14 @@ export default {
             data: [],
             id_Partner: '',
             item: Object,
+            pagination: {},
+            phone: null,
+            name: null,
+            form: null,
+            to: null,
+            is_running: null,
+            is_delete: null,
+            page: 1,
         }
     },
 
@@ -98,7 +109,8 @@ export default {
         Filter,
         AddPartnerComponent,
         EditPartnerComponent,
-        Loading
+        Loading,
+        Pagination
     },
     created() {
         this.getListPartner();
@@ -117,11 +129,23 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         },
-        getListPartner() {
+        getListPartner(page = 1) {
             this.isLoading = true;
             this.isLoadingEdit = true;
-            getAll().then((response) => {
+            this.page = page
+            getAll({
+                params: {
+                    phone: this.phone,
+                    name: this.name,
+                    from: this.from,
+                    to: this.to,
+                    is_running: this.is_running,
+                    is_delete: this.is_delete,
+                    page: page,
+                },
+            }).then((response) => {
                 const { data } = response;
+                this.pagination = data.meta;
                 this.data = data.data;
             }).finally(() => {
                 this.isLoadingEdit = false;
@@ -129,25 +153,25 @@ export default {
             })
         },
         updateOpenModalEdit(event) {
-            this.showModalsUpdate = !event;   
+            this.showModalsUpdate = !event;
         },
-        getChildPartner(childInterface){
+        getChildPartner(childInterface) {
             this.$options.childInterface = childInterface;
 
         },
-        getPartner(id){
-            const data = this.data.find((item)=>item.id == id);
+        getPartner(id) {
+            const data = this.data.find((item) => item.id == id);
             this.item = data;
             this.isLoading = true;
-            get(id).then((response)=>{
-               const {data} = response;
-               this.showModalsUpdate=!this.showModalsUpdate;
-            }).catch((error)=>{
+            get(id).then((response) => {
+                const { data } = response;
+                this.showModalsUpdate = !this.showModalsUpdate;
+            }).catch((error) => {
 
-            }).finally(()=>{
-                  this.isLoading = false;
+            }).finally(() => {
+                this.isLoading = false;
             });
-            this.$options.childInterface.getPartner(this.item );
+            this.$options.childInterface.getPartner(this.item);
         }
 
     }

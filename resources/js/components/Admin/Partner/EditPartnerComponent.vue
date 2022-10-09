@@ -74,22 +74,10 @@
                                                 <label for="">Kích hoạt</label>
                                             </div>
                                             <div class="w-[70%]">
-                                                <input type="checkbox" v-model="v$.form.is_running.$model" />
+                                                <input type="checkbox"  v-model="this.is_running" />
                                             </div>
                                         </div>
-                                        <div class="flex items-center w-full">
-                                            <div class="w-[30%]">
-                                                <label for="">Khóa</label>
-                                            </div>
-                                            <div class="w-[70%]">
-                                                <input type="checkbox" v-model="v$.form.is_running.$model" />
-                                                <div class="input-errors"
-                                                    v-for="(error, index) of v$.form.is_running.$errors" :key="index">
-                                                    <div class="error-msg">{{ error.$message }}</div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                     
                                     </div>
 
                                     <!--v-if-->
@@ -137,8 +125,8 @@ export default {
                 name: '',
                 phone: Number,
                 point: '',
-                is_running: Boolean
-            }
+            },
+           
 
 
         }
@@ -154,9 +142,6 @@ export default {
                 },
                 point: {
                     required, decimal
-                },
-                is_running: {
-                    required
                 }
             }
         }
@@ -192,9 +177,10 @@ export default {
             this.form = {...item}
         },
         updatePartner() {
-            console.log(this.form);
+            const form = {...this.form}
+            form.is_running =  this.is_running;
             this.isLoading = true;
-            update(this.form.id, this.form).then((response) => {
+            update(this.form.id, form).then((response) => {
                 const { error, message } = response.data;
                 console.log(message);
                 if (error) {

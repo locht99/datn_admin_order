@@ -23,13 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="main mt-6">
+        <div class="main mt-6 bg-white">
             <table class="w-full rounded-t-md overflow-hidden bg-white">
                 <thead class="bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]">
                     <tr class="px-2 text-left">
                         <th class="text-center">STT</th>
                         <th class="pl-5">NGÀY</th>
-                        <th>USER</th>
+                        <th class="">TÀI KHOẢN</th>
                         <th>ĐƠN HÀNG</th>
                         <th>LOẠI</th>
                         <th>NỘI DUNG</th>
@@ -39,9 +39,12 @@
                 <tbody>
                     <tr class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
                         v-for="(item,index) in this.chinese.data.data" :key="index">
-                        <td class="font-bold text-center">{{index+1}}</td>
+                        <td class="font-bold text-center">
+                            {{ index + 1 + (this.page - 1) * 10 }}
+                        </td>
                         <td class="pl-5">{{item.date}}</td>
-                        <td>{{item.username}}</td>
+                        <td class="">{{item.username}}</td>
+
                         <td>{{item.order_code}}</td>
                         <td>{{item.type_name}}</td>
                         <td>{{item.content}}</td>
@@ -50,7 +53,12 @@
 
                 </tbody>
             </table>
+            <Pagination class="mx-3 my-3"  v-if="pagination.last_page > 1"
+                :pagination="pagination"
+                :offset="5"
+                @pagination-change-page="getAllChinese"></Pagination>
         </div>
+       
         <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
             :styleFilter="this.styleFilter" />
     </div>
@@ -67,6 +75,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Filter from '../../Admin/Filter/FilterComponent.vue';
 import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
 import { getAll, getTypeMoneyChina } from '../../../services/ChinaMoney/ChinaMoney.js';
+import Pagination from '../../pagination/Pagination.vue';
 export default {
     data() {
         return {
@@ -75,10 +84,20 @@ export default {
             isLoading: true,
             backGroundcolor: '#E93B3B',
             showModals: false,
+            pagination: {},
             chinese: {
                 data: [],
                 type: Array
             },
+            phone: null,
+            name: null,
+            form: null,
+            to: null,
+            is_running: null,
+            is_delete: null,
+            page: 1,
+            
+
 
 
         };
@@ -86,7 +105,8 @@ export default {
     components: {
         Loading,
         Filter,
-        AddMoneyChinaComponent
+        AddMoneyChinaComponent,
+        Pagination
     },
  
     created() {
@@ -105,6 +125,7 @@ export default {
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
                 this.chinese.type = data.admin_type_transactions_chinese;
+                
             }).finally(() => {
                 this.isLoading = false;
             })
@@ -114,10 +135,24 @@ export default {
             this.showModals = !event;
         },
 
-        getAllChinese() {
-            getAll().then((response) => {
+        getAllChinese(page=1) {
+            this.isLoading = true;
+            this.page = page;
+            getAll({
+                    params: {
+                        phone: this.phone,
+                        name: this.name,
+                        from: this.from,
+                        to: this.to,
+                        is_running: this.is_running,
+                        is_delete: this.is_delete,
+                        page: page,
+                    },
+                }).then((response) => {
                 const { data } = response;
                 this.chinese.data = data;
+                console.log(this.chinese.data);
+                this.pagination = data.meta
                 this.isLoading = false;
 
             }).catch((error) => {

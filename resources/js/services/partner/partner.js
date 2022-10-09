@@ -1,7 +1,7 @@
 import config from '../../config/config.js';
 const url = 'partner';
-export const getAll = () => {
-    return config.get(url);
+export const getAll = (params) => {
+    return config.get(url,params);
 }
 export const get = (id) => {
     return config.get(`${url}/${id}`);
