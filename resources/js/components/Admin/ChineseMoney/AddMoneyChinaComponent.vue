@@ -52,14 +52,14 @@
 
                                     </div>
                                     <div><label for="">Số tiền</label>
-                                        <CurrencyInput  v-model="v$.form.point_cn.$model" :options="{
+                                        <CurrencyInput v-model="v$.form.point_cn.$model" :options="{
                                           currency: 'VND',
                                           currencyDisplay: 'hidden',
                                           hideCurrencySymbolOnFocus: false,
                                           hideGroupingSeparatorOnFocus: false,
                                           hideNegligibleDecimalDigitsOnFocus: false,
-                                        }"   class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
-                                       
+                                        }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+
                                         <div class="input-errors" v-for="(error, index) of v$.form.point_cn.$errors"
                                             :key="index">
                                             <div class="error-msg">{{ error.$message }}</div>
@@ -67,14 +67,14 @@
                                     </div>
                                     <div>
                                         <label for="">Số dư</label>
-                                        <CurrencyInput  v-model="v$.form.surplus.$model" :options="{
+                                        <CurrencyInput v-model="v$.form.surplus.$model" :options="{
                                           currency: 'VND',
                                           currencyDisplay: 'hidden',
                                           hideCurrencySymbolOnFocus: true,
                                           hideGroupingSeparatorOnFocus: false,
                                           hideNegligibleDecimalDigitsOnFocus: false,
-                                        }"   class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
-                                       
+                                        }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+
                                         <div class="input-errors" v-for="(error, index) of v$.form.surplus.$errors"
                                             :key="index">
                                             <div class="error-msg">{{ error.$message }}</div>
@@ -121,7 +121,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { insert } from '../../../services/ChinaMoney/ChinaMoney';
 import Datepicker from 'vue3-datepicker';
-import { required, decimal } from '@vuelidate/validators';
+import { required, decimal,maxLength } from '@vuelidate/validators';
 import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 import useVuelidate from '@vuelidate/core';
 import { ref } from 'vue';
@@ -155,15 +155,16 @@ export default {
                 },
                 date: { required },
                 point_cn: {
-                    required, decimal
+                    required, decimal,maxLengthValue:maxLength(10)
                 },
                 content: {
                     required
                 },
                 surplus: {
-                    required, decimal
+                    required, decimal,maxLengthValue:maxLength(10)
                 }
-            }
+            },
+            message: ''
         }
     },
     components: {
@@ -174,11 +175,12 @@ export default {
     emits: {
         showModal: Boolean,
         foobar: Function,
+        isLoadingAll:Boolean
     },
     props: {
         showModalAction: Boolean,
         dataTypeChina: Array,
-        getData: Function,
+        getData: Function,isLoadingAll:Boolean
     },
 
     methods: {
@@ -188,15 +190,19 @@ export default {
         createTransaction() {
             this.isLoading = true;
             insert(this.form).then((response) => {
-                this.isLoading = false
+                this.$emit('foobar');
+                this.$emit('isLoadingAll',false);
+
                 if (response.data.errors) {
-                    this.$swal(response.data.errors);
+                    this.message = response.data.errors;
+                    this.$swal(this.message);
                 } else {
                     // this.data = ;
-                    console.log(response.data.data);
-                    this.$swal(response.data.message);
+                    // this.$swal(response.data.message);
                     this.$emit('showModal', true);
-                    this.$emit('foobar');
+                    this.message = response.data.message;
+                    this.$swal(this.message);
+
 
                 }
                 this.form.type = '';
@@ -204,11 +210,13 @@ export default {
                 this.form.surplus = '';
                 this.form.content = '';
 
-            }).catch((error) => {
-                this.$swal(error.data.message);
-            }).finally(() => {
-                this.isLoading = false
             })
+                .catch((error) => {
+                    this.isLoading = false;
+                    this.$swal(error.data.message);
+                }).finally(() => {
+                    this.isLoading = false;
+                })
         },
         formatCurrency(value) {
             let val = (value / 1).toFixed(2).replace('.', ',')

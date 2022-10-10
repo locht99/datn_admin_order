@@ -63,7 +63,7 @@
             :styleFilter="this.styleFilter" />
     </div>
     <div :class="isLoading == false ? 'block' : 'hidden'">
-        <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese" :showModalAction="this.showModals"
+        <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese" v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
             :dataTypeChina="this.chinese.type" >
         </AddMoneyChinaComponent>
     </div>
@@ -134,7 +134,9 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         },
-
+        updateIsLoading(event){
+            this.isLoading = false;
+        },
         getAllChinese(page=1) {
             this.isLoading = true;
             this.page = page;
