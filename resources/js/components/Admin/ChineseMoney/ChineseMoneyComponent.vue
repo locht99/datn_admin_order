@@ -53,18 +53,16 @@
 
                 </tbody>
             </table>
-            <Pagination class="mx-3 my-3"  v-if="pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
+            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
                 @pagination-change-page="getAllChinese"></Pagination>
         </div>
-       
-        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
-            :styleFilter="this.styleFilter" />
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter"
+            :dataType="this.chinese.type" @function="getAllChinese" />
     </div>
     <div :class="isLoading == false ? 'block' : 'hidden'">
-        <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese" v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
-            :dataTypeChina="this.chinese.type" >
+        <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese"
+            v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
+            :dataTypeChina="this.chinese.type">
         </AddMoneyChinaComponent>
     </div>
 </template>
@@ -91,15 +89,11 @@ export default {
             },
             phone: null,
             name: null,
-            form: null,
+            form: {},
             to: null,
             is_running: null,
             is_delete: null,
             page: 1,
-            
-
-
-
         };
     },
     components: {
@@ -108,13 +102,20 @@ export default {
         AddMoneyChinaComponent,
         Pagination
     },
- 
+
     created() {
         this.getAllChinese();
     },
     methods: {
         open_filter() {
             this.openFilter = !this.openFilter;
+            getTypeMoneyChina().then((response) => {
+                const { data } = response;
+                this.chinese.type = data.admin_type_transactions_chinese;
+
+            }).finally(() => {
+                this.isLoading = false;
+            })
             this.styleFilter = "translate-x-[-360px] duration-300 ";
         },
         updateOpenFilter(newVal) {
@@ -125,7 +126,7 @@ export default {
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
                 this.chinese.type = data.admin_type_transactions_chinese;
-                
+
             }).finally(() => {
                 this.isLoading = false;
             })
@@ -134,26 +135,27 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         },
-        updateIsLoading(event){
+        updateIsLoading(event) {
             this.isLoading = false;
         },
-        getAllChinese(page=1) {
+        getAllChinese(page = 1, formData = null) {
             this.isLoading = true;
             this.page = page;
+            this.form = formData;
             getAll({
-                    params: {
-                        phone: this.phone,
-                        name: this.name,
-                        from: this.from,
-                        to: this.to,
-                        is_running: this.is_running,
-                        is_delete: this.is_delete,
-                        page: page,
-                    },
-                }).then((response) => {
+                params: {
+                    phone: this.phone,
+                    username: this.form ? this.form.name : null,
+                    from: this.form ? this.form.from : null,
+                    to: this.form ? this.form.to : null,
+                    type: this.form ? this.form.type : null,
+                    is_running: this.is_running,
+                    is_delete: this.is_delete,
+                    page: page,
+                },
+            }).then((response) => {
                 const { data } = response;
                 this.chinese.data = data;
-                console.log(this.chinese.data);
                 this.pagination = data.meta
                 this.isLoading = false;
 
