@@ -6,7 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -37,4 +39,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function getUsers()
+    {
+        $users = DB::table('users')
+            ->select(
+                'id',
+                'username',
+                'email',
+                'phone',
+                'point',
+                'is_delete',
+                'vip_level',
+                'created_at'
+            )
+            ->get();
+        return $users;
+    }
+
+    public function updateUser($params)
+    {
+        $user = DB::table('users')->find($params);
+        return $user;
+    }
+
+    public function saveUpdateUser($params)
+    {
+        $resp = DB::table('users')->where('id', '=', $params['id'])->update($params);
+        return $resp;
+    }
 }

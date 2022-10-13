@@ -8,7 +8,7 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
-
+use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/orders', [OrderController::class, 'getOrders']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
+    //api khach hang
+    Route::get('/get-users',[UserController::class, 'getUsers']);
+    Route::any('/update-user',[UserController::class, 'updateUser']);
     Route::get('/test', [TestController::class, 'test']);
 
     // api china money
