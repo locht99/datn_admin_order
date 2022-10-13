@@ -1,6 +1,5 @@
 require('./bootstrap');
 require('flowbite');
-
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -20,7 +19,6 @@ import { createAuth } from '@websanova/vue-auth';
 import driverAuthBearer from '@websanova/vue-auth/dist/drivers/auth/bearer.esm.js';
 import driverHttpAxios from '@websanova/vue-auth/dist/drivers/http/axios.1.x.esm.js';
 import driverRouterVueRouter from '@websanova/vue-auth/dist/drivers/router/vue-router.2.x.esm.js';
-
 const router = createRouter({
     history: createWebHistory(),
     routes,
@@ -90,5 +88,6 @@ var auth = createAuth({
         },
     }
 });
+
 app.use(auth);
 app.mount('#app')
