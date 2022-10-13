@@ -4,7 +4,7 @@ import PayFist from "./components/Admin/PayFist/PayFistComponent"
 import User from "./components/Admin/user/UserComponent"
 import Partner from "./components/Admin/Partner/PartnerComponent"
 import Login from "./components/Auth/LoginComponent";
-import ChineseMoney from "./components/admin/ChineseMoney/ChineseMoneyComponent"
+import ChineseMoney from "./components/Admin/ChineseMoney/ChineseMoneyComponent"
 import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
 import ListBag from './components/Admin/Bag/ListBagComponent.vue';
 import AddBag from './components/Admin/Bag/AddBagComponent.vue';
