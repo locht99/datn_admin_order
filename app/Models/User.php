@@ -54,7 +54,7 @@ class User extends Authenticatable
                 'vip_level',
                 'created_at'
             )
-            ->get();
+            ->paginate(10);
         return $users;
     }
 

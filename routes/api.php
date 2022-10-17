@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/orders', [OrderController::class, 'getOrders']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
+    //api khach hang
+    Route::get('/get-users', [UserController::class, 'getUsers']);
+    Route::post('/update-user', [UserController::class, 'updateUser']);
     Route::get('/test', [TestController::class, 'test']);
 
     // api china money
@@ -60,7 +63,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'
     ]);
-    Route::get('users',[AdminController::class,'getUser']);
-    Route::get('refresh',[AdminController::class,'refresh']);
-    Route::post('logout',[AdminController::class,'logout']);
+    Route::get('users', [AdminController::class, 'getUser']);
+    Route::get('refresh', [AdminController::class, 'refresh']);
+    Route::post('logout', [AdminController::class, 'logout']);
 });
