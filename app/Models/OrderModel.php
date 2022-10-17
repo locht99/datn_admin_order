@@ -36,7 +36,7 @@ class OrderModel extends Model
             $data->orWhere('users.phone', '=', $params['phone']);
         }
         $orders = [
-            'orders' => $data->get(),
+            'orders' => $data->paginate(20),
             'total_orders' => $data->count()
         ];
         return $orders;
@@ -80,7 +80,7 @@ class OrderModel extends Model
         }
         $data = [
             "total_status" => $total_status_orders,
-            "orders" => $orders->get(),
+            "orders" => $orders->paginate(20),
         ];
         return $data;
     }
