@@ -35,9 +35,6 @@
                                     STT
                                 </th>
                                 <th class="text-[14px] font-bold text-white  py-2 ">
-                                    NGÀY
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2 ">
                                     LOẠI
                                 </th>
                                 <th class="text-[14px] font-bold text-white  py-2">
@@ -67,9 +64,6 @@
                             <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600"
                                 v-for="(item,index) in this.dataListVietNam" :key="index">
                                 <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">{{index+1}}
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
-                                    {{item.date}}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
                                     {{item.type_name}}
@@ -119,7 +113,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import AddMoneyVietNam from './AddMoneyVietNamComponent.vue';
 import Filter from '../Filter/FilterComponent.vue';
-import { getAll } from '../../../services/VietNamese';
+import { getAll } from '../../../services/VietNamese/VietNamese';
 
 export default {
     components: {

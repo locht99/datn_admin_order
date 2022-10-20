@@ -28,7 +28,7 @@
                     <table class="table-auto w-full border text-center bg-white">
                         <thead>
                             <tr>
-                                <th v-for="data in nameTable" class="border-b bg-gray-200 text-[15px]">
+                                <th v-for="data in nameTable" :key="data.id" class="border-b bg-gray-200 text-[15px]">
                                     {{data.name}}
                                 </th>
                             </tr>

@@ -36,7 +36,7 @@
                         placeholder="Mật khẩu..." v-model="form.password" />
                 </div>
                 <div class="capcha">
-                    <vue-recaptcha ref="recaptcha" sitekey="6LdupAQiAAAAAOl8y9dp3a1uCJbWa9BgT1ACJR1y"
+                    <vue-recaptcha ref="recaptcha" sitekey="6Ld9imgiAAAAAAiy8XdLMU_jXq9ftpi9s8pgWxeg"
                         @expired="onCaptchaExpired" @verify="onCaptchaVerify">
                     </vue-recaptcha>
                 </div>
@@ -134,11 +134,6 @@ export default {
                 this.$refs.recaptcha.reset();
             });
         }
-    },
-    created() {
-        // if (this.$auth.check()) {
-        //     this.$router.push('/')
-        // }
     }
 }
 </script>

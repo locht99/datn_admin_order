@@ -1001,6 +1001,54 @@ input:checked + .toggle-bg {
   bottom: 60px;
 }
 
+.top-\[-\] {
+  top: -;
+}
+
+.top-\[-100px\] {
+  top: -100px;
+}
+
+.top-\[-px\] {
+  top: -px;
+}
+
+.top-\[0px\] {
+  top: 0px;
+}
+
+.top-\[20px\] {
+  top: 20px;
+}
+
+.right-5 {
+  right: 1.25rem;
+}
+
+.right-\[2\] {
+  right: 2;
+}
+
+.right-\[20px\] {
+  right: 20px;
+}
+
+.top-\[10px\] {
+  top: 10px;
+}
+
+.top-\[5px\] {
+  top: 5px;
+}
+
+.top-\[1px\] {
+  top: 1px;
+}
+
+.top-\[2px\] {
+  top: 2px;
+}
+
 .z-\[999\] {
   z-index: 999;
 }
@@ -1176,6 +1224,10 @@ input:checked + .toggle-bg {
 
 .-mr-px {
   margin-right: -1px;
+}
+
+.mt-40 {
+  margin-top: 10rem;
 }
 
 .ml-auto {
@@ -1974,9 +2026,9 @@ input:checked + .toggle-bg {
   padding-right: 0.75rem;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .py-1 {
@@ -1984,14 +2036,14 @@ input:checked + .toggle-bg {
   padding-bottom: 0.25rem;
 }
 
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .px-5 {
@@ -2142,6 +2194,14 @@ input:checked + .toggle-bg {
 
 .text-\[10px\] {
   font-size: 10px;
+}
+
+.text-\[2px\] {
+  font-size: 2px;
+}
+
+.text-\[21px\] {
+  font-size: 21px;
 }
 
 .font-semibold {

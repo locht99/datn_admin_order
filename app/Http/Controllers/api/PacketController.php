@@ -50,7 +50,7 @@ class PacketController extends Controller
                     'admin_packets.status_id',
                     'admin_packets.id',
                     'admin_packets.paid'
-                )
+                )->where('admin_packets.is_delete', false)
                 ->groupBy(
                     'admin_packets.code',
                     'admin_packets.wood_packing',

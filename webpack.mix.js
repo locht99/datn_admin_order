@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 const tailwindcss = require("tailwindcss");
+// require('dotenv').config();
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -20,3 +22,13 @@ mix.js('resources/js/app.js', 'public/js')
         postCss: [tailwindcss("./tailwind.config.js")],
     });
 mix.disableNotifications()
+
+mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.EnvironmentPlugin (
+                ['MY_ENVIRONMENT_VARIABLE','MY_ENVIRONMENT_VARIABLE2','VUE_APP_API_URL']
+            )
+        ]
+    };
+});

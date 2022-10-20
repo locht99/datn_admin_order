@@ -81,7 +81,7 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import { insert } from '../../../services/VietNamese';
+// import { insert } from '../../../services/VietNamese';
 import Datepicker from 'vue3-datepicker'
 export default {
     data() {
