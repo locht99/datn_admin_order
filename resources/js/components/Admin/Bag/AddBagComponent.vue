@@ -370,7 +370,7 @@
                                     class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap"
                                 >
                                     <span
-                                        class="cursor-pointer"
+                                    class="hover:text-blue-900 font-bold hover:underline cursor-pointer"
                                         @click="add_to_packet()"
                                         >Thêm vào bao hàng</span
                                     >
@@ -425,7 +425,7 @@
                                     class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap"
                                 >
                                     <span
-                                        class="cursor-pointer"
+                                    class="hover:text-blue-900 font-bold hover:underline cursor-pointer"
                                         @click="remove_from_parket(item)"
                                         >Xóa</span
                                     >
@@ -483,6 +483,7 @@ export default {
             console.log(this.parkets);
         },
         remove_from_parket(order) {
+            if(confirm('Xác nhận xóa đơn hàng hỏi bao hàng ?'))
             this.parkets = this.parkets.filter(function (el) {
                 return el.order_code != order.order_code;
             });

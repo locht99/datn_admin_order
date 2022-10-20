@@ -1,5 +1,6 @@
 <template>
     <div class="pt-6 relative duration-300">
+        <loading v-model:active="isLoading" :color="backGroundcolor" />
         <div class="flex justify-between">
             <div class="title">
                 <h1 class="text-[#566a7f] text-[28px] font-[700]">
@@ -8,18 +9,13 @@
             </div>
             <div class="flex justify-between items-center mx-5">
                 <div class="p-3">
-                    <button
-                    @click="open_modal()"
-                        class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded"
-                    >
+                    <button @click="open_modal()"
+                        class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded">
                         + Giao dịch mới
                     </button>
                 </div>
                 <div>
-                    <span
-                        class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
-                        @click="open_filter()"
-                    >
+                    <span class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full" @click="open_filter()">
                         <button>
                             <font-awesome-icon icon="fas fa-sliders-h" />
                         </button>
@@ -27,15 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="main mt-6">
+        <div class="main mt-6 bg-white">
             <table class="w-full rounded-t-md overflow-hidden bg-white">
-                <thead
-                    class="bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]"
-                >
+                <thead class="bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]">
                     <tr class="px-2 text-left">
                         <th class="text-center">STT</th>
                         <th class="pl-5">NGÀY</th>
-                        <th>USER</th>
+                        <th class="">TÀI KHOẢN</th>
                         <th>ĐƠN HÀNG</th>
                         <th>LOẠI</th>
                         <th>NỘI DUNG</th>
@@ -43,128 +37,136 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
+                    <tr class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
+                        v-for="(item,index) in this.chinese.data.data" :key="index">
+                        <td class="font-bold text-center">
+                            {{ index + 1 + (this.page - 1) * 10 }}
+                        </td>
+                        <td class="pl-5">{{item.date}}</td>
+                        <td class="">{{item.username}}</td>
+
+                        <td>{{item.order_code}}</td>
+                        <td>{{item.type_name}}</td>
+                        <td>{{item.content}}</td>
+                        <td>{{item.point_cn}}</td>
                     </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
-                    <tr
-                        class="border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]"
-                    >
-                        <td class="font-bold text-center">1</td>
-                        <td class="pl-5">25-5-20 03:38</td>
-                        <td>demo1</td>
-                        <td>DH-2708022</td>
-                        <td>đặt cọc</td>
-                        <td>đặt cộc cho đơn hàng 001</td>
-                        <td>1,400,000</td>
-                    </tr>
+
                 </tbody>
             </table>
+            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                @pagination-change-page="getAllChinese"></Pagination>
         </div>
-        <Filter
-            v-on:filter_action="updateOpenFilter($event)"
-            :filter="this.openFilter"
-            :styleFilter="this.styleFilter"
-        />
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter"
+            :dataType="this.chinese.type" @function="getAllChinese" />
     </div>
-    <AddMoneyChinaComponent  v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals"></AddMoneyChinaComponent>
+    <div :class="isLoading == false ? 'block' : 'hidden'">
+        <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese"
+            v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
+            :dataTypeChina="this.chinese.type">
+        </AddMoneyChinaComponent>
+    </div>
 </template>
 
 <script>
-    import Filter from '../../Admin/Filter/FilterComponent.vue';
-    import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+import Filter from '../../Admin/Filter/FilterComponent.vue';
+import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
+import { getAll, getTypeMoneyChina } from '../../../services/ChinaMoney/ChinaMoney.js';
+import Pagination from '../../pagination/Pagination.vue';
 export default {
     data() {
         return {
             openFilter: true,
             styleFilter: "",
+            isLoading: true,
+            backGroundcolor: '#E93B3B',
             showModals: false,
-
+            pagination: {},
+            chinese: {
+                data: [],
+                type: Array
+            },
+            phone: null,
+            name: null,
+            form: {},
+            to: null,
+            is_running: null,
+            is_delete: null,
+            page: 1,
         };
     },
-
     components: {
+        Loading,
         Filter,
-        AddMoneyChinaComponent
+        AddMoneyChinaComponent,
+        Pagination
     },
 
+    created() {
+        this.getAllChinese();
+    },
     methods: {
         open_filter() {
             this.openFilter = !this.openFilter;
+            getTypeMoneyChina().then((response) => {
+                const { data } = response;
+                this.chinese.type = data.admin_type_transactions_chinese;
+
+            }).finally(() => {
+                this.isLoading = false;
+            })
             this.styleFilter = "translate-x-[-360px] duration-300 ";
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
         },
         open_modal() {
+            this.isLoading = true;
+            getTypeMoneyChina().then((response) => {
+                const { data } = response;
+                this.chinese.type = data.admin_type_transactions_chinese;
+
+            }).finally(() => {
+                this.isLoading = false;
+            })
             this.showModals = !this.showModals;
         },
         updateOpenModal(event) {
-
             this.showModals = !event;
         },
+        updateIsLoading(event) {
+            this.isLoading = false;
+        },
+        getAllChinese(page = 1, formData = null) {
+            this.isLoading = true;
+            this.page = page;
+            this.form = formData;
+            getAll({
+                params: {
+                    phone: this.phone,
+                    username: this.form ? this.form.name : null,
+                    from: this.form ? this.form.from : null,
+                    to: this.form ? this.form.to : null,
+                    type: this.form ? this.form.type : null,
+                    is_running: this.is_running,
+                    is_delete: this.is_delete,
+                    page: page,
+                },
+            }).then((response) => {
+                const { data } = response;
+                this.chinese.data = data;
+                this.pagination = data.meta
+                this.isLoading = false;
+
+            }).catch((error) => {
+                console.log(error);
+            }).finally(() => {
+                this.isLoading = false;
+
+            });
+        },
+
     },
 };
 </script>

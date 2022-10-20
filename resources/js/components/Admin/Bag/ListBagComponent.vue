@@ -160,7 +160,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="p-10"></div>
+                    <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                @pagination-change-page="GetParkets"></Pagination>
                 </div>
             </div>
             <Filter
@@ -176,6 +177,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll,destroy } from "../../../services/Packets/Packets";
+import Pagination from '../../pagination/Pagination.vue';
+
 export default {
     data() {
         return {
@@ -184,12 +187,19 @@ export default {
             isLoading: true,
             backGroundcolor: '#E93B3B',
             Parkets: [],
+            pagination: {},
+            form: null,
+            to: null,
+            is_running: null,
+            is_delete: null,
+            page: 1,
         };
     },
 
     components: {
         Filter,
-        Loading
+        Loading,
+        Pagination
     },
     created() {
         this.GetParkets();
@@ -202,18 +212,28 @@ export default {
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
         },
-        GetParkets() {
-            getAll().then((response) => {
-                const { data } = response.data;
-                this.Parkets = data;
-                console.log(this.Parkets);
+        GetParkets(page = 1) {
+            this.isLoading = true;
+            this.page = page
+            getAll({
+                params: {
+                    from: this.from,
+                    to: this.to,
+                    is_running: this.is_running,
+                    is_delete: this.is_delete,
+                    page: page,
+                },
+            }).then((response) => {
+                const { data } = response;
+                this.Parkets = data.data;
+                this.pagination = data.meta;
             })
             .finally(() => {
                 this.isLoading = false;
             })
         },
         DeleteParket(id){
-          if(confirm('Xác nhận xóa bao hàng nay ?')){
+          if(confirm('Xác nhận xóa bao hàng nay khỏi bao hàng ?')){
             this.isLoading = true;
              destroy(id).then((response)=>{
                 this.$swal(response.data.message);

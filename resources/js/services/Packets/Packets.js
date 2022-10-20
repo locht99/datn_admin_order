@@ -1,8 +1,8 @@
 import config from "../../config/config";
 const url = '/admin-packets';
 
-export const getAll = () => {
-    return config.get(`packets`);
+export const getAll = (params) => {
+    return config.get(`packets`,params);
 }
 export const insert = (data) => {
     return config.post(`${url}`,data);

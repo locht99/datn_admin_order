@@ -120,7 +120,6 @@
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { insert } from "../../../services/VietNamese/VietNamese";
-import axios from "axios";
 import Datepicker from "vue3-datepicker";
 export default {
     data() {
@@ -137,6 +136,10 @@ export default {
             },
             TypesTransaction: [],
         };
+    },
+    emits: {
+        showModal:Boolean,
+        foobar: Function
     },
     components: {
         Loading,
@@ -164,13 +167,12 @@ export default {
                 } else {
                     // this.data = response.data.data;
                     this.$swal(response.data.message);
-                    this.$router.push('/money-vietnamese');
-
+                    this.$emit('foobar');
                 }
                 this.data.type = 0;
                 this.data.point_vn = 0;
                 this.data.content = '';
-
+                this.$emit('showModal',true);
             }).catch(error => {
                 this.$swal(error.data.message);
                 console.log(error);

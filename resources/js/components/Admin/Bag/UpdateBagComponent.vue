@@ -9,14 +9,22 @@
                 </p>
             </div>
             <div class="search w-[70%]">
-                <form action="" method="post" @submit.prevent="Search" class="relative">
+                <form
+                    action=""
+                    method="post"
+                    @submit.prevent="Search"
+                    class="relative"
+                >
                     <input
                         name="code"
                         type="text"
                         class="w-[100%] rounded border-gray-400 focus:border-gray-400 focus:ring-red-500 block outline-none p-1 duration-300"
                         placeholder="Tìm kiếm"
                     />
-                    <button type="submit" class="absolute top-[2px] right-[20px] text-[21px]">
+                    <button
+                        type="submit"
+                        class="absolute top-[2px] right-[20px] text-[21px]"
+                    >
                         <font-awesome-icon
                             icon="fa-solid fa-magnifying-glass"
                             class="mt-1"
@@ -324,7 +332,7 @@
                             <button
                                 class="bg-red-600 hover:bg-red-700 duration-300 rounded p-1 w-full text-white"
                             >
-                                Hoàn tất
+                              Chỉnh sửa 
                             </button>
                         </div>
                     </div>
@@ -372,7 +380,7 @@
                                     class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap"
                                 >
                                     <span
-                                        class="cursor-pointer"
+                                    class="hover:text-blue-900 font-bold hover:underline cursor-pointer"
                                         @click="add_to_packet()"
                                         >Thêm vào bao hàng</span
                                     >
@@ -427,7 +435,8 @@
                                     class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap"
                                 >
                                     <span
-                                        class="cursor-pointer"
+                                    v-if="item.newOrder==1"
+                                    class="hover:text-blue-900 font-bold hover:underline cursor-pointer"
                                         @click="remove_from_parket(item)"
                                         >Xóa</span
                                     >
@@ -482,6 +491,7 @@ export default {
     },
     methods: {
         add_to_packet() {
+            this.SearchData.newOrder = 1;
             if (this.Admin_Packet_Items.indexOf(this.SearchData) === -1) {
                 this.Admin_Packet_Items.push(this.SearchData);
             } else {
@@ -489,6 +499,7 @@ export default {
             }
             console.log(this.Admin_Packet_Items);
         },
+
         async GetTransportStatus() {
             this.TransportStatus = await transportStatus().then((response) => {
                 return response.data.admin_packet_status;
@@ -507,7 +518,6 @@ export default {
             this.Admin_Packet = this.ParketDetail.admin_packet;
             this.Admin_Packet_Items = this.ParketDetail.admin_packet_items;
             this.SelectedStatus = this.ParketDetail.admin_packet.status_id;
-            console.log(this.Admin_Packet);
         },
         UpdateBag(event) {
             this.isLoading = true;
@@ -533,7 +543,6 @@ export default {
                         this.$swal("Chỉnh sửa bao hàng thành công !");
                         this.$router.push("/bag");
                     }
-                    console.log(response);
                 })
                 .catch((error) => {
                     this.$swal(error.data.message);

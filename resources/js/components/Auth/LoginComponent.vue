@@ -94,6 +94,8 @@ export default {
         },
 
         onCaptchaVerify(token) {
+            console.log(this.form)
+
             const self = this;
             self.status = "Submitting";
             // Provide the token response to the form object.
@@ -105,6 +107,7 @@ export default {
         submitLogin() {
             this.isLoading = true;
             // var redirect = this.$auth.redirect();
+            console.log(this.form);
             var app = this;
             this.$auth.login({
                 data: this.form,
