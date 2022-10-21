@@ -22,10 +22,12 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body class="antialiased">
-        <div id="app">
+      
+        {{-- @inertia --}}
+        <div id="app" >
            
         </div>
     </body>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </html>

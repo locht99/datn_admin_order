@@ -12,14 +12,18 @@
     "devDependencies": {
         "autoprefixer": "^10.4.8",
         "axios": "^0.27.2",
-        "cross-env": "^7.0",
+        "cross-env": "^7.0.3",
+        "dotenv-webpack": "^8.0.1",
         "flowbite": "^1.5.2",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
-        "postcss": "^8.4.16",
+        "postcss-loader": "~3.0.0",
         "resolve-url-loader": "^3.1.0",
+        "sass": "^1.54.9",
+        "sass-loader": "^12.1.0",
         "tailwindcss": "^3.1.8",
-        "vue-loader": "^17.0.0"
+        "vue-loader": "^17.0.0",
+        "webpack": "^5.74.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -27,7 +31,25 @@
         "@fortawesome/free-regular-svg-icons": "^6.1.2",
         "@fortawesome/free-solid-svg-icons": "^6.1.2",
         "@fortawesome/vue-fontawesome": "^3.0.1",
+        "@vitejs/plugin-vue": "^3.1.0",
+        "@vuelidate/core": "^2.0.0",
+        "@vuelidate/validators": "^2.0.0",
+        "@vueuse/core": "^9.3.0",
+        "@websanova/vue-auth": "^4.1.13",
+        "es6-promise": "^4.2.8",
+        "v-pagination-3": "^0.1.7",
+        "vee-validate": "^3.4.14",
         "vue": "^3.2.36",
-        "vue-router": "^4.1.5"
+        "vue-axios": "^3.4.1",
+        "vue-currency-input": "^3.0.1",
+        "vue-loading-button": "^0.2.0",
+        "vue-loading-overlay": "5.0",
+        "vue-recaptcha": "^2.0.2",
+        "vue-router": "^4.1.5",
+        "vue-sweetalert2": "^5.0.5",
+        "vue-tailwind-modal": "^1.0.7",
+        "vue-toastification": "^2.0.0-rc.5",
+        "vue3-datepicker": "^0.3.4",
+        "yup": "^0.32.11"
     }
 }

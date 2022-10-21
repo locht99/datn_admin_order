@@ -1,13 +1,13 @@
 <template>
-    <div class="">
-        <div class="absolute flex right-[-380px]  z-10  top-[-90px] overflow-hidden filterProduct dark:bg-gray-700 shadow"
+    <div id="filter" class="absolute flex right-[-380px]  z-10  top-[-90px] overflow-hidden filterProduct dark:bg-gray-700 shadow"
         v-bind:class="[styleFilter,filterTranform]">
         <div class="bg-white max-w-[350px] h-screen drop-shadow-md border">
             <div class="fillter">
                 <div class="filter-header bg-gray-100 p-4">
                     <div class="filter-title flex items-center justify-between">
                         <p class="text-black text-[20px] font-medium">Bộ lọc tìm kiếm</p>
-                        <div class="text-[25px] cursor-pointer hover:bg-white px-3 py-1 duration-300  rounded-full" @click="filters_action()">
+                        <div class="text-[25px] cursor-pointer hover:bg-white px-3 py-1 duration-300  rounded-full"
+                            @click="filters_action()">
                             <font-awesome-icon icon="fa fa-times-square" />
                         </div>
                     </div>
@@ -69,31 +69,27 @@
             </div>
         </div>
     </div>
-    </div>
 </template>
 <script>
 export default {
 
-    data() {
-        return {
-            filterAction: true,
-            filterTranform: this.styleFilter
-        }
-    },
-    components: {
-    },
-    props: {
-        filter: Boolean,
-        styleFilter: String
-    },
+data() {
+    return {
+        filterAction: true,
+        filterTranform: this.styleFilter
+    }
+},
+components: {
+},
+props: {
+    filter: Boolean,
+    styleFilter: String
+},
 
-    methods: {
-        filters_action() {
-            this.$emit('filter_action', 'duration-300')
-        }
+methods: {
+    filters_action() {
+        this.$emit('filter_action', 'duration-300')
     }
 }
+}
 </script>
-<style>
-
-</style>

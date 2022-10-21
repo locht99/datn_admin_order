@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AdminTransactionTypeModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'admins';
+    
+    public $timestamps = false;
 }

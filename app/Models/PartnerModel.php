@@ -7,5 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class PartnerModel extends Model
 {
+    protected $table ='partners';
+    public $timestamps = true;
+
+    const UPDATED_AT = null;
+    const CREATED_AT = "created_at";
     use HasFactory;
+
+    
+    protected $fillable = [
+        'name',
+        'phone',
+        'point',
+        'is_running',
+        'is_delete'
+    ];
+
 }
