@@ -8,7 +8,7 @@
     />
     <div class="container h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9]">
         <aside
-            class="relative w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5"
+            class=" fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative "
         >
             <div class="img mt-2 mb-4">
                 <img
