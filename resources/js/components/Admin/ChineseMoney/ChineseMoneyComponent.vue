@@ -151,7 +151,6 @@ export default {
                 }).then((response) => {
                 const { data } = response;
                 this.chinese.data = data;
-                console.log(this.chinese.data);
                 this.pagination = data.meta
                 this.isLoading = false;
 

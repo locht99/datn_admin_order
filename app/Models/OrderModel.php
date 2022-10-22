@@ -27,7 +27,7 @@ class OrderModel extends Model
                 'orders.created_at'
             )
             ->orWhereDate('orders.created_at', '>=', $params['from'])
-            ->orWhereDate('orders.created_at', '>=', $params['to'])
+            ->orWhereDate('orders.created_at', '<=', $params['to'])
             ->orderByDesc('orders.created_at');
         if ($params['username']) {
             $data->orWhere('users.username', 'like', "%{$params['username']}%");
@@ -37,7 +37,7 @@ class OrderModel extends Model
         }
         $orders = [
             'orders' => $data->paginate(20),
-            'total_orders' => $data->count()
+            'total_orders' => $data->count(),
         ];
         return $orders;
     }
