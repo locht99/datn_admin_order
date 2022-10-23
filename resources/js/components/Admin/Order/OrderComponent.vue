@@ -25,14 +25,14 @@
                         class="status-table flex items-center bg-red-600 rounded-t-[10px]"
                     >
                         <div
-                            v-for="data in status"
+                            v-for="data in dataStatus"
                             :key="data.id"
-                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[26px] text-[13px] cursor-pointer"
+                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[15px] text-[13px] cursor-pointer"
                         >
                             <button>
-                                {{ data.name }}
+                                {{ data.status_name }}
                             </button>
-                            <div class="bg-white text-black rounded">100</div>
+                            <div class="bg-white text-black rounded">{{ data.total_status }}</div>
                         </div>
                     </div>
                     <table
@@ -57,14 +57,13 @@
                             >
                                 <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
                                 <td>
-                                    <router-link to="/orderdetail/160"># {{ item.id }}</router-link
-                                    >
+                                    <router-link :to="{path: 'orderdetail/'+item.id}">#{{ item.id }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.source }}</td>
-                                <td># {{ item.id }}</td>
-                                <td>{{ item.total_price }}</td>
+                                <td>{{ item.code }}</td>
+                                <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
                             </tr>
                         </tbody>
@@ -109,6 +108,7 @@ export default {
             form: null,
             to: null,
             data: [],
+            dataStatus: [],
             status: [
                 {
                     name: "Đã đặt cọc",
@@ -177,6 +177,7 @@ export default {
                     const { data } = res;
                     this.data = data.orders.data;
                     this.dataPagination = data.orders;
+                    this.dataStatus = data.total_status
                 })
                 .finally(() => {
                     this.isLoading = false;
@@ -188,6 +189,12 @@ export default {
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
+        },
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
         },
     },
 };
