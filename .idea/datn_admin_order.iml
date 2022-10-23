@@ -129,6 +129,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/inertiajs/inertia-laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/recaptcha" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

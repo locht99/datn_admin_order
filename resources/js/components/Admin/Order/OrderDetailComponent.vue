@@ -3,7 +3,7 @@
         <div class="order-detail">
             <div class="head-detail">
                 <div class="title-order-detail">
-                    <p class="text-gray-800 font-medium py-3">Chi tiết đơn hàng ##00123</p>
+                    <p class="text-gray-800 font-medium py-3">Chi tiết đơn hàng #{{ order_id }}</p>
                 </div>
             </div>
             <div class="main-order-detail">
@@ -144,13 +144,26 @@
 
 </style>
 <script>
+import axios from 'axios';
 import HeadOrder from './HeadOrderComponent.vue';
-
+import { get } from "../../../services/order/order.js";
 export default {
 
     data() {
         return {
-            data: [1, 2, 3, 4, 5, 6]
+            data: [1, 2, 3, 4, 5, 6],
+            order_id: ''
+        }
+    },
+    mounted() {
+        this.order_id = this.$route.params.id
+        this.getOrderDetail()
+    },
+    methods: {
+        getOrderDetail(){
+            get({
+                id: this.order_id
+            }).then(res => console.log(res))
         }
     },
 

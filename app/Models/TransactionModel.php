@@ -29,7 +29,7 @@ class TransactionModel extends Model
             ->orWhereDate('transactions.created_at', '>=', $params['to'])
             ->orderByDesc('transactions.created_at');
         if ($params['username']) {
-            $data->orWhere('users.username', 'like', "%{$params['username']}%");
+            $data->orWhere('users.username', $params['username']);
         }
         if ($params['phone']) {
             $data->orWhere('users.phone', '=', $params['phone']);
