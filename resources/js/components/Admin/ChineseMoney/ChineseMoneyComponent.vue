@@ -141,17 +141,23 @@ export default {
         getAllChinese(page = 1, formData = null) {
             this.isLoading = true;
             this.page = page;
-            this.form = formData;
+            let form = {...formData};
+            form.page = page;
+            if(page == 1){
+                window.localStorage.setItem("filter", JSON.stringify(form));
+
+            }
+            form = JSON.parse(window.localStorage.getItem("filter"));
             getAll({
                 params: {
                     phone: this.phone,
-                    username: this.form ? this.form.name : null,
-                    from: this.form ? this.form.from : null,
-                    to: this.form ? this.form.to : null,
-                    type: this.form ? this.form.type : null,
+                    username: form ? form.name : null,
+                    from: form ? form.from : null,
+                    to: form ? form.to : null,
+                    type: form ? form.type : null,
                     is_running: this.is_running,
                     is_delete: this.is_delete,
-                    page: page,
+                    page: form.page,
                 },
             }).then((response) => {
                 const { data } = response;

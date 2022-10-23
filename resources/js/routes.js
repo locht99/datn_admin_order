@@ -12,7 +12,8 @@ import Order from './components/Admin/Order/OrderComponent.vue';
 import OrderDetail from './components/Admin/Order/OrderDetailComponent.vue';
 import Package from './components/Admin/Order/PackageComponent.vue';
 import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
-import Fee from './components/Admin/Order/FeeComponent.vue'
+import Fee from './components/Admin/Order/FeeComponent.vue';
+import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
 const routes = [
     {
         path: "/",
@@ -76,6 +77,10 @@ const routes = [
             {
                 path: '/partner',
                 component: Partner
+            },
+            {
+                path: '/config-payment',
+                component: ConfigPayment
             }
         ],
     },
