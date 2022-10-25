@@ -10,10 +10,16 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function getUsers()
+    public function getUsers(Request $request)
     {
+        $search = [
+            'from' => $request->from ? $request->from : null,
+            'to' => $request->to ? $request->to : null,
+            'username' => $request->username ? $request->username : null,
+            'phone' => $request->phone ? $request->phone : null,
+        ];
         $model = new User();
-        $users = $model->getUsers();
+        $users = $model->getUsers($search);
         return response()->json($users, 200);
     }
 
