@@ -68,14 +68,14 @@ class OrderModel extends Model
             });
         $orders = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.user_id')
-            ->join('packets', 'packets.order_id', 'orders.id')
+            //->join('packets', 'packets.order_id', 'orders.id')
             ->join('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
             ->select(
                 'orders.id',
                 'orders.created_at',
                 'users.username',
                 'orders.source',
-                'packets.code',
+                //'packets.code',
                 'orders.total_price',
                 'order_statuses.status_name'
             )
