@@ -11,8 +11,16 @@ class OrderModel extends Model
     use HasFactory;
     protected $table = 'orders';
 
-    // get total order
-    public function getTotalOders($params)
+    //get total order
+    public function totalOrders()
+    {
+        $data = DB::table('orders')
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->count();
+        return $data;
+    }
+    // get All order
+    public function getAllOders($params)
     {
         $data = DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.user_id')
@@ -26,19 +34,20 @@ class OrderModel extends Model
                 'order_statuses.status_name',
                 'orders.created_at'
             )
-            ->orWhereDate('orders.created_at', '>=', $params['from'])
-            ->orWhereDate('orders.created_at', '>=', $params['to'])
             ->orderByDesc('orders.created_at');
+        if ($params['from']) {
+            $data->orWhereDate('orders.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $data->orWhereDate('orders.created_at', '>=', $params['to']);
+        }
         if ($params['username']) {
             $data->orWhere('users.username', 'like', "%{$params['username']}%");
         }
         if ($params['phone']) {
             $data->orWhere('users.phone', '=', $params['phone']);
         }
-        $orders = [
-            'orders' => $data->paginate(20),
-            'total_orders' => $data->count()
-        ];
+        $orders = $data->paginate(10);
         return $orders;
     }
 
