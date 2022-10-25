@@ -41,7 +41,7 @@ class User extends Authenticatable
     ];
 
 
-    public function getUsers()
+    public function getUsers($params)
     {
         $users = DB::table('users')
             ->select(
@@ -53,9 +53,20 @@ class User extends Authenticatable
                 'is_delete',
                 'vip_level',
                 'created_at'
-            )
-            ->paginate(10);
-        return $users;
+            )->orderByDesc('users.created_at');
+        if ($params['from']) {
+            $users->orWhereDate('orders.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $users->orWhereDate('orders.created_at', '>=', $params['to']);
+        }
+        if ($params['username']) {
+            $users->orWhere('users.username', 'like', "%{$params['username']}%");
+        }
+        if ($params['phone']) {
+            $users->orWhere('users.phone', '=', $params['phone']);
+        }
+        return $users->paginate(10);
     }
 
     public function updateUser($params)
