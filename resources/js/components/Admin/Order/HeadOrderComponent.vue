@@ -2,12 +2,12 @@
     <div class="flex justify-between items-center">
         <div class="code-order flex items-center">
             <div class="p-2">
-                <span class="bg-red-600 p-1 rounded text-white">Mã #00123</span>
+                <span class="bg-red-600 p-1 rounded text-white">Mã #{{ orderId }}</span>
             </div>
             <div>
                 <div class="date">
                    
-                    <p>Tạo ngày 27-08-2022 11:07</p>
+                    <p>Tạo ngày: {{ date }}</p>
                 </div>
             </div>
 
@@ -41,7 +41,10 @@
 <script>
 
 export default {
-
+    props: ["orderId", "date"],
+    mounted(){
+        console.log(this.orderId, this.date)
+    }
     // setup() {
     //     const currentRoute = computed(() => {
     //         return useRouter().currentRoute.value.name;
