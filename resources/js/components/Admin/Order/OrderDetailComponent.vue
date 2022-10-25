@@ -2,15 +2,36 @@
     <div>
         <div class="order-detail">
             <div class="head-detail">
-                <div class="title-order-detail">
+                <div
+                    class="title-order-detail flex items-center justify-between"
+                >
                     <p class="text-gray-800 font-medium py-3">
                         Chi tiết đơn hàng #{{ order_id }}
                     </p>
+                    <div>
+                        <p class="ml-10">Trạng thái:</p>
+                        <select v-model="status_id" @change="updateStatus($event)">
+                            <option value="1">Đã đặt cọc</option>
+                            <option value="4">Đã mua hàng</option>
+                            <option value="5">Shop giao hàng</option>
+                            <option value="6">Kho nhận hàng</option>
+                            <option value="7">Vận chuyển</option>
+                            <option value="8">Chờ giao hàng</option>
+                            <option value="9">Chờ yêu cầu giao</option>
+                            <option value="10">Đang giao hàng</option>
+                            <option value="11">Khách hàng nhận hàng</option>
+                            <option value="13">Hủy bỏ</option>
+                            <option value="14">Thất lạc</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="main-order-detail">
                 <div class="info-order-detail bg-white rounded">
-                    <HeadOrder />
+                    <HeadOrder
+                        :orderId="order_id"
+                        :date="data[0]?.created_at"
+                    />
                     <div class="border-b w-[95%] mx-auto"></div>
                     <div class="flex">
                         <div class="border-r w-[60%]">
@@ -34,13 +55,26 @@
                             <div class="p-3">
                                 <div>
                                     <div class="flex mb-3">
-                                        <p>Mã đặt hàng (Taobao, 1688)</p>
-                                        <p>001223</p>
+                                        <p>Mã đặt hàng:</p>
+                                        <p>
+                                            {{
+                                                data[0]?.order_code ??
+                                                "Chưa xác định"
+                                            }}
+                                        </p>
                                     </div>
-                                    <div class="mb-3">Mã vận đơn: 08888</div>
+                                    <div class="mb-3">
+                                        Mã vận đơn:
+                                        {{ data[0]?.code ?? "Chưa xác định" }}
+                                    </div>
                                 </div>
                                 <div class="mb-3">
-                                    Shop đặt hàng: Taobao.com
+                                    Shop đặt hàng:
+                                    <span
+                                        v-for="item in listShop"
+                                        :key="item.id"
+                                        >{{ item }}.
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +88,13 @@
                     <div class="border-b mx-auto w-[95%]"></div>
                     <div class="p-3 flex">
                         Website:
-                        <p class="text-red-800">TAOBAO</p>
+                        <p
+                            v-for="item in listShop"
+                            :key="item.id"
+                            class="text-red-800"
+                        >
+                            {{ item }}.com,
+                        </p>
                     </div>
                 </div>
                 <div class="product-order-detail mt-8">
@@ -72,7 +112,9 @@
                                 v-for="(value, index) in data"
                                 :key="index"
                             >
-                                <div class="items-product flex items-center p-2">
+                                <div
+                                    class="items-product flex items-center p-2"
+                                >
                                     <div class="left-product flex">
                                         <div
                                             class="img-product w-[100px] h-[100px]"
@@ -111,12 +153,18 @@
                                                             class="cost border-b-2"
                                                         >
                                                             Giá:
-                                                            {{ formatPrice(value.price) }}
+                                                            {{
+                                                                formatPrice(
+                                                                    value.price
+                                                                )
+                                                            }}
                                                         </div>
                                                         <div class="promotion">
                                                             Khuyến mãi:
                                                             {{
-                                                                formatPrice(value.promotion_price)
+                                                                formatPrice(
+                                                                    value.promotion_price
+                                                                )
                                                             }}
                                                         </div>
                                                     </div>
@@ -132,7 +180,10 @@
                                                             class="promotion font-bold"
                                                         >
                                                             {{
-                                                                formatPrice(value.total_price)
+                                                                formatPrice(
+                                                                    value.price *
+                                                                        value.quantity_bought
+                                                                )
                                                             }}
                                                         </div>
                                                     </div>
@@ -148,14 +199,18 @@
                                 <div
                                     class="price1 p-3 flex items-center border-b justify-between"
                                 >
-                                    <div class="font-bold">Giá vốn</div>
-                                    <div>2.000</div>
+                                    <div class="font-bold">Giá tạm tính</div>
+                                    <div>{{ formatPrice(price) }}</div>
                                 </div>
                                 <div
                                     class="price1 p-3 flex items-center border-b justify-between"
                                 >
                                     <div class="font-bold">Đã trả</div>
-                                    <div>{{ formatPrice(data[0]?.deposit_amount) }}</div>
+                                    <div>
+                                        {{
+                                            formatPrice(data[0]?.deposit_amount)
+                                        }}
+                                    </div>
                                 </div>
                                 <div
                                     class="price1 p-3 flex items-center bg-red-500 justify-between"
@@ -164,7 +219,7 @@
                                         Tổng tiền
                                     </div>
                                     <div class="text-white">
-                                        {{ formatPrice(total_price) }}
+                                        <div>{{ formatPrice(price) }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -178,30 +233,50 @@
 <style></style>
 <script>
 import HeadOrder from "./HeadOrderComponent.vue";
-import { get } from "../../../services/order/order.js";
+import { get, update } from "../../../services/order/order.js";
 export default {
     data() {
         return {
             data: [],
-            order_id: "",
+            order_id: 0,
+            status_id: 0,
+            price: 0,
             total_price: 0,
+            listShop: [],
+            listWebsite: [],
         };
     },
-    mounted() {
+    created() {
         this.order_id = this.$route.params.id;
         this.getOrderDetail();
     },
+    mounted() {},
     methods: {
         getOrderDetail() {
             get({
                 id: this.order_id,
             }).then((res) => {
                 this.data = res.data;
+                
                 this.data.forEach((item) => {
-                    this.total_price += Number(item.total_price);
+                    this.price = Number(item.items_price_vnd);
+                    this.total_price = Number(item.total_price);
+                    if (item.source === "TAOBAO") {
+                        this.listShop.push("taobao");
+                    } else if (item.source === "1688") {
+                        this.listShop.push("1688");
+                    } else if (item.source === "TMALL") {
+                        this.listShop.push("tmall");
+                    }
+                    this.status_id = item.status_id
                 });
-                console.log(this.data)
+                this.listShop = [...new Set(this.listShop)];
             });
+        },
+        updateStatus(event){
+            update(this.order_id, this.status_id).then(res => {
+                //Send email
+            })
         },
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {

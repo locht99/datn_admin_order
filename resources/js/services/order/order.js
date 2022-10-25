@@ -10,7 +10,7 @@ export const insert = (data) => {
     return config.post(url, data);
 }
 export const update = (id, data) => {
-    return config.put(`${url}/${id}`, data);
+    return config.put('edit-status-order?id='+id+'&status_id='+data);
 }
 export const destroy = (id) => {
     return config.delete(`${url}/${id}`);
