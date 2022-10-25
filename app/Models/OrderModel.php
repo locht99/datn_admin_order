@@ -47,7 +47,7 @@ class OrderModel extends Model
         if ($params['phone']) {
             $data->orWhere('users.phone', '=', $params['phone']);
         }
-        $orders = $data->paginate(10);
+        $orders = $data->paginate(20);
         return $orders;
     }
 
@@ -80,7 +80,7 @@ class OrderModel extends Model
                 'order_statuses.status_name'
             )
             ->orWhereDate('orders.created_at', '>=', $params['from'])
-            ->orWhereDate('orders.created_at', '>=', $params['to']);
+            ->orWhereDate('orders.created_at', '<=', $params['to']);
         if ($params['username']) {
             $orders->orWhere('users.username', $params['username']);
         }
@@ -89,7 +89,7 @@ class OrderModel extends Model
         }
         $data = [
             "total_status" => $total_status_orders,
-            "orders" => $orders->paginate(20),
+            "orders" => $orders->paginate(10),
         ];
         return $data;
     }
@@ -107,6 +107,8 @@ class OrderModel extends Model
     {
         $order = DB::table('orders')
             ->join('order_products', 'order_products.order_id', '=', 'orders.id')
+            ->join('users', 'users.id', '=', 'order_products.user_id')
+            ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone')
             ->where('orders.id', '=', $params['id'])
             ->get();
 
