@@ -39,7 +39,7 @@ class TransactionModel extends Model
             $data->orWhereDate('transactions.created_at', '>=', $params['from']);
         }
         if ($params['to']) {
-            $data->orWhereDate('transactions.created_at', '>=', $params['to']);
+            $data->orWhereDate('transactions.created_at', '<=', $params['to']);
         }
         if ($params['username']) {
             $data->orWhere('users.username', $params['username']);
@@ -51,9 +51,9 @@ class TransactionModel extends Model
         return $transactions;
     }
 
-    public function getMoneys()
+    public function getMoneys($params)
     {
-        $data = DB::table('transactions')
+        $resp = DB::table('transactions')
             ->join('users', 'users.id', '=', 'transactions.id')
             ->join('orders', 'orders.id', '=', 'transactions.order_id')
             ->join('type_transactions', 'type_transactions.id', 'transactions.type_id')
@@ -64,7 +64,20 @@ class TransactionModel extends Model
                 'transactions.content',
                 'transactions.point',
                 'transactions.created_at'
-            )->get();
+            );
+        if ($params['from']) {
+            $resp->orWhereDate('transactions.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $resp->orWhereDate('transactions.created_at', '<=', $params['to']);
+        }
+        if ($params['username']) {
+            $resp->orWhere('users.username', $params['username']);
+        }
+        if ($params['status']) {
+            $resp->orWhere('transactions.type_id', $params['status']);
+        }
+        $data = $resp->paginate(10);
 
         return $data;
     }
