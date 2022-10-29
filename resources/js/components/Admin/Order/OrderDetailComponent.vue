@@ -2,7 +2,6 @@
     <div>
         <div class="order-detail">
             <div class="head-detail">
-
                 <div
                     class="title-order-detail flex items-center justify-between"
                 >
@@ -25,7 +24,6 @@
                             <option value="14">Thất lạc</option>
                         </select>
                     </div>
->>>>>>> khaidd/admin-order
                 </div>
             </div>
             <div class="main-order-detail">
@@ -35,25 +33,28 @@
                         :date="data[0]?.created_at"
                     />
                     <div class="border-b w-[95%] mx-auto"></div>
-                    <div class="flex ">
+                    <div class="flex">
                         <div class="border-r w-[60%]">
-                            <div class="p-4 ">
+                            <div class="p-4">
                                 <div class="flex items-center mb-3">
-                                    <p class="font-medium text-gray-800">Người đặt hàng:</p>
-                                    <p> Customer</p>
+                                    <p class="font-medium text-gray-800">
+                                        Người đặt hàng:
+                                    </p>
+                                    <p class="text-red-500">
+                                        {{ data[0]?.username }}
+                                    </p>
                                 </div>
                                 <div class="mb-3">
-                                    <p>Số điện thoại: 0123456789</p>
+                                    <p>Số điện thoại: {{ data[0]?.phone }}</p>
                                 </div>
                                 <div class="mb-3">
-                                    Địa chỉ: 63/33/71 Lê đức thọ, Nam từ liêm, Hà Nội
+                                    Địa chỉ: {{ data[0]?.address }}
                                 </div>
                             </div>
                             <div class="border-b w-[95%] mx-auto"></div>
                             <div class="p-3">
                                 <div>
                                     <div class="flex mb-3">
-
                                         <p>Mã đặt hàng:</p>
                                         <p>
                                             {{
@@ -80,7 +81,7 @@
                         <div class="w-[40%] p-3">
                             <div class="note-title">Ghi chú</div>
                             <div class="note-descript">
-                                <p>Giao hàng cẩn thận giúp em</p>
+                                <p>{{ data[0]?.note }}</p>
                             </div>
                         </div>
                     </div>
@@ -97,13 +98,12 @@
                     </div>
                 </div>
                 <div class="product-order-detail mt-8">
-                    <div class="product-order-head bg-red-700 p-4 rounded-t	">
+                    <div class="product-order-head bg-red-700 p-4 rounded-t">
                         <div class="title-product-order">
                             <p class="text-[17px] text-white">Sản phẩm</p>
                         </div>
                     </div>
                     <div class="product-order-main bg-white flex pb-8">
-
                         <div
                             class="product-list-order pt-3 overflow-auto h-[500px] w-[70%]"
                         >
@@ -116,25 +116,34 @@
                                     class="items-product flex items-center p-2"
                                 >
                                     <div class="left-product flex">
-                                        <div class="img-product w-[100px] h-[100px]">
-                                            <img src="https://gw.alicdn.com/bao/uploaded/i2/2143811104/O1CN017P3tMd1K1g17FSkyl_!!2143811104.jpg_220x10000Q75.jpg"
-                                                class="w-full h-full" alt="">
+                                        <div
+                                            class="img-product w-[100px] h-[100px]"
+                                        >
+                                            <img
+                                                :src="value.image_link"
+                                                class="w-full h-full"
+                                                alt=""
+                                            />
                                         </div>
-                                        <div class="content-product flex items-center">
-                                            <div>
-                                                <p>
-                                                    Konggeins美式街头麂皮绒短袖t恤设计感字母印花夏季宽
+                                        <div
+                                            class="content-product flex justify-between ml-5"
+                                        >
+                                            <div class="max-w-[60%]">
+                                                <p class="max-w-[80%]">
+                                                    {{ value.product_name }}
                                                 </p>
                                                 <div class="flex items-center">
-                                                    <div>
-                                                        Mô tả
-                                                    </div>
-                                                    <div class="bg-blue-500 rounded text-white p-1 text-[10px] m-2">
+                                                    <div>Mô tả</div>
+                                                    <div
+                                                        class="bg-blue-500 rounded text-white p-1 text-[10px] m-2"
+                                                    >
                                                         Xem chi tiết
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center">
-                                                    <div class="text-gray-800">Bảo hành: không</div>
+                                                    <div class="text-gray-800">
+                                                        Bảo hành: không
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="flex">
@@ -157,13 +166,14 @@
                                                                     value.promotion_price
                                                                 )
                                                             }}
->>>>>>> khaidd/admin-order
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="ml-10">
                                                     <div class="price">
-                                                        <div class="cost border-b-2">
+                                                        <div
+                                                            class="cost border-b-2"
+                                                        >
                                                             Tổng
                                                         </div>
                                                         <div
@@ -181,9 +191,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="w-[30%]">
@@ -222,15 +230,11 @@
         </div>
     </div>
 </template>
-<style>
-
-</style>
+<style></style>
 <script>
-
 import HeadOrder from "./HeadOrderComponent.vue";
 import { get, update } from "../../../services/order/order.js";
 export default {
-
     data() {
         return {
             data: [],
@@ -283,7 +287,7 @@ export default {
     },
 
     components: {
-        HeadOrder
-    }
-}
+        HeadOrder,
+    },
+};
 </script>
