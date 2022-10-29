@@ -126,7 +126,6 @@ export default {
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
                 this.chinese.type = data.admin_type_transactions_chinese;
-
             }).finally(() => {
                 this.isLoading = false;
             })
@@ -145,7 +144,6 @@ export default {
             form.page = page;
             if(page == 1){
                 window.localStorage.setItem("filter", JSON.stringify(form));
-
             }
             form = JSON.parse(window.localStorage.getItem("filter"));
             getAll({
