@@ -13,8 +13,8 @@ class OrderController extends Controller
     public function getOrders(Request $request)
     {
         $search = [
-            'from' => $request->from ? $request->from : Carbon::today(),
-            'to' => $request->to ? $request->to : Carbon::today(),
+            'from' => $request->from ? $request->from : null,
+            'to' => $request->to ? $request->to : null,
             'username' => $request->username ? $request->username : null,
             'status' => $request->status ? $request->status : null,
         ];

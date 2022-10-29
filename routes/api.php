@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function () {
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
     //api don hang
     Route::get('/orders', [OrderController::class, 'getOrders']);//get
-    Route::post('/edit-status-order',[OrderController::class, 'updateStatusOrder']);//update
+    Route::put('/edit-status-order',[OrderController::class, 'updateStatusOrder']);//update
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
