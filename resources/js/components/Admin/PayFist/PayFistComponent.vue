@@ -103,7 +103,6 @@ export default {
             }).then((resp) => {
                 this.list_money = resp.data.data
                 this.pagination = resp.data
-                console.log(this.params.from)
             }).finally(() => {
                 this.isLoading = false;
 

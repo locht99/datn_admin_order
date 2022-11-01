@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter-children" v-if="this.dataType">
+                    <div class="filter-children">
                         <div class="label py-4">
                             <label for="" class="w-full ml-2">Theo loại</label>
                             <div class="flex mx-auto w-[90%] pb-3 mt-3 border-b ">
