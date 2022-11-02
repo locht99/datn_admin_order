@@ -80,14 +80,19 @@ class OrderModel extends Model
                 'orders.total_price',
                 'order_statuses.status_name'
             );
-            // ->orWhereDate('orders.created_at', '>=', $params['from'])
-            // ->orWhereDate('orders.created_at', '<=', $params['to']);
-        
+        if ($params['from']) {
+            $orders->where('orders.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $orders->where('orders.created_at', '<=', $params['to']);
+        }
+
+
         if ($params['username']) {
-            $orders->orWhere('users.username', $params['username']);
+            $orders->Where('users.username', 'like', '%' . $params['username'] . '%');
         }
         if ($params['status']) {
-            $orders->orWhere('order_statuses.id', '=', $params['status']);
+            $orders->Where('order_statuses.id', '=', $params['status']);
         }
         $data = [
             "total_status" => $total_status_orders,

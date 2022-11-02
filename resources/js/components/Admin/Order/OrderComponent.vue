@@ -80,6 +80,7 @@
         </div>
         <Filter
             v-on:filter_action="updateOpenFilter($event)"
+            v-on:values_filter="searchOrders($event)"
             :filter="this.openFilter"
             :styleFilter="this.styleFilter"
         />
@@ -110,6 +111,7 @@ export default {
             to: null,
             data: [],
             dataStatus: [],
+            params: [],
             status: [
                 {
                     name: "Đã đặt cọc",
@@ -171,9 +173,8 @@ export default {
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
-            getAll({
-                page: page,
-            })
+            this.params = {...this.params, page: page}
+            getAll(this.params)
                 .then((res) => {
                     const { data } = res;
                     this.data = data.orders.data;
@@ -191,6 +192,10 @@ export default {
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
             console.log(newVal)
+        },
+        searchOrders(data){
+            this.params = data
+            this.getListOrder()
         },
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {

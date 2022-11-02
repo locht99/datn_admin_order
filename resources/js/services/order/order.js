@@ -1,7 +1,7 @@
 import config from '../../config/config.js';
 const url = 'orders';
 export const getAll = (params) => {
-    return config.get(url+'?page='+params.page, params);
+    return config.get(url,{params});
 }
 export const get = (params) => {
     return config.get("detail-order?id="+params.id);
