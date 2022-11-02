@@ -92,6 +92,7 @@ import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
 export default {
+    props: ["values_filter"],
     components: {
         Loading,
         Filter,
@@ -189,6 +190,7 @@ export default {
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
+            console.log(newVal)
         },
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {

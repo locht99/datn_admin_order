@@ -8,9 +8,9 @@
                     <p class="text-gray-800 font-medium py-3">
                         Chi tiết đơn hàng #{{ order_id }}
                     </p>
-                    <div>
-                        <p class="ml-10">Trạng thái:</p>
-                        <select v-model="status_id" @change="updateStatus($event)">
+                    <div class="flex items-center justify-center">
+                        <p class="mx-5">Trạng thái:</p>
+                        <select class="h-10 rounded cursor-pointer" v-model="status_id" @change="updateStatus($event)">
                             <option value="1">Đã đặt cọc</option>
                             <option value="4">Đã mua hàng</option>
                             <option value="5">Shop giao hàng</option>
