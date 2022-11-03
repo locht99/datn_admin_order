@@ -45,7 +45,7 @@
                             <div class="flex mx-auto w-[90%] pb-3 mt-3 border-b ">
                                 <select class="w-full" v-model="status">
                                     <option selected disabled>Select Option</option>
-                                    <option v-for="item in this.data_status" :value="item.id">{{ item.type_name }}
+                                    <option v-for="(item, index) in this.data_status" :key="index" :value="item.id">{{ item.type_name }}
                                     </option>
                                 </select>
                             </div>

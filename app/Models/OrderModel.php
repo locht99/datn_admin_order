@@ -48,7 +48,6 @@ class OrderModel extends Model
             $data->orWhere('users.phone', '=', $params['phone']);
         }
         $orders = $data->paginate(10);
-        dd($orders);
         return $orders;
     }
 
@@ -80,14 +79,19 @@ class OrderModel extends Model
                 'orders.total_price',
                 'order_statuses.status_name'
             );
-            // ->orWhereDate('orders.created_at', '>=', $params['from'])
-            // ->orWhereDate('orders.created_at', '<=', $params['to']);
-        
+        if ($params['from']) {
+            $orders->where('orders.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $orders->where('orders.created_at', '<=', $params['to']);
+        }
+
+
         if ($params['username']) {
-            $orders->orWhere('users.username', $params['username']);
+            $orders->Where('users.username', 'like', '%' . $params['username'] . '%');
         }
         if ($params['status']) {
-            $orders->orWhere('order_statuses.id', '=', $params['status']);
+            $orders->Where('order_statuses.id', '=', $params['status']);
         }
         $data = [
             "total_status" => $total_status_orders,
@@ -108,10 +112,10 @@ class OrderModel extends Model
     public function detailOrder($params)
     {
         $order = DB::table('orders')
-            ->join('order_products', 'order_products.order_id', '=', 'orders.id')
-            ->join('users', 'users.id', '=', 'order_products.user_id')
-            ->join('packets', 'packets.order_id', 'orders.id')
-            ->join('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
+            ->leftJoin('order_products', 'order_products.order_id', '=', 'orders.id')
+            ->leftJoin('users', 'users.id', '=', 'order_products.user_id')
+            ->leftJoin('packets', 'packets.order_id', 'orders.id')
+            ->leftJoin('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
             ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
             ->where('orders.id', '=', $params['id'])
             ->get();
