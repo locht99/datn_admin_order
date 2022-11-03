@@ -183,12 +183,9 @@ class PacketController extends Controller
             ]);
         }
 
-        $order_items = $request->order_items ?? null;
+        $order_items = $request->order_valid ?? null;
         if (!$order_items) {
-            return response()->json([
-                'error' => true,
-                'message' => 'Vui lòng thêm đơn hàng vào bao hàng!'
-            ]);
+            return response()->json(['order_null' => 'Vui lòng thêm đơn hàng vào bao hàng!']);
         } else {
             // Check order
             foreach ($order_items as $value) {
@@ -237,7 +234,7 @@ class PacketController extends Controller
                 $packetNew = AdminPacketItemModel::create($data_admin_packet_item);
             }
 
-            return $this->show($new_packet->id);
+            return response()->json(['success' => 'Tạo bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,
@@ -347,7 +344,7 @@ class PacketController extends Controller
                 ]);
             }
 
-            if (!$request->order_items) {
+            if (!$request->order_valid) {
                 return response()->json(['order_null' => 'Vui lòng thêm đơn hàng vào bao hàng!']);
             }
             $data_admin_packet = [
@@ -365,7 +362,7 @@ class PacketController extends Controller
             ];
             AdminPacketModel::find($id)
                 ->update($data_admin_packet);
-            foreach ($request->order_items as $value) {
+            foreach ($request->order_valid as $value) {
                 if (!$value['id']) {
                     $data_admin_packet_item = [
                         'order_id' => $value['order_id'],
@@ -375,7 +372,7 @@ class PacketController extends Controller
                     AdminPacketItemModel::create($data_admin_packet_item);
                 }
             }
-            return $this->show($id);
+            return response()->json(['success' => 'Chỉnh sửa bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,

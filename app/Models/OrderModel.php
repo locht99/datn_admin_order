@@ -118,4 +118,9 @@ class OrderModel extends Model
 
         return $order;
     }
+
+    public function updateOrderStatus($packetId)
+    {
+        
+    }
 }

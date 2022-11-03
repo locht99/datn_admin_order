@@ -44,12 +44,12 @@ return [
         'lost' => 14,
     ],
     'admin_packet_status' => [
-        1 => 'Kho nhận hàng',
-        2 => 'Vận chuyển',
-        3 => 'Chờ giao',
-        4 => 'Chờ yêu cầu giao',
-        5 => 'Đang giao',
-        6 => 'Đã giao'
+        6 => 'Kho nhận hàng',
+        7 => 'Vận chuyển',
+        8 => 'Chờ giao',
+        9 => 'Chờ yêu cầu giao',
+        10 => 'Đang giao',
+        11 => 'Đã giao'
     ],
     'admin_role' => [
         'admin' => 1,
