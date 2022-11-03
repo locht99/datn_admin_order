@@ -27,12 +27,12 @@
                         <div
                             v-for="data in dataStatus"
                             :key="data.id"
-                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[15px] text-[13px] cursor-pointer"
+                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[10px] text-[13px] cursor-pointer"
                         >
                             <button>
                                 {{ data.status_name }}
                             </button>
-                            <div class="bg-white text-black rounded">{{ data.total_status }}</div>
+                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status }}</div>
                         </div>
                     </div>
                     <table
@@ -57,7 +57,7 @@
                             >
                                 <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
                                 <td>
-                                    <router-link :to="{path: 'orderdetail/'+item.id}">#{{ item.id }}</router-link>
+                                    <router-link :to="{path: 'orderdetail/'+item.id}" class="hover:underline text-red-600">#{{ item.id }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>

@@ -113,10 +113,10 @@ class OrderModel extends Model
     public function detailOrder($params)
     {
         $order = DB::table('orders')
-            ->join('order_products', 'order_products.order_id', '=', 'orders.id')
-            ->join('users', 'users.id', '=', 'order_products.user_id')
-            ->join('packets', 'packets.order_id', 'orders.id')
-            ->join('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
+            ->leftJoin('order_products', 'order_products.order_id', '=', 'orders.id')
+            ->leftJoin('users', 'users.id', '=', 'order_products.user_id')
+            ->leftJoin('packets', 'packets.order_id', 'orders.id')
+            ->leftJoin('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
             ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
             ->where('orders.id', '=', $params['id'])
             ->get();
