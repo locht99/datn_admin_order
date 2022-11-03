@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </header>
-                <main class="w-full">
+                <main class="w-full-custom">
                     <router-view></router-view>
                 </main>
                 <footer>

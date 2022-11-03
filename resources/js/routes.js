@@ -8,6 +8,7 @@ import ChineseMoney from "./components/Admin/ChineseMoney/ChineseMoneyComponent"
 import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
 import ListBag from './components/Admin/Bag/ListBagComponent.vue';
 import AddBag from './components/Admin/Bag/AddBagComponent.vue';
+import EditBag from './components/Admin/Bag/EditBagComponent.vue';
 import Order from './components/Admin/Order/OrderComponent.vue';
 import OrderDetail from './components/Admin/Order/OrderDetailComponent.vue';
 import Package from './components/Admin/Order/PackageComponent.vue';
@@ -53,6 +54,10 @@ const routes = [
             {
                 path: '/bag/add',
                 component: AddBag
+            },
+            {
+                path: '/bag/:id/edit',
+                component: EditBag
             },
             {
                 path: '/order',
