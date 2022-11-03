@@ -8,6 +8,7 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\TestController;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 //public api
 Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
 // protected api
+Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
 Route::middleware('auth:api')->group(function () {
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
