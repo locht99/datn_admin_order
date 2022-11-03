@@ -1,10 +1,11 @@
 import config from '../../config/config.js';
 const url = 'orders';
+const  detail_order_url = 'detail-order'
 export const getAll = (params) => {
-    return config.get(url+'?page='+params.page, params);
+    return config.get(url,{params});
 }
 export const get = (params) => {
-    return config.get("detail-order?id="+params.id);
+    return config.get(detail_order_url, {params});
 }
 export const insert = (data) => {
     return config.post(url, data);
