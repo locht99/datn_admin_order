@@ -48,7 +48,6 @@ class OrderModel extends Model
             $data->orWhere('users.phone', '=', $params['phone']);
         }
         $orders = $data->paginate(10);
-        dd($orders);
         return $orders;
     }
 
