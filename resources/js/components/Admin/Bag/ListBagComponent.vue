@@ -112,8 +112,7 @@
                         </tbody>
                     </table>
                     <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
-                        @pagination-change-page="getPackets">
-                    </Pagination>
+                    @pagination-change-page="getPackets"></Pagination>
                 </div>
                 <div v-else class="m-2">
                     <i class="text-gray-500">Không tồn tại bao hàng bạn cần tìm!</i>
@@ -125,6 +124,7 @@
 </template>
 <script>
 import Loading from 'vue-loading-overlay';
+import Pagination from '../../pagination/Pagination.vue';
 export default {
     data() {
         return {
@@ -145,6 +145,7 @@ export default {
 
     components: {
         Loading,
+        Pagination
     },
 
     methods: {
