@@ -23,7 +23,6 @@
                                 <option value="">Vui lòng chọn kho hàng</option>
                                 <option value="1">Hà Nội</option>
                                 <option value="2">Sài Gòn</option>
-                                <option value="3">Đà Nẵng</option>
                             </select>
                         </div>
                         <p v-if="errors.warehouse_id" class="text-red-600 col-span-12 text-right">

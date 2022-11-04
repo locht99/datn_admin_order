@@ -27,7 +27,6 @@
                                 <option value="">Vui lòng chọn kho hàng</option>
                                 <option value="1">Hà Nội</option>
                                 <option value="2">Sài Gòn</option>
-                                <option value="3">Đà Nẵng</option>
                             </select>
                         </div>
                         <p
@@ -217,9 +216,9 @@
                                 v-model="data.status_id"
                             >
                                 <option value="6">Kho nhận hàng</option>
-                                <option value="7">Vận chuyển</option>
+                                <!-- <option value="7">Vận chuyển</option>
                                 <option value="8">Chờ giao</option>
-                                <option value="9">Chờ yêu cầu giao</option>
+                                <option value="9">Chờ yêu cầu giao</option> -->
                             </select>
                         </div>
                     </div>
@@ -374,7 +373,7 @@ export default {
                 other_price: "",
                 wood_packing: false,
                 paid: false,
-                status_id: 1,
+                status_id: 6,
                 note: "",
                 orders: [],
                 order_valid: [],
