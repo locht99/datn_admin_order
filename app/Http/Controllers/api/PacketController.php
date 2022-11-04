@@ -27,11 +27,13 @@ class PacketController extends Controller
     public function __construct(
         WareHouseModel $wareHouseModel,
         PacketModel $packetModel,
-        AdminPacketItemModel $adminPacketItemModel
+        AdminPacketItemModel $adminPacketItemModel,
+        OrderModel $orderModel
     ) {
         $this->wareHouseModel = $wareHouseModel;
         $this->packetModel = $packetModel;
         $this->adminPacketItemModel = $adminPacketItemModel;
+        $this->orderModel = $orderModel;
     }
 
     public function getPacket(Request $request)
@@ -232,6 +234,7 @@ class PacketController extends Controller
                     'waybill_code' => $value['code']
                 ];
                 $packetNew = AdminPacketItemModel::create($data_admin_packet_item);
+                $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
             }
 
             return response()->json(['success' => 'Tạo bao hàng thành công']);
@@ -371,6 +374,7 @@ class PacketController extends Controller
                     ];
                     AdminPacketItemModel::create($data_admin_packet_item);
                 }
+                $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
             }
             return response()->json(['success' => 'Chỉnh sửa bao hàng thành công']);
         } catch (\Throwable $th) {

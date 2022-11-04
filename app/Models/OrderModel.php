@@ -123,8 +123,27 @@ class OrderModel extends Model
         return $order;
     }
 
-    public function updateOrderStatus($packetId)
+    public function updateStatusOrderWithPacket($orderId, $statusId)
     {
+        DB::table('orders')
+            ->where('id', $orderId)
+            ->update(['order_status_id' => $statusId]);
         
+        // Update time change status
+        if ($statusId == 6) {
+            $this->updateTimeChangeStatus($orderId, 'time_receive');
+        }
+        if ($statusId == 7) {
+            $this->updateTimeChangeStatus($orderId, 'time_transport');
+        }
+       
+    }
+
+    public function updateTimeChangeStatus($orderId, $param)
+    {
+        $dateNow = date("Y-m-d H:i:s");
+        DB::table('packets')
+        ->where('order_id', $orderId)
+        ->update([$param => $dateNow]);
     }
 }
