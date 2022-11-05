@@ -78,9 +78,15 @@ class OrderModel extends Model
                 //'packets.code',
                 'orders.total_price',
                 'order_statuses.status_name'
-            )
-            ->orWhereDate('orders.created_at', '>=', $params['from'])
-            ->orWhereDate('orders.created_at', '<=', $params['to']);
+            );
+            
+            
+        if ($params['from']) {
+            $orders->orWhereDate('orders.created_at', '>=', $params['from']);
+        }
+        if ($params['to']) {
+            $orders->orWhereDate('orders.created_at', '<=', $params['to']);
+        }
         if ($params['username']) {
             $orders->orWhere('users.username', $params['username']);
         }
