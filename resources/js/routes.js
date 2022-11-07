@@ -59,7 +59,7 @@ const routes = [
                 component:Order
             },
             {
-                path: '/orderdetail',
+                path: '/orderdetail/:id',
                 component: OrderDetail
             },
             {
