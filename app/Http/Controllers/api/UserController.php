@@ -56,7 +56,7 @@ class UserController extends Controller
         }
         $data_resp = [
             'user_find' => $resp_find_user,
-            'resp_update' => $res
+            // 'resp_update' => $res
         ];
         return response()->json($data_resp, Response::HTTP_OK);
     }
