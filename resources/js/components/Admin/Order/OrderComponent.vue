@@ -49,9 +49,9 @@
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
-                                <td><button @click="actionCreateShiping()"
-                                        class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded">
-                                        Shiping
+                                <td><button @click="actionCreateShiping(item.id)"
+                                        class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
+                                        <font-awesome-icon icon="fa-solid fa-truck-fast" />
                                     </button></td>
                             </tr>
                         </tbody>
@@ -63,7 +63,9 @@
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
             :styleFilter="this.styleFilter" />
-        <AddShipingComponent v-if="this.showModal == true" :showModalAction="this.showModals"  v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
+        <AddShipingComponent v-if="this.showModal == true" 
+        :showModalAction="this.showModals"
+        v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
 
     </div>
 </template>
@@ -95,32 +97,6 @@ export default {
             to: null,
             data: [],
             dataStatus: [],
-            status: [
-                {
-                    name: "Đã đặt cọc",
-                },
-                {
-                    name: "Đã mua hàng",
-                },
-                {
-                    name: "Shop giao hàng",
-                },
-                {
-                    name: "Kho nhận hàng",
-                },
-                {
-                    name: "Vận chuyển",
-                },
-                {
-                    name: "Chờ giao",
-                },
-                {
-                    name: "Chờ giao yêu cầu",
-                },
-                {
-                    name: "Đang yêu cầu",
-                },
-            ],
             nameTable: [
                 {
                     name: "STT",
@@ -147,10 +123,13 @@ export default {
                     name: "TÌNH TRẠNG",
                 },
                 {
-                    name: "THAO TAC",
+                    name: "THAO TÁC",
                 },
             ],
         };
+    },
+    childInterface: {
+        getOrderId: (item) => { }
     },
     mounted() {
         this.getListOrder();
@@ -161,8 +140,7 @@ export default {
             this.isLoading = true;
             getAll({
                 page: page,
-            })
-                .then((res) => {
+            }).then((res) => {
                     const { data } = res;
                     this.data = data.orders.data;
                     this.dataPagination = data.orders;
@@ -188,10 +166,11 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         },
-        actionCreateShiping() {
-            this.showModal = true
+        actionCreateShiping(order_id) {
+            this.showModal = true;
             this.showModals = !this.showModals;
-        }
+        },
+        
     },
 };
 </script>

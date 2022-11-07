@@ -1,5 +1,4 @@
 import config from '../../config/config.js';
-import config_ghn from '../../config/config_ghn.js';
 const url = 'orders';
 export const getAll = (params) => {
     return config.get(url + '?page=' + params.page, params);
@@ -15,7 +14,4 @@ export const update = (id, data) => {
 }
 export const destroy = (id) => {
     return config.delete(`${url}/${id}`);
-}
-export const createShipingGhn = (params) => {
-    return config_ghn.post(`create`, params)
 }
