@@ -1013,6 +1013,10 @@ input:checked + .toggle-bg {
   bottom: 60px;
 }
 
+.top-\[75px\] {
+  top: 75px;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -1031,6 +1035,10 @@ input:checked + .toggle-bg {
 
 .z-30 {
   z-index: 30;
+}
+
+.z-\[999\] {
+  z-index: 999;
 }
 
 .col-span-2 {
@@ -1055,6 +1063,10 @@ input:checked + .toggle-bg {
 
 .float-right {
   float: right;
+}
+
+.float-left {
+  float: left;
 }
 
 .m-auto {
@@ -1279,8 +1291,8 @@ input:checked + .toggle-bg {
   height: 4rem;
 }
 
-.h-screen {
-  height: 100vh;
+.h-\[1000px\] {
+  height: 1000px;
 }
 
 .h-full {
@@ -1297,6 +1309,10 @@ input:checked + .toggle-bg {
 
 .h-\[50px\] {
   height: 50px;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .h-\[593px\] {
@@ -1329,6 +1345,10 @@ input:checked + .toggle-bg {
 
 .h-0 {
   height: 0px;
+}
+
+.h-\[100vh\] {
+  height: 100vh;
 }
 
 .h-24 {
@@ -1568,6 +1588,10 @@ input:checked + .toggle-bg {
 
 .resize {
   resize: both;
+}
+
+.list-none {
+  list-style-type: none;
 }
 
 .appearance-none {
@@ -2239,6 +2263,11 @@ input:checked + .toggle-bg {
   font-size: 14px;
 }
 
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .font-semibold {
   font-weight: 600;
 }
@@ -2580,6 +2609,11 @@ input:checked + .toggle-bg {
 .hover\:bg-blue-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 66 159 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .hover\:text-gray-700:hover {

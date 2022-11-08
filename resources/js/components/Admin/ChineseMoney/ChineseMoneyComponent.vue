@@ -57,12 +57,12 @@
                 @pagination-change-page="getAllChinese"></Pagination>
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter"
-            :dataType="this.chinese.type" @function="getAllChinese" />
+            :dataType="chinese.type" @function="getAllChinese" />
     </div>
     <div :class="isLoading == false ? 'block' : 'hidden'">
         <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese"
             v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
-            :dataTypeChina="this.chinese.type">
+            :dataTypeChina="chinese.type">
         </AddMoneyChinaComponent>
     </div>
 </template>
@@ -109,6 +109,7 @@ export default {
     methods: {
         open_filter() {
             this.openFilter = !this.openFilter;
+            console.log('data');
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
                 this.chinese.type = data.admin_type_transactions_chinese;
@@ -125,6 +126,7 @@ export default {
             this.isLoading = true;
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
+                console.log(data);
                 this.chinese.type = data.admin_type_transactions_chinese;
             }).finally(() => {
                 this.isLoading = false;

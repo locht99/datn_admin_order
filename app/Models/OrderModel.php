@@ -34,7 +34,7 @@ class OrderModel extends Model
                 'order_statuses.status_name',
                 'orders.created_at'
             )
-            ->orderByDesc('orders.created_at');
+            ->orderBy('orders.created_at','desc');
         if ($params['from']) {
             $data->orWhereDate('orders.created_at', '>=', $params['from']);
         }
