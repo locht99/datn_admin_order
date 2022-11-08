@@ -60,7 +60,7 @@
                         type="button" v-on:click="toggleModal()">
                         Đóng
                     </button>
-                    <button :disabled="v$.form.$invalid" v-on:click="createPartner()"
+                    <button style="background:red" :disabled="v$.form.$invalid" v-on:click="createPartner()"
                     class=" bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button">
                         Lưu thay đổi
