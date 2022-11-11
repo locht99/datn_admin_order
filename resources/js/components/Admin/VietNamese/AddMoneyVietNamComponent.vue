@@ -45,7 +45,7 @@
                                             </div>
                                             <div class="relative"><label for="">Ngày</label>
                                                 <Datepicker name="admin_transactions[date]" type="text"
-                                                    v-model="data.date"
+                                                    v-model="data.date" disabled
                                                     class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100" />
                                             </div>
                                             <div><label for="">Số tiền</label><input name="admin_transactions_point"
@@ -91,7 +91,8 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { insert } from '../../../services/VietNamese';
-import Datepicker from 'vue3-datepicker'
+import Datepicker from 'vue3-datepicker';
+import { ref } from 'vue';
 export default {
     data() {
         return {
@@ -101,7 +102,7 @@ export default {
             backGroundcolor: '#E93B3B',
             data: {
                 type: 0,
-                date: new Date(),
+                date: ref(new Date()),
                 point_vn: 0,
                 content: ''
             },

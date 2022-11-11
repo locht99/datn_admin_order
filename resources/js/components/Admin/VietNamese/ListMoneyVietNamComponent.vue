@@ -105,18 +105,20 @@
                                     </tbody>
                                 </table>
                                 <Pagination class="mx-3 my-3" v-if="paginationData.last_page > 1"
-                                :pagination="paginationData" :offset="5" @pagination-change-page="getListVietNamese">
-                            </Pagination>
+                                    :pagination="paginationData" :offset="5"
+                                    @pagination-change-page="getListVietNamese">
+                                </Pagination>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
                 <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
-                    :styleFilter="this.styleFilter" v-on:action_search="getListVietNamese" v-on:values_filter="getValueFilter" />
+                    :styleFilter="this.styleFilter" v-on:action_search="getListVietNamese"
+                    v-on:values_filter="getValueFilter" />
             </div>
-                <AddMoneyVietNam v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals"
-                    @foobar="getListVietNamese()" />
+            <AddMoneyVietNam v-on:showModal="updateOpenModal($event)" :showModalAction="this.showModals"
+                @foobar="getListVietNamese()" />
 
         </div>
     </transition>
@@ -174,8 +176,8 @@ export default {
         open_modal() {
             this.showModals = !this.showModals;
         },
-        getValueFilter($event){
-          this.dataFilter = $event;
+        getValueFilter($event) {
+            this.dataFilter = $event;
         },
         updateOpenModal(event) {
             this.showModals = !event;
@@ -183,7 +185,7 @@ export default {
         getListVietNamese(page = 1) {
             this.isLoading = true;
             this.page = page;
-
+            
             getAll({
                 params: {
                     phone: this.phone,
@@ -197,6 +199,8 @@ export default {
                 const { data } = response;
                 this.dataListVietNam = data.data;
                 this.paginationData = data.meta
+
+
 
             }).finally(() => {
                 this.isLoading = false;
