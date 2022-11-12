@@ -1,8 +1,7 @@
 <template>
-    <div class=" mt-7  ">
-        <nav>
+    <div class=" mt-7 ">
+        <nav class="h-[100vh]">
             <ul>
-
                 <li style="background-color:#E93B3B; " class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/">
                         <font-awesome-icon icon="fa fa-home" />
