@@ -1,10 +1,11 @@
 <template>
-    <div class="relative duration-300   ">
+    <div class="relative duration-300">
+        <loading v-model:active="is_loading" :color="backGroundcolor" />
         <div class="">
             <div class="flex justify-between items-center ">
                 <div class="title mx-5">
                     <h1 class="text-[#566a7f] text-[28px] font-[700]">Bao Hàng</h1>
-                </div>   
+                </div>
                 <div>
                     <div class="flex justify-between items-center mx-5">
                         <div class="p-3">
@@ -12,141 +13,171 @@
                                 class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white py-1 px-8 rounded ">+
                                 Tạo mới bao hàng</router-link>
                         </div>
-                        <div>
-                            <span class="text-[23px] cursor-pointer hover:bg-white px-4  rounded-full"
-                                @click="open_filter()">
-                                <button>
-                                    <font-awesome-icon icon="fas fa-sliders-h" />
-                                </button>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="py-2 inline-block ">
-                <div class="overflow-hidden rounded-t-[13px] bg-white w-[1250px]">
+                <form class="form-fillter" @submit="formSubmit($event)">
+                    <div class="packet-fillter grid grid-cols-12 gap-4">
+                        <div class="col-span-2">
+                            <label for="">Mã bao hàng</label>
+                            <input type="text" name="code" v-model="code"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="">Mã đơn hàng</label>
+                            <input type="text" name="order" v-model="order_id"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="">Mã vận đơn</label>
+                            <input type="text" v-model="waybill_code"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" />
+                        </div>
+                        <div>
+                            <label for="">Từ ngày</label>
+                            <input type="date" name="from" v-model="from"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" />
+                        </div>
+                        <div>
+                            <label for="">Đến ngày</label>
+                            <input type="date" name="to" v-model="to"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" />
+                        </div>
+                        <div>
+                            <label for="">Đóng gỗ</label>
+                            <select name="wood_packing" class="w-full border-gray-300 rounded my-2 px-2 py-0.5"
+                                v-model="is_wood_packing">
+                                <option value="">Tất cả</option>
+                                <option value="1">Có</option>
+                                <option value="0">Không</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="">Thanh toán</label>
+                            <select name="wood_packing" class="w-full border-gray-300 rounded my-2 px-2 py-0.5"
+                                v-model="is_paid">
+                                <option value="">Tất cả</option>
+                                <option value="1">Đã thanh toán</option>
+                                <option value="0">Chưa thanh toán</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="">&nbsp;</label>
+                            <button type="submit"
+                                class="w-full bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white rounded my-2 px-2 py-0.5">
+                                Tìm kiếm
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="overflow-hidden rounded-t-[13px] bg-white" v-if="packets.length > 0">
                     <table class="w-[100%] table-auto  border text-center">
                         <thead class="">
-                            <tr class="bg-[#FF3F3A]    uppercase leading-normal ">
-                                <th class="text-[14px] font-bold text-white  py-2 ">
-                                    STT
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2 ">
-                                    MÃ BAO HÀNG
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2 ">
-                                    ĐÓNG GỖ
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    GHI CHÚ
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    TỔNG TIỀN
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    TÌNH TRẠNG
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    THANH TOÁN
-                                </th>
-                                <th class="text-[14px] font-bold text-white  py-2">
-                                    KHÁC
-                                </th>
-
+                            <tr class="bg-[#FF3F3A] uppercase leading-normal text-white">
+                                <th scope="col" class="px-2 py-2">STT</th>
+                                <th scope="col" class="px-2 py-2">Mã bao hàng</th>
+                                <th scope="col" class="px-2 py-2">Đóng gỗ</th>
+                                <th scope="col" class="px-2 py-2">Ghi chú</th>
+                                <th scope="col" class="px-2 py-2">Tổng tiền</th>
+                                <th scope="col" class="px-2 py-2">Tình trạng</th>
+                                <th scope="col" class="px-2 py-2">Thanh toán</th>
+                                <th scope="col" class="px-2 py-2">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">1
+                            <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-100 odd:dark:bg-gray-800 even:dark:bg-gray-700"
+                                v-for="(item, index) in packets" :key="index">
+                                <th scope="row" class="px-2 py-2">{{ index + 1 }}</th>
+                                <td class="px-2 py-2">{{ item.code }}</td>
+                                <td class="px-2 py-2">
+                                    {{ item.wood_packing ? "có" : "không" }}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
-                                    PX20220731_0001
+                                <td class="px-2 py-2">{{ item.note }}</td>
+                                <td class="px-2 py-2">
+                                    {{ item.total_price }}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
-                                    Không
+                                <td class="px-2 py-2">{{ item.status_name }}</td>
+                                <td class="px-2 py-2">
+                                    {{
+                                            item.paid ? "đã thanh toán" : "chưa thanh toán"
+                                    }}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    Demo1
+                                <td class="px-2 py-2 text-blue-700 hover:text-blue-800 hover:underline cursor-pointer">
+                                    <a :href="'bag/' + item.id + '/edit'">
+                                        <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                    </a>
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    <a href="" class="hover:text-blue-900">1.400.000</a>
-
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    0
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    Chưa thanh toán
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    <a href="" class="hover:text-blue-900 font-bold hover:underline ">Sửa</a>
-                                </td>
-
                             </tr>
-                            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">1
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
-                                    PX20220731_0001
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
-                                    Không
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    Demo1
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    <a href="" class="hover:text-blue-900">1.400.000</a>
-
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    0
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    Chưa thanh toán
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                    <a href="" class="hover:text-blue-900 font-bold hover:underline ">Sửa</a>
-                                </td>
-
-                            </tr>
-
                         </tbody>
                     </table>
-                    <div class="p-10">
-
-                    </div>
+                    <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                    @pagination-change-page="getPackets"></Pagination>
+                </div>
+                <div v-else class="m-2">
+                    <i class="text-gray-500">Không tồn tại bao hàng bạn cần tìm!</i>
                 </div>
             </div>
-            <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
-                :styleFilter="this.styleFilter" />
         </div>
+
     </div>
 </template>
 <script>
-import Filter from '../Filter/FilterComponent.vue';
+import Loading from 'vue-loading-overlay';
+import Pagination from '../../pagination/Pagination.vue';
 export default {
     data() {
         return {
             openFilter: true,
-            styleFilter: ''
+            styleFilter: '',
+            is_loading: false,
+            waybill_code: null,
+            order_id: null,
+            code: null,
+            from: null,
+            to: null,
+            is_wood_packing: "",
+            is_paid: "",
+            pagination: {},
+            packets: {},
         }
     },
 
     components: {
-        Filter
+        Loading,
+        Pagination
     },
 
     methods: {
-        open_filter() {
-            this.openFilter = !this.openFilter;
-            this.styleFilter = 'translate-x-[-360px] duration-300 ';
+        formSubmit(e) {
+            e.preventDefault();
+            this.getPackets();
         },
-        updateOpenFilter(newVal) {
-            this.styleFilter = newVal;
-        }
-    }
-
+        getPackets(page = 1) {
+            this.is_loading = true;
+            axios.get("api/packets", {
+                params: {
+                    code: this.code,
+                    order_id: this.order_id,
+                    waybill_code: this.waybill_code,
+                    from: this.from,
+                    to: this.to,
+                    is_wood_packing: this.is_wood_packing,
+                    is_paid: this.is_paid,
+                    page: page,
+                },
+            })
+                .then((res) => {
+                    this.packets = res.data.data;
+                    this.pagination = res.data.meta;
+                })
+                .catch((error) => console.log(error))
+                .finally(() => (this.is_loading = false));
+        },
+    },
+    created() {
+        this.getPackets();
+    },
 }
 </script>
 <style>

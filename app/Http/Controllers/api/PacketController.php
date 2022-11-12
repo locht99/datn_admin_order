@@ -27,11 +27,13 @@ class PacketController extends Controller
     public function __construct(
         WareHouseModel $wareHouseModel,
         PacketModel $packetModel,
-        AdminPacketItemModel $adminPacketItemModel
+        AdminPacketItemModel $adminPacketItemModel,
+        OrderModel $orderModel
     ) {
         $this->wareHouseModel = $wareHouseModel;
         $this->packetModel = $packetModel;
         $this->adminPacketItemModel = $adminPacketItemModel;
+        $this->orderModel = $orderModel;
     }
 
     public function getPacket(Request $request)
@@ -183,12 +185,9 @@ class PacketController extends Controller
             ]);
         }
 
-        $order_items = $request->order_items ?? null;
+        $order_items = $request->order_valid ?? null;
         if (!$order_items) {
-            return response()->json([
-                'error' => true,
-                'message' => 'Vui lòng thêm đơn hàng vào bao hàng!'
-            ]);
+            return response()->json(['order_null' => 'Vui lòng thêm đơn hàng vào bao hàng!']);
         } else {
             // Check order
             foreach ($order_items as $value) {
@@ -235,9 +234,10 @@ class PacketController extends Controller
                     'waybill_code' => $value['code']
                 ];
                 $packetNew = AdminPacketItemModel::create($data_admin_packet_item);
+                $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
             }
 
-            return $this->show($new_packet->id);
+            return response()->json(['success' => 'Tạo bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,
@@ -347,7 +347,7 @@ class PacketController extends Controller
                 ]);
             }
 
-            if (!$request->order_items) {
+            if (!$request->order_valid) {
                 return response()->json(['order_null' => 'Vui lòng thêm đơn hàng vào bao hàng!']);
             }
             $data_admin_packet = [
@@ -365,7 +365,7 @@ class PacketController extends Controller
             ];
             AdminPacketModel::find($id)
                 ->update($data_admin_packet);
-            foreach ($request->order_items as $value) {
+            foreach ($request->order_valid as $value) {
                 if (!$value['id']) {
                     $data_admin_packet_item = [
                         'order_id' => $value['order_id'],
@@ -374,8 +374,9 @@ class PacketController extends Controller
                     ];
                     AdminPacketItemModel::create($data_admin_packet_item);
                 }
+                $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
             }
-            return $this->show($id);
+            return response()->json(['success' => 'Chỉnh sửa bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,

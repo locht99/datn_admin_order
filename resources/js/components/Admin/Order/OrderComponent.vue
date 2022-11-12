@@ -25,7 +25,7 @@
                             <button>
                                 {{ data.status_name }}
                             </button>
-                            <div class="bg-white text-black rounded">{{ data.total_status }}</div>
+                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status }}</div>
                         </div>
                     </div>
                     <table class="table-auto w-full border text-center bg-white">
@@ -41,7 +41,7 @@
                             <tr v-for="(item, index) in data" :key="index" class="hover:bg-gray-100 border-b">
                                 <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
                                 <td>
-                                    <router-link :to="{ path: 'orderdetail/' + item.id }">#{{ item.id }}</router-link>
+                                    <router-link :to="{path: 'orderdetail/'+item.id}" class="hover:underline text-red-600">#{{ item.id }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
@@ -78,6 +78,7 @@ import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
 import AddShipingComponent from "./AddShipingComponent.vue";
 export default {
+    props: ["values_filter"],
     components: {
         Loading,
         Filter,
@@ -144,9 +145,9 @@ export default {
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
-            getAll({
-                page: page,
-            }).then((res) => {
+            this.params = {...this.params, page: page}
+            getAll(this.params)
+                .then((res) => {
                     const { data } = res;
                     this.data = data.orders.data;
                     this.dataPagination = data.orders;
@@ -162,6 +163,11 @@ export default {
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
+            console.log(newVal)
+        },
+        searchOrders(data){
+            this.params = data
+            this.getListOrder()
         },
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {

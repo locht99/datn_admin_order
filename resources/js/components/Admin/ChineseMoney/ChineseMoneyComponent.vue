@@ -29,8 +29,8 @@
                     <tr class="px-2 text-left">
                         <th class="text-center">STT</th>
                         <th class="pl-5">NGÀY</th>
-                        <th class="">TÀI KHOẢN</th>
-                        <th>ĐƠN HÀNG</th>
+                        <!-- <th class="">TÀI KHOẢN</th>
+                        <th>ĐƠN HÀNG</th> -->
                         <th>LOẠI</th>
                         <th>NỘI DUNG</th>
                         <th>SỐ TIỀN</th>
@@ -43,9 +43,9 @@
                             {{ index + 1 + (this.page - 1) * 10 }}
                         </td>
                         <td class="pl-5">{{item.date}}</td>
-                        <td class="">{{item.username}}</td>
+                        <!-- <td class="">{{item.username}}</td>
 
-                        <td>{{item.order_code}}</td>
+                        <td>{{item.order_code}}</td> -->
                         <td>{{item.type_name}}</td>
                         <td>{{item.content}}</td>
                         <td >{{item.point_cn}}</td>
@@ -58,12 +58,12 @@
                 @pagination-change-page="getAllChinese"></Pagination>
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter" :styleFilter="this.styleFilter"
-            :dataType="this.chinese.type" @function="getAllChinese" />
+            v-on:action_search="getAllChinese" v-on:values_filter="getValueFilter" />
     </div>
     <div :class="isLoading == false ? 'block' : 'hidden'">
         <AddMoneyChinaComponent v-on:showModal="updateOpenModal($event)" @foobar="getAllChinese"
             v-on:isLoadingAll="updateIsLoading($event)" :showModalAction="this.showModals"
-            :dataTypeChina="this.chinese.type">
+            :dataTypeChina="chinese.type">
         </AddMoneyChinaComponent>
     </div>
 </template>
@@ -88,6 +88,7 @@ export default {
                 data: [],
                 type: Array
             },
+            arrFilter: [],
             phone: null,
             name: null,
             form: {},
@@ -122,10 +123,14 @@ export default {
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
         },
+        getValueFilter($event){
+              this.arrFilter = $event;
+        },
         open_modal() {
             this.isLoading = true;
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
+                console.log(data);
                 this.chinese.type = data.admin_type_transactions_chinese;
             }).finally(() => {
                 this.isLoading = false;
@@ -141,27 +146,19 @@ export default {
         getAllChinese(page = 1, formData = null) {
             this.isLoading = true;
             this.page = page;
-            let form = {...formData};
-            form.page = page;
-            if(page == 1){
-                window.localStorage.setItem("filter", JSON.stringify(form));
-            }
-            form = JSON.parse(window.localStorage.getItem("filter"));
+            
             getAll({
                 params: {
                     phone: this.phone,
-                    username: form ? form.name : null,
-                    from: form ? form.from : null,
-                    to: form ? form.to : null,
-                    type: form ? form.type : null,
-                    is_running: this.is_running,
-                    is_delete: this.is_delete,
-                    page: form.page,
+                    username: this.arrFilter.username,
+                    from: this.arrFilter.from,
+                    to: this.arrFilter.to,
+                    type: this.arrFilter.status,
+                    page: this.page,
                 },
             }).then((response) => {
                 const { data } = response;
                 this.chinese.data = data;
-                console.log(this.chinese.data);
                 this.pagination = data.meta
                 this.isLoading = false;
 

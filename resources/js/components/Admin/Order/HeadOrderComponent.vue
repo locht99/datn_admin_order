@@ -43,7 +43,7 @@
 export default {
     props: ["orderId", "date"],
     mounted(){
-        console.log(this.orderId, this.date)
+        
     }
     // setup() {
     //     const currentRoute = computed(() => {

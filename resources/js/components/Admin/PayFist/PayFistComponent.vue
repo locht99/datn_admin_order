@@ -67,7 +67,6 @@ export default {
             params: [],
             list_money: [],
             isLoading: true,
-
         };
     },
 
