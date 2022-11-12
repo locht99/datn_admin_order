@@ -49,7 +49,7 @@
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
-                                <td><button @click="actionCreateShiping(item.id)"
+                                <td><button @click="actionShipping(item.id)"
                                         class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
                                         <font-awesome-icon icon="fa-solid fa-truck-fast" />
                                     </button></td>
@@ -65,6 +65,7 @@
             :styleFilter="this.styleFilter" />
         <AddShipingComponent v-if="this.showModal == true" 
         :showModalAction="this.showModals"
+        :item="this.item" @interface="getChildOrder"
         v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
 
     </div>
@@ -83,8 +84,12 @@ export default {
         Pagination,
         AddShipingComponent
     },
+    childInterface: {
+        getIdOrder: (item) => { }
+    },
     data() {
         return {
+            item: Number,
             showModals: false,
             showModal: false,
             openFilter: true,
@@ -128,13 +133,14 @@ export default {
             ],
         };
     },
-    childInterface: {
-        getOrderId: (item) => { }
-    },
     mounted() {
         this.getListOrder();
     },
     methods: {
+        getChildOrder(childInterface) {
+            this.$options.childInterface = childInterface;
+
+        },
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
@@ -166,9 +172,11 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         },
-        actionCreateShiping(order_id) {
+        actionShipping(order_id) {
+            this.item = order_id
             this.showModal = true;
             this.showModals = !this.showModals;
+            this.$options.childInterface.getIdOrder(this.item);
         },
         
     },

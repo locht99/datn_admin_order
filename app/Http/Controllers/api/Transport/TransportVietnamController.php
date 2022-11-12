@@ -32,11 +32,27 @@ class TransportVietnamController extends Controller
             'height' => $request->height,
             'service_id' => $request->service_id,
             'service_type_id' => $request->service_type_id,
-            'order_code' => $request->order_code
+            'order_code' => $request->order_code,
+            'user_id' => $request->user_id
 
         ];
         $model = new TransportGhnModel();
         $resp = $model->createCheckingOrder($data);
         return response()->json($resp);
+    }
+
+    public function getOrderById(Request $request){
+        $data = DB::table('orders')->where("id", $request->id)->get();
+        return response()->json($data);
+    }
+    public function getAddressById(Request $request){
+        $data = DB::table('user_addresses')
+        ->join('users', 'users.id', '=', 'user_addresses.user_id')
+        ->select(
+            "users.phone",
+            "user_addresses.*"
+        )
+        ->where('user_addresses.id', $request->address_id)->get();
+        return response()->json($data);
     }
 }

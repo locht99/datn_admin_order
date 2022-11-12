@@ -27,9 +27,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
+Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
 Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
+Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
+
 Route::middleware('auth:api')->group(function () {
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
