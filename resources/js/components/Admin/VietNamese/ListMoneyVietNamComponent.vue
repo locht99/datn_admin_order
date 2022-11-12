@@ -66,10 +66,8 @@
                                     <tbody class="divide-y divide-gray-200">
                                         <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600"
                                             v-for="(item, index) in this.dataListVietNam" :key="index">
-                                            <td class="px-6 py-2 whitespace-nowrap text-sm font-bold text-gray-900 ">{{
-                                                    index +
-                                                    1
-                                            }}
+                                            <td class="font-bold text-center">
+                                                {{ index + 1 + (this.page - 1) * 10 }}
                                             </td>
                                             <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap ">
                                                 {{ item.date }}
@@ -185,7 +183,7 @@ export default {
         getListVietNamese(page = 1) {
             this.isLoading = true;
             this.page = page;
-            
+
             getAll({
                 params: {
                     phone: this.phone,
