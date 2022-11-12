@@ -10,10 +10,8 @@
                         </h1>
                     </div>
                     <div class="filter-order">
-                        <span
-                            class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
-                            @click="open_filter()"
-                        >
+                        <span class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
+                            @click="open_filter()">
                             <button>
                                 <font-awesome-icon icon="fas fa-sliders-h" />
                             </button>
@@ -21,40 +19,26 @@
                     </div>
                 </div>
                 <div class="main-order">
-                    <div
-                        class="status-table flex items-center bg-red-600 rounded-t-[10px]"
-                    >
-                        <div
-                            v-for="data in dataStatus"
-                            :key="data.id"
-                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[10px] text-[13px] cursor-pointer"
-                        >
+                    <div class="status-table flex items-center bg-red-600 rounded-t-[10px]">
+                        <div v-for="data in dataStatus" :key="data.id"
+                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[15px] text-[13px] cursor-pointer">
                             <button>
                                 {{ data.status_name }}
                             </button>
                             <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status }}</div>
                         </div>
                     </div>
-                    <table
-                        class="table-auto w-full border text-center bg-white"
-                    >
+                    <table class="table-auto w-full border text-center bg-white">
                         <thead>
                             <tr>
-                                <th
-                                    v-for="(dataTable, index) in nameTable"
-                                    :key="index"
-                                    class="border-b bg-gray-200 text-[15px]"
-                                >
+                                <th v-for="(dataTable, index) in nameTable" :key="index"
+                                    class="border-b bg-gray-200 text-[15px]">
                                     {{ dataTable.name }}
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                v-for="(item, index) in data"
-                                :key="index"
-                                class="hover:bg-gray-100 border-b"
-                            >
+                            <tr v-for="(item, index) in data" :key="index" class="hover:bg-gray-100 border-b">
                                 <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
                                 <td>
                                     <router-link :to="{path: 'orderdetail/'+item.id}" class="hover:underline text-red-600">#{{ item.id }}</router-link>
@@ -65,25 +49,25 @@
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
+                                <td><button @click="actionShipping(item.id)"
+                                        class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
+                                        <font-awesome-icon icon="fa-solid fa-truck-fast" />
+                                    </button></td>
                             </tr>
                         </tbody>
                     </table>
-                    <Pagination
-                        v-if="dataPagination.last_page > 1"
-                        class="mx-3 my-3"
-                        :pagination="dataPagination"
-                        :offset="5"
-                        @pagination-change-page="getListOrder"
-                    ></Pagination>
+                    <Pagination v-if="dataPagination.last_page > 1" class="mx-3 my-3" :pagination="dataPagination"
+                        :offset="5" @pagination-change-page="getListOrder"></Pagination>
                 </div>
             </div>
         </div>
-        <Filter
-            v-on:filter_action="updateOpenFilter($event)"
-            v-on:values_filter="searchOrders($event)"
-            :filter="this.openFilter"
-            :styleFilter="this.styleFilter"
-        />
+        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
+            :styleFilter="this.styleFilter" />
+        <AddShipingComponent v-if="this.showModal == true" 
+        :showModalAction="this.showModals"
+        :item="this.item" @interface="getChildOrder"
+        v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
+
     </div>
 </template>
 <script>
@@ -92,15 +76,23 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
+import AddShipingComponent from "./AddShipingComponent.vue";
 export default {
     props: ["values_filter"],
     components: {
         Loading,
         Filter,
         Pagination,
+        AddShipingComponent
+    },
+    childInterface: {
+        getIdOrder: (item) => { }
     },
     data() {
         return {
+            item: Number,
+            showModals: false,
+            showModal: false,
             openFilter: true,
             styleFilter: "",
             isLoading: true,
@@ -111,33 +103,6 @@ export default {
             to: null,
             data: [],
             dataStatus: [],
-            params: [],
-            status: [
-                {
-                    name: "Đã đặt cọc",
-                },
-                {
-                    name: "Đã mua hàng",
-                },
-                {
-                    name: "Shop giao hàng",
-                },
-                {
-                    name: "Kho nhận hàng",
-                },
-                {
-                    name: "Vận chuyển",
-                },
-                {
-                    name: "Chờ giao",
-                },
-                {
-                    name: "Chờ giao yêu cầu",
-                },
-                {
-                    name: "Đang yêu cầu",
-                },
-            ],
             nameTable: [
                 {
                     name: "STT",
@@ -163,6 +128,9 @@ export default {
                 {
                     name: "TÌNH TRẠNG",
                 },
+                {
+                    name: "THAO TÁC",
+                },
             ],
         };
     },
@@ -170,6 +138,10 @@ export default {
         this.getListOrder();
     },
     methods: {
+        getChildOrder(childInterface) {
+            this.$options.childInterface = childInterface;
+
+        },
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
@@ -203,7 +175,19 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        updateOpenModal(event) {
+            this.showModals = !event;
+        },
+        actionShipping(order_id) {
+            this.item = order_id
+            this.showModal = true;
+            this.showModals = !this.showModals;
+            this.$options.childInterface.getIdOrder(this.item);
+        },
+        
     },
 };
 </script>
-<style></style>
+<style>
+
+</style>

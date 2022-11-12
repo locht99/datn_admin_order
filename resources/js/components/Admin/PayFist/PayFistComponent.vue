@@ -44,8 +44,8 @@
                     </tr>
                 </tbody>
             </table>
-            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination"
-                :offset="5" @pagination-change-page="actionMoney"></Pagination>
+            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                @pagination-change-page="actionMoney"></Pagination>
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" v-on:values_filter="getValueFilter($event)"
             v-on:action_search="actionMoney()" :filter="this.openFilter" :styleFilter="this.styleFilter" />
@@ -53,7 +53,7 @@
 </template>
 <script>
 import Filter from "../Filter/FilterComponent";
-import { getAllMoney } from "../../../services/Money/money";
+import { createOrderGhn, getAllMoney } from "../../../services/Money/money.js";
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
