@@ -63,11 +63,11 @@
                                         {{ data[0]?.code ?? "Chưa xác định" }}
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     Shop đặt hàng:
                                     <span v-for="item in listShop" :key="item.id">{{ item }}.
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="w-[40%] p-3">
@@ -224,9 +224,9 @@ export default {
                 id: this.order_id,
             }).then((res) => {
                 this.data = res.data;
-
                 this.data.forEach((item) => {
                     this.total_price = item.total_price;
+                    this.price = item.total_price_order;
                     // this.feeOrder =item.express_shipping_fee+item.global_shipping_fee+item.inventory_fee+item.purchase_fee
                     express_shipping_fee = item.express_shipping_fee;
                     inventory_fee = item.global_shipping_fee;
@@ -242,7 +242,6 @@ export default {
                 });
                 this.listShop = [...new Set(this.listShop)];
                 this.feeOrder = +express_shipping_fee + +inventory_fee + +purchase_fee;
-                this.price = this.feeOrder + +this.total_price;
             });
         },
         updateStatus(event) {
