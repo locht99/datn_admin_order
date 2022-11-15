@@ -44,40 +44,62 @@ class User extends Authenticatable
     public function getUsers($params)
     {
         $users = DB::table('users')
+            ->join('user_addresses', 'users.id', 'user_addresses.user_id')
             ->select(
-                'id',
-                'username',
+                'users.id',
+                'users.username',
                 'email',
-                'phone',
+                'users.phone',
                 'point',
                 'is_delete',
                 'vip_level',
-                'created_at'
+                'users.created_at',
+                'province',
+                'district',
+                'ward',
+                'note as address_note'
             )->orderByDesc('users.created_at');
         if ($params['from']) {
-            $users->orWhereDate('orders.created_at', '>=', $params['from']);
+            $users->where('orders.created_at', '>=', $params['from']);
         }
         if ($params['to']) {
-            $users->orWhereDate('orders.created_at', '>=', $params['to']);
+            $users->where('orders.created_at', '<=', $params['to']);
         }
         if ($params['username']) {
-            $users->orWhere('users.username', 'like', "%{$params['username']}%");
+            $users->where('users.username', 'like', "%{$params['username']}%");
         }
         if ($params['phone']) {
-            $users->orWhere('users.phone', '=', $params['phone']);
+            $users->where('users.phone', '=', $params['phone']);
         }
         return $users->paginate(10);
     }
 
     public function updateUser($params)
     {
-        $user = DB::table('users')->find($params);
+        $user = DB::table('users')
+            ->join('user_addresses', 'users.id', 'user_addresses.user_id')
+            ->select(
+                'users.id',
+                'users.username',
+                'email',
+                'users.phone',
+                'point',
+                'is_delete',
+                'vip_level',
+                'users.created_at',
+                'province',
+                'district',
+                'ward',
+                'note as address_note'
+            )
+            ->where('users.id', $params)
+            ->first();
         return $user;
     }
 
     public function saveUpdateUser($params)
     {
-        $resp = DB::table('users')->where('id', '=', $params['id'])->update($params);
+        $resp = DB::table('users')->where('id', $params['id'])->update($params);
         return $resp;
     }
 }
