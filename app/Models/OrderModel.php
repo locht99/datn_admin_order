@@ -120,7 +120,6 @@ class OrderModel extends Model
             ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
             ->where('orders.id', '=', $params['id'])
             ->get();
-        dd($order[0]);
 
         return $order;
     }
