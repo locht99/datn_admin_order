@@ -10,8 +10,8 @@ export const get = (params) => {
 export const insert = (data) => {
     return config.post(url, data);
 }
-export const update = (id, data) => {
-    return config.put(`${url}/${id}`, data);
+export const update = (params) => {
+    return config.post(update_url, params);
 }
 export const destroy = (id) => {
     return config.delete(`${url}/${id}`);

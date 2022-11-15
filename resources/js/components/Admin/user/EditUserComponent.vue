@@ -35,8 +35,8 @@
                                             <div class="w-[70%]">
                                                 <input name="admin_transactions_point" type="text"
                                                     class="w-full border-gray-300 rounded my-2 px-2 py-1"
-                                                    v-model="v$.form.username">
-                                                <div class="input-errors" v-for="(error, index) of v$.form.name.$errors"
+                                                    v-model="v$.form.username.$model">
+                                                <div class="input-errors" v-for="(error, index) of v$.form.username.$errors"
                                                     :key="index">
                                                     <div class="error-msg">{{ error.$message }}</div>
                                                 </div>
@@ -48,6 +48,7 @@
                                             </div>
                                             <div class="w-[70%]">
                                                 <input type="text"
+                                                    v-model="v$.form.phone.$model"
                                                     class="w-full border-gray-300 rouned my-2 px-2 py-1 rounded">
                                                  
                                                 <div class="input-errors"
@@ -58,23 +59,15 @@
                                         </div>
                                         <div class="flex items-center w-full">
                                             <div class="w-[30%]">
-                                                <label for="">Điểm</label>
+                                                <label for="">Số tiền</label>
                                             </div>
                                             <div class="w-[70%]">
-                                                <input type="text" v-model="v$.form.point"
+                                                <input type="text" v-model="v$.form.point.$model"
                                                     class="w-full border-gray-300 rouned my-2 px-2 py-1 rounded">
                                                 <div class="input-errors"
                                                     v-for="(error, index) of v$.form.point.$errors" :key="index">
                                                     <div class="error-msg">{{ error.$message }}</div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center w-full">
-                                            <div class="w-[30%]">
-                                                <label for="">Kích hoạt</label>
-                                            </div>
-                                            <div class="w-[70%]">
-                                                <input type="checkbox"  v-model="this.is_running" />
                                             </div>
                                         </div>
                                      
@@ -93,7 +86,7 @@
                             type="button" v-on:click="toggleModal()">
                             Đóng
                         </button>
-                        <button :disabled="v$.form.$invalid" v-on:click="updatePartner()"
+                        <button :disabled="v$.form.$invalid" v-on:click="updateUser()"
                             class=" bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button">
                             Lưu thay đổi
@@ -109,7 +102,7 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Datepicker from 'vue3-datepicker';
-import { update, get } from '../../../services/partner/partner.js';
+import { update, get } from '../../../services/user/user.js';
 import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 export default {
@@ -124,17 +117,16 @@ export default {
                 id: '',
                 username: '',
                 phone: Number,
-                point: '',
+                point: 0,
             },
-           
-
+            params: {}
 
         }
     },
     validations() {
         return {
             form: {
-                name: {
+                username: {
                     required
                 },
                 phone: {
@@ -162,28 +154,25 @@ export default {
         foobar: Function,
         isLoadingEdit: Boolean,
         item: Object,
-      
     },
     mounted() {
         // Emits on mount
         this.emitInterface();
-        console.log(this.item)
+        this.getUser(this.item)
     },
     methods: {
         toggleModal: function () {
             this.$emit('showModal', this.showModalAction);
         },
 
-        getPartner(item) {
+        getUser(item) {
             this.form = {...item}
         },
-        updatePartner() {
-            const form = {...this.form}
-            form.is_running =  this.is_running;
+        updateUser() {
             this.isLoading = true;
-            update(this.form.id, form).then((response) => {
+            this.params = {...this.form}
+            update(this.params).then((response) => {
                 const { error, message } = response.data;
-                console.log(message);
                 if (error) {
                     this.$swal(message.phone[0]);
                 } else {
@@ -200,9 +189,15 @@ export default {
         },
         emitInterface() {
             this.$emit("interface", {
-                getPartner: (item) => this.getPartner(item)
+                getPartner: (item) => this.getUser(item)
             });
-        }
+        },
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
 
     }
 }

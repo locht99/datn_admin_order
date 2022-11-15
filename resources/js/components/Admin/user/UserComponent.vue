@@ -70,8 +70,8 @@
             :userModule="true"
         />
     </div>
-    <EditUserComponent v-on:showModal="updateOpenModalEdit($event)" :showModalAction="this.showModalsUpdate"
-        @foobar="getAllUsers" :isLoadingEdit="this.isLoadingEdit" :item="this.item" @interface="getChildUser">
+    <EditUserComponent v-if="showModalsUpdate" v-on:showModal="updateOpenModalEdit($event)" :showModalAction="showModalsUpdate"
+        @foobar="getAllUsers" :isLoadingEdit="isLoadingEdit" :item="item" @interface="getChildUser">
     </EditUserComponent>
 </template>
 
@@ -97,9 +97,8 @@ export default {
             data: [],
             dataPagination: [],
             backGroundcolor: "#E93B3B",
-            params: [],
             params: {},
-            item: Object,
+            item: {},
             showModalsUpdate: false,
         };
     },

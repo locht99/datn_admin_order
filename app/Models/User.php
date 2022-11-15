@@ -99,7 +99,7 @@ class User extends Authenticatable
 
     public function saveUpdateUser($params)
     {
-        $resp = DB::table('users')->where('id', '=', $params['id'])->update($params);
+        $resp = DB::table('users')->where('id', $params['id'])->update($params);
         return $resp;
     }
 }
