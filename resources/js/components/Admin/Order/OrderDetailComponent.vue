@@ -43,7 +43,10 @@
                                     <p>Số điện thoại: {{ data[0]?.phone }}</p>
                                 </div>
                                 <div class="mb-3">
-                                    Địa chỉ: {{ data[0]?.address }}
+                                    Địa chỉ: {{ address.ward + ", " + address.district + ", " + address.province }}
+                                </div>
+                                <div class="mb-3">
+                                    Địa chỉ chi tiết: {{address.note}}
                                 </div>
                             </div>
                             <div class="border-b w-[95%] mx-auto"></div>
@@ -208,6 +211,12 @@ export default {
             total_price: 0,
             listShop: [],
             listWebsite: [],
+            address: {
+                district:"",
+                province:"",
+                ward:"",
+                note:""
+            }
         };
     },
     created() {
@@ -224,6 +233,11 @@ export default {
                 id: this.order_id,
             }).then((res) => {
                 this.data = res.data;
+                this.address.district = res.data[0].district;
+                this.address.province = res.data[0].province;
+                this.address.ward = res.data[0].ward;
+                this.address.note = res.data[0].note;
+
                 this.data.forEach((item) => {
                     this.total_price = item.total_price;
                     this.price = item.total_price_order;

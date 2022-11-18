@@ -115,11 +115,13 @@ class OrderModel extends Model
         $order = DB::table('orders')
             ->leftJoin('order_products', 'order_products.order_id', '=', 'orders.id')
             ->leftJoin('users', 'users.id', '=', 'order_products.user_id')
+            ->leftJoin("user_addresses","user_addresses.id","=","orders.address_id")
             ->leftJoin('packets', 'packets.order_id', 'orders.id')
             ->leftJoin('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
-            ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
+            ->select('orders.*',"user_addresses.province","user_addresses.district","user_addresses.ward","user_addresses.note","user_addresses.phone", 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
             ->where('orders.id', '=', $params['id'])
             ->get();
+        // dd($order[0]);
 
         return $order;
     }
