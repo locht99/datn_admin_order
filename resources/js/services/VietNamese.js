@@ -1,8 +1,8 @@
 import config from '../config/config.js';
 const url = '/vietnamese-transaction';
 
-export const getAll = () => {
-    return config.get(`${url}`);
+export const getAll = (param) => {
+    return config.get(`${url}`,param);
 }
 export const get = (id) => {
     return config.get(`${url}/${id}`);

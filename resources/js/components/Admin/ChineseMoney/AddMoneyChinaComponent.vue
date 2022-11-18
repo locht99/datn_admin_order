@@ -43,7 +43,7 @@
                                         <!--v-if-->
                                     </div>
                                     <div class="relative"><label for="">Ngày</label>
-                                        <Datepicker v-model="v$.form.date.$model"
+                                        <Datepicker v-model="v$.form.date.$model" disabled
                                             class="w-full border-gray-300 rounded my-2 px-2 py-1 bg-gray-100" />
                                         <div class="input-errors" v-for="(error, index) of v$.form.date.$errors"
                                             :key="index">

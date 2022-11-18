@@ -26,10 +26,11 @@
                             <img @click="isClickDisplayMenu"
                                 class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
                                 src="/images/avt.jpg" />
-
-                            <div :class="this.isDisplayProfile==false ? 'hidden' : 'block ease-in duration-300 '"
+                                <div
                                 class=" bg-white absolute text-base z-[999] float-left py-2 list-none text-left rounded shadow-lg min-w-48  right-0 top-[75px]">
-                                <a
+                            <Transition name="slide-fade">
+                                <div  v-if="isDisplayProfile">
+                                    <a
                                     class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                                     Thông tin </a>
                                 <a href="javascript:void(0);"
@@ -42,7 +43,11 @@
                                     href="javascript:void(0);" @click="logout"
 class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                                     Đăng xuất </a>
+                                </div>
+                            </Transition>
+
                             </div>
+
                         </div>
                     </div>
                 </header>
@@ -62,6 +67,20 @@ class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-n
 header .top .black_client i {
     line-height: 60px;
     cursor: pointer;
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
 }
 </style>
 
@@ -107,6 +126,6 @@ export default {
             this.$router.push('/login');
         }
     },
-    
+
 };
 </script>
