@@ -61,7 +61,6 @@
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
-                                <td>{{ item.source }}</td>
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
@@ -151,9 +150,7 @@ export default {
                 {
                     name: "TÀI KHOẢN",
                 },
-                {
-                    name: "WEBSITE",
-                },
+
                 {
                     name: "MÃ VẬN ĐƠN",
                 },

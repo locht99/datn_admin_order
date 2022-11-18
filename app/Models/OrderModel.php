@@ -86,13 +86,14 @@ class OrderModel extends Model
             $orders->where('orders.created_at', '<=', $params['to']);
         }
 
-
+       
         if ($params['username']) {
             $orders->Where('users.username', 'like', '%' . $params['username'] . '%');
         }
         if ($params['status']) {
             $orders->Where('order_statuses.id', '=', $params['status']);
         }
+        $orders->orderBy('orders.created_at','Desc');
         $data = [
             "total_status" => $total_status_orders,
             "orders" => $orders->paginate(15),
