@@ -14,7 +14,6 @@ class PartnerModel extends Model
     const CREATED_AT = "created_at";
     use HasFactory;
 
-    protected $table = "partners";
     
     protected $fillable = [
         'name',
@@ -24,5 +23,4 @@ class PartnerModel extends Model
         'is_delete'
     ];
 
-    const UPDATED_AT = null;
 }

@@ -43,10 +43,7 @@ class PartnerController extends Controller
             }
 
             $data = $partner->paginate(config('const.pagination.per_page'));
-
-            return response()->json([
-                'data' => PartnerResource::collection($data)
-            ]);
+            return  PartnerResource::collection($data);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => true,
@@ -135,6 +132,27 @@ class PartnerController extends Controller
 
             $partner->fill($data);
             $partner->save();
+            return response()->json([
+                'data' => $partner
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => true,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $partner = PartnerModel::findOrFail($id);
             return response()->json([
                 'data' => $partner
             ]);

@@ -1,5 +1,7 @@
 <template>
+
     <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative" v-if="$auth.check()">
+
         <div class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full overflow-x-hidden">
             <aside class=" w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative">
                 <div class="img mt-2 mb-4">
@@ -38,7 +40,7 @@
                                     Something else here </a>
                                 <div class=" h-0 my-2 border border-solid border-blueGray-100"></div><a
                                     href="javascript:void(0);" @click="logout"
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                                     Đăng xuất </a>
                             </div>
                         </div>
@@ -47,7 +49,7 @@
                 <main class="w-full">
                     <router-view></router-view>
                 </main>
-                <footer>
+                <footer class="pt-8">
                     <span class="text-[16px] absolute bottom-0 text-[#7e7373]">© 2022 , hệ thống được thiết kế và vận
                         hành bởi Order
                         Việt Trung</span>
@@ -56,7 +58,6 @@
         </div>
     </div>
 </template>
-
 <style lang="css" scoped>
 header .top .black_client i {
     line-height: 60px;
@@ -66,15 +67,19 @@ header .top .black_client i {
 
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
-// import Auth from '../config/auth.js'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
     setup() { },
     components: {
         MenuComponentVue,
+        Loading
     },
     data() {
         return {
-            isDisplayProfile: false
+            isDisplayProfile: false,
+            isLoading: true,
+            backGroundcolor: '#E93B3B',
         }
     },
     methods: {

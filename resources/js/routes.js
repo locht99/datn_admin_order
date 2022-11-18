@@ -4,15 +4,17 @@ import PayFist from "./components/Admin/PayFist/PayFistComponent"
 import User from "./components/Admin/user/UserComponent"
 import Partner from "./components/Admin/Partner/PartnerComponent"
 import Login from "./components/Auth/LoginComponent";
-import ChineseMoney from "./components/admin/ChineseMoney/ChineseMoneyComponent"
+import ChineseMoney from "./components/Admin/ChineseMoney/ChineseMoneyComponent"
 import ListMoneyVietNam from './components/Admin/VietNamese/ListMoneyVietNamComponent.vue';
 import ListBag from './components/Admin/Bag/ListBagComponent.vue';
 import AddBag from './components/Admin/Bag/AddBagComponent.vue';
+import EditBag from './components/Admin/Bag/EditBagComponent.vue';
 import Order from './components/Admin/Order/OrderComponent.vue';
 import OrderDetail from './components/Admin/Order/OrderDetailComponent.vue';
 import Package from './components/Admin/Order/PackageComponent.vue';
 import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
-import Fee from './components/Admin/Order/FeeComponent.vue'
+import Fee from './components/Admin/Order/FeeComponent.vue';
+import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
 const routes = [
     {
         path: "/",
@@ -54,11 +56,15 @@ const routes = [
                 component: AddBag
             },
             {
+                path: '/bag/:id/edit',
+                component: EditBag
+            },
+            {
                 path: '/order',
                 component:Order
             },
             {
-                path: '/orderdetail',
+                path: '/orderdetail/:id',
                 component: OrderDetail
             },
             {
@@ -76,6 +82,10 @@ const routes = [
             {
                 path: '/partner',
                 component: Partner
+            },
+            {
+                path: '/config-payment',
+                component: ConfigPayment
             }
         ],
     },
