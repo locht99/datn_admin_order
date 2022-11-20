@@ -102,7 +102,7 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Datepicker from 'vue3-datepicker';
-import { update, get } from '../../../services/user/user.js';
+import { update, get } from '../../../services/User/user.js';
 import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 export default {
