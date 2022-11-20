@@ -1139,6 +1139,11 @@ input:checked + .toggle-bg {
   margin-right: 0.25rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -1249,6 +1254,10 @@ input:checked + .toggle-bg {
 
 .ml-10 {
   margin-left: 2.5rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .block {
@@ -2127,11 +2136,6 @@ input:checked + .toggle-bg {
   padding-right: 10px;
 }
 
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
@@ -2140,6 +2144,11 @@ input:checked + .toggle-bg {
 .py-2\.5 {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .pt-8 {
@@ -2429,14 +2438,14 @@ input:checked + .toggle-bg {
   color: rgb(255 63 58 / var(--tw-text-opacity));
 }
 
-.text-blue-800 {
-  --tw-text-opacity: 1;
-  color: rgb(30 66 159 / var(--tw-text-opacity));
-}
-
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
+}
+
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 66 159 / var(--tw-text-opacity));
 }
 
 .text-green-500 {
@@ -2661,11 +2670,6 @@ input:checked + .toggle-bg {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.hover\:text-gray-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
-}
-
 .hover\:text-blue-900:hover {
   --tw-text-opacity: 1;
   color: rgb(35 56 118 / var(--tw-text-opacity));
@@ -2684,6 +2688,11 @@ input:checked + .toggle-bg {
 .hover\:text-gray-600:hover {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.hover\:text-gray-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -2861,7 +2870,7 @@ input:checked + .toggle-bg {
 }
 
 /*!
- * Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */
@@ -4731,6 +4740,10 @@ readers do not read off random characters that represent icons */
 
 .fa-v::before {
   content: "V";
+}
+
+.fa-bangladeshi-taka-sign::before {
+  content: "\e2e6";
 }
 
 .fa-bicycle::before {
@@ -8161,10 +8174,6 @@ readers do not read off random characters that represent icons */
   content: "\f068";
 }
 
-.fa-child-rifle::before {
-  content: "\e4e0";
-}
-
 .fa-chess::before {
   content: "\f439";
 }
@@ -9641,6 +9650,14 @@ readers do not read off random characters that represent icons */
   content: "\f14d";
 }
 
+.fa-child-combatant::before {
+  content: "\e4e0";
+}
+
+.fa-child-rifle::before {
+  content: "\e4e0";
+}
+
 .fa-gun::before {
   content: "\e19b";
 }
@@ -9875,6 +9892,10 @@ readers do not read off random characters that represent icons */
 
 .fa-hand-lizard::before {
   content: "\f258";
+}
+
+.fa-notdef::before {
+  content: "\e1fe";
 }
 
 .fa-disease::before {
@@ -11216,7 +11237,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */
@@ -11238,7 +11259,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */
@@ -11260,7 +11281,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */

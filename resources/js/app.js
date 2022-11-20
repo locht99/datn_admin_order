@@ -19,6 +19,8 @@ import { createAuth } from '@websanova/vue-auth';
 import driverAuthBearer from '@websanova/vue-auth/dist/drivers/auth/bearer.esm.js';
 import driverHttpAxios from '@websanova/vue-auth/dist/drivers/http/axios.1.x.esm.js';
 import driverRouterVueRouter from '@websanova/vue-auth/dist/drivers/router/vue-router.2.x.esm.js';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 const router = createRouter({
     history: createWebHistory(),
     routes,
@@ -90,4 +92,6 @@ var auth = createAuth({
 });
 
 app.use(auth);
+app.use(Antd);
+
 app.mount('#app')

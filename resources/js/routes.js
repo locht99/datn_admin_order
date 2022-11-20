@@ -16,6 +16,7 @@ import Package from './components/Admin/Order/PackageComponent.vue';
 import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
 import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
+import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
 const routes = [
     {
         path: "/",
@@ -71,6 +72,10 @@ const routes = [
             {
                 path: '/orderdetail/:id',
                 component: OrderDetail
+            },
+            {
+                 path:'/order/edit/:id',
+                 component: OrderEdit
             },
             {
                 path: '/orderdetail/package',

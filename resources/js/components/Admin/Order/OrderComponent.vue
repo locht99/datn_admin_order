@@ -10,10 +10,8 @@
                         </h1>
                     </div>
                     <div class="filter-order">
-                        <span
-                            class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
-                            @click="open_filter()"
-                        >
+                        <span class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
+                            @click="open_filter()">
                             <button>
                                 <font-awesome-icon icon="fas fa-sliders-h" />
                             </button>
@@ -21,30 +19,21 @@
                     </div>
                 </div>
                 <div class="main-order">
-                    <div
-                        class="status-table flex items-center bg-red-600 rounded-t-[10px]"
-                    >
-                        <div
-                            v-for="data in dataStatus"
-                            :key="data.id"
-                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[10px] text-[13px] cursor-pointer"
-                        >
+                    <div class="status-table flex items-center bg-red-600 rounded-t-[10px]">
+                        <div v-for="data in dataStatus" :key="data.id"
+                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[10px] text-[13px] cursor-pointer">
                             <button>
                                 {{ data.status_name }}
                             </button>
-                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status }}</div>
+                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status
+                            }}</div>
                         </div>
                     </div>
-                    <table
-                        class="table-auto w-full border text-center bg-white"
-                    >
+                    <table class="table-auto w-full border text-center bg-white">
                         <thead>
                             <tr>
-                                <th
-                                    v-for="(dataTable, index) in nameTable"
-                                    :key="index"
-                                    class="border-b bg-gray-200 text-[15px]"
-                                >
+                                <th v-for="(dataTable, index) in nameTable" :key="index"
+                                    class="border-b bg-gray-200 text-[15px]">
                                     {{ dataTable.name }}
                                 </th>
                             </tr>
@@ -57,32 +46,38 @@
                             >
                                 <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
-                                    <router-link :to="{path: 'orderdetail/'+item.id}" class="hover:underline text-red-600">#{{ item.id }}</router-link>
+                                    <router-link :to="{ path: 'orderdetail/' + item.id }"
+                                        class="hover:underline text-red-600">#{{ item.id }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
+                                <td>
+                                    <a-button type="primary" class="mx-2 my-2" light>
+                                        <router-link :to="{ path: 'orderdetail/' + item.id }">
+                                            <font-awesome-icon icon="fas fa-info-circle" />
+                                        </router-link>
+
+                                    </a-button>
+                                    <a-button type="primary" class="mx-2 " danger>
+                                        <router-link :to="{ path: 'order/edit/' + item.id }">
+                                            <font-awesome-icon icon="far fa-edit" />
+                                        </router-link>
+
+                                    </a-button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                    <Pagination
-                        v-if="dataPagination.last_page > 1"
-                        class="mx-3 my-3"
-                        :pagination="dataPagination"
-                        :offset="5"
-                        @pagination-change-page="getListOrder"
-                    ></Pagination>
+                    <Pagination v-if="dataPagination.last_page > 1" class="mx-3 my-3" :pagination="dataPagination"
+                        :offset="5" @pagination-change-page="getListOrder"></Pagination>
                 </div>
             </div>
         </div>
-        <Filter
-            v-on:filter_action="updateOpenFilter($event)"
-            v-on:values_filter="searchOrders($event)"
-            :filter="this.openFilter"
-            :styleFilter="this.styleFilter"
-        />
+        <Filter v-on:filter_action="updateOpenFilter($event)" v-on:values_filter="searchOrders($event)"
+            :filter="this.openFilter" :styleFilter="this.styleFilter" />
     </div>
 </template>
 <script>
@@ -160,6 +155,9 @@ export default {
                 {
                     name: "TÌNH TRẠNG",
                 },
+                {
+                    name: "KHÁC"
+                }
             ],
         };
     },
@@ -170,7 +168,7 @@ export default {
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
-            this.params = {...this.params, page: page}
+            this.params = { ...this.params, page: page }
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
@@ -190,7 +188,7 @@ export default {
             this.styleFilter = newVal;
             console.log(newVal)
         },
-        searchOrders(data){
+        searchOrders(data) {
             this.params = data
             this.getListOrder()
         },
@@ -203,4 +201,6 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+
+</style>

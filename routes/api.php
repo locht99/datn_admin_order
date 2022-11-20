@@ -38,6 +38,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/orders', [OrderController::class, 'getOrders']);//get
     Route::put('/edit-status-order',[OrderController::class, 'updateStatusOrder']);//update
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
+    Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
+    Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
