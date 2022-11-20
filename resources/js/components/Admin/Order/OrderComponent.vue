@@ -49,10 +49,7 @@
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
-                                <td><button @click="actionShipping(item.id)"
-                                        class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
-                                        <font-awesome-icon icon="fa-solid fa-truck-fast" />
-                                    </button></td>
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -63,10 +60,7 @@
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
             :styleFilter="this.styleFilter" />
-        <AddShipingComponent v-if="this.showModal == true" 
-        :showModalAction="this.showModals"
-        :item="this.item" @interface="getChildOrder"
-        v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
+        
 
     </div>
 </template>
@@ -76,17 +70,12 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
-import AddShipingComponent from "./AddShipingComponent.vue";
 export default {
     props: ["values_filter"],
     components: {
         Loading,
         Filter,
         Pagination,
-        AddShipingComponent
-    },
-    childInterface: {
-        getIdOrder: (item) => { }
     },
     data() {
         return {
@@ -127,10 +116,7 @@ export default {
                 },
                 {
                     name: "TÌNH TRẠNG",
-                },
-                {
-                    name: "THAO TÁC",
-                },
+                }
             ],
         };
     },
@@ -138,10 +124,6 @@ export default {
         this.getListOrder();
     },
     methods: {
-        getChildOrder(childInterface) {
-            this.$options.childInterface = childInterface;
-
-        },
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
@@ -177,13 +159,7 @@ export default {
         },
         updateOpenModal(event) {
             this.showModals = !event;
-        },
-        actionShipping(order_id) {
-            this.item = order_id
-            this.showModal = true;
-            this.showModals = !this.showModals;
-            this.$options.childInterface.getIdOrder(this.item);
-        },
+        }
         
     },
 };

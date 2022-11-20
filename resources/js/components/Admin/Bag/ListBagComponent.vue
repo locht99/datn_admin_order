@@ -89,7 +89,7 @@
                             <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-100 odd:dark:bg-gray-800 even:dark:bg-gray-700"
                                 v-for="(item, index) in packets" :key="index">
                                 <th scope="row" class="px-2 py-2">{{ index + 1 }}</th>
-                                <td class="px-2 py-2">{{ item.code }}</td>
+                                <td class="px-2 py-2"><router-link :to="'detail-bag/' + item.id">{{item.code}}</router-link></td>
                                 <td class="px-2 py-2">
                                     {{ item.wood_packing ? "có" : "không" }}
                                 </td>
@@ -104,9 +104,7 @@
                                     }}
                                 </td>
                                 <td class="px-2 py-2 text-blue-700 hover:text-blue-800 hover:underline cursor-pointer">
-                                    <a :href="'bag/' + item.id + '/edit'">
-                                        <i class="fa-solid fa-pen-to-square"></i> Sửa
-                                    </a>
+                                    <router-link :to="'bag/' + item.id + '/edit'"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></router-link>
                                 </td>
                             </tr>
                         </tbody>

@@ -7,9 +7,16 @@ use App\Models\OrderModel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function updatePriceOrder(Request $request)
+    {
+        $data = DB::table('orders')->where('id', '=', $request->id_order)
+            ->update(['total_price_order' => $request->total_price_order]);
+        return response()->json($request->id_order);
+    }
     public function getOrders(Request $request)
     {
         $search = [

@@ -33,7 +33,8 @@ class TransportVietnamController extends Controller
             'service_id' => $request->service_id,
             'service_type_id' => $request->service_type_id,
             'order_code' => $request->order_code,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'status_name'=> $request->status_name
 
         ];
         $model = new TransportGhnModel();

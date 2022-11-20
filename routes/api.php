@@ -42,7 +42,9 @@ Route::middleware('auth:api')->group(function () {
     //api don hang
     Route::get('/orders', [OrderController::class, 'getOrders']);//get
     Route::put('/edit-status-order',[OrderController::class, 'updateStatusOrder']);//update
+    Route::post('/update-price-order',[OrderController::class, 'updatePriceOrder']);//update
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
+
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
@@ -67,7 +69,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('admin-packets', PacketController::class)->only([
         'show', 'store', 'update', 'destroy'
     ]);
-
+    Route::get('detail-bag', [PacketController::class, 'showDetailBag']);
+    Route::get('status-bag', [PacketController::class, 'getStatusTrackingBag']);
     // api partner
     Route::resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'

@@ -16,10 +16,3 @@ export const update = (id, data) => {
 export const destroy = (id) => {
     return config.delete(`${url}/${id}`);
 }
-
-export const getOrder = (id) => {
-    return config.get(`get-order?id=` + id);
-}
-export const getInfoUser = (id) => {
-    return config.get(`get-info?address_id=` + id);
-}

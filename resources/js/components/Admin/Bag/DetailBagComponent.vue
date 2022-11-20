@@ -1,0 +1,104 @@
+<template>
+    <div class="pt-6 relative duration-300">
+        <loading v-model:active="isLoading" :color="backGroundcolor" />
+        <div class="flex justify-between">
+            <div class="title">
+                <h1 class="text-[#566a7f] text-[28px] font-[700]">
+                    Chi tiết bao hàng
+                </h1>
+                <div class="text-gray-500">
+                    <router-link to="/bag">Back</router-link>
+                </div>
+            </div>
+        </div>
+        <div class="main mt-6 bg-white">
+            <table class="w-full rounded-t-md overflow-hidden bg-white">
+                <thead class="bg-[#FF3F3A] text-white h-[40px] font-bold text-[16px]">
+                    <tr class="px-2 text-center">
+                        <th class="">ID</th>
+                        <th>MÃ ĐƠN HÀNG</th>
+                        <th class="pl-5">TÀI KHOẢN</th>
+                        <th>TỔNG TIỀN</th>
+                        <th>NGÀY ĐẶT HÀNG</th>
+                        <th>THAO TÁC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in this.data_bag_detail" :key="index" class="border-solid text-center border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
+                        <td class="font-bold">{{index +=1}}</td>
+                        <td>{{item.order_code}}</td>
+                        <td class="pl-5">{{item.username}}</td>
+                        <td>{{item.total_price}}</td>
+                        <td>{{item.created_at}}</td>
+                        <td><button @click="actionShipping(item.order_id)"
+                                class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
+                                <font-awesome-icon icon="fa-solid fa-truck-fast" />
+                            </button></td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <AddShipingComponent v-if="this.showModal == true" :showModalAction="this.showModals" :item="this.item"
+        @interface="getChildOrder" v-on:showModal="updateOpenModal($event)"></AddShipingComponent>
+</template>
+
+<script>
+import AddShipingComponent from "../Bag/AddShipingComponent.vue";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import { getDetailBag,checkStatusTrackingBag } from '../../../services/Bag/bag.js'
+export default {
+    components: {
+        AddShipingComponent,
+        Loading,
+    },
+    childInterface: {
+        getIdOrder: (item) => { }
+    },
+    data() {
+        return {
+            item: Number,
+            showModals: false,
+            showModal: false,
+            isLoading: true,
+            backGroundcolor: "#E93B3B",
+            data_bag_detail: [],
+        }
+    },
+    created() {
+        this.actionGetDetailBag();
+        this.actionCheckStatusBag();
+    },
+    methods: {
+        actionGetDetailBag(page = 1) {
+            this.page = page;
+            getDetailBag(this.$route.params.id).then((resp) => {
+                this.isLoading = false;
+                this.data_bag_detail = resp.data.data
+            })
+        },
+        getChildOrder(childInterface) {
+            this.$options.childInterface = childInterface;
+
+        },
+        actionCheckStatusBag(){
+            checkStatusTrackingBag(this.$route.params.id).then((resp) => {
+                console.log(resp)
+            })
+        },
+        updateOpenModal(event) {
+            this.showModals = !event;
+        },
+        actionShipping(order_id) {
+            this.item = order_id
+            this.showModal = true;
+            this.showModals = !this.showModals;
+            this.$options.childInterface.getIdOrder(this.item);
+        },
+
+    }
+}
+</script>

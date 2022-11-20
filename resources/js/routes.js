@@ -15,6 +15,7 @@ import Package from './components/Admin/Order/PackageComponent.vue';
 import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
 import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
+import DetailBag from './components/Admin/Bag/DetailBagComponent.vue'
 const routes = [
     {
         path: "/",
@@ -54,6 +55,10 @@ const routes = [
             {
                 path: '/bag/add',
                 component: AddBag
+            },
+            {
+                path: '/detail-bag/:id',
+                component: DetailBag
             },
             {
                 path: '/bag/:id/edit',
