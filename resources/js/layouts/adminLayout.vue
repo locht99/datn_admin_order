@@ -83,6 +83,6 @@ export default {
                 container.style.gridTemplateColumns = "30px 1fr";
             }
         },
-        },
+    },
 };
 </script>
