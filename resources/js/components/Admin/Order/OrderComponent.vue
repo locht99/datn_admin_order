@@ -86,17 +86,12 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
-import AddShipingComponent from "./AddShipingComponent.vue";
 export default {
     props: ["values_filter"],
     components: {
         Loading,
         Filter,
         Pagination,
-        AddShipingComponent
-    },
-    childInterface: {
-        getIdOrder: (item) => { }
     },
     data() {
         return {
@@ -146,10 +141,6 @@ export default {
         this.getListOrder();
     },
     methods: {
-        getChildOrder(childInterface) {
-            this.$options.childInterface = childInterface;
-
-        },
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
@@ -185,13 +176,7 @@ export default {
         },
         updateOpenModal(event) {
             this.showModals = !event;
-        },
-        actionShipping(order_id) {
-            this.item = order_id
-            this.showModal = true;
-            this.showModals = !this.showModals;
-            this.$options.childInterface.getIdOrder(this.item);
-        },
+        }
         
     },
 };
