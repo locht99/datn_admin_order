@@ -44,7 +44,7 @@ class User extends Authenticatable
     public function getUsers($params)
     {
         $users = DB::table('users')
-            ->join('user_addresses', 'users.id', 'user_addresses.user_id')
+            ->leftjoin('user_addresses', 'users.id', 'user_addresses.user_id')
             ->select(
                 'users.id',
                 'users.username',
@@ -54,10 +54,6 @@ class User extends Authenticatable
                 'is_delete',
                 'vip_level',
                 'users.created_at',
-                'province',
-                'district',
-                'ward',
-                'note as address_note'
             )->orderByDesc('users.created_at');
         if ($params['from']) {
             $users->where('orders.created_at', '>=', $params['from']);
@@ -71,6 +67,7 @@ class User extends Authenticatable
         if ($params['phone']) {
             $users->where('users.phone', '=', $params['phone']);
         }
+        $users->groupBy('users.id');
         return $users->paginate(10);
     }
 
