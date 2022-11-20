@@ -21,11 +21,12 @@
                 <div class="main-order">
                     <div class="status-table flex items-center bg-red-600 rounded-t-[10px]">
                         <div v-for="data in dataStatus" :key="data.id"
-                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[15px] text-[13px] cursor-pointer">
+                            class="w-full flex items-center hover:underline text-white hover:text-white py-1 px-[10px] text-[13px] cursor-pointer">
                             <button>
                                 {{ data.status_name }}
                             </button>
-                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status }}</div>
+                            <div class="bg-white text-black rounded-xl w-[25px] text-center ml-1">{{ data.total_status
+                            }}</div>
                         </div>
                     </div>
                     <table class="table-auto w-full border text-center bg-white">
@@ -38,18 +39,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in data" :key="index" class="hover:bg-gray-100 border-b">
-                                <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
+                            <tr
+                                v-for="(item, index) in data"
+                                :key="index"
+                                class="hover:bg-gray-100 border-b h-[52px] font-[16px]"
+                            >
+                                <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
-                                    <router-link :to="{path: 'orderdetail/'+item.id}" class="hover:underline text-red-600">#{{ item.id }}</router-link>
+                                    <router-link :to="{ path: 'orderdetail/' + item.id }"
+                                        class="hover:underline text-red-600">#{{ item.id }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
-                                <td>{{ item.source }}</td>
                                 <td>{{ item.code }}</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
-                                
+                                <td>
+                                    <a-button type="primary" class="mx-2 my-2" light>
+                                        <router-link :to="{ path: 'orderdetail/' + item.id }">
+                                            <font-awesome-icon icon="fas fa-info-circle" />
+                                        </router-link>
+
+                                    </a-button>
+                                    <a-button type="primary" class="mx-2 " danger>
+                                        <router-link :to="{ path: 'order/edit/' + item.id }">
+                                            <font-awesome-icon icon="far fa-edit" />
+                                        </router-link>
+
+                                    </a-button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -58,10 +76,8 @@
                 </div>
             </div>
         </div>
-        <Filter v-on:filter_action="updateOpenFilter($event)" :filter="this.openFilter"
-            :styleFilter="this.styleFilter" />
-        
-
+        <Filter v-on:filter_action="updateOpenFilter($event)" v-on:values_filter="searchOrders($event)"
+            :filter="this.openFilter" :styleFilter="this.styleFilter" />
     </div>
 </template>
 <script>
@@ -105,9 +121,7 @@ export default {
                 {
                     name: "TÀI KHOẢN",
                 },
-                {
-                    name: "WEBSITE",
-                },
+
                 {
                     name: "MÃ VẬN ĐƠN",
                 },
@@ -116,6 +130,9 @@ export default {
                 },
                 {
                     name: "TÌNH TRẠNG",
+                },
+                {
+                    name: "KHÁC"
                 }
             ],
         };
@@ -127,7 +144,7 @@ export default {
         getListOrder(page = 1) {
             this.page = page;
             this.isLoading = true;
-            this.params = {...this.params, page: page}
+            this.params = { ...this.params, page: page }
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
@@ -147,7 +164,7 @@ export default {
             this.styleFilter = newVal;
             console.log(newVal)
         },
-        searchOrders(data){
+        searchOrders(data) {
             this.params = data
             this.getListOrder()
         },

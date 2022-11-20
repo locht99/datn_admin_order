@@ -6,16 +6,16 @@
             </div>
             <div>
                 <div class="date">
-                   
+
                     <p>Tạo ngày: {{ date }}</p>
                 </div>
             </div>
 
         </div>
-        <div class="flex items-center">
+        <!-- <div class="flex items-center">
             <div class="flex items-center justify-around m-3">
                 <div class="mx-1">
-                    <router-link to="/orderdetail/"
+                    <router-link to="/orderdetail/{{}}"
                         class="bg-red-600 rounded p-1 text-white focus:outline-none focus:ring focus:ring-red-400 duration-100">
                         Đơn hàng</router-link>
                 </div>
@@ -35,15 +35,22 @@
                         Tình trạng</router-link>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
 
 export default {
     props: ["orderId", "date"],
-    mounted(){
-        
+    data() {
+        return {
+        order_id: 0
+        }
+    },
+    mounted() {
+        this.order_id = this.$route.params.id;
+        console.log(this.order_id);
+
     }
     // setup() {
     //     const currentRoute = computed(() => {

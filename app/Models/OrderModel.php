@@ -34,7 +34,7 @@ class OrderModel extends Model
                 'order_statuses.status_name',
                 'orders.created_at'
             )
-            ->orderBy('orders.created_at','desc');
+            ->orderBy('orders.created_at', 'desc');
         if ($params['from']) {
             $data->orWhereDate('orders.created_at', '>=', $params['from']);
         }
@@ -93,6 +93,7 @@ class OrderModel extends Model
         if ($params['status']) {
             $orders->Where('order_statuses.id', '=', $params['status']);
         }
+        $orders->orderBy('orders.created_at', 'Desc');
         $data = [
             "total_status" => $total_status_orders,
             "orders" => $orders->paginate(15),
@@ -114,12 +115,78 @@ class OrderModel extends Model
         $order = DB::table('orders')
             ->leftJoin('order_products', 'order_products.order_id', '=', 'orders.id')
             ->leftJoin('users', 'users.id', '=', 'order_products.user_id')
+            ->leftJoin("user_addresses", "user_addresses.id", "=", "orders.address_id")
             ->leftJoin('packets', 'packets.order_id', 'orders.id')
             ->leftJoin('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
-            ->select('orders.*', 'order_products.*', 'orders.created_at as created_at', 'users.username', 'users.phone', 'packets.code', 'order_statuses.id as status_id', 'order_statuses.status_name')
+            ->leftJoin("checking_orders", "checking_orders.order_id", '=', 'orders.id')
+            ->select(
+                'orders.*',
+                "checking_orders.order_code as shippingcode",
+                "checking_orders.required_note as required",
+                "checking_orders.status_name as shippingStatus",
+                "checking_orders.cod_amount as codAmount",
+                "user_addresses.province",
+                "user_addresses.district",
+                "user_addresses.ward",
+                "user_addresses.note",
+                "user_addresses.phone",
+                'order_products.*',
+                'orders.created_at as created_at',
+                'users.username',
+                'users.phone',
+                'packets.code',
+                'order_statuses.id as status_id',
+                'order_statuses.status_name'
+            )
             ->where('orders.id', '=', $params['id'])
             ->get();
+        // dd($order[0]);
 
+        return $order;
+    }
+    public function getdetailOrderUpdate($params)
+    {
+        $order = DB::table('orders')
+            ->leftJoin('order_products', 'order_products.order_id', '=', 'orders.id')
+            ->leftJoin('users', 'users.id', '=', 'order_products.user_id')
+            ->leftJoin("user_addresses", "user_addresses.id", "=", "orders.address_id")
+            ->leftJoin('packets', 'packets.order_id', 'orders.id')
+            ->leftJoin('order_statuses', 'order_statuses.id', '=', 'orders.order_status_id')
+            ->leftJoin("checking_orders", "checking_orders.order_id", '=', 'orders.id')
+            ->select(
+                'orders.*',
+                "checking_orders.order_code as shippingcode",
+                "checking_orders.required_note as required",
+                "checking_orders.status_name as shippingStatus",
+                "checking_orders.cod_amount as codAmount",
+                "user_addresses.province",
+                "user_addresses.district",
+                "user_addresses.ward",
+                "user_addresses.note",
+                "user_addresses.phone",
+                'order_products.*',
+                'orders.created_at as created_at',
+                'users.username',
+                'users.phone',
+                'packets.code',
+                'order_statuses.id as status_id',
+                'order_statuses.status_name',
+                'packets.status as statusPackage',
+                'packets.opt_order_checking as opt_order_checking',
+                'packets.opt_auto_shipping as opt_auto_shipping',
+                'packets.opt_saving_shipping as opt_saving_shipping',
+                'packets.opt_express_shipping as opt_express_shipping',
+                'packets.opt_inventory as opt_inventory',
+                'packets.opt_wood_packing as opt_wood_packing',
+                'packets.opt_separate_wood_packing as opt_separate_wood_packing',
+                'packets.weight as weight',
+                'packets.volume as volume',
+                'packets.quantity_buy as quantitybuy',
+                'packets.quantity_receive as quantityreceive',
+
+            )
+            ->where('orders.id', '=', $params['id'])
+            ->get();
         return $order;
     }
 
@@ -128,7 +195,7 @@ class OrderModel extends Model
         DB::table('orders')
             ->where('id', $orderId)
             ->update(['order_status_id' => $statusId]);
-        
+
         // Update time change status
         if ($statusId == 6) {
             $this->updateTimeChangeStatus($orderId, 'time_receive');
@@ -136,14 +203,31 @@ class OrderModel extends Model
         if ($statusId == 7) {
             $this->updateTimeChangeStatus($orderId, 'time_transport');
         }
-       
     }
 
     public function updateTimeChangeStatus($orderId, $param)
     {
         $dateNow = date("Y-m-d H:i:s");
         DB::table('packets')
-        ->where('order_id', $orderId)
-        ->update([$param => $dateNow]);
+            ->where('order_id', $orderId)
+            ->update([$param => $dateNow]);
+    }
+    public function updatePacketOrder($params)
+    {
+        $resp =  DB::table("packets")->where("order_id", $params["order_id"])->update([
+            'weight' => $params['weight'],
+            'volume' => $params['volume'],
+            'quantity_buy' => $params['quantity_buy'],
+            'quantity_receive' => $params['quantity_receive'],
+            'opt_order_checking' => $params['opt_order_checking'],
+            'opt_auto_shipping' => $params['opt_auto_shipping'],
+            'opt_saving_shipping' => $params['opt_saving_shipping'],
+            'opt_express_shipping' => $params['opt_express_shipping'],
+            'opt_inventory' => $params['opt_inventory'],
+            'opt_wood_packing' => $params['opt_wood_packing'],
+            'opt_separate_wood_packing' => $params['opt_separate_wood_packing'],
+            'code' => $params['code']
+        ]);
+        return $resp;
     }
 }

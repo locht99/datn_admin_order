@@ -15,6 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .vue()
     .sass("resources/sass/app.scss", "public/css")
     .version()
+    .copy(
+        "node_modules/@fortawesome/fontawesome-free/webfonts",
+        "public/webfonts"
+    )
     .options({
         processCssUrls: false,
         postCss: [tailwindcss("./tailwind.config.js")],

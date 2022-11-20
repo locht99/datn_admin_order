@@ -2,6 +2,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Home from "./components/Admin/Home/HomeComponent";
 import PayFist from "./components/Admin/PayFist/PayFistComponent"
 import User from "./components/Admin/user/UserComponent"
+import UserDetail from "./components/Admin/user/UserDetailComponent";
 import Partner from "./components/Admin/Partner/PartnerComponent"
 import Login from "./components/Auth/LoginComponent";
 import ChineseMoney from "./components/Admin/ChineseMoney/ChineseMoneyComponent"
@@ -16,6 +17,7 @@ import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
 import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
 import DetailBag from './components/Admin/Bag/DetailBagComponent.vue'
+import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
 const routes = [
     {
         path: "/",
@@ -39,6 +41,10 @@ const routes = [
             {
                 path:"user",
                 component: User
+            },
+            {
+                path:"user-detail/:id",
+                component: UserDetail
             },
             {
                 path:"Chinese-money",
@@ -71,6 +77,10 @@ const routes = [
             {
                 path: '/orderdetail/:id',
                 component: OrderDetail
+            },
+            {
+                 path:'/order/edit/:id',
+                 component: OrderEdit
             },
             {
                 path: '/orderdetail/package',

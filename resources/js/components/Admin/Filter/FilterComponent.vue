@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter-children">
+                    <div class="filter-children" v-if="orderModule">
                         <div class="label py-4">
                             <label for="" class="w-full ml-2">Theo loại</label>
                             <div class="flex mx-auto w-[90%] pb-3 mt-3 border-b ">
@@ -48,6 +48,17 @@
                                     <option v-for="(item, index) in this.data_status" :key="index" :value="item.id">{{ item.type_name }}
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-children" v-if="userModule">
+                        <div class="label py-4">
+                            <label for="" class="w-full ml-2">Theo số điện thoại</label>
+                            <div class="flex w-[90%] mx-auto pb-3 mt-3 border-b ">
+                                <input v-model="phone"
+                                    class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-medium"
+                                    type="text" placeholder="Số điện thoại" aria-label="Phone">
+
                             </div>
                         </div>
                     </div>
@@ -85,6 +96,7 @@ export default {
             from: null,
             to: null,
             username: null,
+            phone: null,
             status: null,
             data: []
         }
@@ -93,7 +105,9 @@ export default {
     },
     props: {
         filter: Boolean,
-        styleFilter: String
+        styleFilter: String,
+        userModule: false,
+        orderModule: false
     },
     created() {
         this.getAllTypeTransactions()
@@ -106,6 +120,7 @@ export default {
                 to: this.to,
                 username: this.username,
                 status: this.status,
+                phone: this.phone
             }
             this.$emit('values_filter', this.data)
             this.$emit('action_search')
