@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserOrderResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -36,8 +38,9 @@ class UserController extends Controller
         return response()->json($data_resp, Response::HTTP_OK);
     }
 
-    public function postUpdateUser(Request $request){
-        try{
+    public function postUpdateUser(Request $request)
+    {
+        try {
             $model = new User();
             $resp_find_user = $model->updateUser($request['id']);
             $data = [
@@ -53,7 +56,47 @@ class UserController extends Controller
                 'resp_update' => $res
             ];
             return response()->json($data_resp, Response::HTTP_OK);
-        }catch(Exception $e){
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getUserInfo($id)
+    {
+        try {
+            $user_info = User::find($id, ['username', 'email', 'phone', 'point', 'created_at']);
+            $recent_transactions = DB::table('transactions')
+                ->join('users', 'transactions.user_id', 'users.id')
+                ->join('type_transactions', 'type_transactions.id', 'transactions.type_id')
+                ->select('transactions.created_at', 'type_transactions.type_name', 'transactions.point')
+                ->where('users.id', $id)
+                ->where('transactions.is_delete', false)
+                ->orderByDesc('transactions.created_at')
+                ->take(10)
+                ->get();
+
+            $recent_orders = DB::table("orders")
+                ->join('users', 'users.id', 'orders.user_id')
+                ->join('order_statuses', 'orders.order_status_id', 'order_statuses.id')
+                ->select(
+                    'orders.id',
+                    'order_statuses.status_name',
+                    'orders.total_price',
+                    'orders.deposit_amount'
+                )
+                ->where('orders.is_delete', false)
+                ->where('users.id', $id)
+                ->where('orders.is_delete', false)
+                ->orderByDesc('orders.created_at')
+                ->take(10)
+                ->get();
+
+            return response()->json([
+                'user_info' => $user_info,
+                'recent_transactions' => $recent_transactions,
+                'recent_orders' => UserOrderResource::collection($recent_orders)
+            ], Response::HTTP_OK);
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
