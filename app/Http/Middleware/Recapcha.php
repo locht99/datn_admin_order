@@ -17,12 +17,12 @@ class Recapcha
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = (new GoogleRecaptcha(config('recaptchav2.secret')))
-        ->verify($request->input('g-recaptcha-response'),$request->ip());
-        if(!$response->isSuccess()){
-            $message = 'Xác thực thất bại, vui lòng thử lại sau !';
-            return response()->json(['message'=>$message],422);
-        }
+        // $response = (new GoogleRecaptcha(config('recaptchav2.secret')))
+        // ->verify($request->input('g-recaptcha-response'),$request->ip());
+        // if(!$response->isSuccess()){
+        //     $message = 'Xác thực thất bại, vui lòng thử lại sau !';
+        //     return response()->json(['message'=>$message],422);
+        // }
         return $next($request);
     }
 }
