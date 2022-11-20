@@ -44,6 +44,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get-users', [UserController::class, 'getUsers']);
     Route::get('/update-user', [UserController::class, 'updateUser']);
     Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
+    Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
 
     // api china money
     Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);

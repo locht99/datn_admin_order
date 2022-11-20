@@ -24,7 +24,6 @@
                     <tr class="px-2 text-left">
                         <th class="text-center">STT</th>
                         <th class="pl-5">TÊN ĐĂNG NHẬP</th>
-                        <th>ĐỊA CHỈ</th>
                         <th>EMAIL</th>
                         <th>SỐ DIỆN THOẠI</th>
                         <th>SỐ TIỀN</th>
@@ -39,8 +38,13 @@
                         class="border-solid py-10 border-b-[1px] border-[#E2E2E2] h-[60px] font-[16px]"
                     >
                         <td class="font-bold text-center">{{ index + 1 + (this.page - 1) * 8 }}</td>
-                        <td class="pl-5">{{ item.username }}</td>
-                        <td style="max-width: 220px;">{{ (item.address_note == null ? "" : item.address_note + ", ") + item.ward +", "+ item.district +", "+ item.province}}</td>
+                        <td class="pl-5">
+                            <a
+                                :href="'./user-detail/' + item.id"
+                                class="text-blue-800 hover:underline"
+                                >{{ item.username }}</a
+                            >
+                        </td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.phone }}</td>
                         <td>{{ formatPrice(item.point) }}</td>
