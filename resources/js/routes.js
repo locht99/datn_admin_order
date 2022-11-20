@@ -2,6 +2,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Home from "./components/Admin/Home/HomeComponent";
 import PayFist from "./components/Admin/PayFist/PayFistComponent"
 import User from "./components/Admin/user/UserComponent"
+import UserDetail from "./components/Admin/user/UserDetailComponent";
 import Partner from "./components/Admin/Partner/PartnerComponent"
 import Login from "./components/Auth/LoginComponent";
 import ChineseMoney from "./components/Admin/ChineseMoney/ChineseMoneyComponent"
@@ -39,6 +40,10 @@ const routes = [
             {
                 path:"user",
                 component: User
+            },
+            {
+                path:"user-detail/:id",
+                component: UserDetail
             },
             {
                 path:"Chinese-money",

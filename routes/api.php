@@ -44,8 +44,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
     Route::get('/get-users', [UserController::class, 'getUsers']);
-    Route::post('/update-user', [UserController::class, 'updateUser']);
-    Route::get('/test', [TestController::class, 'test']);
+    Route::get('/update-user', [UserController::class, 'updateUser']);
+    Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
+    Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
 
     // api china money
     Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);

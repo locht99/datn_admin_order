@@ -39,8 +39,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in data" :key="index" class="hover:bg-gray-100 border-b my-2">
-                                <td>{{ index + 1 + (this.page - 1) * 20 }}</td>
+                            <tr
+                                v-for="(item, index) in data"
+                                :key="index"
+                                class="hover:bg-gray-100 border-b h-[52px] font-[16px]"
+                            >
+                                <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
                                     <router-link :to="{ path: 'orderdetail/' + item.id }"
                                         class="hover:underline text-red-600">#{{ item.id }}</router-link>
