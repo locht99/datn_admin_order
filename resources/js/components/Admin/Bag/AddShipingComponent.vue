@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.showModalAction"
         class="overflow-x-hidden overflow-y-auto  fade  fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <div class="relative w-auto my-6 mx-auto max-w-5xl">
             <!--content-->
             <form @submit="checkForm">
                 <div
