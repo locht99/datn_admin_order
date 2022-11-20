@@ -350,8 +350,16 @@ export default {
                 });
         },
         removeOrder(e) {
-            if (confirm("Bạn có chắc muốn xóa đơn hàng khỏi bao hàng không?")) {
-                if (e.id) {
+            this.$swal.fire({
+                title: 'Bạn có chắc muốn xóa đơn hàng khỏi bao hàng không?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (e.id) {
                     this.is_loading = true;
                     axios
                         .delete(`/admin-packets/${e.id}`)
@@ -366,7 +374,14 @@ export default {
                 this.data.order_valid = this.data.orders.filter(
                     (item) => item.order_id != ""
                 );
-            }
+                    this.$swal.fire(
+                        'Thông báo',
+                        'Xóa thành công',
+                        'success',
+                        this.toggleModal()
+                    )
+                }
+            });
         },
         searchOrderAgain(e) {
             this.data.orders = this.data.orders.filter(

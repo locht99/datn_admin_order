@@ -35,10 +35,10 @@
                         class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
                         <td class="font-bold text-center">#{{ index + 1 }}</td>
                         <td>{{ item.username }}</td>
-                        <td>##{{ item.code_transaction }}</td>
+                        <td>#{{ item.code_transaction }}</td>
                         <td>{{ item.type_name }}</td>
                         <td>{{ item.content }}</td>
-                        <td>{{ item.point }}</td>
+                        <td>{{ formatPrice(item.point) }}</td>
                         <td class="pl-5">{{ item.created_at }}</td>
 
                     </tr>
@@ -79,6 +79,12 @@ export default {
         this.actionMoney()
     },
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         open_filter() {
             this.openFilter = !this.openFilter;
             this.styleFilter = "translate-x-[-360px] duration-300 ";

@@ -25,10 +25,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item,index) in this.data_bag_detail" :key="index" class="border-solid text-center border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
-                        <td class="font-bold">{{index +=1}}</td>
+                        <td class="font-bold">#{{index +=1}}</td>
                         <td>{{item.order_code}}</td>
                         <td class="pl-5">{{item.username}}</td>
-                        <td>{{item.total_price}}</td>
+                        <td>{{formatPrice(item.total_price)}}</td>
                         <td>{{item.created_at}}</td>
                         <td><button @click="actionShipping(item.order_id)"
                                 class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
@@ -97,6 +97,12 @@ export default {
             this.showModal = true;
             this.showModals = !this.showModals;
             this.$options.childInterface.getIdOrder(this.item);
+        },
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
         },
 
     }

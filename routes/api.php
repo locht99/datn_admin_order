@@ -29,21 +29,22 @@ use Illuminate\Support\Facades\Route;
 //public api
 Route::post('/login', [AdminController::class, 'getLogin']);
 // protected api
-Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
-Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
-Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
 
 Route::middleware('auth:api')->group(function () {
+    Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+    Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
+    Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
+    Route::post('create-log-tracking',[TransportVietnamController::class, 'createLogTracking']);
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
     //api don hang
-    Route::get('/orders', [OrderController::class, 'getOrders']);//get
-    Route::put('/edit-status-order',[OrderController::class, 'updateStatusOrder']);//update
-    Route::post('/update-price-order',[OrderController::class, 'updatePriceOrder']);//update
-    Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
+    Route::get('/orders', [OrderController::class, 'getOrders']); //get
+    Route::put('/edit-status-order', [OrderController::class, 'updateStatusOrder']); //update
+    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']); //update
+    Route::get('/detail-order', [OrderController::class, 'detailOrder']); //detail
 
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);

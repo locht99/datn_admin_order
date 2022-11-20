@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\Transport;
 
 use App\Http\Controllers\Controller;
 use App\Models\TransportGhnModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -34,7 +35,7 @@ class TransportVietnamController extends Controller
             'service_type_id' => $request->service_type_id,
             'order_code' => $request->order_code,
             'user_id' => $request->user_id,
-            'status_name'=> $request->status_name
+            'status_name' => $request->status_name
 
         ];
         $model = new TransportGhnModel();
@@ -42,18 +43,31 @@ class TransportVietnamController extends Controller
         return response()->json($resp);
     }
 
-    public function getOrderById(Request $request){
+    public function getOrderById(Request $request)
+    {
         $data = DB::table('orders')->where("id", $request->id)->get();
         return response()->json($data);
     }
-    public function getAddressById(Request $request){
+    public function getAddressById(Request $request)
+    {
         $data = DB::table('user_addresses')
-        ->join('users', 'users.id', '=', 'user_addresses.user_id')
-        ->select(
-            "users.phone",
-            "user_addresses.*"
-        )
-        ->where('user_addresses.id', $request->address_id)->get();
+            ->join('users', 'users.id', '=', 'user_addresses.user_id')
+            ->select(
+                "users.phone",
+                "user_addresses.*"
+            )
+            ->where('user_addresses.id', $request->address_id)->get();
         return response()->json($data);
+    }
+
+    public function createLogTracking(Request $request)
+    {
+        $data = [
+            'order_id' => $request->order_id,
+            'tracking_status_name' => $request->tracking_status_name,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
+        ];
+        $resp = DB::table('tracking_statuses')->insert($data);
+        return response()->json($resp);
     }
 }

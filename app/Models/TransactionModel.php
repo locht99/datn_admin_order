@@ -54,11 +54,11 @@ class TransactionModel extends Model
     public function getMoneys($params)
     {
         $resp = DB::table('transactions')
-            ->join('users', 'users.id', '=', 'transactions.id')
+            ->join('users', 'users.id', '=', 'transactions.user_id')
             ->join('orders', 'orders.id', '=', 'transactions.order_id')
             ->join('type_transactions', 'type_transactions.id', 'transactions.type_id')
             ->select(
-                'orders.id as code_transaction',
+                'orders.order_code as code_transaction',
                 'users.username',
                 'type_transactions.type_name',
                 'transactions.content',
@@ -77,7 +77,9 @@ class TransactionModel extends Model
         if ($params['status']) {
             $resp->orWhere('transactions.type_id', $params['status']);
         }
-        $data = $resp->paginate(10);
+        $data = $resp
+        ->orderByDesc('transactions.created_at')
+        ->paginate(10);
 
         return $data;
     }
