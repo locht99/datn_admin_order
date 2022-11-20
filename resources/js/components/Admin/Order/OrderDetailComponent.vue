@@ -199,7 +199,7 @@
 </style>
 <script>
 import HeadOrder from "./HeadOrderComponent.vue";
-import { get, update } from "../../../services/order/order.js";
+import { get, update,updateOrderPacket } from "../../../services/order/order.js";
 export default {
     data() {
         return {
@@ -263,6 +263,7 @@ export default {
                 //Send email
             })
         },
+       
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {
                 style: "currency",

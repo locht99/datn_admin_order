@@ -1484,18 +1484,6 @@ input:checked + .toggle-bg {
   width: 1rem;
 }
 
-.w-\[380px\] {
-  width: 380px;
-}
-
-.w-\[370px\] {
-  width: 370px;
-}
-
-.w-\[350px\] {
-  width: 350px;
-}
-
 .max-w-6xl {
   max-width: 72rem;
 }
