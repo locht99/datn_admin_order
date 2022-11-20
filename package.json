@@ -36,7 +36,9 @@
         "@vuelidate/validators": "^2.0.0",
         "@vueuse/core": "^9.3.0",
         "@websanova/vue-auth": "^4.1.13",
+        "ant-design-vue": "^3.2.15",
         "es6-promise": "^4.2.8",
+        "moment": "^2.29.4",
         "v-pagination-3": "^0.1.7",
         "vee-validate": "^3.4.14",
         "vue": "^3.2.36",
@@ -50,6 +52,7 @@
         "vue-tailwind-modal": "^1.0.7",
         "vue-toastification": "^2.0.0-rc.5",
         "vue3-datepicker": "^0.3.4",
-        "yup": "^0.32.11"
+        "yup": "^0.32.11",
+        "@fortawesome/fontawesome-free": "^6.1.0"
     }
 }

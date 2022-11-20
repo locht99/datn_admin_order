@@ -77,7 +77,7 @@ class TransactionModel extends Model
         if ($params['status']) {
             $resp->orWhere('transactions.type_id', $params['status']);
         }
-        $data = $resp->paginate(10);
+        $data = $resp->orderByDesc('transactions.created_at')->paginate(10);
 
         return $data;
     }

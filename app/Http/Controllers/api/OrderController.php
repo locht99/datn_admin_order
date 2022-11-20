@@ -37,6 +37,9 @@ class OrderController extends Controller
             return response()->json(['error' => "Update status order failed, Please try again!"], 400);
         }
     }
+    public function updateOrder(Request $request)
+    {
+    }
 
     public function detailOrder(Request $request)
     {
@@ -46,5 +49,28 @@ class OrderController extends Controller
         $model = new OrderModel();
         $data = $model->detailOrder($params);
         return response()->json($data, Response::HTTP_OK);
+    }
+    public function getDetailOrderUpdate(Request $request)
+    {
+        try {
+            $params = [
+                'id' => $request->id
+            ];
+            $model = new OrderModel();
+            $data = $model->getDetailOrderUpdate($params);
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Throwable $th) {
+        }
+    }
+    public function updateOrderPacking(Request $request)
+    {
+        try {
+            $model = new OrderModel();
+            $model->updatePacketOrder($request->all());
+            return response()->json(['success' => "Update status order success"], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['error' => "Update status order failed, Please try again!"], 400);
+        }
     }
 }
