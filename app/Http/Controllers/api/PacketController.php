@@ -394,7 +394,7 @@ class PacketController extends Controller
                     "message" => 'id không xác định'
                 ]);
             }
-            AdminPacketModel::where('id',$id)->update(['is_delete' => 1]);
+            AdminPacketModel::where('id', $id)->update(['is_delete' => 1]);
             AdminPacketItemModel::where('admin_packet_id', $id)->update(['is_delete' => 1]);
 
             return response()->json([
@@ -406,5 +406,45 @@ class PacketController extends Controller
                 "message" => $th->getMessage()
             ]);
         }
+    }
+
+    public function showDetailBag(Request $request)
+    {
+        $data = DB::table('admin_packet_items')
+            ->join('admin_packets', 'admin_packets.id', '=', 'admin_packet_items.admin_packet_id')
+            ->join('orders', 'orders.id', '=', 'admin_packet_items.order_id')
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->select(
+                'admin_packet_items.order_id',
+                'users.username',
+                'orders.order_code',
+                'orders.total_price',
+                'orders.created_at',
+                'orders.purchase_fee',
+                'orders.inventory_fee',
+                'orders.total_price_order',
+                'orders.global_shipping_fee',
+                'orders.china_shipping_fee',
+                'orders.wood_packing_fee',
+                'orders.separately_wood_packing_fee',
+                'orders.high_value_fee',
+                'orders.auto_shipping_fee',
+                'orders.saving_shipping_fee',
+                'orders.express_shipping_fee',
+            )
+            ->where('admin_packet_items.admin_packet_id', '=', $request->packets_id)
+            ->paginate(10);
+        return $data;
+    }
+
+    public function getStatusTrackingBag(Request $request){
+        $data = DB::table('admin_packets')
+        ->select(
+            'id',
+            'code',
+            'tracking_status_name'
+        )
+        ->where('id', $request->bag_id)->first();
+        return response()->json($data);
     }
 }

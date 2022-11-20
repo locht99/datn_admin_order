@@ -48,7 +48,8 @@
                         <td>{{item.order_code}}</td> -->
                         <td>{{item.type_name}}</td>
                         <td>{{item.content}}</td>
-                        <td>{{item.point_cn}}</td>
+                        <td >{{item.point_cn}}</td>
+                        
                     </tr>
 
                 </tbody>

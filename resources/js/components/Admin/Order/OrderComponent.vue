@@ -95,6 +95,9 @@ export default {
     },
     data() {
         return {
+            item: Number,
+            showModals: false,
+            showModal: false,
             openFilter: true,
             styleFilter: "",
             isLoading: true,
@@ -105,33 +108,6 @@ export default {
             to: null,
             data: [],
             dataStatus: [],
-            params: [],
-            status: [
-                {
-                    name: "Đã đặt cọc",
-                },
-                {
-                    name: "Đã mua hàng",
-                },
-                {
-                    name: "Shop giao hàng",
-                },
-                {
-                    name: "Kho nhận hàng",
-                },
-                {
-                    name: "Vận chuyển",
-                },
-                {
-                    name: "Chờ giao",
-                },
-                {
-                    name: "Chờ giao yêu cầu",
-                },
-                {
-                    name: "Đang yêu cầu",
-                },
-            ],
             nameTable: [
                 {
                     name: "STT",
@@ -198,6 +174,10 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        updateOpenModal(event) {
+            this.showModals = !event;
+        }
+        
     },
 };
 </script>
