@@ -7,6 +7,7 @@ use App\Models\OrderModel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -43,12 +44,25 @@ class OrderController extends Controller
 
     public function detailOrder(Request $request)
     {
-        $params = [
-            'id' => $request->id
-        ];
         $model = new OrderModel();
-        $data = $model->detailOrder($params);
-        return response()->json($data, Response::HTTP_OK);
+        $params = explode(',', rtrim($request->id, ','));
+        $data = [];
+        if (count($params) > 1) {
+            for ($i = 0; $i < count($params); $i++) {
+                $item = DB::table('order_products')->where('order_products.order_id', '=', $params[$i])->get();
+                foreach ($item as $key) {
+                    array_push($data, $key);   
+                }
+            }
+            return response()->json($data, Response::HTTP_OK);
+        } else {
+
+            $params = [
+                'id' => $request->id
+            ];
+            $data = $model->detailOrder($params);
+            return response()->json($data, Response::HTTP_OK);
+        }
     }
     public function getDetailOrderUpdate(Request $request)
     {
