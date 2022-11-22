@@ -29,7 +29,7 @@ const router = createRouter({
 
 library.add(fas, fab, far);
 // window.Vue = Vue
-const baseURL = process.env.VUE_APP_API_URL;
+const baseURL = 'api/';
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
@@ -40,7 +40,7 @@ app.axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UT
 app.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 app.use(router);
 app.use(VueSweetalert2);
-app.use(Toast)
+app.use(Toast);
 var auth = createAuth({
     plugins: {
         http: axios,
