@@ -46,6 +46,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
+    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
     //api tien hang
     Route::get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
