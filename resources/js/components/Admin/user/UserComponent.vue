@@ -83,7 +83,7 @@
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Filter from "../Filter/FilterComponent";
-import { getAll, get } from "../../../services/user/user.js";
+import { getAll, get } from "../../../services/User/user.js";
 import Pagination from "../../pagination/Pagination.vue";
 import EditUserComponent from './EditUserComponent.vue';
 export default {
