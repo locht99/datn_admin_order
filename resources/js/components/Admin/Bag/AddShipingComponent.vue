@@ -239,7 +239,6 @@ export default {
             v$: useVuelidate(),
             showModal: this.showModalAction,
             data_order_transport: [],
-            total_cod_amount: 0,
             order: {},
             info_user: [],
             total_cod_amount: 0,
@@ -302,8 +301,8 @@ export default {
         getIdOrder(item) {
             getOrder(item).then((resp) => {
                 this.data_order_transport = resp.data[0]
-                this.total_cod_amount = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
-                this.total_cod_amount = parseInt(this.total_cod_amount);
+                let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
+                this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
                 getInfoUser(resp.data[0].address_id).then((res) => {
                     this.info_user = res.data[0]
                 })
@@ -424,11 +423,10 @@ export default {
                                     })
                                 })
 
-                            }).catch((error) => {
-                                console.log(error)
                             })
-                        }).catch((error) => {
-                            console.log(error)
+                        })
+                        .catch((error) => {
+                            console.log(error.response.data.code_message_value)
                         })
                     }
                 });
