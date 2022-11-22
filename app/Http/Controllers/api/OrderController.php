@@ -11,6 +11,26 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function createLogTrackingCn(Request $request){
+        $data = DB::table('admin_packets')
+        ->join('admin_packet_items', 'admin_packet_items.admin_packet_id', '=', 'admin_packets.id')
+        ->select(
+            'admin_packet_items.order_id'
+        )
+        ->where('admin_packets.code', '=', $request->shipping_code)
+        ->get();
+        
+        foreach ($data as $key) {
+            $obj_data = [
+                'order_id' => $key->order_id,
+                'name' => $request->status_name,
+                'tracking_status_name' => $request->tracking_status_name . ' (China)',
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
+            ];
+            DB::table('tracking_statuses')->insert($obj_data);
+        }
+        return response()->json($data);
+    }
     public function updatePriceOrder(Request $request)
     {
         $data = DB::table('orders')->where('id', '=', $request->id_order)

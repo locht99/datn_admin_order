@@ -82,3 +82,4 @@ Route::middleware('auth:api')->group(function () {
     Route::get('refresh', [AdminController::class, 'refresh']);
     Route::post('logout', [AdminController::class, 'logout']);
 });
+Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn']);
