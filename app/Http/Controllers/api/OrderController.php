@@ -33,8 +33,8 @@ class OrderController extends Controller
                 DB::table('tracking_statuses')->insert($obj_data);
             }
             DB::table('admin_packets')
-            ->where('code', '=', $request->shipping_code)
-            ->update(['tracking_status_name' => $request->tracking_status_name . ' (China)']);
+                ->where('code', '=', $request->shipping_code)
+                ->update(['tracking_status_name' => $request->tracking_status_name . ' (China)']);
             return response()->json(['success' => "Cập nhật thành công"], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
@@ -96,6 +96,25 @@ class OrderController extends Controller
             return response()->json($data, Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
+            $model = new OrderModel();
+            $params = explode(',', rtrim($request->id, ','));
+            $data = [];
+            if (count($params) > 1) {
+                for ($i = 0; $i < count($params); $i++) {
+                    $item = DB::table('order_products')->where('order_products.order_id', '=', $params[$i])->get();
+                    foreach ($item as $key) {
+                        array_push($data, $key);
+                    }
+                }
+                return response()->json($data, Response::HTTP_OK);
+            } else {
+
+                $params = [
+                    'id' => $request->id
+                ];
+                $data = $model->detailOrder($params);
+                return response()->json($data, Response::HTTP_OK);
+            }
         }
     }
     public function getDetailOrderUpdate(Request $request)
