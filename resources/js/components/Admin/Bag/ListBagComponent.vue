@@ -245,15 +245,15 @@ export default {
                             element.code
                     )
                     .then((res) => {
-                        console.log(res);
                         element["delivery_status"] =
-                          res.data.delivery_status_name;
+                            res.data.description_sub_status;
+                        console.log(res.data);
                         if (res.data.delivery_status_name === undefined) {
                             element["delivery_status"] =
                                 "Package tracking information is no available yet";
                         }
                     })
-                    .finally(() => (this.is_loading = false));  
+                    .finally(() => (this.is_loading = false));
             });
         },
     },

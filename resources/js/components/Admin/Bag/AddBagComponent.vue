@@ -437,6 +437,7 @@ export default {
             var code = await axios
                 .post("http://127.0.0.1:8001/api/create-shipping", shipping)
                 .then((res) => {
+                    console.log(res);
                     return res.data.shipping_code;
                 });
 
@@ -491,6 +492,8 @@ export default {
                 })
                 .catch((error) => console.log(error))
                 .finally(() => (this.is_loading = false));
+                
+                
         },
         searchOrder() {
             this.is_loading = true;
