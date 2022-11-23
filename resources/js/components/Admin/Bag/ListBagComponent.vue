@@ -80,6 +80,7 @@
                                 <th scope="col" class="px-2 py-2">Đóng gỗ</th>
                                 <th scope="col" class="px-2 py-2">Ghi chú</th>
                                 <th scope="col" class="px-2 py-2">Tổng tiền</th>
+                                <th scope="col" class="px-2 py-2">Kho</th>
                                 <th scope="col" class="px-2 py-2">Tình trạng</th>
                                 <th scope="col" class="px-2 py-2">Thanh toán</th>
                                 <th scope="col" class="px-2 py-2">&nbsp;</th>
@@ -97,7 +98,8 @@
                                 <td class="px-2 py-2">
                                     {{ formatPrice(item.total_price) }}
                                 </td>
-                                <td class="px-2 py-2">{{ item.status_name }}</td>
+                                <td class="px-2 py-2">{{ item.warehouse_id == 1 ? "Hà Nội" : "Sài Gòn" }}</td>
+                                <td class="px-2 py-2">{{ item.tracking_status_name }}</td>
                                 <td class="px-2 py-2">
                                     {{
                                             item.paid ? "đã thanh toán" : "chưa thanh toán"

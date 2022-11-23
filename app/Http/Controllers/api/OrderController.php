@@ -11,43 +11,60 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function createLogTrackingCn(Request $request){
-        $data = DB::table('admin_packets')
-        ->join('admin_packet_items', 'admin_packet_items.admin_packet_id', '=', 'admin_packets.id')
-        ->select(
-            'admin_packet_items.order_id'
-        )
-        ->where('admin_packets.code', '=', $request->shipping_code)
-        ->get();
-        
-        foreach ($data as $key) {
-            $obj_data = [
-                'order_id' => $key->order_id,
-                'name' => $request->status_name,
-                'tracking_status_name' => $request->tracking_status_name . ' (China)',
-                'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
-            ];
-            DB::table('tracking_statuses')->insert($obj_data);
+    public function createLogTrackingCn(Request $request)
+    {
+        try {
+
+            $data = DB::table('admin_packets')
+                ->join('admin_packet_items', 'admin_packet_items.admin_packet_id', '=', 'admin_packets.id')
+                ->select(
+                    'admin_packet_items.order_id'
+                )
+                ->where('admin_packets.code', '=', $request->shipping_code)
+                ->get();
+
+            foreach ($data as $key) {
+                $obj_data = [
+                    'order_id' => $key->order_id,
+                    'name' => $request->status_name,
+                    'tracking_status_name' => $request->tracking_status_name . ' (China)',
+                    'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
+                ];
+                DB::table('tracking_statuses')->insert($obj_data);
+            }
+            DB::table('admin_packets')
+            ->where('code', '=', $request->shipping_code)
+            ->update(['tracking_status_name' => $request->tracking_status_name . ' (China)']);
+            return response()->json(['success' => "Cập nhật thành công"], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
         }
-        return response()->json($data);
     }
     public function updatePriceOrder(Request $request)
     {
-        $data = DB::table('orders')->where('id', '=', $request->id_order)
-            ->update(['total_price_order' => $request->total_price_order]);
-        return response()->json($request->id_order);
+        try {
+            DB::table('orders')->where('id', '=', $request->id_order)
+                ->update(['total_price_order' => $request->total_price_order]);
+            return response()->json(['success' => "Cập nhật thành công"], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
+        }
     }
     public function getOrders(Request $request)
     {
-        $search = [
-            'from' => $request->from ? $request->from : null,
-            'to' => $request->to ? $request->to : null,
-            'username' => $request->username ? $request->username : null,
-            'status' => $request->status ? $request->status : null,
-        ];
-        $model = new OrderModel();
-        $orders = $model->getOrders($search);
-        return response()->json($orders, 200);
+        try {
+            $search = [
+                'from' => $request->from ? $request->from : null,
+                'to' => $request->to ? $request->to : null,
+                'username' => $request->username ? $request->username : null,
+                'status' => $request->status ? $request->status : null,
+            ];
+            $model = new OrderModel();
+            $orders = $model->getOrders($search);
+            return response()->json($orders, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
+        }
     }
 
     public function updateStatusOrder(Request $request)
@@ -70,12 +87,16 @@ class OrderController extends Controller
 
     public function detailOrder(Request $request)
     {
-        $params = [
-            'id' => $request->id
-        ];
-        $model = new OrderModel();
-        $data = $model->detailOrder($params);
-        return response()->json($data, Response::HTTP_OK);
+        try {
+            $params = [
+                'id' => $request->id
+            ];
+            $model = new OrderModel();
+            $data = $model->detailOrder($params);
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
+        }
     }
     public function getDetailOrderUpdate(Request $request)
     {

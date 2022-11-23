@@ -50,16 +50,9 @@ class PacketController extends Controller
                     'admin_packets.note',
                     'admin_packets.total_price',
                     'admin_packets.status_id',
+                    'admin_packets.tracking_status_name',
                     'admin_packets.id',
-                    'admin_packets.paid'
-                )
-                ->groupBy(
-                    'admin_packets.code',
-                    'admin_packets.wood_packing',
-                    'admin_packets.note',
-                    'admin_packets.total_price',
-                    'admin_packets.status_id',
-                    'admin_packets.id',
+                    'admin_packets.warehouse_id',
                     'admin_packets.paid'
                 )
                 ->orderByDesc('admin_packets.created_at');
@@ -219,6 +212,7 @@ class PacketController extends Controller
                 'wood_packing' => $wood_packing,
                 'note' => $request->note,
                 'status_id' => $request->status_id,
+                'tracking_status_name' => $request->tracking_status_name,
                 'unit_price' => $request->unit_price,
                 'wood_packing_price' => $request->wood_packing_price,
                 'other_price' => $request->other_price,

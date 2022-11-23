@@ -60,11 +60,12 @@ class TransportVietnamController extends Controller
         return response()->json($data);
     }
 
-    public function createLogTracking(Request $request)
+    public function createLogTrackingVn(Request $request)
     {
         $data = [
             'order_id' => $request->order_id,
             'tracking_status_name' => $request->tracking_status_name,
+            'name' => "GHN",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ];
         $resp = DB::table('tracking_statuses')->insert($data);

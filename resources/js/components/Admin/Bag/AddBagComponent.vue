@@ -141,15 +141,6 @@
                         <div class="col-span-5 flex items-center">
                             <label for="">Tình trạng</label>
                         </div>
-                        <div class="flex col-span-7">
-                            <select name="admin_packet[ware_house]"
-                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" v-model="data.status_id">
-                                <option value="6">Kho nhận hàng</option>
-                                <!-- <option value="7">Vận chuyển</option>
-                                <option value="8">Chờ giao</option>
-                                <option value="9">Chờ yêu cầu giao</option> -->
-                            </select>
-                        </div>
                     </div>
                     <div class="grid grid-cols-12 mb-4">
                         <div class="col-span-5 flex items-center">
@@ -262,6 +253,7 @@ export default {
                 wood_packing: false,
                 paid: false,
                 status_id: 6,
+                tracking_status_name: "Chờ xác nhận",
                 note: "",
                 orders: [],
                 order_valid: [],

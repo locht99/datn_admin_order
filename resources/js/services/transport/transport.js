@@ -8,5 +8,5 @@ export const createShiping = (params) => {
     return config.post(`/create-order-ghn`, params)
 }
 export const createLogTracking = (params) => {
-    return config.post(`/create-log-tracking`, params)
+    return config.post(`/create-log-tracking-vn`, params)
 }
