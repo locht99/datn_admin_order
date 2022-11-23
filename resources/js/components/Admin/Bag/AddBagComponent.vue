@@ -206,6 +206,21 @@
                                 class="border-gray-300 rounded my-2 px-2 bg-red-600"
                             />
                         </div>
+                        <div class="col-span-5 flex items-center">
+                            <label for="">Tình trạng</label>
+                        </div>
+                        <div class="flex col-span-7">
+                            <select
+                                name="admin_packet[ware_house]"
+                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5"
+                                v-model="data.status_id"
+                            >
+                                <option value="6">Kho nhận hàng</option>
+                                <!-- <option value="7">Vận chuyển</option>
+                                <option value="8">Chờ giao</option>
+                                <option value="9">Chờ yêu cầu giao</option> -->
+                            </select>
+                        </div>
                     </div>
                     <div class="grid grid-cols-12 mb-4">
                         <div class="col-span-5 flex items-center">
@@ -233,11 +248,7 @@
             <i class="block pb-1 text-red-600 warning" id="warning"
                 >Chọn kho trước khi thêm đơn hàng...</i
             >
-            <form
-                @submit="formSearch($event)"
-                class="form-search-code hidden"
-                id="form-search-code"
-            >
+            <form @submit="formSearch($event)" class="form-search-code hidden" id="form-search-code">
                 <div class="grid grid-cols-3 gap-x-4">
                     <div class="col-span-2">
                         <input
@@ -324,9 +335,7 @@
                                     ]"
                                     @click="removeOrder(item)"
                                 >
-                                    <font-awesome-icon
-                                        icon="fa-solid fa-trash"
-                                    />
+                                    <font-awesome-icon icon="fa-solid fa-trash" />
                                 </td>
                                 <td
                                     class="text-center text-red-600 hover:text-red-700 cursor-pointer"
@@ -335,9 +344,7 @@
                                         v-if="!item.order_id"
                                         @click="searchOrderAgain(item)"
                                     >
-                                        <font-awesome-icon
-                                            icon="fa-solid fa-reply"
-                                        />
+                                    <font-awesome-icon  icon="fa-solid fa-reply" />
                                     </i>
                                 </td>
                             </tr>
@@ -350,15 +357,13 @@
 </template>
 
 <script>
-import axios from "axios";
-import Loading from "vue-loading-overlay";
+import Loading from 'vue-loading-overlay';
 
 export default {
     data() {
         return {
             is_loading: false,
             data: {
-                code: "",
                 warehouse_id: "",
                 weight: "",
                 volume: "",
@@ -375,7 +380,6 @@ export default {
             },
             errors: {},
             code: "",
-            test: "",
         };
     },
     components: {
@@ -444,7 +448,8 @@ export default {
             this.data.code = code;
                         console.log(shipping);
                         console.log(this.data);
-
+            },
+        createPacket() {
             this.is_loading = true;
             axios
                 .post("/api/admin-packets", this.data)
@@ -504,7 +509,6 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res);
                     this.data.orders.push(res.data.order);
                     this.data.order_valid = this.data.orders.filter(
                         (item) => item.order_id != ""
@@ -532,18 +536,15 @@ export default {
             this.code = e.code;
         },
         inputSearch(e) {
-            if (e.target.value != 0) {
+            if(e.target.value != 0){
                 document.getElementById("warning").classList.add("hidden");
-                document
-                    .getElementById("form-search-code")
-                    .classList.remove("hidden");
-            } else {
-                document.getElementById("warning").classList.remove("hidden");
-                document
-                    .getElementById("form-search-code")
-                    .classList.add("hidden");
+                document.getElementById("form-search-code").classList.remove("hidden");
             }
-        },
-    },
+            else{
+                document.getElementById("warning").classList.remove("hidden");
+                document.getElementById("form-search-code").classList.add("hidden");
+            }
+        }
+    }
 };
 </script>
