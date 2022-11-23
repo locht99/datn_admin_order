@@ -278,6 +278,57 @@ export default {
             }
             this.code = "";
         },
+        async createPacket() {
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            var shipping = {
+                name: user["name"],
+                phone: user["phone"],
+                email: user["email"],
+                ship_from: "china",
+                ship_to: this.data.warehouse_id,
+                weight: this.data.weight,
+                height: this.data.weight,
+                ship_detail: [],
+                note: this.data.note,
+            };
+            if(this.data.warehouse_id === "2"){
+                shipping.ship_to = 'Sai Gon'
+            }
+            else{
+                shipping.ship_to = 'Ha Noi'
+            }
+            var id_order = '';
+            this.data.orders.forEach(item => {
+                id_order += item.order_id+','
+            });
+
+            var order_detail = await axios
+                .get("/api/detail-order?id="+id_order)
+                .then((res) => {
+                    return res.data;
+                });
+
+            order_detail.forEach((item) => {
+                var product_detail = {
+                    name: item.product_name,
+                    code: item.id,
+                    quantity: item.quantity_bought,
+                    price: item.original_price,
+                };
+                shipping.ship_detail.push(product_detail);
+            });
+            var code = await axios
+                .post("http://127.0.0.1:8001/api/create-shipping", shipping)
+                .then((res) => {
+                    console.log(res);
+                    return res.data.shipping_code;
+                });
+
+            this.data.code = code;
+                        console.log(shipping);
+                        console.log(this.data);
+            },
         createPacket() {
             this.is_loading = true;
             axios
@@ -326,6 +377,8 @@ export default {
                 })
                 .catch((error) => console.log(error))
                 .finally(() => (this.is_loading = false));
+                
+                
         },
         searchOrder() {
             this.is_loading = true;
