@@ -13,6 +13,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import App from './App.vue';
 import routes from './routes';
+import { getUser } from "./services/User/user";
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import { createAuth } from '@websanova/vue-auth';
@@ -90,7 +91,50 @@ var auth = createAuth({
         },
     }
 });
-
+router.beforeEach((to, from, next) => {
+    let token = localStorage.getItem("auth_token_default") || null;
+    getUser().then(res => {
+        let role = res.data.data.role
+        if(role == 1){
+            next()
+        }else{
+        
+        }
+    }).catch(err => {
+        
+    })
+    next()
+    // if (token) {
+    //     getUser()
+    //         .then((res) => {
+    //             if (res.data) {
+    //                 if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //                     next();
+    //                 } else if (to.matched.some((record) => record.meta.notLogin)) {
+    //                     router.replace("/");
+    //                 } else {
+    //                     next();
+    //                 }
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             if (to.matched.some((record) => record.meta.notLogin)) {
+    //                 next();
+    //             } else if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //                 router.replace("/login");
+    //             } else {
+    //                 next();
+    //             }
+    //         });
+    // } else {
+    //     if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //         router.replace("/login");
+    //     } else if (to.matched.some((record) => record.meta.notLogin)) {
+    //         next()
+    //     }
+    // }
+});
+app.use(router)
 app.use(auth);
 app.use(Antd);
 

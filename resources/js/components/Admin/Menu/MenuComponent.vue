@@ -14,25 +14,25 @@
                         Đơn Hàng
                     </router-link>
                 </li>
-                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="0 < role <= 2" class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/pay-fist" class="text-white">
                         <font-awesome-icon icon="fa fa-money-bill" />
                         Tiền Hàng
                     </router-link>
                 </li>
-                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="role == 1" class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/user" class="text-white">
                         <font-awesome-icon icon="fas fa-users" />
                         Khách Hàng
                     </router-link>
                 </li>
-                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="0 < role <= 2" class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="chinese-money" class="text-white">
                         <font-awesome-icon icon="fa fa-money-bill" />
                         Giao Dịch Tiền Trung
                     </router-link>
                 </li>
-                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="0 < role <= 2" class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/money-vietnamese" class="text-white">
                         <font-awesome-icon icon="fa fa-money-bill" />
                         Giao Dịch Tiền Việt
@@ -44,7 +44,7 @@
                         Bao Hàng
                     </router-link>
                 </li>
-                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="0 < role <= 2" class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/partner" class="text-white">
                         <font-awesome-icon icon="fa fa-handshake-alt" />
                         Đối Tác
@@ -56,8 +56,8 @@
                        
                         Thiết Lập
                     </router-link> -->
-                <Dropdown title="Thiết Lập" height="h-24" :fontAwesome="icon_fontAwesome" :icon="icon" class="text-white my-2 py-2 pl-5 rounded-[10px]" >
-                    <li class="mb-2">
+                <Dropdown v-if="0 < role <= 2" title="Thiết Lập" height="h-24" :fontAwesome="icon_fontAwesome" :icon="icon" class="text-white my-2 py-2 pl-5 rounded-[10px]" >
+                    <li class="mb-2" v-if="role == 1">
                        <router-link to="/config-payment">Thông tin thanh toán</router-link>
                     </li>
                     <li class="mb-2">Thiết lập cửa hàng</li>

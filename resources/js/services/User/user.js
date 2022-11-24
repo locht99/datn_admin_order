@@ -16,3 +16,11 @@ export const update = (params) => {
 export const destroy = (id) => {
     return config.delete(`${url}/${id}`);
 }
+export function getUser() {
+    const token = localStorage.getItem('auth_token_default') || null;
+    return config.get('/users', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
