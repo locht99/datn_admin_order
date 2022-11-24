@@ -38,7 +38,7 @@
                                                         <div>
                                                             <input v-model="data_form.name_product" name="name_product"
                                                                 type="text" placeholder="Tên sản phẩm"
-                                                                class="w-full border-gray-300 rounded px-2 py-1">
+                                                                class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                             <div class="text-red-600"
                                                                 v-for="error of v$.data_form.name_product.$errors"
                                                                 :key="error.$uid">{{ error.$message }}</div>
@@ -55,7 +55,7 @@
                                                             <input v-bind="data_form.code_order" type="text" disabled
                                                                 :value="this.data_order_transport.id"
                                                                 placeholder="Mã sản phẩm"
-                                                                class="w-full border-gray-300 rounded px-2 py-1">
+                                                                class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                         </div>
                                                     </div>
                                                     <div
@@ -115,7 +115,7 @@
                                                         <div class="w-[50%]">
                                                             <label class="text-gray-500" for="">Lưu ý giao hàng</label>
                                                             <select v-model="data_form.required_note"
-                                                                class="text-gray-500 w-full border-gray-300 rounded my-2 px-2 py-1">
+                                                                class="text-gray-500 w-[94%] border-gray-300 rounded my-2 px-2 py-1">
                                                                 <option aria-selected="true" value="CHOTHUHANG">Cho thử
                                                                     hàng</option>
                                                                 <option value="CHOXEMHANGKHONGTHU">Cho xem hàng không

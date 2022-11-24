@@ -107,12 +107,12 @@
                                             item.paid ? "Đã thanh toán" : "Chưa thanh toán"
                                     }}
                                 </td>
-                                <td
-                                    class="text-xl px-2 py-2 text-gray-700 hover:text-gray-800 hover:underline cursor-pointer">
-                                    <router-link :to="'bag/' + item.id + '/edit'">
-                                        <font-awesome-icon icon="fa-solid fa-pen-to-square"
-                                            class="text-gray-500 hover:text-gray-800" />
-                                    </router-link>
+                                <td class="px-2 py-2">
+                                    <a-button type="primary" class="mx-2" danger>
+                                        <router-link :to="'bag/' + item.id + '/edit'">
+                                            <font-awesome-icon icon="far fa-edit" />
+                                        </router-link>
+                                    </a-button>
                                 </td>
                             </tr>
                         </tbody>

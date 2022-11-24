@@ -24,20 +24,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in this.data_bag_detail" :key="index" class="border-solid text-center border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
-                        <td class="font-bold">#{{index +=1}}</td>
-                        <td>{{item.order_code}}</td>
-                        <td class="pl-5">{{item.username}}</td>
-                        <td>{{formatPrice(item.total_price)}}</td>
-                        <td>{{item.created_at}}</td>
-                        <td v-if="this.status_bag === 'Gói hàng được giao thành công (China)'"><button @click="actionShipping(item.order_id)"
-                                class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
-                                <font-awesome-icon icon="fa-solid fa-truck-fast" />
-                            </button></td>
-                        <td class="text-red-600" v-if="this.status_bag !== 'Gói hàng được giao thành công (China)'">Đơn hàng chưa về đến kho Việt Nam</td>
-
+                    <tr v-for="(item, index) in this.data_bag_detail" :key="index"
+                        class="border-solid text-center border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
+                        <td class="font-bold">#{{ index += 1 }}</td>
+                        <td>{{ item.order_code }}</td>
+                        <td class="pl-5">{{ item.username }}</td>
+                        <td>{{ formatPrice(item.total_price) }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td>
+                            <a-button type="primary" class="mx-2" danger @click="actionShipping(item.order_id)">
+                                    <font-awesome-icon icon="fa-solid fa-truck-fast" />
+                            </a-button>
+                        </td>
+                        <td class="text-red-600" v-if="this.status_bag !== 'Gói hàng được giao thành công (China)'">Đơn
+                            hàng chưa về đến kho Việt Nam</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
@@ -50,7 +51,7 @@
 import AddShipingComponent from "../Bag/AddShipingComponent.vue";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { getDetailBag,checkStatusTrackingBag } from '../../../services/Bag/bag.js'
+import { getDetailBag, checkStatusTrackingBag } from '../../../services/Bag/bag.js'
 export default {
     components: {
         AddShipingComponent,
@@ -86,7 +87,7 @@ export default {
             this.$options.childInterface = childInterface;
 
         },
-        actionCheckStatusBag(){
+        actionCheckStatusBag() {
             checkStatusTrackingBag(this.$route.params.id).then((resp) => {
                 this.status_bag = resp.data.tracking_status_name
             })
