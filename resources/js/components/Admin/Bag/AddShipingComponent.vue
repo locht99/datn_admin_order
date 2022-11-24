@@ -215,7 +215,7 @@
                     <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
 
                         <button v-on:click="createShipingOrder()"
-                            class="text-white bg-transparent border border-solid border-red-500 hover:bg-red-600 hover:text-white bg-red-500 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            class="text-white border border-solid border-red-500 hover:bg-red-600 hover:text-white bg-red-500 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button">
                             Tạo
                         </button>
