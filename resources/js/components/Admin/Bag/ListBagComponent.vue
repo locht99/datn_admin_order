@@ -177,8 +177,25 @@ export default {
                     this.packets = res.data.data;
                     this.pagination = res.data.meta;
                 })
-                .catch((error) => console.log(error))
-                .finally(() => (this.is_loading = false));
+                .catch((error) => console.log(error));
+
+            this.packets.forEach((element) => {
+                axios
+                    .get(
+                        "http://127.0.0.1:8001/api/get-shipping?code=" +
+                            element.code
+                    )
+                    .then((res) => {
+                        element["delivery_status"] =
+                            res.data.description_sub_status;
+                        console.log(res.data);
+                        if (res.data.delivery_status_name === undefined) {
+                            element["delivery_status"] =
+                                "Package tracking information is no available yet";
+                        }
+                    })
+                    .finally(() => (this.is_loading = false));
+            });
         },
     },
     created() {

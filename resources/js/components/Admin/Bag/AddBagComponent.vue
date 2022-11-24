@@ -369,8 +369,6 @@ export default {
                     )
                 }
             });
-
-
         },
         searchOrder() {
             this.is_loading = true;
