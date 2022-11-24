@@ -233,7 +233,6 @@ class PacketController extends Controller
                     'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
                 ]);
             }
-
             return response()->json(['success' => 'Tạo bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
@@ -435,14 +434,15 @@ class PacketController extends Controller
         return $data;
     }
 
-    public function getStatusTrackingBag(Request $request){
+    public function getStatusTrackingBag(Request $request)
+    {
         $data = DB::table('admin_packets')
-        ->select(
-            'id',
-            'code',
-            'tracking_status_name'
-        )
-        ->where('id', $request->bag_id)->first();
+            ->select(
+                'id',
+                'code',
+                'tracking_status_name'
+            )
+            ->where('id', $request->bag_id)->first();
         return response()->json($data);
     }
 }

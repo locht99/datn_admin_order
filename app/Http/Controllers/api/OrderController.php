@@ -14,7 +14,6 @@ class OrderController extends Controller
     public function createLogTrackingCn(Request $request)
     {
         try {
-
             $data = DB::table('admin_packets')
                 ->join('admin_packet_items', 'admin_packet_items.admin_packet_id', '=', 'admin_packets.id')
                 ->select(
@@ -32,17 +31,36 @@ class OrderController extends Controller
                 ];
                 DB::table('tracking_statuses')->insert($obj_data);
             }
-            if ( $request->tracking_status_name == "Gói hàng được giao thành công"){
+            if ($request->tracking_status_name == "Gói hàng được giao thành công") {
                 $paid = 1;
-            }else{
+            } else {
                 $paid = 0;
-            } 
+            }
             DB::table('admin_packets')
                 ->where('code', '=', $request->shipping_code)
                 ->update([
                     'tracking_status_name' => $request->tracking_status_name . ' (China)',
                     'paid' => $paid
                 ]);
+            $bag_id = DB::table('admin_packets')
+                ->select(
+                    'id'
+                )
+                ->where('code', '=', $request->shipping_code)->first();
+            $order_id = DB::table('admin_packet_items')->select(
+                'order_id'
+            )->where('admin_packet_id', '=', $bag_id->id)->get();
+            foreach ($order_id as $key) {
+                if ((int)$request->delivery_status === 4) {
+                    DB::table('orders')->where('id', '=', $key->order_id)->update(['order_status_id' => 7]);
+                } else if ((int)$request->delivery_status === 3) {
+                    DB::table('orders')->where('id', '=', $key->order_id)->update(['order_status_id' => 14]);
+                } else if ((int)$request->delivery_status === 2) {
+                    DB::table('orders')->where('id', '=', $key->order_id)->update(['order_status_id' => 11]);
+                } else if ((int)$request->delivery_status === 1) {
+                    DB::table('orders')->where('id', '=', $key->order_id)->update(['order_status_id' => 10]);
+                }
+            }
             return response()->json(['success' => "Cập nhật thành công"], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
