@@ -32,9 +32,17 @@ class OrderController extends Controller
                 ];
                 DB::table('tracking_statuses')->insert($obj_data);
             }
+            if ( $request->tracking_status_name == "Gói hàng được giao thành công"){
+                $paid = 1;
+            }else{
+                $paid = 0;
+            } 
             DB::table('admin_packets')
                 ->where('code', '=', $request->shipping_code)
-                ->update(['tracking_status_name' => $request->tracking_status_name . ' (China)']);
+                ->update([
+                    'tracking_status_name' => $request->tracking_status_name . ' (China)',
+                    'paid' => $paid
+                ]);
             return response()->json(['success' => "Cập nhật thành công"], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
