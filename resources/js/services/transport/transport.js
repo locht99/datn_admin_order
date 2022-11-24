@@ -10,3 +10,6 @@ export const createShiping = (params) => {
 export const createLogTracking = (params) => {
     return config.post(`/create-log-tracking-vn`, params)
 }
+export const getCheckShip = (id) => {
+    return config.get(`/get-check-ship?order_id=` + id)
+}

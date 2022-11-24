@@ -7,7 +7,7 @@
                     Chi tiết bao hàng
                 </h1>
                 <div class="text-gray-500">
-                    <router-link to="/bag">Back</router-link>
+                    <router-link class="text-gray-700" to="/bag">Back</router-link>
                 </div>
             </div>
         </div>

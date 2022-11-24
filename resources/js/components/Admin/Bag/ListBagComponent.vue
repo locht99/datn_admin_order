@@ -102,11 +102,11 @@
                                 <td class="px-2 py-2">{{ item.tracking_status_name }}</td>
                                 <td class="px-2 py-2">
                                     {{
-                                            item.paid ? "đã thanh toán" : "chưa thanh toán"
+                                            item.paid ? "Đã thanh toán" : "Chưa thanh toán"
                                     }}
                                 </td>
-                                <td class="px-2 py-2 text-gray-700 hover:text-gray-800 hover:underline cursor-pointer">
-                                    <router-link :to="'bag/' + item.id + '/edit'"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></router-link>
+                                <td class="text-xl px-2 py-2 text-gray-700 hover:text-gray-800 hover:underline cursor-pointer">
+                                    <router-link :to="'bag/' + item.id + '/edit'"><font-awesome-icon icon="fa-solid fa-pen-to-square" class="text-gray-500 hover:text-gray-800" /></router-link>
                                 </td>
                             </tr>
                         </tbody>

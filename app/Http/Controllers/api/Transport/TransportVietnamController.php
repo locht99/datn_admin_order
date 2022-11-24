@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Http;
 
 class TransportVietnamController extends Controller
 {
+    public function getCheckShip(Request $request)
+    {
+        $data = DB::table('checking_orders')
+            ->where('order_id', '=', $request->order_id)->get();
+        return response()->json($data);
+    }
     public function createOrderGhn(Request $request)
     {
         $data = [

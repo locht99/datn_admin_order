@@ -37,6 +37,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
     Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
     Route::post('create-log-tracking-vn',[TransportVietnamController::class, 'createLogTrackingVn']);
+    Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
+
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
     // api trang chu

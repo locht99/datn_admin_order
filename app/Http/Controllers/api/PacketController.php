@@ -201,10 +201,7 @@ class PacketController extends Controller
         }
 
         try {
-            $date_today = Carbon::today();
-            $count_packet_today = AdminPacketModel::whereDate('created_at', $date_today)->count();
             $code = $request->code;
-
             $data_admin_packet = [
                 'weight' => $request->weight,
                 'volume' => $request->volume,
@@ -256,7 +253,8 @@ class PacketController extends Controller
                     'wood_packing',
                     'paid',
                     'status_id',
-                    'note'
+                    'note',
+                    'tracking_status_name'
                 )
                 ->where('is_delete', false)
                 ->first();

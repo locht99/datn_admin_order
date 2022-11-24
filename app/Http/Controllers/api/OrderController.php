@@ -44,7 +44,10 @@ class OrderController extends Controller
     {
         try {
             DB::table('orders')->where('id', '=', $request->id_order)
-                ->update(['total_price_order' => $request->total_price_order]);
+                ->update([
+                    'total_price_order' => $request->total_price_order,
+                    'express_shipping_fee' => $request->express_shipping_fee
+                ]);
             return response()->json(['success' => "Cập nhật thành công"], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => "Hệ thống đang lỗi vui lòng thử lại sau!"], 400);
