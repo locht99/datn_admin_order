@@ -9,6 +9,14 @@
                         data.code ? data.code : ""
                 }}</span>
             </h5>
+            <div class="text-gray-500 ">
+                <router-link class="text-gray-700 " to="/bag">Back</router-link>
+            </div>
+            <div v-if="data.tracking_status_name != 'Chờ xác nhận (China)'">
+                <h3 class="text-bold text-lg text-red-600">
+                    Đơn hàng đã được gửi đi bạn không thể cập nhật thông tin đơn hàng
+                </h3>
+            </div>
             <form @submit="formSubmit($event)">
                 <div class="bg-white rounded-md mt-4 p-4" style="min-height: 500px">
                     <div class="grid grid-cols-12 mb-4">
@@ -143,17 +151,13 @@
                             <input type="checkbox" v-model="data.paid"
                                 class="border-gray-300 rounded my-2 px-2 bg-red-600" />
                         </div>
-                        <div class="col-span-5 flex items-center">
-                            <label for="">Tình trạng</label>
-                        </div>
-                        <div class="flex col-span-7">
-                            <select name="admin_packet[ware_house]"
-                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" v-model="data.status_id">
-                                <option value="6">Kho nhận hàng</option>
-                                <option value="7">Vận chuyển</option>
-                                <option value="8">Chờ giao</option>
-                                <option value="9">Chờ yêu cầu giao</option>
-                            </select>
+                        <div class="col-span-5">
+                            <div class="">
+                                <label for="">Tình trạng:</label>
+                            </div>
+                            <div class="">
+                                <span class="font-[600] text-red-600">{{data.tracking_status_name}}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="grid grid-cols-12 mb-4">
@@ -166,7 +170,7 @@
                         </div>
                     </div>
                     <div>
-                        <button type="submit"
+                        <button type="submit" v-if="data.tracking_status_name == 'Chờ xác nhận (China)'"
                             class="w-full bg-yellow-300 hover:bg-yellow-400 rounded px-2 py-1 text-gray-800">
                             Chỉnh sửa
                         </button>
@@ -350,8 +354,16 @@ export default {
                 });
         },
         removeOrder(e) {
-            if (confirm("Bạn có chắc muốn xóa đơn hàng khỏi bao hàng không?")) {
-                if (e.id) {
+            this.$swal.fire({
+                title: 'Bạn có chắc muốn xóa đơn hàng khỏi bao hàng không?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (e.id) {
                     this.is_loading = true;
                     axios
                         .delete(`/admin-packets/${e.id}`)
@@ -366,7 +378,14 @@ export default {
                 this.data.order_valid = this.data.orders.filter(
                     (item) => item.order_id != ""
                 );
-            }
+                    this.$swal.fire(
+                        'Thông báo',
+                        'Xóa thành công',
+                        'success',
+                        this.toggleModal()
+                    )
+                }
+            });
         },
         searchOrderAgain(e) {
             this.data.orders = this.data.orders.filter(
