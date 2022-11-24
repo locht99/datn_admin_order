@@ -31,7 +31,7 @@
                         <td class="pl-5">{{ item.username }}</td>
                         <td>{{ formatPrice(item.total_price) }}</td>
                         <td>{{ item.created_at }}</td>
-                        <td>
+                        <td  v-if="this.status_bag === 'Gói hàng được giao thành công (China)'">
                             <a-button type="primary" class="mx-2" danger @click="actionShipping(item.order_id)">
                                     <font-awesome-icon icon="fa-solid fa-truck-fast" />
                             </a-button>
