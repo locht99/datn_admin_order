@@ -1,11 +1,11 @@
 <template>
     <div v-if="this.showModalAction"
         class="overflow-x-hidden overflow-y-auto  fade  fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto">
+        <div class="relative my-6 mx-auto">
             <!--content-->
             <form @submit="checkForm">
                 <div
-                    class="modal-cart border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none w-[1200px]">
+                    class="modal-cart border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none w-auto">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                         <h3 class="text-gray-500 text-3xl font-semibold">
