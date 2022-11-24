@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Http;
 
 class TransportVietnamController extends Controller
 {
+    public function getCheckShip(Request $request)
+    {
+        $data = DB::table('checking_orders')
+            ->where('order_id', '=', $request->order_id)->get();
+        return response()->json($data);
+    }
     public function createOrderGhn(Request $request)
     {
         $data = [
@@ -60,11 +66,12 @@ class TransportVietnamController extends Controller
         return response()->json($data);
     }
 
-    public function createLogTracking(Request $request)
+    public function createLogTrackingVn(Request $request)
     {
         $data = [
             'order_id' => $request->order_id,
             'tracking_status_name' => $request->tracking_status_name,
+            'name' => "GHN",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ];
         $resp = DB::table('tracking_statuses')->insert($data);

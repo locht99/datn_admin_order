@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.showModalAction"
         class="overflow-x-hidden overflow-y-auto  fade  fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto max-w-5xl">
+        <div class="relative w-auto my-6 mx-auto">
             <!--content-->
             <form @submit="checkForm">
                 <div
@@ -230,8 +230,8 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import useVuelidate from '@vuelidate/core';
-import { helpers, required, numeric, minValue, maxValue } from "@vuelidate/validators";
-import { createShipingGhn, createShiping,createLogTracking } from "../../../services/transport/transport.js";
+import { helpers, required, numeric } from "@vuelidate/validators";
+import { createShipingGhn, createShiping, createLogTracking, getCheckShip } from "../../../services/transport/transport.js";
 import { getOrder, getInfoUser, getDetailOrderGhn, getDetailOrderServiceGhn, updatePriceOrder } from '../../../services/Bag/bag.js'
 export default {
     data() {
@@ -241,7 +241,6 @@ export default {
             data_order_transport: [],
             order: {},
             info_user: [],
-            total_cod_amount: 0,
             total_price_order: 0,
             data_form: {
                 name_product: null,
@@ -253,10 +252,10 @@ export default {
                 cod_amount: null,
                 required_note: null,
                 note: null
-
             },
             data_or: [],
-            data_trans: []
+            data_trans: [],
+            order_id: {}
         }
     },
     validations() {
@@ -269,7 +268,6 @@ export default {
                 width: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập bề rộng', required), $autoDirty: true },
                 required_note: { required: helpers.withMessage('Vui lòng chọn lưu ý khi vận chuyển', required), $autoDirty: true },
                 note: { required: helpers.withMessage('Bắt buộc nhập', required), $autoDirty: true },
-
             },
         }
     },
@@ -292,13 +290,13 @@ export default {
     },
     created() {
         this.getIdOrder()
-
     },
     methods: {
         toggleModal: function () {
             this.$emit('showModal', this.showModalAction);
         },
         getIdOrder(item) {
+            this.order_id = item
             getOrder(item).then((resp) => {
                 this.data_order_transport = resp.data[0]
                 let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
@@ -315,123 +313,129 @@ export default {
         },
         createShipingOrder() {
             this.v$.$touch();
-            if (!this.v$.$error) {
-                this.$swal.fire({
-                    title: 'Bạn có chắc muốn tạo đơn vận chuyển không ?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Tạo'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.isLoading = true;
-                        this.data_or = {
-                            name_product: this.data_form.name_product,
-                            code_order: this.data_form.code_order,
-                            weight: this.data_form.weight,
-                            length: this.data_form.length,
-                            height: this.data_form.height,
-                            width: this.data_form.width,
-                            cod_amount: this.total_cod_amount,
-                            required_note: this.data_form.required_note,
-                            note: this.data_form.note
+            getCheckShip(this.order_id).then((response) => {
+                if (response.data.length > 0) {
+                    this.$swal.fire(
+                        {
+                            icon: 'error',
+                            title: 'Thông báo',
+                            text: 'Đơn hàng này đã tạo vận đơn!',
                         }
-                        console.log(this.data_or)
-                        createShipingGhn(
-                            {
-                                payment_type_id: 2,
-                                note: this.data_or.note,
-                                required_note: this.data_or.required_note,
-                                client_order_code: "",
-                                to_name: this.info_user.name,
-                                to_phone: this.info_user.phone,
-                                to_address: this.info_user.note,
-                                to_ward_name: this.info_user.ward,
-                                to_district_name: this.info_user.district,
-                                to_province_name: this.info_user.province,
-                                cod_amount: this.data_or.cod_amount,
-                                content: this.data_or.note,
-                                weight: this.data_or.weight,
-                                length: this.data_or.length,
-                                width: this.data_or.weight,
-                                height: this.data_or.height,
-                                service_id: 0,
-                                service_type_id: 2,
-                            }
-                        ).then((resp) => {
-                            let data = JSON.parse(resp.config.data)
-                            this.data_trans = {
-                                payment_type_id: data.payment_type_id,
-                                note: data.note,
-                                order_id: this.data_order_transport.id,
-                                required_note: data.required_note,
-                                client_order_code: data.client_order_code,
-                                to_name: data.to_name,
-                                to_phone: data.to_phone,
-                                to_address: data.to_address,
-                                to_ward_name: data.to_ward_name,
-                                to_district_name: data.to_district_name,
-                                to_province_name: data.to_province_name,
-                                cod_amount: data.cod_amount,
-                                content: data.content,
-                                weight: data.weight,
-                                length: data.length,
-                                width: data.width,
-                                height: data.height,
-                                service_id: data.service_id,
-                                service_type_id: data.service_type_id,
-                                order_code: resp.data.data.order_code,
-                                user_id: this.info_user.id,
-                                status_name: "Chờ xác nhận"
-                            }
-                            createShiping(this.data_trans).then((response) => {
-                                getDetailOrderGhn(this.data_trans.order_code).then((resp_cod) => {
-                                    getDetailOrderServiceGhn(this.data_trans.order_code).then((resp) => {
-                                        this.total_price_order = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
-                                        console.log(this.data_trans.order_id)
-                                        updatePriceOrder({
-                                            id_order: this.data_trans.order_id,
-                                            total_price_order: this.total_price_order
-                                        }).then((resp) => {
-                                            this.data_form = {
-                                                name_product: null,
-                                                code_order: null,
-                                                weight: null,
-                                                length: null,
-                                                height: null,
-                                                width: null,
-                                                cod_amount: null,
-                                                required_note: null,
-                                                note: null
-                                            }
-                                            
-                                            createLogTracking({
-                                                order_id: this.data_order_transport.id,
-                                                tracking_status_name: "Chờ xác nhận (Vn)"
-                                            }).then((resp) =>{
-
+                    )
+                    this.toggleModal()
+                    return
+                } else {
+                    if (!this.v$.$error) {
+                        this.$swal.fire({
+                            title: 'Bạn có chắc muốn tạo đơn vận chuyển không ?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Tạo'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.isLoading = true;
+                                this.data_or = {
+                                    name_product: this.data_form.name_product,
+                                    code_order: this.data_form.code_order,
+                                    weight: this.data_form.weight,
+                                    length: this.data_form.length,
+                                    height: this.data_form.height,
+                                    width: this.data_form.width,
+                                    cod_amount: this.total_cod_amount,
+                                    required_note: this.data_form.required_note,
+                                    note: this.data_form.note
+                                }
+                                createShipingGhn(
+                                    {
+                                        payment_type_id: 2,
+                                        note: this.data_or.note,
+                                        required_note: this.data_or.required_note,
+                                        client_order_code: "",
+                                        to_name: this.info_user.name,
+                                        to_phone: this.info_user.phone,
+                                        to_address: this.info_user.note,
+                                        to_ward_name: this.info_user.ward,
+                                        to_district_name: this.info_user.district,
+                                        to_province_name: this.info_user.province,
+                                        cod_amount: this.data_or.cod_amount,
+                                        content: this.data_or.note,
+                                        weight: this.data_or.weight,
+                                        length: this.data_or.length,
+                                        width: this.data_or.weight,
+                                        height: this.data_or.height,
+                                        service_id: 0,
+                                        service_type_id: 2,
+                                    }
+                                ).then((resp) => {
+                                    let data = JSON.parse(resp.config.data)
+                                    this.data_trans = {
+                                        payment_type_id: data.payment_type_id,
+                                        note: data.note,
+                                        order_id: this.data_order_transport.id,
+                                        required_note: data.required_note,
+                                        client_order_code: data.client_order_code,
+                                        to_name: data.to_name,
+                                        to_phone: data.to_phone,
+                                        to_address: data.to_address,
+                                        to_ward_name: data.to_ward_name,
+                                        to_district_name: data.to_district_name,
+                                        to_province_name: data.to_province_name,
+                                        cod_amount: data.cod_amount,
+                                        content: data.content,
+                                        weight: data.weight,
+                                        length: data.length,
+                                        width: data.width,
+                                        height: data.height,
+                                        service_id: data.service_id,
+                                        service_type_id: data.service_type_id,
+                                        order_code: resp.data.data.order_code,
+                                        user_id: this.info_user.id,
+                                        status_name: "Chờ xác nhận"
+                                    }
+                                    createShiping(this.data_trans).then((response) => {
+                                        getDetailOrderGhn(this.data_trans.order_code).then((resp_cod) => {
+                                            getDetailOrderServiceGhn(this.data_trans.order_code).then((resp) => {
+                                                this.total_price_order = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
+                                                console.log(resp.data.data.payment[0].value)
+                                                updatePriceOrder({
+                                                    id_order: this.data_trans.order_id,
+                                                    total_price_order: this.total_price_order,
+                                                    express_shipping_fee: resp.data.data.payment[0].value
+                                                }).then((resp) => {
+                                                    createLogTracking({
+                                                        order_id: this.data_order_transport.id,
+                                                        tracking_status_name: "Chờ xác nhận (Vietnamese)"
+                                                    }).then((resp) => {
+                                                        this.$swal.fire(
+                                                            'Thông báo',
+                                                            'Tạo đơn vận thành công',
+                                                            'success',
+                                                            this.toggleModal()
+                                                        )
+                                                    })
+                                                }).catch((error) => {
+                                                    this.swalError()
+                                                })
+                                            }).catch((error) => {
+                                                this.swalError()
                                             })
-                                            this.$swal.fire(
-                                                'Thông báo',
-                                                'Tạo đơn vận thành công',
-                                                'success',
-                                                this.toggleModal()
-                                            )
-                                            
+                                        }).catch((error) => {
+                                            this.swalError()
                                         })
+
+                                    }).catch((error) => {
+                                        this.swalError()
                                     })
+                                }).catch((error) => {
+                                    this.swalError()
                                 })
-
-                            })
-                        })
-                        .catch((error) => {
-                            console.log(error.response.data.code_message_value)
-                        })
+                            }
+                        });
                     }
-                });
-
-            }
+                }
+            })
 
         },
         formatPrice(value) {
@@ -440,6 +444,15 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        swalError() {
+            this.$swal.fire(
+                {
+                    icon: 'error',
+                    title: 'Thông báo',
+                    text: 'Lỗi hệ thống vui lòng thử lại sau!',
+                }
+            )
+        }
     }
 }
 </script>

@@ -7,7 +7,7 @@
                     Chi tiết bao hàng
                 </h1>
                 <div class="text-gray-500">
-                    <router-link to="/bag">Back</router-link>
+                    <router-link class="text-gray-700" to="/bag">Back</router-link>
                 </div>
             </div>
         </div>
@@ -30,10 +30,11 @@
                         <td class="pl-5">{{item.username}}</td>
                         <td>{{formatPrice(item.total_price)}}</td>
                         <td>{{item.created_at}}</td>
-                        <td><button @click="actionShipping(item.order_id)"
+                        <td v-if="this.status_bag === 'Gói hàng được giao thành công (China)'"><button @click="actionShipping(item.order_id)"
                                 class="text-red-500 duration-300 text-2xl hover:text-red-600 py-1 px-4 rounded">
                                 <font-awesome-icon icon="fa-solid fa-truck-fast" />
                             </button></td>
+                        <td class="text-red-600" v-if="this.status_bag !== 'Gói hàng được giao thành công (China)'">Đơn hàng chưa về đến kho Việt Nam</td>
 
                     </tr>
 
@@ -66,6 +67,7 @@ export default {
             isLoading: true,
             backGroundcolor: "#E93B3B",
             data_bag_detail: [],
+            status_bag: []
         }
     },
     created() {
@@ -86,7 +88,7 @@ export default {
         },
         actionCheckStatusBag(){
             checkStatusTrackingBag(this.$route.params.id).then((resp) => {
-                console.log(resp)
+                this.status_bag = resp.data.tracking_status_name
             })
         },
         updateOpenModal(event) {
