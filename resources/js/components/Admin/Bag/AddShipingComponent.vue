@@ -398,7 +398,6 @@ export default {
                                         getDetailOrderGhn(this.data_trans.order_code).then((resp_cod) => {
                                             getDetailOrderServiceGhn(this.data_trans.order_code).then((resp) => {
                                                 this.total_price_order = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
-                                                console.log(resp.data.data.payment[0].value)
                                                 updatePriceOrder({
                                                     id_order: this.data_trans.order_id,
                                                     total_price_order: this.total_price_order,

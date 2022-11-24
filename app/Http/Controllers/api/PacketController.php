@@ -226,8 +226,13 @@ class PacketController extends Controller
                 ];
                 $packetNew = AdminPacketItemModel::create($data_admin_packet_item);
                 $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
+                DB::table('tracking_statuses')->insert([
+                    'order_id' => $value['order_id'],
+                    'name' => "SSG1",
+                    'tracking_status_name' => "Chờ xác nhận (China)",
+                    'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
+                ]);
             }
-
             return response()->json(['success' => 'Tạo bao hàng thành công']);
         } catch (\Throwable $th) {
             return response()->json([
@@ -429,14 +434,15 @@ class PacketController extends Controller
         return $data;
     }
 
-    public function getStatusTrackingBag(Request $request){
+    public function getStatusTrackingBag(Request $request)
+    {
         $data = DB::table('admin_packets')
-        ->select(
-            'id',
-            'code',
-            'tracking_status_name'
-        )
-        ->where('id', $request->bag_id)->first();
+            ->select(
+                'id',
+                'code',
+                'tracking_status_name'
+            )
+            ->where('id', $request->bag_id)->first();
         return response()->json($data);
     }
 }
