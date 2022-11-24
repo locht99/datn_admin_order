@@ -226,6 +226,12 @@ class PacketController extends Controller
                 ];
                 $packetNew = AdminPacketItemModel::create($data_admin_packet_item);
                 $this->orderModel->updateStatusOrderWithPacket($value['order_id'], $request->status_id);
+                DB::table('tracking_statuses')->insert([
+                    'order_id' => $value['order_id'],
+                    'name' => "SSG1",
+                    'tracking_status_name' => "Chờ xác nhận (China)",
+                    'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
+                ]);
             }
 
             return response()->json(['success' => 'Tạo bao hàng thành công']);
