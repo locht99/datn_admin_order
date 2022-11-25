@@ -254,6 +254,7 @@ export default {
         return {
             is_loading: false,
             data: {
+                fee_service: '',
                 warehouse_id: "",
                 weight: "",
                 volume: "",
@@ -306,6 +307,7 @@ export default {
                         phone: user["phone"],
                         email: user["email"],
                         ship_from: "china",
+                        weight_from_volume: this.data.weight_from_volume,
                         ship_to: this.data.warehouse_id,
                         weight: this.data.weight,
                         height: this.data.weight,
@@ -321,6 +323,7 @@ export default {
                     axios.post("http://127.0.0.1:8001/api/create-shipping", shipping)
                         .then((res) => {
                             this.data.code = res.data.shipping_code
+                            this.data.fee_service = res.data.fee_service
                             axios
                                 .post("/api/admin-packets", this.data)
                                 .then((res) => {

@@ -156,7 +156,7 @@
                                 <label for="">Tình trạng:</label>
                             </div>
                             <div class="">
-                                <span class="font-[600] text-red-600">{{data.tracking_status_name}}</span>
+                                <span class="font-[600] text-red-600">{{ data.tracking_status_name }}</span>
                             </div>
                         </div>
                     </div>
@@ -261,10 +261,10 @@ export default {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title ='Cập nhật bao hàng';
+                document.title = 'Cập nhật bao hàng';
             }
         },
-  },
+    },
     data() {
         return {
             is_loading: false,
@@ -292,12 +292,17 @@ export default {
             }
             this.code = "";
         },
+
         editPacket() {
             this.is_loading = true;
-            axios
-                .put(`/api/admin-packets/${this.id}/`, this.data)
-                .then((res) => {
-                    console.log(res);
+            axios.post("http://127.0.0.1:8001/api/update-shipping", {
+                code: this.data.code,
+                weight_from_volume: this.data.weight_from_volume,
+                weight: this.data.weight,
+
+            }).then((res) => {
+                this.data.fee_service = res.data.fee_service
+                axios.put(`/api/admin-packets/${this.id}/`, this.data).then((res) => {
                     if (res.data.errors) {
                         this.errors = res.data.errors;
                     }
@@ -339,8 +344,10 @@ export default {
                             });
                     }
                 })
-                .catch((error) => console.log(error))
-                .finally(() => (this.is_loading = false));
+                    .catch((error) => console.log(error))
+                    .finally(() => (this.is_loading = false));
+            })
+
         },
         searchOrder() {
             this.is_loading = true;
@@ -372,20 +379,20 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (e.id) {
-                    this.is_loading = true;
-                    axios
-                        .delete(`/admin-packets/${e.id}`)
-                        .catch((error) => console.log(error))
-                        .finally(() => {
-                            this.is_loading = false;
-                        });
-                }
-                this.data.orders = this.data.orders.filter(
-                    (item) => item.code != e.code
-                );
-                this.data.order_valid = this.data.orders.filter(
-                    (item) => item.order_id != ""
-                );
+                        this.is_loading = true;
+                        axios
+                            .delete(`/admin-packets/${e.id}`)
+                            .catch((error) => console.log(error))
+                            .finally(() => {
+                                this.is_loading = false;
+                            });
+                    }
+                    this.data.orders = this.data.orders.filter(
+                        (item) => item.code != e.code
+                    );
+                    this.data.order_valid = this.data.orders.filter(
+                        (item) => item.order_id != ""
+                    );
                     this.$swal.fire(
                         'Thông báo',
                         'Xóa thành công',

@@ -53,7 +53,8 @@ class PacketController extends Controller
                     'admin_packets.tracking_status_name',
                     'admin_packets.id',
                     'admin_packets.warehouse_id',
-                    'admin_packets.paid'
+                    'admin_packets.paid',
+                    'admin_packets.fee_service',
                 )
                 ->orderByDesc('admin_packets.created_at');
             if ($request->code) {
@@ -203,6 +204,7 @@ class PacketController extends Controller
         try {
             $code = $request->code;
             $data_admin_packet = [
+                'fee_service' => $request->fee_service,
                 'weight' => $request->weight,
                 'volume' => $request->volume,
                 'weight_from_volume' => $request->weight_from_volume,
@@ -294,6 +296,18 @@ class PacketController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            if($request->weight_from_volume > 0 && $request->weight_from_volume <=5){
+                $fee_service = 40000;
+            }
+            else if($request->weight_from_volume > 5 && $request->weight_from_volume <=20){
+                $fee_service = 70000;
+            }
+            else if($request->weight_from_volume > 20 && $request->weight_from_volume <=100){
+                $fee_service = 100000;
+            }
+            else if($request->weight_from_volume > 100){
+                $fee_service = 200000;
+            }
             if (!AdminPacketModel::find($id)) {
                 return response()->json([
                     'error' => true,
@@ -359,6 +373,7 @@ class PacketController extends Controller
                 'other_price' => $request->other_price,
                 'paid' => $paid,
                 'warehouse_id' => $request->warehouse_id,
+                'fee_service' => $fee_service
             ];
             AdminPacketModel::find($id)
                 ->update($data_admin_packet);

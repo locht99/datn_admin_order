@@ -24,7 +24,8 @@ class PacketListResource extends JsonResource
             'status_name' => config("const.admin_packet_status.$this->status_id"),
             'tracking_status_name' => $this->tracking_status_name,
             'paid' => $this->paid,
-            'warehouse_id' => $this->warehouse_id
+            'warehouse_id' => $this->warehouse_id,
+            'fee_service' => $this->fee_service
         ];
     }
 }
