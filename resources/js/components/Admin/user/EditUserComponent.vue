@@ -106,6 +106,14 @@ import { update, get } from '../../../services/User/user.js';
 import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Cập nhật tài khoản';
+            }
+        },
+  },
     data() {
         return {
             v$: useVuelidate(),

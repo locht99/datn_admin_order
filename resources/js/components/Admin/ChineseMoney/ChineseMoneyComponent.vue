@@ -48,7 +48,8 @@
                         <td>{{item.order_code}}</td> -->
                         <td>{{item.type_name}}</td>
                         <td>{{item.content}}</td>
-                        <td>{{item.point_cn}}</td>
+                        <td >{{item.point_cn}}</td>
+                        
                     </tr>
 
                 </tbody>
@@ -75,6 +76,14 @@ import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
 import { getAll, getTypeMoneyChina } from '../../../services/ChinaMoney/ChinaMoney.js';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách tiền trung';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,

@@ -55,7 +55,7 @@
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
-                                    <a-button type="primary" class="mx-2 my-2" light>
+                                    <a-button type="danger" class="mx-2 my-2" light>
                                         <router-link :to="{ path: 'orderdetail/' + item.id }">
                                             <font-awesome-icon icon="fas fa-info-circle" />
                                         </router-link>
@@ -87,6 +87,14 @@ import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Đơn Hàng';
+            }
+        },
+  },
     props: ["values_filter"],
     components: {
         Loading,
@@ -95,6 +103,9 @@ export default {
     },
     data() {
         return {
+            item: Number,
+            showModals: false,
+            showModal: false,
             openFilter: true,
             styleFilter: "",
             isLoading: true,
@@ -105,33 +116,6 @@ export default {
             to: null,
             data: [],
             dataStatus: [],
-            params: [],
-            status: [
-                {
-                    name: "Đã đặt cọc",
-                },
-                {
-                    name: "Đã mua hàng",
-                },
-                {
-                    name: "Shop giao hàng",
-                },
-                {
-                    name: "Kho nhận hàng",
-                },
-                {
-                    name: "Vận chuyển",
-                },
-                {
-                    name: "Chờ giao",
-                },
-                {
-                    name: "Chờ giao yêu cầu",
-                },
-                {
-                    name: "Đang yêu cầu",
-                },
-            ],
             nameTable: [
                 {
                     name: "STT",
@@ -198,6 +182,10 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        updateOpenModal(event) {
+            this.showModals = !event;
+        }
+        
     },
 };
 </script>
