@@ -67,6 +67,7 @@ export default {
             params: [],
             list_money: [],
             isLoading: true,
+            backGroundcolor: '#E93B3B',
         };
     },
 
