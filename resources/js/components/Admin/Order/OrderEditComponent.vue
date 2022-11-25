@@ -100,6 +100,14 @@ import { getOrderUpdate, updateOrderPacket } from "../../../services/order/order
 import { message } from 'ant-design-vue';
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Chỉnh sửa đơn hàng';
+            }
+        },
+  },
     setup() {
         const value = ref(1);
 

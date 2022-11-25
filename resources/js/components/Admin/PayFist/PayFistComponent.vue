@@ -58,6 +58,14 @@ import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Tiền hàng';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,

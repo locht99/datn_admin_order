@@ -133,6 +133,14 @@
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách bao hàng';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,

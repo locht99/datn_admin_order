@@ -126,6 +126,14 @@ import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 import useVuelidate from '@vuelidate/core';
 import { ref } from 'vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Thêm tiền trung';
+            }
+        },
+  },
     data() {
         return {
             v$: useVuelidate(),

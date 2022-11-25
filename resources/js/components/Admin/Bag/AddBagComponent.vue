@@ -242,6 +242,14 @@
 import Loading from 'vue-loading-overlay';
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Bao hàng';
+            }
+        },
+  },
     data() {
         return {
             is_loading: false,

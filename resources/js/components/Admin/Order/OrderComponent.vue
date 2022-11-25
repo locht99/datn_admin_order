@@ -87,6 +87,14 @@ import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Đơn Hàng';
+            }
+        },
+  },
     props: ["values_filter"],
     components: {
         Loading,
