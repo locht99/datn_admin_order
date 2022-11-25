@@ -8,6 +8,7 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\ReportController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\TestController;
@@ -65,6 +66,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('admin-packets', PacketController::class)->only([
         'show', 'store', 'update', 'destroy'
     ]);
+
+    // api report
+    Route::get('/user-create', [ReportController::class, 'userCreate']);
 
     // api partner
     Route::resource('partner', PartnerController::class)->only([

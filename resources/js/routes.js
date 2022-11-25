@@ -17,6 +17,8 @@ import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
 import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
 import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
+import Report from './components/Admin/Report/ReportComponent.vue';
+
 const routes = [
     {
         path: "/",
@@ -96,6 +98,10 @@ const routes = [
             {
                 path: '/config-payment',
                 component: ConfigPayment
+            },
+            {
+                path: '/report',
+                component: Report
             }
         ],
     },
