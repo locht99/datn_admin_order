@@ -1380,6 +1380,10 @@ input:checked + .toggle-bg {
   height: 1rem;
 }
 
+.h-\[50\%\] {
+  height: 50%;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1498,6 +1502,10 @@ input:checked + .toggle-bg {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-\[94\%\] {
+  width: 94%;
 }
 
 .max-w-6xl {
@@ -2345,6 +2353,10 @@ input:checked + .toggle-bg {
 
 .font-light {
   font-weight: 300;
+}
+
+.font-\[600\] {
+  font-weight: 600;
 }
 
 .uppercase {

@@ -4,6 +4,9 @@
     <div class="packet-add my-4 grid grid-cols-6 gap-4">
         <div class="col-span-2 text-gray-600">
             <h5 class="uppercase text-xl">Thêm mới bao hàng</h5>
+            <div class="text-gray-500">
+                <router-link class="text-gray-700" to="/bag">Back</router-link>
+            </div>
             <form @submit="formSubmit($event)">
                 <div class="bg-white rounded-md mt-4 p-4" style="min-height: 500px">
                     <div class="grid grid-cols-12 mb-4">
@@ -31,7 +34,7 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.weight" />
                             <span
@@ -47,7 +50,7 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.volume" />
                             <span
@@ -63,7 +66,7 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.weight_from_volume" />
                             <span
@@ -82,7 +85,7 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.unit_price" />
                             <span
@@ -97,7 +100,7 @@
                             <label for="">Phí đóng gỗ</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.wood_packing_price" />
                             <span
@@ -112,7 +115,7 @@
                             <label for="">Phí khác</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
+                            <input type="number" id="website-admin"
                                 class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
                                 v-model="data.other_price" />
                             <span
@@ -140,15 +143,6 @@
                         </div>
                         <div class="col-span-5 flex items-center">
                             <label for="">Tình trạng</label>
-                        </div>
-                        <div class="flex col-span-7">
-                            <select name="admin_packet[ware_house]"
-                                class="w-full border-gray-300 rounded my-2 px-2 py-0.5" v-model="data.status_id">
-                                <option value="6">Kho nhận hàng</option>
-                                <!-- <option value="7">Vận chuyển</option>
-                                <option value="8">Chờ giao</option>
-                                <option value="9">Chờ yêu cầu giao</option> -->
-                            </select>
                         </div>
                     </div>
                     <div class="grid grid-cols-12 mb-4">
@@ -261,10 +255,12 @@ export default {
                 other_price: "",
                 wood_packing: false,
                 paid: false,
-                status_id: 6,
+                status_id: 7,
+                tracking_status_name: "Chờ xác nhận (China)",
                 note: "",
                 orders: [],
                 order_valid: [],
+                code: []
             },
             errors: {},
             code: "",
@@ -287,53 +283,92 @@ export default {
             this.code = "";
         },
         createPacket() {
-            this.is_loading = true;
-            axios
-                .post("/api/admin-packets", this.data)
-                .then((res) => {
-                    if (res.data.errors) {
-                        this.errors = res.data.errors;
+            this.$swal.fire({
+                title: 'Bạn có chắc muốn tạo bao hàng không ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Tạo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    var shipping = {
+                        name: user["name"],
+                        phone: user["phone"],
+                        email: user["email"],
+                        ship_from: "china",
+                        ship_to: this.data.warehouse_id,
+                        weight: this.data.weight,
+                        height: this.data.weight,
+                        ship_detail: [],
+                        note: this.data.note,
+                    };
+                    if (this.data.warehouse_id === "2") {
+                        shipping.ship_to = 'Sai Gon'
                     }
-                    if (res.data.order_null) {
-                        this.$swal.fire({
-                            icon: "error",
-                            title: res.data.order_null,
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            showCloseButton: true,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener(
-                                    "mouseenter",
-                                    this.$swal.stopTimer
-                                );
-                                toast.addEventListener(
-                                    "mouseleave",
-                                    this.$swal.resumeTimer
-                                );
-                            },
-                        });
+                    else {
+                        shipping.ship_to = 'Ha Noi'
                     }
-                    if (res.data.success) {
-                        this.$swal
-                            .fire({
-                                title: res.data.success,
-                                showClass: {
-                                    popup: "animate__animated animate__fadeInDown",
-                                },
-                                hideClass: {
-                                    popup: "animate__animated animate__fadeOutUp",
-                                },
-                            })
-                            .finally(() => {
-                                window.location.assign("/bag");
-                            });
-                    }
-                })
-                .catch((error) => console.log(error))
-                .finally(() => (this.is_loading = false));
+                    axios.post("http://127.0.0.1:8001/api/create-shipping", shipping)
+                        .then((res) => {
+                            this.data.code = res.data.shipping_code
+                            axios
+                                .post("/api/admin-packets", this.data)
+                                .then((res) => {
+                                    if (res.data.errors) {
+                                        this.errors = res.data.errors;
+                                    }
+                                    if (res.data.order_null) {
+                                        this.$swal.fire({
+                                            icon: "error",
+                                            title: res.data.order_null,
+                                            toast: true,
+                                            position: "top-end",
+                                            showConfirmButton: false,
+                                            showCloseButton: true,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener(
+                                                    "mouseenter",
+                                                    this.$swal.stopTimer
+                                                );
+                                                toast.addEventListener(
+                                                    "mouseleave",
+                                                    this.$swal.resumeTimer
+                                                );
+                                            },
+                                        });
+                                    }
+                                    if (res.data.success) {
+                                        this.$swal
+                                            .fire({
+                                                title: res.data.success,
+                                                showClass: {
+                                                    popup: "animate__animated animate__fadeInDown",
+                                                },
+                                                hideClass: {
+                                                    popup: "animate__animated animate__fadeOutUp",
+                                                },
+                                            })
+                                            .finally(() => {
+                                                window.location.assign("/bag");
+                                            });
+                                    }
+                                })
+                                .catch((error) => console.log(error))
+                                .finally(() => (this.is_loading = false));
+                        }).catch((error) => console.log(error));
+                    this.is_loading = true;
+                    this.$swal.fire(
+                        'Thông báo',
+                        'Tạo thành công',
+                        'success',
+                        this.toggleModal()
+                    )
+                }
+            });
         },
         searchOrder() {
             this.is_loading = true;
@@ -355,29 +390,13 @@ export default {
                 });
         },
         removeOrder(e) {
-            this.$swal.fire({
-                title: 'Bạn có chắc muốn tạo đơn vận chuyển không ?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Tạo'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.data.orders = this.data.orders.filter(
-                        (item) => item.code != e.code
-                    );
-                    this.data.order_valid = this.data.orders.filter(
-                        (item) => item.order_id != ""
-                    );
-                    this.$swal.fire(
-                        'Thông báo',
-                        'Tạo thành công',
-                        'success',
-                        this.toggleModal()
-                    )
-                }
-            });
+            this.data.orders = this.data.orders.filter(
+                (item) => item.code != e.code
+            );
+            this.data.order_valid = this.data.orders.filter(
+                (item) => item.order_id != ""
+            );
+
         },
         searchOrderAgain(e) {
             this.data.orders = this.data.orders.filter(
