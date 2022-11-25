@@ -10,7 +10,7 @@
                         <a-card title="Thông tin chung" class="w-full">
                             <div class="w-full mb-3">
                                 <label for="">Mã đặt hàng(taobao,1688)</label>
-                                <a-input v-model:value="this.order_code" class="w-full" placeholder="Mã đặt hàng" />
+                                <a-input :disabled="disabled" v-model:value="this.order_code" class="w-full" placeholder="Mã đặt hàng" />
                             </div>
                             <div class="w-full mb-3">
                                 <label for="">Mã vận đơn</label>
@@ -119,6 +119,7 @@ export default {
             order_id: 0,
             data: [],
             order_code: 0,
+            disabled: true,
             option: {
                 order_checking: null,
                 autoshipping: null,

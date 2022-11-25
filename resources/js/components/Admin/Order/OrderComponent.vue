@@ -55,7 +55,7 @@
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
-                                    <a-button type="primary" class="mx-2 my-2" light>
+                                    <a-button type="danger" class="mx-2 my-2" light>
                                         <router-link :to="{ path: 'orderdetail/' + item.id }">
                                             <font-awesome-icon icon="fas fa-info-circle" />
                                         </router-link>
