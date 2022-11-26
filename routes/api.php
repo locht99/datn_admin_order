@@ -53,22 +53,26 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
     Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
     //api tien hang
-    Route::get('/get-money', [MoneyController::class, 'getMoneys']);
+    Route::middleware('role:1,2')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
-    Route::get('/get-users', [UserController::class, 'getUsers']);
-    Route::get('/update-user', [UserController::class, 'updateUser']);
-    Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
-    Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
+    Route::middleware('role:1')->group(function(){
+        Route::get('/get-users', [UserController::class, 'getUsers']);
+        Route::get('/update-user', [UserController::class, 'updateUser']);
+        Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
+        Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
+    });
 
     // api china money
-    Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);
-    Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
-    Route::post('china-transaction/create', [ChinaApiController::class, 'createChinaMoneyTransaction']);
-
-    // api vietnam money
-    Route::get('vietnamese-type-transaction', [VietNameseController::class, 'getAdminTypeTransactionsVietnamese']);
-    Route::get('vietnamese-transaction', [VietNameseController::class, 'getVietnameseMoneyTransaction']);
-    Route::post('vietnamese-transaction/create', [VietNameseController::class, 'createVietnameseMoneyTransaction']);
+    Route::middleware('role:1,2')->group(function(){
+        Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);
+        Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
+        Route::post('china-transaction/create', [ChinaApiController::class, 'createChinaMoneyTransaction']);
+    
+        // api vietnam money
+        Route::get('vietnamese-type-transaction', [VietNameseController::class, 'getAdminTypeTransactionsVietnamese']);
+        Route::get('vietnamese-transaction', [VietNameseController::class, 'getVietnameseMoneyTransaction']);
+        Route::post('vietnamese-transaction/create', [VietNameseController::class, 'createVietnameseMoneyTransaction']);
+    });
 
     // api packets
     Route::get('packets', [PacketController::class, 'getPacket']);
@@ -84,7 +88,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('detail-bag', [PacketController::class, 'showDetailBag']);
     Route::get('status-bag', [PacketController::class, 'getStatusTrackingBag']);
     // api partner
-    Route::resource('partner', PartnerController::class)->only([
+    Route::middleware('role:1,2')->resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'
     ]);
     Route::get('users', [AdminController::class, 'getUser']);
