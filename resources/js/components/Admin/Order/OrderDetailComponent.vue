@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div class="pt-2">
+            <router-link to="/order">Back</router-link>
+
+        </div>
         <div class="order-detail">
             <div class="head-detail">
                 <div class="title-order-detail flex items-center justify-between">
