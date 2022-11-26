@@ -8,6 +8,7 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\TestController;
@@ -32,6 +33,7 @@ Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn'
 Route::middleware('auth:api')->group(function () {
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
+    Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
