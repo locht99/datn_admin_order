@@ -104,78 +104,59 @@ router.beforeEach((to, from, next) => {
                 if (to.matched.some((record) => record.meta.notLogin)) {
                     router.replace("/");
                     next();
-                } else if(to.matched.some((record) => record.meta.auth)) {
+                } else if (to.matched.some((record) => record.meta.auth)) {
                     next();
-                }else{
+                } else {
                     // Check permission
                     let role = res.data.data.role;
                     if (role == 1) {
                         next();
-                    } else if(role == 2){
-                        if (to.matched.some((record) => record.meta.just_superadmin)) {
-                            alert("Bạn không có quyền truy cập vào đường dẫn này")
+                    } else if (role == 2) {
+                        if (
+                            to.matched.some(
+                                (record) => record.meta.just_superadmin
+                            )
+                        ) {
+                            alert(
+                                "Bạn không có quyền truy cập vào đường dẫn này"
+                            );
                             router.replace("/");
-                            next()
+                            next();
                         } else {
                             next();
                         }
-                    } else if(role == 3) {
+                    } else if (role == 3) {
                         if (to.matched.some((record) => record.meta.employee)) {
-                            next()
+                            next();
                         } else {
-                            alert("Bạn không có quyền truy cập vào đường dẫn này")
+                            alert(
+                                "Bạn không có quyền truy cập vào đường dẫn này"
+                            );
                             router.replace("/");
-                            next()
+                            next();
                         }
-                    }else {
-                        if(localStorage.getItem("auth_token_default")){
-                            localStorage.removeItem("auth_token_default")
+                    } else {
+                        if (localStorage.getItem("auth_token_default")) {
+                            localStorage.removeItem("auth_token_default");
                         }
                         router.replace("/login");
                     }
                 }
-
             })
             .catch((err) => {
-                if(localStorage.getItem("auth_token_default")){
-                    localStorage.removeItem("auth_token_default")
+                if (localStorage.getItem("auth_token_default")) {
+                    localStorage.removeItem("auth_token_default");
                 }
                 router.replace("/login");
-                next()
+                next();
             });
     } else {
-        router.replace("/login");
-        next();
+        if (to.matched.some((record) => record.meta.auth)) {
+            router.replace("/login");
+        } else if (to.matched.some((record) => record.meta.notLogin)) {
+            next();
+        }
     }
-    // if (token) {
-    //     getUser()
-    //         .then((res) => {
-    //             if (res.data) {
-    //                 if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //                     next();
-    //                 } else if (to.matched.some((record) => record.meta.notLogin)) {
-    //                     router.replace("/");
-    //                 } else {
-    //                     next();
-    //                 }
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             if (to.matched.some((record) => record.meta.notLogin)) {
-    //                 next();
-    //             } else if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //                 router.replace("/login");
-    //             } else {
-    //                 next();
-    //             }
-    //         });
-    // } else {
-    //     if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //         router.replace("/login");
-    //     } else if (to.matched.some((record) => record.meta.notLogin)) {
-    //         next()
-    //     }
-    // }
 });
 app.use(router);
 app.use(auth);
