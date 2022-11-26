@@ -29,7 +29,7 @@ const router = createRouter({
 
 library.add(fas, fab, far);
 // window.Vue = Vue
-const baseURL = 'api/';
+const baseURL = '/api/';
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

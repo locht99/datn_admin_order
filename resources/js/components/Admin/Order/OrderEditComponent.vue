@@ -10,7 +10,8 @@
                         <a-card title="Thông tin chung" class="w-full">
                             <div class="w-full mb-3">
                                 <label for="">Mã đặt hàng(taobao,1688)</label>
-                                <a-input :disabled="disabled" v-model:value="this.order_code" class="w-full" placeholder="Mã đặt hàng" />
+                                <a-input :disabled="disabled" v-model:value="this.order_code" class="w-full"
+                                    placeholder="Mã đặt hàng" />
                             </div>
                             <div class="w-full mb-3">
                                 <label for="">Mã vận đơn</label>
@@ -43,15 +44,6 @@
                                     <label for="">Số lượng mua được</label>
                                     <a-input v-model:value="quantityPurchased" />
                                 </div>
-                                <div class="mb-5">
-                                    <label for="">Phí giao hàng trong TQ</label>
-                                    <a-input addon-after="Y" v-model:value="feeShippingChina" />
-                                </div>
-                                <!-- <div class="mb-5">
-                                    <label for="">Phí bảo hiểm hàng giá trị cao</label>
-                                    <a-input addon-after="VNĐ" v-model:value="feeOrderInsurance" />
-                                </div> -->
-
                             </div>
                         </a-card>
                     </div>
@@ -87,9 +79,33 @@
                     </div>
                 </a-col>
             </a-row>
+            <div class="title ml-4">
+                <h1 class="text-[20px]">Phí ship theo shop</h1>
+            </div>
+            <a-row>
+
+                <a-col :span="8" v-for="(item, index) in dataShop" :key="index">
+                    <div style="background:#ffff;padding:20px">
+                        <a-card :title="item.shop_name ? item.shop_name : item.shop_id" class="w-[100%]">
+                            <div class="mb-3">
+                                <label for="">Phí ship</label>
+                                <CurrencyInput v-model="feeShipChina[index]" :options="{
+                                    currency: 'VND',
+                                    currencyDisplay: 'hidden',
+                                    hideCurrencySymbolOnFocus: true,
+                                    hideGroupingSeparatorOnFocus: false,
+                                    hideNegligibleDecimalDigitsOnFocus: false,
+                                }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+                            </div>
+                        </a-card>
+                    </div>
+                </a-col>
+
+            </a-row>
+
             <div class="flex justify-end mr-4 pb-3">
 
-                <a-button @click="updateOrderPacket()" type="primary">Lưu thay đổi</a-button>
+                <a-button @click="updateOrderPacket()" type="danger">Lưu thay đổi</a-button>
             </div>
         </div>
     </div>
@@ -98,6 +114,7 @@
 import { defineComponent, reactive, ref } from 'vue';
 import { getOrderUpdate, updateOrderPacket } from "../../../services/order/order.js";
 import { message } from 'ant-design-vue';
+import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 
 export default {
     setup() {
@@ -114,6 +131,10 @@ export default {
         }
 
     },
+    components: {
+        CurrencyInput
+    },
+
     data() {
         return {
             order_id: 0,
@@ -139,6 +160,8 @@ export default {
             quantityPurchasedCustomer: null,
             feeShippingChina: null,
             feeOrderInsurance: null,
+            dataShop: [],
+            feeShipChina: []
         }
     },
     created() {
@@ -146,15 +169,22 @@ export default {
         this.getDetailCart();
     },
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         getDetailCart() {
             // key:''
 
             getOrderUpdate({ id: this.order_id }).then((response) => {
-                this.data = response.data;
+                this.data = response.data[0];
+                this.dataShop = response.data[1];
+           
                 this.data.map((res) => {
-                    console.log(res);
                     this.order_code = res.order_code;
-                    this.shippingcode = res.shippingcode;
+                    this.shippingcode = res.code;
                     this.option.order_checking = res.opt_order_checking == 1 ? true : false;
                     this.option.inventory = res.opt_inventory == 1 ? true : false;
                     this.option.autoshipping = res.opt_auto_shipping == 1 ? true : false;
@@ -191,7 +221,8 @@ export default {
                 opt_inventory: this.option.inventory,
                 opt_wood_packing: this.woodpacking == 1 ? 1 : 0,
                 opt_separate_wood_packing: this.woodpacking == 0 ? 1 : 0,
-                code: this.shippingcode
+                code: this.shippingcode,
+                fee_ship: this.feeShipChina
             }
             updateOrderPacket(params).then((response) => {
                 console.log(response);

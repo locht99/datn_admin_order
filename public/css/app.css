@@ -1114,6 +1114,11 @@ input:checked + .toggle-bg {
   margin-bottom: 1.5rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -1137,11 +1142,6 @@ input:checked + .toggle-bg {
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-}
-
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 
 .ml-1 {
@@ -1344,6 +1344,10 @@ input:checked + .toggle-bg {
   height: 45px;
 }
 
+.h-\[50\%\] {
+  height: 50%;
+}
+
 .h-\[40px\] {
   height: 40px;
 }
@@ -1378,10 +1382,6 @@ input:checked + .toggle-bg {
 
 .h-4 {
   height: 1rem;
-}
-
-.h-\[50\%\] {
-  height: 50%;
 }
 
 .min-h-screen {
@@ -1436,10 +1436,6 @@ input:checked + .toggle-bg {
   width: 3.5rem;
 }
 
-.w-\[1200px\] {
-  width: 1200px;
-}
-
 .w-\[67\%\] {
   width: 67%;
 }
@@ -1450,6 +1446,10 @@ input:checked + .toggle-bg {
 
 .w-\[50\%\] {
   width: 50%;
+}
+
+.w-\[94\%\] {
+  width: 94%;
 }
 
 .w-\[30\%\] {
@@ -1504,16 +1504,8 @@ input:checked + .toggle-bg {
   width: 1rem;
 }
 
-.w-\[94\%\] {
-  width: 94%;
-}
-
 .max-w-6xl {
   max-width: 72rem;
-}
-
-.max-w-5xl {
-  max-width: 64rem;
 }
 
 .max-w-\[350px\] {
@@ -2347,16 +2339,16 @@ input:checked + .toggle-bg {
   font-weight: 700;
 }
 
+.font-\[600\] {
+  font-weight: 600;
+}
+
 .font-medium {
   font-weight: 500;
 }
 
 .font-light {
   font-weight: 300;
-}
-
-.font-\[600\] {
-  font-weight: 600;
 }
 
 .uppercase {
@@ -2456,11 +2448,6 @@ input:checked + .toggle-bg {
   color: rgb(86 106 127 / var(--tw-text-opacity));
 }
 
-.text-red-500 {
-  --tw-text-opacity: 1;
-  color: rgb(240 82 82 / var(--tw-text-opacity));
-}
-
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(155 28 28 / var(--tw-text-opacity));
@@ -2474,6 +2461,11 @@ input:checked + .toggle-bg {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
 .text-rose-600 {
@@ -2731,19 +2723,9 @@ input:checked + .toggle-bg {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.hover\:text-red-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(224 36 36 / var(--tw-text-opacity));
-}
-
 .hover\:text-blue-700:hover {
   --tw-text-opacity: 1;
   color: rgb(26 86 219 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-400:hover {

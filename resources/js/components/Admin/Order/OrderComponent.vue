@@ -46,23 +46,24 @@
                             >
                                 <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
-                                    <router-link :to="{ path: 'orderdetail/' + item.id }"
-                                        class="hover:underline text-red-600">#{{ item.id }}</router-link>
+                                    <router-link :to="{ path: 'orderdetail/' + item.order_code }"
+                                        class="hover:underline text-red-600">#{{ item.order_code }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
+                                <td>SKSKSK</td>
                                 <td>{{ formatPrice(item.total_price) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
                                     <a-button type="danger" class="mx-2 my-2" light>
-                                        <router-link :to="{ path: 'orderdetail/' + item.id }">
+                                        <router-link :to="{ path: 'orderdetail/' + item.order_code }">
                                             <font-awesome-icon icon="fas fa-info-circle" />
                                         </router-link>
 
                                     </a-button>
                                     <a-button type="primary" class="mx-2 " danger>
-                                        <router-link :to="{ path: 'order/edit/' + item.id }">
+                                        <router-link :to="{ path: 'order/edit/' + item.order_code }">
                                             <font-awesome-icon icon="far fa-edit" />
                                         </router-link>
 
@@ -126,6 +127,9 @@ export default {
                     name: "MÃ VẬN ĐƠN",
                 },
                 {
+                    name: "PHÍ VẬN CHUYỂN"
+                },
+                {
                     name: "TỔNG",
                 },
                 {
@@ -148,7 +152,7 @@ export default {
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
-                    this.data = data.orders.data;
+                    this.data = data.orders.data;   
                     this.dataPagination = data.orders;
                     this.dataStatus = data.total_status
                 })

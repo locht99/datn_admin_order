@@ -61,8 +61,11 @@ class AdminController extends Controller
     public function getUser()
     {
         try {
+            
             $user = Auth::user();
-            return response()->json(['data' => $user]);
+            $tokenResult = $user->createToken('Personal Access Token ' . Str::random(10));
+            $token = $tokenResult->token;
+            return response()->json(['data' => $user,'token'=>$token]);
         } catch (\Throwable $th) {
         }
     }

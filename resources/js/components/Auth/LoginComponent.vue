@@ -107,7 +107,6 @@ export default {
         submitLogin() {
             this.isLoading = true;
             // var redirect = this.$auth.redirect();
-            console.log(this.form);
             var app = this;
             this.$auth.login({
                 data: this.form,
@@ -119,8 +118,9 @@ export default {
                 this.isLoading = false
                 const { data } = response;
                 this.form.access_token = data.access_token
-                    this.$auth.token("bearer " + this.form.access_token);
-                    window.localStorage.setItem("token", this.form.access_token);
+                    this.$auth.token("bearer " + this.data.token.id);
+                    // console.log(this.form.access_token)
+                    window.localStorage.setItem("auth_token_default", this.data.token.id);
                     axios.defaults.headers.common["Authorization"] = "Bearer " + this.form.access_token;
                     this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
                     setTimeout(() => {
