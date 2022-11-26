@@ -303,9 +303,9 @@ export default {
                 if (result.isConfirmed) {
                     const user = JSON.parse(localStorage.getItem("user"));
                     var shipping = {
-                        name: user["name"],
+                        name: user["username"],
                         phone: user["phone"],
-                        email: user["email"],
+                        email: '',
                         ship_from: "china",
                         weight_from_volume: this.data.weight_from_volume,
                         ship_to: this.data.warehouse_id,
@@ -376,7 +376,6 @@ export default {
                         'Thông báo',
                         'Tạo thành công',
                         'success',
-                        this.toggleModal()
                     )
                 }
             });

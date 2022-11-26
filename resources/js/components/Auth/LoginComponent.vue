@@ -114,18 +114,18 @@ export default {
                 rememberMe: true,
                 fetchUser: true,
             }).then((response) => {
-                console.log(response)
                 this.isLoading = false
                 const { data } = response;
+                console.log(data)
+                window.localStorage.setItem("user", JSON.stringify(data.data));
                 this.form.access_token = data.access_token
-                    this.$auth.token("bearer " + this.data.token.id);
-                    // console.log(this.form.access_token)
-                    window.localStorage.setItem("auth_token_default", this.data.token.id);
-                    axios.defaults.headers.common["Authorization"] = "Bearer " + this.form.access_token;
-                    this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
-                    setTimeout(() => {
-                        this.$router.push('/');
-                    }, 3000)
+                this.$auth.token("bearer " + this.data.token.id);
+                window.localStorage.setItem("auth_token_default", this.data.token.id);
+                axios.defaults.headers.common["Authorization"] = "Bearer " + this.form.access_token;
+                this.toast.success("Đăng nhập thành công, chuyển hướng sau 3s", { timeout: 3000 })
+                setTimeout(() => {
+                    this.$router.push('/');
+                }, 3000)
             }).catch(error => {
                 this.isLoading = false;
                 const { response } = error;
