@@ -114,12 +114,11 @@ export default {
                 authType: "bearer",
                 rememberMe: true,
                 fetchUser: true,
-
             }).then((response) => {
+                console.log(response)
                 this.isLoading = false
                 const { data } = response;
                 this.form.access_token = data.access_token
-                if (this.form.access_token) {
                     this.$auth.token("bearer " + this.form.access_token);
                     window.localStorage.setItem("token", this.form.access_token);
                     axios.defaults.headers.common["Authorization"] = "Bearer " + this.form.access_token;
@@ -127,7 +126,6 @@ export default {
                     setTimeout(() => {
                         this.$router.push('/');
                     }, 3000)
-                }
             }).catch(error => {
                 this.isLoading = false;
                 const { response } = error;

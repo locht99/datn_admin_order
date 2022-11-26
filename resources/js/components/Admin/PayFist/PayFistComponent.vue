@@ -35,17 +35,17 @@
                         class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
                         <td class="font-bold text-center">#{{ index + 1 }}</td>
                         <td>{{ item.username }}</td>
-                        <td>##{{ item.code_transaction }}</td>
+                        <td>#{{ item.code_transaction }}</td>
                         <td>{{ item.type_name }}</td>
                         <td>{{ item.content }}</td>
-                        <td>{{ item.point }}</td>
+                        <td>{{ formatPrice(item.point) }}</td>
                         <td class="pl-5">{{ item.created_at }}</td>
 
                     </tr>
                 </tbody>
             </table>
-            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination"
-                :offset="5" @pagination-change-page="actionMoney"></Pagination>
+            <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
+                @pagination-change-page="actionMoney"></Pagination>
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" v-on:values_filter="getValueFilter($event)"
             v-on:action_search="actionMoney()" :filter="this.openFilter" :styleFilter="this.styleFilter" />
@@ -53,11 +53,19 @@
 </template>
 <script>
 import Filter from "../Filter/FilterComponent";
-import { getAllMoney } from "../../../services/Money/money";
+import { createOrderGhn, getAllMoney } from "../../../services/Money/money.js";
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Tiền hàng';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,
@@ -80,6 +88,12 @@ export default {
         this.actionMoney()
     },
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         open_filter() {
             this.openFilter = !this.openFilter;
             this.styleFilter = "translate-x-[-360px] duration-300 ";

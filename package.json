@@ -18,7 +18,7 @@
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
         "postcss-loader": "~3.0.0",
-        "resolve-url-loader": "^3.1.0",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.54.9",
         "sass-loader": "^12.1.0",
         "tailwindcss": "^3.1.8",
@@ -26,6 +26,7 @@
         "webpack": "^5.74.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.1.0",
         "@fortawesome/fontawesome-svg-core": "^6.1.2",
         "@fortawesome/free-brands-svg-icons": "^6.1.2",
         "@fortawesome/free-regular-svg-icons": "^6.1.2",
@@ -37,22 +38,23 @@
         "@vueuse/core": "^9.3.0",
         "@websanova/vue-auth": "^4.1.13",
         "ant-design-vue": "^3.2.15",
+        "chart.js": "^3.9.1",
         "es6-promise": "^4.2.8",
         "moment": "^2.29.4",
         "v-pagination-3": "^0.1.7",
         "vee-validate": "^3.4.14",
         "vue": "^3.2.36",
         "vue-axios": "^3.4.1",
+        "vue-chartjs": "^4.1.2",
         "vue-currency-input": "^3.0.1",
         "vue-loading-button": "^0.2.0",
         "vue-loading-overlay": "5.0",
         "vue-recaptcha": "^2.0.2",
         "vue-router": "^4.1.5",
         "vue-sweetalert2": "^5.0.5",
-        "vue-tailwind-modal": "^1.0.7",
+        "vue-tailwind-modal": "^0.0.4",
         "vue-toastification": "^2.0.0-rc.5",
         "vue3-datepicker": "^0.3.4",
-        "yup": "^0.32.11",
-        "@fortawesome/fontawesome-free": "^6.1.0"
+        "yup": "^0.32.11"
     }
 }

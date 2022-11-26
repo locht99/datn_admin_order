@@ -16,7 +16,10 @@ import Package from './components/Admin/Order/PackageComponent.vue';
 import OrderStatus from './components/Admin/Order/OrderStatusComponent.vue';
 import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
+import DetailBag from './components/Admin/Bag/DetailBagComponent.vue'
 import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
+import Report from './components/Admin/Report/ReportComponent.vue';
+
 const routes = [
     {
         path: "/",
@@ -74,6 +77,10 @@ const routes = [
                 component: AddBag
             },
             {
+                path: '/detail-bag/:id',
+                component: DetailBag
+            },
+            {
                 path: '/bag/:id/edit',
                 component: EditBag
             },
@@ -111,6 +118,10 @@ const routes = [
             {
                 path: '/config-payment',
                 component: ConfigPayment
+            },
+            {
+                path: '/report',
+                component: Report
             }
         ],
     },

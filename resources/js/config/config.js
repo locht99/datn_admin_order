@@ -8,4 +8,6 @@ const config = axios.create({
         Authorization: `Bearer ${token}`
     }
 })
+
+
 export default config;

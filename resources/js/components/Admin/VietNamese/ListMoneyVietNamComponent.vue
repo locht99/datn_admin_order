@@ -130,6 +130,14 @@ import { getAll } from '../../../services/VietNamese';
 import Pagination from '../../pagination/Pagination.vue';
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách tiền việt';
+            }
+        },
+  },
     components: {
         AddMoneyVietNam,
         Filter,

@@ -79,9 +79,11 @@
                                 <th scope="col" class="px-2 py-2">Mã bao hàng</th>
                                 <th scope="col" class="px-2 py-2">Đóng gỗ</th>
                                 <th scope="col" class="px-2 py-2">Ghi chú</th>
-                                <th scope="col" class="px-2 py-2">Tổng tiền</th>
+                                <th scope="col" class="px-2 py-2">Kho</th>
                                 <th scope="col" class="px-2 py-2">Tình trạng</th>
                                 <th scope="col" class="px-2 py-2">Thanh toán</th>
+                                <th scope="col" class="px-2 py-2">Phí vận chuyển</th>
+                                <th scope="col" class="px-2 py-2">Tổng tiền</th>
                                 <th scope="col" class="px-2 py-2">&nbsp;</th>
                             </tr>
                         </thead>
@@ -89,30 +91,40 @@
                             <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-100 odd:dark:bg-gray-800 even:dark:bg-gray-700"
                                 v-for="(item, index) in packets" :key="index">
                                 <th scope="row" class="px-2 py-2">{{ index + 1 }}</th>
-                                <td class="px-2 py-2">{{ item.code }}</td>
+                                <td class="px-2 py-2 hover:text-blue-700">
+                                    <router-link :to="'detail-bag/' + item.id">{{ item.code }}</router-link>
+                                </td>
                                 <td class="px-2 py-2">
                                     {{ item.wood_packing ? "có" : "không" }}
                                 </td>
                                 <td class="px-2 py-2">{{ item.note }}</td>
-                                <td class="px-2 py-2">
-                                    {{ item.total_price }}
-                                </td>
-                                <td class="px-2 py-2">{{ item.status_name }}</td>
+                                
+                                <td class="px-2 py-2">{{ item.warehouse_id == 1 ? "Hà Nội" : "Sài Gòn" }}</td>
+                                <td class="px-2 py-2">{{ item.tracking_status_name }}</td>
                                 <td class="px-2 py-2">
                                     {{
-                                            item.paid ? "đã thanh toán" : "chưa thanh toán"
+                                            item.paid ? "Đã thanh toán" : "Chưa thanh toán"
                                     }}
                                 </td>
-                                <td class="px-2 py-2 text-blue-700 hover:text-blue-800 hover:underline cursor-pointer">
-                                    <a :href="'bag/' + item.id + '/edit'">
-                                        <i class="fa-solid fa-pen-to-square"></i> Sửa
-                                    </a>
+                                <td class="px-2 py-2">
+                                    {{ formatPrice(item.fee_service) }}
+                                </td>
+                                <td class="px-2 py-2">
+                                    {{ formatPrice(parseInt(item.total_price) + parseInt(item.fee_service)) }}
+                                </td>
+                                
+                                <td class="px-2 py-2">
+                                    <a-button type="primary" class="mx-2" danger>
+                                        <router-link :to="'bag/' + item.id + '/edit'">
+                                            <font-awesome-icon icon="far fa-edit" />
+                                        </router-link>
+                                    </a-button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <Pagination class="mx-3 my-3" v-if="pagination.last_page > 1" :pagination="pagination" :offset="5"
-                    @pagination-change-page="getPackets"></Pagination>
+                        @pagination-change-page="getPackets"></Pagination>
                 </div>
                 <div v-else class="m-2">
                     <i class="text-gray-500">Không tồn tại bao hàng bạn cần tìm!</i>
@@ -123,9 +135,18 @@
     </div>
 </template>
 <script>
+
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách bao hàng';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,
@@ -150,6 +171,12 @@ export default {
     },
 
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         formSubmit(e) {
             e.preventDefault();
             this.getPackets();
@@ -174,12 +201,31 @@ export default {
                 })
                 .catch((error) => console.log(error))
                 .finally(() => (this.is_loading = false));
+
+            // this.packets.forEach((element) => {
+            //     axios
+            //         .get(
+            //             "http://127.0.0.1:8001/api/get-shipping?code=" +
+            //             element.code
+            //         )
+            //         .then((res) => {
+            //             element["delivery_status"] =
+            //                 res.data.description_sub_status;
+            //             console.log(res.data);
+            //             if (res.data.delivery_status_name === undefined) {
+            //                 element["delivery_status"] =
+            //                     "Package tracking information is no available yet";
+            //             }
+            //         })
+            //         .finally(() => (this.is_loading = false));
+            // });
         },
     },
     created() {
         this.getPackets();
     },
 }
+
 </script>
 <style>
 

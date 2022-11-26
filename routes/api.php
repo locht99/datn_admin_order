@@ -8,6 +8,8 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\ReportController;
+use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\TestController;
@@ -26,9 +28,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
+Route::post('/login', [AdminController::class, 'getLogin']);
+Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn']);
+
 // protected api
+
 Route::middleware('auth:api')->group(function () {
+    Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+    Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
+    Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
+    Route::post('create-log-tracking-vn',[TransportVietnamController::class, 'createLogTrackingVn']);
+    Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
+
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
     // api trang chu
@@ -40,6 +51,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
+    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
     //api tien hang
     Route::middleware('role:1,2')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
@@ -70,6 +82,11 @@ Route::middleware('auth:api')->group(function () {
         'show', 'store', 'update', 'destroy'
     ]);
 
+    // api report
+    Route::get('/user-create', [ReportController::class, 'userCreate']);
+
+    Route::get('detail-bag', [PacketController::class, 'showDetailBag']);
+    Route::get('status-bag', [PacketController::class, 'getStatusTrackingBag']);
     // api partner
     Route::middleware('role:1,2')->resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'

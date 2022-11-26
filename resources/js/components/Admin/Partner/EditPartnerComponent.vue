@@ -113,6 +113,14 @@ import { update, get } from '../../../services/partner/partner.js';
 import { required, decimal } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Đối tác';
+            }
+        },
+  },
     data() {
         return {
             v$: useVuelidate(),
@@ -126,8 +134,6 @@ export default {
                 phone: Number,
                 point: '',
             },
-           
-
 
         }
     },
@@ -170,7 +176,7 @@ export default {
     },
     methods: {
         toggleModal: function () {
-            this.$emit('showModal', this.showModalAction);
+            this.$emit('showModal', true);
         },
 
         getPartner(item) {

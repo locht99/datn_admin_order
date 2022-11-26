@@ -26,7 +26,8 @@ class AdminPacketResource extends JsonResource
             'wood_packing' => $this->wood_packing ? true : false,
             'paid' => $this->paid ? true : false,
             'status_id' => $this->status_id,
-            'note' => $this->note
+            'note' => $this->note,
+            'tracking_status_name'=>$this->tracking_status_name
         ];
     }
 }

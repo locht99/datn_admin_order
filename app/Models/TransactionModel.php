@@ -58,7 +58,7 @@ class TransactionModel extends Model
             ->join('orders', 'orders.id', '=', 'transactions.order_id')
             ->join('type_transactions', 'type_transactions.id', 'transactions.type_id')
             ->select(
-                'orders.id as code_transaction',
+                'orders.order_code as code_transaction',
                 'users.username',
                 'type_transactions.type_name',
                 'transactions.content',
