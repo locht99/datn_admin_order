@@ -255,7 +255,7 @@
 
 <script>
 import Loading from 'vue-loading-overlay';
-
+import { updateOrderBeeShip, updateBag, searchOrderBag, deleteOrderByBag, getPacketData } from '../../../services/Bag/bag.js'
 export default {
     watch: {
         $route: {
@@ -295,14 +295,16 @@ export default {
 
         editPacket() {
             this.is_loading = true;
-            axios.post("http://127.0.0.1:8001/api/update-shipping", {
-                code: this.data.code,
-                weight_from_volume: this.data.weight_from_volume,
-                weight: this.data.weight,
+            updateOrderBeeShip(
+                {
+                    code: this.data.code,
+                    weight_from_volume: this.data.weight_from_volume,
+                    weight: this.data.weight,
 
-            }).then((res) => {
+                }
+            ).then((res) => {
                 this.data.fee_service = res.data.fee_service
-                axios.put(`/api/admin-packets/${this.id}/`, this.data).then((res) => {
+                updateBag(this.id, this.data).then((res) => {
                     if (res.data.errors) {
                         this.errors = res.data.errors;
                     }
@@ -347,22 +349,19 @@ export default {
                     .catch((error) => console.log(error))
                     .finally(() => (this.is_loading = false));
             })
-
         },
         searchOrder() {
             this.is_loading = true;
-            axios
-                .get("/api/search-order", {
-                    params: {
-                        code: this.code,
-                    },
-                })
-                .then((res) => {
-                    this.data.orders.push(res.data.order);
-                    this.data.order_valid = this.data.orders.filter(
-                        (item) => item.order_id != ""
-                    );
-                })
+            searchOrderBag({
+                params: {
+                    code: this.code,
+                },
+            }).then((res) => {
+                this.data.orders.push(res.data.order);
+                this.data.order_valid = this.data.orders.filter(
+                    (item) => item.order_id != ""
+                );
+            })
                 .catch((error) => console.log(error))
                 .finally(() => {
                     this.is_loading = false;
@@ -380,9 +379,7 @@ export default {
                 if (result.isConfirmed) {
                     if (e.id) {
                         this.is_loading = true;
-                        axios
-                            .delete(`/admin-packets/${e.id}`)
-                            .catch((error) => console.log(error))
+                        deleteOrderByBag(e.id).catch((error) => console.log(error))
                             .finally(() => {
                                 this.is_loading = false;
                             });
@@ -410,18 +407,16 @@ export default {
         },
         getAdminPacketData(id) {
             this.is_loading = true;
-            axios
-                .get(`/api/admin-packets/${id}`)
-                .then((res) => {
-                    if (res.data.error) {
-                        window.location.assign("/bag");
-                    }
-                    this.data = res.data.admin_packet;
-                    this.data.orders = res.data.admin_packet_items;
-                    this.data.order_valid = this.data.orders.filter(
-                        (item) => item.order_id != ""
-                    );
-                })
+            getPacketData(id).then((res) => {
+                if (res.data.error) {
+                    window.location.assign("/bag");
+                }
+                this.data = res.data.admin_packet;
+                this.data.orders = res.data.admin_packet_items;
+                this.data.order_valid = this.data.orders.filter(
+                    (item) => item.order_id != ""
+                );
+            })
                 .catch((error) => console.log(error))
                 .finally(() => {
                     this.is_loading = false;

@@ -98,7 +98,7 @@
                                     {{ item.wood_packing ? "có" : "không" }}
                                 </td>
                                 <td class="px-2 py-2">{{ item.note }}</td>
-                                
+
                                 <td class="px-2 py-2">{{ item.warehouse_id == 1 ? "Hà Nội" : "Sài Gòn" }}</td>
                                 <td class="px-2 py-2">{{ item.tracking_status_name }}</td>
                                 <td class="px-2 py-2">
@@ -112,7 +112,7 @@
                                 <td class="px-2 py-2">
                                     {{ formatPrice(parseInt(item.total_price) + parseInt(item.fee_service)) }}
                                 </td>
-                                
+
                                 <td class="px-2 py-2">
                                     <a-button type="primary" class="mx-2" danger>
                                         <router-link :to="'bag/' + item.id + '/edit'">
@@ -138,15 +138,16 @@
 
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
+import { getBagPackets } from '../../../services/Bag/bag.js'
 export default {
     watch: {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title ='Danh sách bao hàng';
+                document.title = 'Danh sách bao hàng';
             }
         },
-  },
+    },
     data() {
         return {
             openFilter: true,
@@ -183,7 +184,7 @@ export default {
         },
         getPackets(page = 1) {
             this.is_loading = true;
-            axios.get("api/packets", {
+            getBagPackets({
                 params: {
                     code: this.code,
                     order_id: this.order_id,
@@ -194,31 +195,12 @@ export default {
                     is_paid: this.is_paid,
                     page: page,
                 },
+            }).then((res) => {
+                this.packets = res.data.data;
+                this.pagination = res.data.meta;
             })
-                .then((res) => {
-                    this.packets = res.data.data;
-                    this.pagination = res.data.meta;
-                })
                 .catch((error) => console.log(error))
                 .finally(() => (this.is_loading = false));
-
-            // this.packets.forEach((element) => {
-            //     axios
-            //         .get(
-            //             "http://127.0.0.1:8001/api/get-shipping?code=" +
-            //             element.code
-            //         )
-            //         .then((res) => {
-            //             element["delivery_status"] =
-            //                 res.data.description_sub_status;
-            //             console.log(res.data);
-            //             if (res.data.delivery_status_name === undefined) {
-            //                 element["delivery_status"] =
-            //                     "Package tracking information is no available yet";
-            //             }
-            //         })
-            //         .finally(() => (this.is_loading = false));
-            // });
         },
     },
     created() {
