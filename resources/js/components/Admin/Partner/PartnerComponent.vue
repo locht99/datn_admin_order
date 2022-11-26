@@ -79,6 +79,14 @@ import EditPartnerComponent from './EditPartnerComponent.vue';
 import { getAll, get } from '../../../services/partner/partner.js';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách đối tác';
+            }
+        },
+  },
     childInterface: {
         getPartner: (item) => { }
     },

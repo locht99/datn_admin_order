@@ -18,6 +18,8 @@ import Fee from './components/Admin/Order/FeeComponent.vue';
 import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue';
 import DetailBag from './components/Admin/Bag/DetailBagComponent.vue'
 import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
+import Report from './components/Admin/Report/ReportComponent.vue';
+
 const routes = [
     {
         path: "/",
@@ -29,10 +31,16 @@ const routes = [
             {
                 path: "/",
                 component: Home,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: "/home",
                 component: Home,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path:"pay-fist",
@@ -40,7 +48,10 @@ const routes = [
             },
             {
                 path:"user",
-                component: User
+                component: User,
+                meta: {
+                    just_superadmin: true
+                },
             },
             {
                 path:"user-detail/:id",
@@ -57,6 +68,9 @@ const routes = [
             {
                 path:'/bag',
                 component: ListBag,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/bag/add',
@@ -72,7 +86,10 @@ const routes = [
             },
             {
                 path: '/order',
-                component:Order
+                component:Order,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/orderdetail/:id',
@@ -101,6 +118,10 @@ const routes = [
             {
                 path: '/config-payment',
                 component: ConfigPayment
+            },
+            {
+                path: '/report',
+                component: Report
             }
         ],
     },
@@ -108,12 +129,12 @@ const routes = [
         path: "/login",
         component: Login,
         meta:{
-            auth:false
+            notLogin: true
         }
     },
-   
 
-    { path: '/:catchAll(.*)', redirect: '/' },
+    { path: "/:catchAll(.*)", redirect: "/" },
+    {"path":"/404","name":"/"}
 
 ]
 export default routes;

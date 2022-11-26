@@ -189,6 +189,14 @@
 import HeadOrder from "./HeadOrderComponent.vue";
 import { get, update,updateOrderPacket } from "../../../services/order/order.js";
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Chi tiết đơn hàng';
+            }
+        },
+  },
     data() {
         return {
             data: [],

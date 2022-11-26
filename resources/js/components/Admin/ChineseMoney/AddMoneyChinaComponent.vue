@@ -126,6 +126,7 @@ import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 import useVuelidate from '@vuelidate/core';
 import { ref } from 'vue';
 export default {
+    
     data() {
         return {
             v$: useVuelidate(),

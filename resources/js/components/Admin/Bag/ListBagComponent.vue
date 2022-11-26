@@ -79,10 +79,11 @@
                                 <th scope="col" class="px-2 py-2">Mã bao hàng</th>
                                 <th scope="col" class="px-2 py-2">Đóng gỗ</th>
                                 <th scope="col" class="px-2 py-2">Ghi chú</th>
-                                <th scope="col" class="px-2 py-2">Tổng tiền</th>
                                 <th scope="col" class="px-2 py-2">Kho</th>
                                 <th scope="col" class="px-2 py-2">Tình trạng</th>
                                 <th scope="col" class="px-2 py-2">Thanh toán</th>
+                                <th scope="col" class="px-2 py-2">Phí vận chuyển</th>
+                                <th scope="col" class="px-2 py-2">Tổng tiền</th>
                                 <th scope="col" class="px-2 py-2">&nbsp;</th>
                             </tr>
                         </thead>
@@ -97,9 +98,7 @@
                                     {{ item.wood_packing ? "có" : "không" }}
                                 </td>
                                 <td class="px-2 py-2">{{ item.note }}</td>
-                                <td class="px-2 py-2">
-                                    {{ formatPrice(item.total_price) }}
-                                </td>
+                                
                                 <td class="px-2 py-2">{{ item.warehouse_id == 1 ? "Hà Nội" : "Sài Gòn" }}</td>
                                 <td class="px-2 py-2">{{ item.tracking_status_name }}</td>
                                 <td class="px-2 py-2">
@@ -107,6 +106,13 @@
                                             item.paid ? "Đã thanh toán" : "Chưa thanh toán"
                                     }}
                                 </td>
+                                <td class="px-2 py-2">
+                                    {{ formatPrice(item.fee_service) }}
+                                </td>
+                                <td class="px-2 py-2">
+                                    {{ formatPrice(parseInt(item.total_price) + parseInt(item.fee_service)) }}
+                                </td>
+                                
                                 <td class="px-2 py-2">
                                     <a-button type="primary" class="mx-2" danger>
                                         <router-link :to="'bag/' + item.id + '/edit'">
@@ -133,11 +139,20 @@
 import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách bao hàng';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,
             styleFilter: '',
             is_loading: false,
+            backGroundcolor: '#E93B3B',
             waybill_code: null,
             order_id: null,
             code: null,

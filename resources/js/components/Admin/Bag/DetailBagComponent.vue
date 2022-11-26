@@ -53,6 +53,14 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { getDetailBag, checkStatusTrackingBag } from '../../../services/Bag/bag.js'
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Chi tiết bao hàng';
+            }
+        },
+  },
     components: {
         AddShipingComponent,
         Loading,

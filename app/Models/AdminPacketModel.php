@@ -23,7 +23,8 @@ class AdminPacketModel extends Model
         'paid',
         'warehouse_id',
         'code',
-        'tracking_status_name'
+        'tracking_status_name',
+        'fee_service'
     ];
     public static function boot()
     {
