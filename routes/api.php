@@ -26,7 +26,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');
+Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');;
+Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn']);
 // protected api
 Route::middleware('auth:api')->group(function () {
     // api get status
