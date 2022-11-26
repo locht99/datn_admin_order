@@ -1,8 +1,14 @@
 <template>
     <div>
+        <div class="pt-2">
+            <router-link to="/order">Back</router-link>
+
+        </div>
         <div class="pt-8 bg-white mt-8">
-            <div class="title">
+
+            <div class="title flex justify-between items-center">
                 <h1 class="text-[20px] ml-4">Chỉnh sửa đơn hàng {{ order_code }}</h1>
+                <p class="mr-2">Quy đổi: <b> 1kg = {{ formatPrice(globalFee) }}</b></p>
             </div>
             <a-row class="justify-between">
                 <a-col :span="8">
@@ -30,11 +36,15 @@
                             <div class="w-[100%]">
                                 <div class="mb-5">
                                     <label for="">Khối lượng</label>
-                                    <a-input addon-after="Kg" v-model:value="kg" />
+                                    <br>
+                                    <a-input-number addon-after="Kg" @blur="insertFeeShipGlobal(kg)" v-model:value="kg"
+                                        addon-before="+"></a-input-number>
                                 </div>
                                 <div class="mb-5">
-                                    <label for="">Khối lượng</label>
-                                    <a-input addon-after="Cm3" v-model:value="cm3" />
+                                    <label for="">Thành tiền</label>
+                                    <a-input addon-after="VNĐ" v-model:value="totalGlobalShipping"
+                                        :formatter="totalGlobalShipping => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+                                        :parser="totalGlobalShipping => value.replace(/\$\s?|(,*)/g, '')" />
                                 </div>
                                 <div class="mb-5">
                                     <label for="">Số lượng khách muốn đặt hàng</label>
@@ -121,10 +131,10 @@ export default {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title ='Chỉnh sửa đơn hàng';
+                document.title = 'Chỉnh sửa đơn hàng';
             }
         },
-  },
+    },
     setup() {
         const value = ref(1);
 
@@ -164,12 +174,14 @@ export default {
             shippingcode: null,
             kg: null,
             cm3: null,
+            totalGlobalShipping: null,
             quantityPurchased: null,
             quantityPurchasedCustomer: null,
             feeShippingChina: null,
             feeOrderInsurance: null,
             dataShop: [],
-            feeShipChina: []
+            feeShipChina: [],
+            globalFee: 0
         }
     },
     created() {
@@ -183,13 +195,21 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        insertFeeShipGlobal(kg) {
+            this.totalGlobalShipping = kg * +this.globalFee;
+        },
         getDetailCart() {
             // key:''
 
             getOrderUpdate({ id: this.order_id }).then((response) => {
                 this.data = response.data[0];
                 this.dataShop = response.data[1];
-           
+                this.globalFee = response.data[2].value;
+                // console.log(this.dataShop);
+                this.dataShop.map((item, index) => {
+                    this.feeShipChina[index] = item.fee_ship;
+                })
+
                 this.data.map((res) => {
                     this.order_code = res.order_code;
                     this.shippingcode = res.code;
@@ -206,6 +226,7 @@ export default {
                     this.cm3 = res.volume;
                     this.quantityPurchased = res.quantitybuy;
                     this.quantityPurchasedCustomer = res.quantityreceive;
+                    this.totalGlobalShipping = res.global_shipping_fee;
 
                 })
             }).finally(() => {
@@ -213,6 +234,7 @@ export default {
             })
         },
         updateOrderPacket() {
+
             const key = 'updatable';
             message.loading({ content: 'Đang tải...', key });
             const params = {
@@ -230,7 +252,8 @@ export default {
                 opt_wood_packing: this.woodpacking == 1 ? 1 : 0,
                 opt_separate_wood_packing: this.woodpacking == 0 ? 1 : 0,
                 code: this.shippingcode,
-                fee_ship: this.feeShipChina
+                fee_ship: this.feeShipChina,
+                global_shipping_fee: this.totalGlobalShipping
             }
             updateOrderPacket(params).then((response) => {
                 console.log(response);

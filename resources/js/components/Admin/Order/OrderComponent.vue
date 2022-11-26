@@ -52,8 +52,8 @@
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
-                                <td>SKSKSK</td>
-                                <td>{{ formatPrice(item.total_price) }}</td>
+                                <td>{{formatPrice(item.global_shipping_fee)}}</td>
+                                <td>{{ formatPrice(item.total_price_order) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
                                     <a-button type="danger" class="mx-2 my-2" light>
@@ -160,6 +160,7 @@ export default {
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
+                    console.log(data);
                     this.data = data.orders.data;   
                     this.dataPagination = data.orders;
                     this.dataStatus = data.total_status
