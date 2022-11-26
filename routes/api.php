@@ -8,6 +8,7 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\ReportController;
 use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
@@ -34,6 +35,12 @@ Route::middleware('auth:api')->group(function () {
     // api get status
     Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
     Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
+    Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
+    Route::post('create-log-tracking-vn',[TransportVietnamController::class, 'createLogTrackingVn']);
+    Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
+    Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
+    Route::get('/user-create', [ReportController::class, 'userCreate']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
