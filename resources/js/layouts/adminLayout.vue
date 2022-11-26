@@ -32,32 +32,6 @@
                             <font-awesome-icon icon="fa-regular fa-moon" class="text-4xl ml-6 mt-3" />
                         </div>
                         <div class="user">
-                            <img @click="isClickDisplayMenu"
-                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
-                                src="/images/avt.jpg" />
-                                <div
-                                class=" bg-white absolute text-base z-[999] float-left py-2 list-none text-left rounded shadow-lg min-w-48  right-0 top-[75px]">
-                            <Transition name="slide-fade">
-                                <div  v-if="isDisplayProfile">
-                                    <a
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Thông tin </a>
-                                <a href="javascript:void(0);"
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Đổi mật khẩu </a>
-                                <a href="javascript:void(0);"
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Something else here </a>
-                                <div class=" h-0 my-2 border border-solid border-blueGray-100"></div><a
-                                   @click="logout"
-class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Đăng xuất </a>
-                                </div>
-                            </Transition>
-
-                            </div>
-
-=======
                             <img
                                 class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
                                 src="/images/avt.jpg"
