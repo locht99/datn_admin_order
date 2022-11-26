@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin']);
+Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');;
 Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn']);
 
 // protected api
