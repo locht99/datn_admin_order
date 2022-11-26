@@ -195,18 +195,16 @@ class OrderModel extends Model
 
     public function updateStatusOrderWithPacket($orderId, $statusId)
     {
-        $itemOrder = DB::table("orders")->where("order_code", $orderId)->first();
-
         DB::table('orders')
-            ->where('order_id', $itemOrder->id)
+            ->where('id', $orderId)
             ->update(['order_status_id' => $statusId]);
 
         // Update time change status
         if ($statusId == 6) {
-            $this->updateTimeChangeStatus($itemOrder->id, 'time_receive');
+            $this->updateTimeChangeStatus($orderId, 'time_receive');
         }
         if ($statusId == 7) {
-            $this->updateTimeChangeStatus($itemOrder->id, 'time_transport');
+            $this->updateTimeChangeStatus($orderId, 'time_transport');
         }
     }
 

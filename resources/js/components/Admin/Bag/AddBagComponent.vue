@@ -246,10 +246,10 @@ export default {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title = 'Bao hàng';
+                document.title ='Bao hàng';
             }
         },
-    },
+  },
     data() {
         return {
             is_loading: false,
@@ -353,32 +353,25 @@ export default {
                                         });
                                     }
                                     if (res.data.success) {
-                                        this.$swal.fire({
-                                            title: res.data.success,
-                                            showClass: {
-                                                popup: "animate__animated animate__fadeInDown",
-                                            },
-                                            hideClass: {
-                                                popup: "animate__animated animate__fadeOutUp",
-                                            },
-
-                                        }).finally(() => {
+                                        this.$swal
+                                            .fire({
+                                                title: res.data.success,
+                                                showClass: {
+                                                    popup: "animate__animated animate__fadeInDown",
+                                                },
+                                                hideClass: {
+                                                    popup: "animate__animated animate__fadeOutUp",
+                                                },
+                                            })
+                                            .finally(() => {
                                                 window.location.assign("/bag");
                                             });
                                     }
-                                    this.$swal.fire(
-                                        'Thông báo',
-                                        'Tạo thành công',
-                                        'success',
-                                    ).then((confirm) => {
-                                        window.location.assign("/bag");
-                                    })
                                 })
                                 .catch((error) => console.log(error))
                                 .finally(() => (this.is_loading = false));
                         }).catch((error) => console.log(error));
                     this.is_loading = true;
-
                 }
             });
         },
