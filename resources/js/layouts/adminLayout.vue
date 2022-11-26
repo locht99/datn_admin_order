@@ -36,7 +36,18 @@
                                 class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
                                 src="/images/avt.jpg"
                                 alt=""
+                                @click="boxUserInfo = !boxUserInfo"
                             />
+                            <Transition name="slide-fade">
+                                <div v-if="boxUserInfo"
+                                  class="absolute top-14 right-0 w-60 rounded-lg shadow-md shadow-gray-400 bg-[#ff3f3a] text-white px-5 z-50">
+                                  <ul>
+                                    <li class="py-3">
+                                      <router-link to="" @click="logout()" class="text-base font-semibold text-white text-decoration-none">Đăng xuất</router-link>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </Transition>
                         </div>
                     </div>
                 </header>
@@ -64,7 +75,12 @@ header .top .black_client i {
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
 export default {
-    setup() {},
+    data(){
+        return {
+            boxUserInfo: false
+        }
+    },
+
     components: {
         MenuComponentVue,
     },
@@ -83,6 +99,17 @@ export default {
                 container.style.gridTemplateColumns = "30px 1fr";
             }
         },
+
+        logout() {
+            let auth_token_default = localStorage.getItem('auth_token_default')
+            if (auth_token_default) {
+                localStorage.removeItem('auth_token_default')
+                localStorage.removeItem('_grecaptcha')
+                localStorage.removeItem('auth_stay_signed_in')
+                localStorage.removeItem('token')
+                this.$router.replace("/login")
+            }
+        }
     },
 };
 </script>
