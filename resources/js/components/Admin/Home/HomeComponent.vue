@@ -140,7 +140,8 @@ export default {
             totalOrders: [],
             orders: [],
             page: 1,
-            pagination_orders: {}
+            pagination_orders: {},
+            backGroundcolor: '#E93B3B',
         }
     },
     components: {

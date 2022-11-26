@@ -31,10 +31,16 @@ const routes = [
             {
                 path: "/",
                 component: Home,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: "/home",
                 component: Home,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path:"pay-fist",
@@ -42,7 +48,10 @@ const routes = [
             },
             {
                 path:"user",
-                component: User
+                component: User,
+                meta: {
+                    just_superadmin: true
+                },
             },
             {
                 path:"user-detail/:id",
@@ -59,6 +68,9 @@ const routes = [
             {
                 path:'/bag',
                 component: ListBag,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/bag/add',
@@ -74,7 +86,10 @@ const routes = [
             },
             {
                 path: '/order',
-                component:Order
+                component:Order,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/orderdetail/:id',
@@ -114,12 +129,12 @@ const routes = [
         path: "/login",
         component: Login,
         meta:{
-            auth:false
+            notLogin: true
         }
     },
-   
 
-    { path: '/:catchAll(.*)', redirect: '/' },
+    { path: "/:catchAll(.*)", redirect: "/" },
+    {"path":"/404","name":"/"}
 
 ]
 export default routes;

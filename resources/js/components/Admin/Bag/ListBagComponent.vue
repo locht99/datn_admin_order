@@ -146,6 +146,7 @@ export default {
             openFilter: true,
             styleFilter: '',
             is_loading: false,
+            backGroundcolor: '#E93B3B',
             waybill_code: null,
             order_id: null,
             code: null,
