@@ -32,37 +32,22 @@
                             <font-awesome-icon icon="fa-regular fa-moon" class="text-4xl ml-6 mt-3" />
                         </div>
                         <div class="user">
-                            <img @click="isClickDisplayMenu"
-                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]  cursor-pointer"
-                                src="/images/avt.jpg" />
-                                <div
-                                class=" bg-white absolute text-base z-[999] float-left py-2 list-none text-left rounded shadow-lg min-w-48  right-0 top-[75px]">
-                            <Transition name="slide-fade">
-                                <div  v-if="isDisplayProfile">
-                                    <a
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Thông tin </a>
-                                <a href="javascript:void(0);"
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Đổi mật khẩu </a>
-                                <a href="javascript:void(0);"
-                                    class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Something else here </a>
-                                <div class=" h-0 my-2 border border-solid border-blueGray-100"></div><a
-                                   @click="logout"
-class="hover:bg-gray-400 text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Đăng xuất </a>
-                                </div>
-                            </Transition>
-
-                            </div>
-
-=======
                             <img
                                 class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
                                 src="/images/avt.jpg"
                                 alt=""
+                                @click="boxUserInfo = !boxUserInfo"
                             />
+                            <Transition name="slide-fade">
+                                <div v-if="boxUserInfo"
+                                  class="absolute top-14 right-0 w-60 rounded-lg shadow-md shadow-gray-400 bg-[#ff3f3a] text-white px-5 z-50">
+                                  <ul>
+                                    <li class="py-3">
+                                      <router-link to="" @click="logout()" class="text-base font-semibold text-white text-decoration-none">Đăng xuất</router-link>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </Transition>
                         </div>
                     </div>
                 </header>
@@ -90,7 +75,12 @@ header .top .black_client i {
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
 export default {
-    setup() {},
+    data(){
+        return {
+            boxUserInfo: false
+        }
+    },
+
     components: {
         MenuComponentVue,
     },
@@ -109,6 +99,17 @@ export default {
                 container.style.gridTemplateColumns = "30px 1fr";
             }
         },
+
+        logout() {
+            let auth_token_default = localStorage.getItem('auth_token_default')
+            if (auth_token_default) {
+                localStorage.removeItem('auth_token_default')
+                localStorage.removeItem('_grecaptcha')
+                localStorage.removeItem('auth_stay_signed_in')
+                localStorage.removeItem('token')
+                this.$router.replace("/login")
+            }
+        }
     },
 };
 </script>
