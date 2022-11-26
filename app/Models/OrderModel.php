@@ -32,6 +32,7 @@ class OrderModel extends Model
                 'orders.source',
                 'orders.total_price',
                 'orders.total_price_order',
+                'orders.global_shipping_fee',
                 'order_statuses.status_name',
                 'orders.created_at'
             )
@@ -79,6 +80,8 @@ class OrderModel extends Model
                 'packets.code',
                 'orders.total_price',
                 'orders.total_price_order',
+                'orders.global_shipping_fee',
+                
                 'order_statuses.status_name',
                 'orders.order_code'
             );

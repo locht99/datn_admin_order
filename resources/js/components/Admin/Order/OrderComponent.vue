@@ -52,7 +52,7 @@
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
-                                <td>SKSKSK</td>
+                                <td>{{formatPrice(item.global_shipping_fee)}}</td>
                                 <td>{{ formatPrice(item.total_price_order) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
