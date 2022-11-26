@@ -81,6 +81,7 @@
         </div>
 </template>
 <script>
+import { remove } from 'lodash';
 import { VueRecaptcha } from 'vue-recaptcha';
 // import { login } from '../../services/Auth/auth.js';
 // import Auth from '../../config/auth.js';
@@ -143,7 +144,7 @@ export default {
             }).then((response) => {
                 this.isLoading = false
                 const { data } = response;
-                console.log(data)
+                delete data.data.password
                 window.localStorage.setItem("user", JSON.stringify(data.data));
                 this.form.access_token = data.access_token
                 this.$auth.token("bearer " + this.data.token.id);
