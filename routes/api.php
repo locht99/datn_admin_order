@@ -70,7 +70,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('admin-packets', PacketController::class)->only([
         'show', 'store', 'update', 'destroy'
     ]);
-
+    Route::get('detail-bag', [PacketController::class, 'showDetailBag']);
+    Route::get('status-bag', [PacketController::class, 'getStatusTrackingBag']);
     // api partner
     Route::middleware('role:1,2')->resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'
