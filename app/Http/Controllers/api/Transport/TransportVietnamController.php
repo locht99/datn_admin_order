@@ -55,7 +55,15 @@ class TransportVietnamController extends Controller
 
     public function getOrderById(Request $request)
     {
-        $data = DB::table('orders')->where("id", $request->id)->get();
+        $data = DB::table('orders')
+        ->join('packets','packets.order_id', '=', 'orders.id')
+        ->select(
+            'orders.*',
+            'packets.weight',
+            'packets.volume',
+            'packets.weight_from_volume',
+        )
+        ->where("orders.id", $request->id)->get();
         return response()->json($data);
     }
     public function getAddressById(Request $request)

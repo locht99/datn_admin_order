@@ -44,7 +44,7 @@
                                                                 :key="error.$uid">{{ error.$message }}</div>
                                                         </div>
                                                         <div>
-                                                            <input v-model="data_form.weight" type="number"
+                                                            <input disabled v-bind="data_form.weight" :value="this.data_order_transport.weight_from_volume" type="number"
                                                                 placeholder="Tổng khối lượng"
                                                                 class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                             <div class="text-red-600"
