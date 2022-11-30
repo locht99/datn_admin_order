@@ -19,6 +19,8 @@ import ConfigPayment from './components/Admin/Setting/ConfigPaymentComponent.vue
 import DetailBag from './components/Admin/Bag/DetailBagComponent.vue'
 import OrderEdit from './components/Admin/Order/OrderEditComponent.vue';
 import Report from './components/Admin/Report/ReportComponent.vue';
+import SettingFee from './components/Admin/SettingFee/FeeComponent.vue';
+import SettingFeeEdit from './components/Admin/SettingFee/EditFeeComponent.vue';
 
 const routes = [
     {
@@ -122,6 +124,14 @@ const routes = [
             {
                 path: '/report',
                 component: Report
+            },
+            {
+                path: '/settings',
+                component: SettingFee
+            },
+            {
+                path: '/settings/edit',
+                component: SettingFeeEdit
             }
         ],
     },
