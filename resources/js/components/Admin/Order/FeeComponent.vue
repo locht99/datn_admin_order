@@ -80,7 +80,14 @@
 import HeadOrder from './HeadOrderComponent.vue';
 
 export default {
-
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Chi tiết đơn hàng';
+            }
+        },
+  },
     data() {
         return {
             data: [1, 2, 3, 4, 5, 6]

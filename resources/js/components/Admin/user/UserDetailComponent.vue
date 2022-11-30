@@ -87,7 +87,7 @@
                         <thead>
                             <tr class="text-white">
                                 <th scope="col" class="px-2 py-2 sticky top-0 bg-red-500">
-                                    Id
+                                    ID
                                 </th>
                                 <th scope="col" class="px-2 py-2 sticky top-0 bg-red-500">
                                     Tình trạng
@@ -107,7 +107,7 @@
                             <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700"
                                 v-for="(item, index) in recent_orders_user" :key="index">
                                 <td class="text-center px-2 py-2">
-                                    <a :href="'/orderdetail/' + item.id"
+                                    <a :href="'/orderdetail/' + item.order_code"
                                         class="text-blue-600 hover:underline font-bold">{{ item.order_code }}</a>
                                 </td>
                                 <td class="px-2 py-2">
@@ -140,6 +140,14 @@ import loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Chi tiết tài khoản';
+            }
+        },
+  },
     data() {
         return {
             user_id: null,

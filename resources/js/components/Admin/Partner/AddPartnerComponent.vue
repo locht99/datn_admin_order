@@ -83,6 +83,14 @@ import { reactive, computed } from 'vue';
 
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Thêm đối tác';
+            }
+        },
+  },
     data() {
         return {
             v$: useVuelidate(),

@@ -76,6 +76,14 @@ import AddMoneyChinaComponent from './AddMoneyChinaComponent.vue';
 import { getAll, getTypeMoneyChina } from '../../../services/ChinaMoney/ChinaMoney.js';
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Danh sách tiền trung';
+            }
+        },
+  },
     data() {
         return {
             openFilter: true,

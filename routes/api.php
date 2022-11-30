@@ -8,9 +8,11 @@ use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
+use App\Http\Controllers\api\ReportController;
 use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,20 +29,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public api
-Route::post('/login', [AdminController::class, 'getLogin']);
+Route::post('/login', [AdminController::class, 'getLogin'])->middleware('recaptcha');;
 Route::post('create-log-tracking',[OrderController::class, 'createLogTrackingCn']);
-
 // protected api
-
 Route::middleware('auth:api')->group(function () {
-    Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+    // api get status
+    Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
     Route::get('get-order', [TransportVietnamController::class, 'getOrderById']);
     Route::get('get-info', [TransportVietnamController::class, 'getAddressById']);
     Route::post('create-log-tracking-vn',[TransportVietnamController::class, 'createLogTrackingVn']);
     Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
-
-    // api get status
-    Route::get('type-transactions', [TypeTransactionController::class, 'getTypeTransactions']);
+    Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
+    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
+    Route::get('/report', [ReportController::class, 'getReport']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
@@ -50,24 +51,27 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
-    Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
     //api tien hang
-    Route::get('/get-money', [MoneyController::class, 'getMoneys']);
+    Route::middleware('role:1,2')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
-    Route::get('/get-users', [UserController::class, 'getUsers']);
-    Route::get('/update-user', [UserController::class, 'updateUser']);
-    Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
-    Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
+    Route::middleware('role:1')->group(function(){
+        Route::get('/get-users', [UserController::class, 'getUsers']);
+        Route::get('/update-user', [UserController::class, 'updateUser']);
+        Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
+        Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
+    });
 
     // api china money
-    Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);
-    Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
-    Route::post('china-transaction/create', [ChinaApiController::class, 'createChinaMoneyTransaction']);
-
-    // api vietnam money
-    Route::get('vietnamese-type-transaction', [VietNameseController::class, 'getAdminTypeTransactionsVietnamese']);
-    Route::get('vietnamese-transaction', [VietNameseController::class, 'getVietnameseMoneyTransaction']);
-    Route::post('vietnamese-transaction/create', [VietNameseController::class, 'createVietnameseMoneyTransaction']);
+    Route::middleware('role:1,2')->group(function(){
+        Route::get('china-type-transaction', [ChinaApiController::class, 'getAdminTypeTransactionsChinese']);
+        Route::get('/china-transaction', [ChinaApiController::class, 'getChineseMoneyTransaction']);
+        Route::post('china-transaction/create', [ChinaApiController::class, 'createChinaMoneyTransaction']);
+    
+        // api vietnam money
+        Route::get('vietnamese-type-transaction', [VietNameseController::class, 'getAdminTypeTransactionsVietnamese']);
+        Route::get('vietnamese-transaction', [VietNameseController::class, 'getVietnameseMoneyTransaction']);
+        Route::post('vietnamese-transaction/create', [VietNameseController::class, 'createVietnameseMoneyTransaction']);
+    });
 
     // api packets
     Route::get('packets', [PacketController::class, 'getPacket']);
@@ -79,10 +83,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('detail-bag', [PacketController::class, 'showDetailBag']);
     Route::get('status-bag', [PacketController::class, 'getStatusTrackingBag']);
     // api partner
-    Route::resource('partner', PartnerController::class)->only([
+    Route::middleware('role:1,2')->resource('partner', PartnerController::class)->only([
         'create', 'store', 'update', 'index', 'show'
     ]);
     Route::get('users', [AdminController::class, 'getUser']);
     Route::get('refresh', [AdminController::class, 'refresh']);
     Route::post('logout', [AdminController::class, 'logout']);
+
+    Route::get('settings', [SettingController::class, 'index']);
+    Route::get('settings/fee', [SettingController::class, 'fee']);
+    Route::get('get-data-config', [SettingController::class, 'getDataConfig']);
+    Route::post('update-config', [SettingController::class, 'updateConfig']);
 });

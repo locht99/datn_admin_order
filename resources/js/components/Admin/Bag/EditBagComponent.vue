@@ -45,7 +45,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.weight" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.volume" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.weight_from_volume" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -95,9 +95,13 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.unit_price" />
+                            <CurrencyInput v-model="data.other_price" :value="data.other_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -110,9 +114,13 @@
                             <label for="">Phí đóng gỗ</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.wood_packing_price" />
+                            <CurrencyInput v-model="data.wood_packing_price" :value="data.wood_packing_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -125,9 +133,13 @@
                             <label for="">Phí khác</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="text" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.other_price" />
+                            <CurrencyInput v-model="data.other_price" :value="data.other_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -156,7 +168,7 @@
                                 <label for="">Tình trạng:</label>
                             </div>
                             <div class="">
-                                <span class="font-[600] text-red-600">{{data.tracking_status_name}}</span>
+                                <span class="font-[600] text-red-600">{{ data.tracking_status_name }}</span>
                             </div>
                         </div>
                     </div>
@@ -255,8 +267,17 @@
 
 <script>
 import Loading from 'vue-loading-overlay';
+import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = 'Cập nhật bao hàng';
+            }
+        },
+    },
     data() {
         return {
             is_loading: false,
@@ -270,6 +291,7 @@ export default {
     },
     components: {
         Loading,
+        CurrencyInput
     },
     methods: {
         formSubmit(e) {
@@ -284,12 +306,17 @@ export default {
             }
             this.code = "";
         },
+
         editPacket() {
             this.is_loading = true;
-            axios
-                .put(`/api/admin-packets/${this.id}/`, this.data)
-                .then((res) => {
-                    console.log(res);
+            axios.post("http://127.0.0.1:8001/api/update-shipping", {
+                code: this.data.code,
+                weight_from_volume: this.data.weight_from_volume,
+                weight: this.data.weight,
+
+            }).then((res) => {
+                this.data.fee_service = res.data.fee_service
+                axios.put(`/api/admin-packets/${this.id}/`, this.data).then((res) => {
                     if (res.data.errors) {
                         this.errors = res.data.errors;
                     }
@@ -331,8 +358,10 @@ export default {
                             });
                     }
                 })
-                .catch((error) => console.log(error))
-                .finally(() => (this.is_loading = false));
+                    .catch((error) => console.log(error))
+                    .finally(() => (this.is_loading = false));
+            })
+
         },
         searchOrder() {
             this.is_loading = true;
@@ -364,20 +393,20 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (e.id) {
-                    this.is_loading = true;
-                    axios
-                        .delete(`/admin-packets/${e.id}`)
-                        .catch((error) => console.log(error))
-                        .finally(() => {
-                            this.is_loading = false;
-                        });
-                }
-                this.data.orders = this.data.orders.filter(
-                    (item) => item.code != e.code
-                );
-                this.data.order_valid = this.data.orders.filter(
-                    (item) => item.order_id != ""
-                );
+                        this.is_loading = true;
+                        axios
+                            .delete(`/admin-packets/${e.id}`)
+                            .catch((error) => console.log(error))
+                            .finally(() => {
+                                this.is_loading = false;
+                            });
+                    }
+                    this.data.orders = this.data.orders.filter(
+                        (item) => item.code != e.code
+                    );
+                    this.data.order_valid = this.data.orders.filter(
+                        (item) => item.order_id != ""
+                    );
                     this.$swal.fire(
                         'Thông báo',
                         'Xóa thành công',

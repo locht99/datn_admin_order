@@ -1,5 +1,10 @@
 <template>
     <div>
+        <loading v-model:active="isLoading" :color="backGroundcolor" />
+        <div class="pt-2">
+            <router-link to="/order">Back</router-link>
+
+        </div>
         <div class="order-detail">
             <div class="head-detail">
                 <div class="title-order-detail flex items-center justify-between">
@@ -7,20 +12,8 @@
                         Chi tiết đơn hàng #{{ order_id }}
                     </p>
                     <div class="flex items-center justify-center">
-                        <p class="mx-5">Trạng thái:</p>
-                        <select class="h-10 rounded cursor-pointer" v-model="status_id" @change="updateStatus($event)">
-                            <option value="1">Đã đặt cọc</option>
-                            <option value="4">Đã mua hàng</option>
-                            <option value="5">Shop giao hàng</option>
-                            <option value="6">Kho nhận hàng</option>
-                            <option value="7">Vận chuyển</option>
-                            <option value="8">Chờ giao hàng</option>
-                            <option value="9">Chờ yêu cầu giao</option>
-                            <option value="10">Đang giao hàng</option>
-                            <option value="11">Khách hàng nhận hàng</option>
-                            <option value="13">Hủy bỏ</option>
-                            <option value="14">Thất lạc</option>
-                        </select>
+                        <p class="mx-5 font-semibold">Trạng thái: {{ data[0]?.status_name }}</p>
+
                     </div>
                 </div>
             </div>
@@ -46,7 +39,7 @@
                                     Địa chỉ: {{ address.ward + ", " + address.district + ", " + address.province }}
                                 </div>
                                 <div class="mb-3">
-                                    Địa chỉ chi tiết: {{address.note}}
+                                    Địa chỉ chi tiết: {{ address.note }}
                                 </div>
                             </div>
                             <div class="border-b w-[95%] mx-auto"></div>
@@ -199,8 +192,21 @@
 </style>
 <script>
 import HeadOrder from "./HeadOrderComponent.vue";
-import { get, update,updateOrderPacket } from "../../../services/order/order.js";
+import { get, update, updateOrderPacket } from "../../../services/order/order.js";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = 'Chi tiết đơn hàng';
+            }
+        },
+    },
+    components: {
+        Loading
+    },
     data() {
         return {
             data: [],
@@ -210,12 +216,13 @@ export default {
             feeOrder: 0,
             total_price: 0,
             listShop: [],
+            isLoading: true,
             listWebsite: [],
             address: {
-                district:"",
-                province:"",
-                ward:"",
-                note:""
+                district: "",
+                province: "",
+                ward: "",
+                note: ""
             }
         };
     },
@@ -226,12 +233,14 @@ export default {
     mounted() { },
     methods: {
         getOrderDetail() {
+            this.isLoading = true;
             let express_shipping_fee = 0;
             let inventory_fee = 0;
             let purchase_fee = 0;
             get({
                 id: this.order_id,
             }).then((res) => {
+                this.isLoading = false;
                 this.data = res.data;
                 this.address.district = res.data[0].district;
                 this.address.province = res.data[0].province;
@@ -263,7 +272,7 @@ export default {
                 //Send email
             })
         },
-       
+
         formatPrice(value) {
             return new Intl.NumberFormat("en-US", {
                 style: "currency",

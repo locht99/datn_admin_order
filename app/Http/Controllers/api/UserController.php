@@ -82,6 +82,7 @@ class UserController extends Controller
                     'orders.id',
                     'order_statuses.status_name',
                     'orders.total_price',
+                    'orders.order_code',
                     'orders.deposit_amount'
                 )
                 ->where('orders.is_delete', false)

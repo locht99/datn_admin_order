@@ -31,6 +31,8 @@ class OrderModel extends Model
                 'users.phone',
                 'orders.source',
                 'orders.total_price',
+                'orders.total_price_order',
+                'orders.global_shipping_fee',
                 'order_statuses.status_name',
                 'orders.created_at'
             )
@@ -77,10 +79,14 @@ class OrderModel extends Model
                 'orders.source',
                 'packets.code',
                 'orders.total_price',
-                'order_statuses.status_name'
+                'orders.total_price_order',
+                'orders.global_shipping_fee',
+                
+                'order_statuses.status_name',
+                'orders.order_code'
             );
-            
-            
+
+
         if ($params['from']) {
             $orders->orWhereDate('orders.created_at', '>=', $params['from']);
         }
@@ -138,7 +144,7 @@ class OrderModel extends Model
                 'order_statuses.id as status_id',
                 'order_statuses.status_name'
             )
-            ->where('orders.id', '=', $params['id'])
+            ->where('orders.order_code', '=', $params['id'])
             ->get();
         // dd($order[0]);
 
@@ -168,6 +174,7 @@ class OrderModel extends Model
                 'orders.created_at as created_at',
                 'users.username',
                 'users.phone',
+                'orders.id as orderid',
                 'packets.code',
                 'order_statuses.id as status_id',
                 'order_statuses.status_name',
@@ -185,9 +192,11 @@ class OrderModel extends Model
                 'packets.quantity_receive as quantityreceive',
 
             )
-            ->where('orders.id', '=', $params['id'])
+            ->where('orders.order_code', '=', $params['id'])
             ->get();
-        return $order;
+        $orderShop = DB::table("order_detail")->where("order_id", $order[0]->orderid)->get();
+        $feeGlobalShip = DB::table("configs")->where("key","FEE_ORDER")->first();
+        return [$order, $orderShop,$feeGlobalShip];
     }
 
     public function updateStatusOrderWithPacket($orderId, $statusId)
@@ -214,7 +223,13 @@ class OrderModel extends Model
     }
     public function updatePacketOrder($params)
     {
-        $resp =  DB::table("packets")->where("order_id", $params["order_id"])->update([
+        // dd($params);
+
+
+        $itemOrder = DB::table("orders")->where("order_code", $params["order_id"])->first();
+        $order_detail = DB::table("order_detail")->where("order_id", $itemOrder->id)->get();
+
+        $resp =  DB::table("packets")->where("order_id", $itemOrder->id)->update([
             'weight' => $params['weight'],
             'volume' => $params['volume'],
             'quantity_buy' => $params['quantity_buy'],
@@ -228,6 +243,30 @@ class OrderModel extends Model
             'opt_separate_wood_packing' => $params['opt_separate_wood_packing'],
             'code' => $params['code']
         ]);
+        $totalShip = 0;
+        foreach ($order_detail as $index => $item) {
+            $totalShip += $params["fee_ship"][$index];
+            DB::table("order_detail")->where("id", $item->id)->update(['fee_ship' => $params["fee_ship"][$index]]);
+        }
+        $totalPriceOrder = $itemOrder->total_price_order +$totalShip +$params['global_shipping_fee'];
+        DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip,'global_shipping_fee'=>$params['global_shipping_fee'],'total_price_order'=>$totalPriceOrder]);
         return $resp;
+    }
+
+    public function getOrderCreate($from = null, $to = null)
+    {
+        $q = DB::table('orders')
+        ->select(
+            DB::raw("COUNT(orders.id) as total"),
+            DB::raw("ABS(SUM(orders.deposit_amount)) as total_deposite")
+        );
+
+        if ($from) {
+            $q->where('created_at', '>=',$from);
+        }
+        if ($to) {
+            $q->where('created_at', '<=', $to);
+        }
+        return $q->first();
     }
 }

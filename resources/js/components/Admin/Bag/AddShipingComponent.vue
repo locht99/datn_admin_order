@@ -5,7 +5,7 @@
             <!--content-->
             <form @submit="checkForm">
                 <div
-                    class="modal-cart border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none w-[1200px]">
+                    class="modal-cart border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none w-auto h-[50%]">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                         <h3 class="text-gray-500 text-3xl font-semibold">
@@ -38,7 +38,7 @@
                                                         <div>
                                                             <input v-model="data_form.name_product" name="name_product"
                                                                 type="text" placeholder="Tên sản phẩm"
-                                                                class="w-full border-gray-300 rounded px-2 py-1">
+                                                                class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                             <div class="text-red-600"
                                                                 v-for="error of v$.data_form.name_product.$errors"
                                                                 :key="error.$uid">{{ error.$message }}</div>
@@ -53,7 +53,7 @@
                                                             <input v-bind="data_form.code_order" type="text" disabled
                                                                 :value="this.data_order_transport.id"
                                                                 placeholder="Mã sản phẩm"
-                                                                class="w-full border-gray-300 rounded px-2 py-1">
+                                                                class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                         </div>
                                                     </div>
                                                     <div
@@ -113,7 +113,7 @@
                                                         <div class="w-[50%]">
                                                             <label class="text-gray-500" for="">Lưu ý giao hàng</label>
                                                             <select v-model="data_form.required_note"
-                                                                class="text-gray-500 w-full border-gray-300 rounded my-2 px-2 py-1">
+                                                                class="text-gray-500 w-[94%] border-gray-300 rounded my-2 px-2 py-1">
                                                                 <option aria-selected="true" value="CHOTHUHANG">Cho thử
                                                                     hàng</option>
                                                                 <option value="CHOXEMHANGKHONGTHU">Cho xem hàng không
@@ -309,7 +309,6 @@ export default {
             });
         },
         createShipingOrder() {
-            this.v$.$touch();
             getCheckShip(this.order_id).then((response) => {
                 if (response.data.length > 0) {
                     this.$swal.fire(
@@ -321,6 +320,7 @@ export default {
                     )
                     this.toggleModal()
                 } else {
+                    this.v$.$touch();
                     if (!this.v$.$error) {
                         this.$swal.fire({
                             title: 'Bạn có chắc muốn tạo đơn vận chuyển không ?',

@@ -8,8 +8,8 @@
             <div class="form">
                 <div class="head">
                     <div class="title text-white h-10 flex justify-between px-4">
-                        <h3>Tổng tiền nạp</h3>
-                        <h3>Tổng tiền: {{ formatPrice(this.totalTransactions) }}</h3>
+                        <h3 class="text-white">Tổng tiền nạp</h3>
+                        <h3 class="text-white">Tổng tiền: {{ formatPrice(this.totalTransactions) }}</h3>
                     </div>
                     <div class="filter px-2">
                         <form>
@@ -18,7 +18,7 @@
                             <input type="text" placeholder="Tên tài khoản" v-model="username_tss" />
                             <input type="text" placeholder="Điện thoại" v-model="phone_tss" />
                             <button v-on:click="actionTransactions()"
-                                class=" bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                class="border border-solid border-red-500 bg-red-500 text-white hover:bg-red-600 font-bold uppercase text-sm px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button">
                                 Tìm kiếm
                             </button>
@@ -55,8 +55,8 @@
             <div class="form">
                 <div class="head">
                     <div class="title text-white h-10 flex justify-between px-4">
-                        <h3>Tổng đơn hàng</h3>
-                        <h3>{{ this.totalOrders }} đơn hàng</h3>
+                        <h3 class="text-white">Tổng đơn hàng</h3>
+                        <h3 class="text-white">{{ this.totalOrders }} đơn hàng</h3>
                     </div>
                     <div class="filter px-2">
                         <form>
@@ -65,7 +65,7 @@
                             <input type="text" placeholder="Tên tài khoản" v-model="username_od" />
                             <input type="text" placeholder="Điện thoại" v-model="phone_od" />
                             <button v-on:click="actionOrders()"
-                                class=" bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                class="border border-solid border-red-500 bg-red-500 text-white hover:bg-red-600 font-bold uppercase text-sm px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button">
                                 Tìm kiếm
                             </button>
@@ -114,6 +114,14 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import { getAllTransactions, getAllOrders } from "../../../services/Home/home.js";
 import Pagination from '../../pagination/Pagination.vue';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Trang chủ';
+            }
+        },
+  },
     data() {
         return {
             transactions: [],
@@ -132,7 +140,8 @@ export default {
             totalOrders: [],
             orders: [],
             page: 1,
-            pagination_orders: {}
+            pagination_orders: {},
+            backGroundcolor: '#E93B3B',
         }
     },
     components: {

@@ -35,10 +35,13 @@
                         class="item border-solid border-b-[1px] border-[#E2E2E2] h-[52px] font-[16px]">
                         <td class="font-bold text-center">#{{ index + 1 }}</td>
                         <td>{{ item.username }}</td>
-                        <td>#{{ item.code_transaction }}</td>
+                        <td>
+                            <router-link :to="{ path: 'orderdetail/' + item.code_transaction }"
+                                class="hover:underline text-red-600">#{{ item.code_transaction }}</router-link>
+                        </td>
                         <td>{{ item.type_name }}</td>
                         <td>{{ item.content }}</td>
-                        <td>{{ formatPrice(item.point) }}</td>
+                        <td>{{ formatPrice(item.point) }}</td>  
                         <td class="pl-5">{{ item.created_at }}</td>
 
                     </tr>
@@ -58,6 +61,14 @@ import Loading from 'vue-loading-overlay';
 import Pagination from '../../pagination/Pagination.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = 'Tiền hàng';
+            }
+        },
+    },
     data() {
         return {
             openFilter: true,
@@ -67,6 +78,7 @@ export default {
             params: [],
             list_money: [],
             isLoading: true,
+            backGroundcolor: '#E93B3B',
         };
     },
 

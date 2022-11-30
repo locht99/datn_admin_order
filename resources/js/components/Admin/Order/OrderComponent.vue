@@ -46,23 +46,24 @@
                             >
                                 <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
-                                    <router-link :to="{ path: 'orderdetail/' + item.id }"
-                                        class="hover:underline text-red-600">#{{ item.id }}</router-link>
+                                    <router-link :to="{ path: 'orderdetail/' + item.order_code }"
+                                        class="hover:underline text-red-600">#{{ item.order_code }}</router-link>
                                 </td>
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
-                                <td>{{ formatPrice(item.total_price) }}</td>
+                                <td>{{formatPrice(item.global_shipping_fee)}}</td>
+                                <td>{{ formatPrice(item.total_price_order) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
-                                    <a-button type="primary" class="mx-2 my-2" light>
-                                        <router-link :to="{ path: 'orderdetail/' + item.id }">
+                                    <a-button type="danger" class="mx-2 my-2" light>
+                                        <router-link :to="{ path: 'orderdetail/' + item.order_code }">
                                             <font-awesome-icon icon="fas fa-info-circle" />
                                         </router-link>
 
                                     </a-button>
                                     <a-button type="primary" class="mx-2 " danger>
-                                        <router-link :to="{ path: 'order/edit/' + item.id }">
+                                        <router-link :to="{ path: 'order/edit/' + item.order_code }">
                                             <font-awesome-icon icon="far fa-edit" />
                                         </router-link>
 
@@ -87,6 +88,14 @@ import Pagination from "../../pagination/Pagination.vue";
 import Filter from "../Filter/FilterComponent.vue";
 import { getAll } from "../../../services/order/order.js";
 export default {
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title ='Đơn Hàng';
+            }
+        },
+  },
     props: ["values_filter"],
     components: {
         Loading,
@@ -126,6 +135,9 @@ export default {
                     name: "MÃ VẬN ĐƠN",
                 },
                 {
+                    name: "PHÍ VẬN CHUYỂN"
+                },
+                {
                     name: "TỔNG",
                 },
                 {
@@ -148,7 +160,8 @@ export default {
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
-                    this.data = data.orders.data;
+                    console.log(data);
+                    this.data = data.orders.data;   
                     this.dataPagination = data.orders;
                     this.dataStatus = data.total_status
                 })
