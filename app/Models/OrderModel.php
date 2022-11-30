@@ -252,4 +252,21 @@ class OrderModel extends Model
         DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip,'global_shipping_fee'=>$params['global_shipping_fee'],'total_price_order'=>$totalPriceOrder]);
         return $resp;
     }
+
+    public function getOrderCreate($from = null, $to = null)
+    {
+        $q = DB::table('orders')
+        ->select(
+            DB::raw("COUNT(orders.id) as total"),
+            DB::raw("ABS(SUM(orders.deposit_amount)) as total_deposite")
+        );
+
+        if ($from) {
+            $q->where('created_at', '>=',$from);
+        }
+        if ($to) {
+            $q->where('created_at', '<=', $to);
+        }
+        return $q->first();
+    }
 }

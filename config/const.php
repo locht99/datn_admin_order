@@ -1,6 +1,7 @@
 <?php
 return [
     'transaction_type' => [
+        'top_up_user' => 1,
         'top_up' => 2,
         'adjust' => 6
     ],

@@ -117,7 +117,7 @@ class User extends Authenticatable
         if ($to) {
             $q->where('created_at', '<=', $to);
         }
-
-        return $q->get();;
+        
+        return $q->get();
     }
 }
