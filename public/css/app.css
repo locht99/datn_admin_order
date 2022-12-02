@@ -2239,6 +2239,10 @@ input:checked + .toggle-bg {
   padding-bottom: 0.75rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
 .pt-3 {
   padding-top: 0.75rem;
 }
@@ -2249,10 +2253,6 @@ input:checked + .toggle-bg {
 
 .pl-10 {
   padding-left: 2.5rem;
-}
-
-.pt-2 {
-  padding-top: 0.5rem;
 }
 
 .text-left {

@@ -81,7 +81,7 @@ class OrderModel extends Model
                 'orders.total_price',
                 'orders.total_price_order',
                 'orders.global_shipping_fee',
-                
+
                 'order_statuses.status_name',
                 'orders.order_code'
             );
@@ -195,24 +195,23 @@ class OrderModel extends Model
             ->where('orders.order_code', '=', $params['id'])
             ->get();
         $orderShop = DB::table("order_detail")->where("order_id", $order[0]->orderid)->get();
-        $feeGlobalShip = DB::table("configs")->where("key","FEE_ORDER")->first();
-        return [$order, $orderShop,$feeGlobalShip];
+        $feeGlobalShip = DB::table("configs")->where("key", "FEE_ORDER")->first();
+        return [$order, $orderShop, $feeGlobalShip];
     }
 
     public function updateStatusOrderWithPacket($orderId, $statusId)
     {
-        $itemOrder = DB::table("orders")->where("order_code", $orderId)->first();
 
         DB::table('orders')
-            ->where('order_id', $itemOrder->id)
+            ->where('order_id', $orderId)
             ->update(['order_status_id' => $statusId]);
 
         // Update time change status
         if ($statusId == 6) {
-            $this->updateTimeChangeStatus($itemOrder->id, 'time_receive');
+            $this->updateTimeChangeStatus($orderId, 'time_receive');
         }
         if ($statusId == 7) {
-            $this->updateTimeChangeStatus($itemOrder->id, 'time_transport');
+            $this->updateTimeChangeStatus($orderId, 'time_transport');
         }
     }
 
@@ -230,7 +229,11 @@ class OrderModel extends Model
 
         $itemOrder = DB::table("orders")->where("order_code", $params["order_id"])->first();
         $order_detail = DB::table("order_detail")->where("order_id", $itemOrder->id)->get();
-
+        $checkCode = DB::table("packets")->where("code", $params["code"])->first();
+        // if()
+        if ($checkCode && $checkCode->order_id != $itemOrder->id) {
+            return ["message" => "Mã $checkCode->code đã tồn tại trong hệ thống", "status" => false];
+        }
         $resp =  DB::table("packets")->where("order_id", $itemOrder->id)->update([
             'weight' => $params['weight'],
             'volume' => $params['volume'],
@@ -250,8 +253,8 @@ class OrderModel extends Model
             $totalShip += $params["fee_ship"][$index];
             DB::table("order_detail")->where("id", $item->id)->update(['fee_ship' => $params["fee_ship"][$index]]);
         }
-        $totalPriceOrder = $itemOrder->total_price_order +$totalShip +$params['global_shipping_fee'];
-        DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip,'global_shipping_fee'=>$params['global_shipping_fee'],'total_price_order'=>$totalPriceOrder]);
-        return $resp;
+        $totalPriceOrder = $itemOrder->total_price + $totalShip + $params['global_shipping_fee'] + $itemOrder->purchase_fee + $itemOrder->inventory_fee;
+        DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'], 'total_price_order' => $totalPriceOrder]);
+        return ["data" => $resp, "status" => true];
     }
 }
