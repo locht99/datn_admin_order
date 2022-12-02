@@ -12,6 +12,7 @@ use App\Http\Controllers\api\ReportController;
 use App\Http\Controllers\api\Transport\TransportVietnamController;
 use App\Http\Controllers\api\TypeTransactionController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
     Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
     Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
-    Route::get('/user-create', [ReportController::class, 'userCreate']);
+    Route::get('/report', [ReportController::class, 'getReport']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
@@ -88,4 +89,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('users', [AdminController::class, 'getUser']);
     Route::get('refresh', [AdminController::class, 'refresh']);
     Route::post('logout', [AdminController::class, 'logout']);
+
+    Route::get('settings', [SettingController::class, 'index']);
+    Route::get('settings/fee', [SettingController::class, 'fee']);
+    Route::get('get-data-config', [SettingController::class, 'getDataConfig']);
+    Route::post('update-config', [SettingController::class, 'updateConfig']);
 });

@@ -44,12 +44,10 @@
                                                                 :key="error.$uid">{{ error.$message }}</div>
                                                         </div>
                                                         <div>
-                                                            <input v-model="data_form.weight" type="number"
+                                                            <input disabled v-bind="data_form.weight" :value="this.data_order_transport.weight" type="number"
                                                                 placeholder="Tổng khối lượng"
                                                                 class="w-[90%] border-gray-300 rounded px-2 py-1">
-                                                            <div class="text-red-600"
-                                                                v-for="error of v$.data_form.weight.$errors"
-                                                                :key="error.$uid">{{ error.$message }}</div>
+                                                            
                                                         </div>
                                                         <div>
                                                             <input v-bind="data_form.code_order" type="text" disabled
@@ -262,7 +260,6 @@ export default {
         return {
             data_form: {
                 name_product: { required: helpers.withMessage('Vui lòng nhập tên sản phẩm', required), $autoDirty: true },
-                weight: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập trọng lượng', required), $autoDirty: true },
                 length: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập chiều dài', required), $autoDirty: true },
                 height: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập chiều cao', required), $autoDirty: true },
                 width: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập bề rộng', required), $autoDirty: true },
@@ -322,7 +319,6 @@ export default {
                         }
                     )
                     this.toggleModal()
-                    return
                 } else {
                     this.v$.$touch();
                     if (!this.v$.$error) {
@@ -361,7 +357,7 @@ export default {
                                         to_province_name: this.info_user.province,
                                         cod_amount: this.data_or.cod_amount,
                                         content: this.data_or.note,
-                                        weight: this.data_or.weight,
+                                        weight: this.data_order_transport.weight,
                                         length: this.data_or.length,
                                         width: this.data_or.weight,
                                         height: this.data_or.height,

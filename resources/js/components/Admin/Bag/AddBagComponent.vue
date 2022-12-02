@@ -35,7 +35,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.weight" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.volume" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
                                 v-model="data.weight_from_volume" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -85,9 +85,13 @@
                                 <span class="text-red-600">*</span></label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.unit_price" />
+                            <CurrencyInput v-model="data.unit_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -100,9 +104,13 @@
                             <label for="">Phí đóng gỗ</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.wood_packing_price" />
+                            <CurrencyInput v-model="data.wood_packing_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -115,9 +123,13 @@
                             <label for="">Phí khác</label>
                         </div>
                         <div class="flex col-span-7">
-                            <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1 text-right"
-                                v-model="data.other_price" />
+                            <CurrencyInput v-model="data.other_price" :options="{
+                                currency: 'VND',
+                                currencyDisplay: 'hidden',
+                                hideCurrencySymbolOnFocus: true,
+                                hideGroupingSeparatorOnFocus: false,
+                                hideNegligibleDecimalDigitsOnFocus: false,
+                            }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 VNĐ
@@ -240,7 +252,7 @@
 
 <script>
 import Loading from 'vue-loading-overlay';
-
+import CurrencyInput from '../../format_curency/CurrencyInput.vue';
 export default {
     watch: {
         $route: {
@@ -277,6 +289,7 @@ export default {
     },
     components: {
         Loading,
+        CurrencyInput
     },
     methods: {
         formSubmit(e) {
@@ -353,32 +366,41 @@ export default {
                                         });
                                     }
                                     if (res.data.success) {
-                                        this.$swal.fire({
-                                            title: res.data.success,
-                                            showClass: {
-                                                popup: "animate__animated animate__fadeInDown",
-                                            },
-                                            hideClass: {
-                                                popup: "animate__animated animate__fadeOutUp",
-                                            },
-
-                                        }).finally(() => {
+                                        this.$swal
+                                            .fire({
+                                                title: res.data.success,
+                                                showClass: {
+                                                    popup: "animate__animated animate__fadeInDown",
+                                                },
+                                                hideClass: {
+                                                    popup: "animate__animated animate__fadeOutUp",
+                                                },
+                                            })
+                                            .finally(() => {
                                                 window.location.assign("/bag");
                                             });
                                     }
-                                    this.$swal.fire(
-                                        'Thông báo',
-                                        'Tạo thành công',
-                                        'success',
-                                    ).then((confirm) => {
-                                        window.location.assign("/bag");
-                                    })
                                 })
-                                .catch((error) => console.log(error))
+                                .catch((error) => {
+                                    this.$swal.fire(
+                                        {
+                                            icon: 'error',
+                                            title: 'Thông báo',
+                                            text: 'Lỗi vui lòng thử lại!',
+                                        }
+                                    )
+                                })
                                 .finally(() => (this.is_loading = false));
-                        }).catch((error) => console.log(error));
-                    this.is_loading = true;
-
+                        }).catch((error) => {
+                            this.is_loading = false;
+                            this.$swal.fire(
+                                {
+                                    icon: 'error',
+                                    title: 'Thông báo',
+                                    text: 'Vui lòng nhập đầy đủ dữ liệu!',
+                                }
+                            )
+                        });
                 }
             });
         },

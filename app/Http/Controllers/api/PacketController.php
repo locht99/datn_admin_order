@@ -79,6 +79,16 @@ class PacketController extends Controller
             if ($request->is_paid != null) {
                 $packets->where('admin_packets.paid', $is_paid);
             }
+            $packets->groupBy('admin_packets.code',
+            'admin_packets.wood_packing',
+            'admin_packets.note',
+            'admin_packets.total_price',
+            'admin_packets.status_id',
+            'admin_packets.tracking_status_name',
+            'admin_packets.id',
+            'admin_packets.warehouse_id',
+            'admin_packets.paid',
+            'admin_packets.fee_service',);
             $packets = $packets->paginate(config('const.pagination.per_page'));
             return PacketListResource::collection($packets);
         } catch (\Throwable $th) {

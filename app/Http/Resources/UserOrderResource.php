@@ -16,7 +16,7 @@ class UserOrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order_code' => $this->id,
+            'order_code' => $this->order_code,
             'status_name' => $this->status_name,
             'deposit_amount' => abs($this->deposit_amount),
             'total_price' => ceil($this->total_price),

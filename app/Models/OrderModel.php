@@ -201,9 +201,8 @@ class OrderModel extends Model
 
     public function updateStatusOrderWithPacket($orderId, $statusId)
     {
-
         DB::table('orders')
-            ->where('order_id', $orderId)
+            ->where('id', $orderId)
             ->update(['order_status_id' => $statusId]);
 
         // Update time change status
@@ -256,5 +255,22 @@ class OrderModel extends Model
         $totalPriceOrder = $itemOrder->total_price + $totalShip + $params['global_shipping_fee'] + $itemOrder->purchase_fee + $itemOrder->inventory_fee;
         DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'], 'total_price_order' => $totalPriceOrder]);
         return ["data" => $resp, "status" => true];
+    }
+
+    public function getOrderCreate($from = null, $to = null)
+    {
+        $q = DB::table('orders')
+        ->select(
+            DB::raw("COUNT(orders.id) as total"),
+            DB::raw("ABS(SUM(orders.deposit_amount)) as total_deposite")
+        );
+
+        if ($from) {
+            $q->where('created_at', '>=',$from);
+        }
+        if ($to) {
+            $q->where('created_at', '<=', $to);
+        }
+        return $q->first();
     }
 }
