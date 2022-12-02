@@ -80,7 +80,6 @@ export default {
             boxUserInfo: false
         }
     },
-
     components: {
         MenuComponentVue,
     },
@@ -99,7 +98,6 @@ export default {
                 container.style.gridTemplateColumns = "30px 1fr";
             }
         },
-
         logout() {
             let auth_token_default = localStorage.getItem('auth_token_default')
             if (auth_token_default) {
