@@ -55,7 +55,7 @@
                                         :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
                                 </div>
                                 <div class="mb-5">
-                                    <label for="">Số lượng khách muốn đặt hàng</label>
+                                    <label for="">Số lượng khách đặt hàng</label>
                                     <a-input-number min="0" style="width:100%"
                                         v-model:value="quantityPurchasedCustomer" />
                                 </div>

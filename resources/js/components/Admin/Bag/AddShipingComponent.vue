@@ -293,8 +293,8 @@ export default {
             this.$emit('showModal', this.showModalAction);
         },
         getIdOrder(item) {
-            this.order_id = item
-            getOrder(item).then((resp) => {
+            this.order_id = this.item
+            getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
                 let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
                 this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
