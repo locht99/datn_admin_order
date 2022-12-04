@@ -333,7 +333,7 @@ export default {
                     else {
                         shipping.ship_to = 'Ha Noi'
                     }
-                    axios.post("http://127.0.0.1:8001/api/create-shipping", shipping)
+                    axios.post("https://ship.dathangviettrung.site/api/create-shipping", shipping)
                         .then((res) => {
                             this.data.code = res.data.shipping_code
                             this.data.fee_service = res.data.fee_service

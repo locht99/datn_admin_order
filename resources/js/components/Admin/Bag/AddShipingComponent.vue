@@ -44,10 +44,11 @@
                                                                 :key="error.$uid">{{ error.$message }}</div>
                                                         </div>
                                                         <div>
-                                                            <input disabled v-bind="data_form.weight" :value="this.data_order_transport.weight" type="number"
+                                                            <input disabled v-bind="data_form.weight"
+                                                                :value="this.data_order_transport.weight" type="number"
                                                                 placeholder="Tổng khối lượng"
                                                                 class="w-[90%] border-gray-300 rounded px-2 py-1">
-                                                            
+
                                                         </div>
                                                         <div>
                                                             <input v-bind="data_form.code_order" type="text" disabled
@@ -293,8 +294,8 @@ export default {
             this.$emit('showModal', this.showModalAction);
         },
         getIdOrder(item) {
-            this.order_id = item
-            getOrder(item).then((resp) => {
+            this.order_id = this.item
+            getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
                 let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
                 this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
@@ -411,20 +412,20 @@ export default {
                                                         )
                                                     })
                                                 }).catch((error) => {
-                                                    this.swalError()
+                                                    this.swalError(error.response.data.error)
                                                 })
                                             }).catch((error) => {
-                                                this.swalError()
+                                                this.swalError(error.response.data.code_message_value)
                                             })
                                         }).catch((error) => {
-                                            this.swalError()
+                                            this.swalError(error.response.data.code_message_value)
                                         })
 
                                     }).catch((error) => {
-                                        this.swalError()
+                                        this.swalError(error.response.data.error)
                                     })
                                 }).catch((error) => {
-                                    this.swalError()
+                                    this.swalError(error.response.data.code_message_value)
                                 })
                             }
                         });
@@ -439,12 +440,12 @@ export default {
                 currency: "VND",
             }).format(value);
         },
-        swalError() {
+        swalError(data) {
             this.$swal.fire(
                 {
                     icon: 'error',
                     title: 'Thông báo',
-                    text: 'Lỗi hệ thống vui lòng thử lại sau!',
+                    text: data,
                 }
             )
         }
