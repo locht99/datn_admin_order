@@ -315,7 +315,6 @@ export default {
         },
         createShipingOrder() {
             getCheckShip(this.order_id).then((response) => {
-                this.is_Loading = false;
                 if (response.data.length > 0) {
                     this.$swal.fire(
                         {
@@ -337,6 +336,7 @@ export default {
                             confirmButtonText: 'Tạo'
                         }).then((result) => {
                             if (result.isConfirmed) {
+                                this.is_Loading = true
                                 this.data_or = {
                                     name_product: this.data_form.name_product,
                                     code_order: this.data_form.code_order,
