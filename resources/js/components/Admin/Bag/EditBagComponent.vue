@@ -309,7 +309,7 @@ export default {
 
         editPacket() {
             this.is_loading = true;
-            axios.post("http://127.0.0.1:8001/api/update-shipping", {
+            axios.post("https://ship.dathangviettrung.site/api/update-shipping", {
                 code: this.data.code,
                 weight_from_volume: this.data.weight_from_volume,
                 weight: this.data.weight,

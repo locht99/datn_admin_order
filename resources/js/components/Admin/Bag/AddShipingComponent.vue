@@ -31,13 +31,13 @@
                                                     <div
                                                         class=" text-gray-500 flex items-center justify-between w-full text-lg font-semibold border-gray-300 text-heading last:border-b-0 last:text-base last:pb-0">
                                                         <div>
-                                                            <h3>| Sản phẩm</h3>
+                                                            <h3>| Gói hàng</h3>
                                                         </div>
                                                     </div>
                                                     <div class="flex justify-between">
                                                         <div>
                                                             <input v-model="data_form.name_product" name="name_product"
-                                                                type="text" placeholder="Tên sản phẩm"
+                                                                type="text" placeholder="Tên gói hàng"
                                                                 class="w-[90%] border-gray-300 rounded px-2 py-1">
                                                             <div class="text-red-600"
                                                                 v-for="error of v$.data_form.name_product.$errors"

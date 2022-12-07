@@ -42,9 +42,10 @@
                                 </div>
                                 <div class="mb-5">
                                     <label for="">Thành tiền
-                                         <a-popover >
+                                        <a-popover>
                                             <template #content>
-                                              <p>Nếu cân nặng của đơn hàng nhỏ hơn hoặc bằng 0.1 kg sẽ mặc định là 5000 VNĐ</p>
+                                                <p>Nếu cân nặng của đơn hàng nhỏ hơn hoặc bằng 0.1 kg sẽ mặc định là
+                                                    5000 VNĐ</p>
                                             </template>
                                             <font-awesome-icon icon="fas fa-info-circle" />
                                         </a-popover>
@@ -54,15 +55,7 @@
                                         :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
                                         :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
                                 </div>
-                                <div class="mb-5">
-                                    <label for="">Số lượng khách đặt hàng</label>
-                                    <a-input-number min="0" style="width:100%"
-                                        v-model:value="quantityPurchasedCustomer" />
-                                </div>
-                                <div class="mb-5">
-                                    <label for="">Số lượng mua được</label>
-                                    <a-input-number min="0" style="width:100%" v-model:value="quantityPurchased" />
-                                </div>
+
                             </div>
                         </a-card>
                     </div>
@@ -99,10 +92,9 @@
                 </a-col>
             </a-row>
             <div class="title ml-4">
-                <h1 class="text-[20px]">Phí ship theo shop</h1>
+                <h1 class="text-[20px]">Chi tiết đơn hàng</h1>
             </div>
             <a-row>
-
                 <a-col :span="8" v-for="(item, index) in dataShop" :key="index">
                     <div style="background:#ffff;padding:20px">
                         <a-card :title="item.shop_name ? item.shop_name : item.shop_id" class="w-[100%]">
@@ -116,13 +108,29 @@
                                     hideNegligibleDecimalDigitsOnFocus: false,
                                 }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
                             </div>
+                            <div>
+                                <label for="" class="font-semibold">Sản phẩm</label>
+                                <div v-for="(it) in this.data">
+                                    <div class="w-full" v-if="(it.ShopIdProduct == item.shop_id)">
+                                        <p>{{ it.ProductName }}</p>
+                                        <div class="mb-3 w-full">
+                                            <label for="" class="w-full">Số lượng khách muốn đặt</label>
+                                            <input v-model="it.quantity_bought" disabled
+                                                class="w-full border-gray-300 rounded my-2 px-2 py-1 border" />
+                                            <label for="" class="w-full">Số lượng mua được</label>
+                                            <input v-model="quantityReviced[index]"
+                                                class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </a-card>
                     </div>
                 </a-col>
 
             </a-row>
 
-            <div class="flex justify-end mr-4 pb-3">
+            <div class="flex justify-end mr-4 pb-3" v-if="(responseError != 400)">
 
                 <a-button @click="updateOrderPacket()" type="danger">Lưu thay đổi</a-button>
             </div>
@@ -189,8 +197,10 @@ export default {
             feeShippingChina: null,
             feeOrderInsurance: null,
             dataShop: [],
-            feeShipChina: [],
-            globalFee: 0
+            quantityReviced: [],
+            globalFee: 0,
+            responseError: null,
+            feeShipChina: []
         }
     },
     created() {
@@ -217,12 +227,13 @@ export default {
 
             getOrderUpdate({ id: this.order_id }).then((response) => {
                 this.data = response.data[0];
+                console.log(this.data);
                 this.dataShop = response.data[1];
                 this.globalFee = response.data[2].value;
                 // console.log(this.dataShop);
                 this.dataShop.map((item, index) => {
                     this.feeShipChina[index] = item.fee_ship;
-                })
+                });
 
                 this.data.map((res) => {
                     this.order_code = res.order_code;
@@ -241,8 +252,17 @@ export default {
                     this.quantityPurchased = res.quantitybuy;
                     this.quantityPurchasedCustomer = res.quantityreceive;
                     this.totalGlobalShipping = res.global_shipping_fee;
-
                 })
+            }).catch((error) => {
+                if (error.response.status == 400) {
+                    this.responseError = 400;
+                    this.$swal.fire(error.response.data.message).then((res) => {
+                        // console.log(res);
+                        if (res.isConfirmed || res.isDismissed) {
+                            this.$router.replace("/order")
+                        }
+                    });
+                }
             }).finally(() => {
 
             })
@@ -270,15 +290,12 @@ export default {
                 global_shipping_fee: this.totalGlobalShipping
             }
             updateOrderPacket(params).then((response) => {
-                console.log(response);
                 message.success({ content: 'Cập nhật đơn hàng thành công!', key, duration: 2 });
-
             }).catch((error) => {
                 message.error({ content: error.response.data.failed, key, duration: 2 })
-            })
-                .finally(() => {
+            }).finally(() => {
 
-                });
+            });
         },
     }
 }

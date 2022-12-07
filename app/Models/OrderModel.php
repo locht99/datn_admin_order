@@ -81,7 +81,6 @@ class OrderModel extends Model
                 'orders.total_price',
                 'orders.total_price_order',
                 'orders.global_shipping_fee',
-
                 'order_statuses.status_name',
                 'orders.order_code'
             );
@@ -190,12 +189,17 @@ class OrderModel extends Model
                 'packets.volume as volume',
                 'packets.quantity_buy as quantitybuy',
                 'packets.quantity_receive as quantityreceive',
-
+                'order_products.product_name as ProductName',
+                'order_products.id as ProductId',
+                'order_products.quantity_bought as quantity_bought',
+                'order_products.quantity_received as quantity_received',
+                'order_products.shop_id as ShopIdProduct',
             )
             ->where('orders.order_code', '=', $params['id'])
             ->get();
         $orderShop = DB::table("order_detail")->where("order_id", $order[0]->orderid)->get();
         $feeGlobalShip = DB::table("configs")->where("key", "FEE_ORDER")->first();
+
         return [$order, $orderShop, $feeGlobalShip];
     }
 
