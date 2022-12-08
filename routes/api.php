@@ -52,7 +52,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
     //api tien hang
-    Route::middleware('role:1,2')->get('/get-money', [MoneyController::class, 'getMoneys']);
+    Route::middleware('role:1')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
     Route::middleware('role:1')->group(function(){
         Route::get('/get-users', [UserController::class, 'getUsers']);
