@@ -227,8 +227,6 @@ class OrderModel extends Model
     }
     public function updatePacketOrder($params)
     {
-        // dd($params);
-
 
         $itemOrder = DB::table("orders")->where("order_code", $params["order_id"])->first();
         $order_detail = DB::table("order_detail")->where("order_id", $itemOrder->id)->get();
@@ -258,23 +256,52 @@ class OrderModel extends Model
         }
         $totalPriceOrder = $itemOrder->total_price + $totalShip + $params['global_shipping_fee'] + $itemOrder->purchase_fee + $itemOrder->inventory_fee;
         DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'], 'total_price_order' => $totalPriceOrder]);
+        foreach ($params['products'] as $item) {
+            DB::table("order_products")->where("id", $item["id"])->update(["quantity_received" => $item["quantity_received"]]);
+        }
         return ["data" => $resp, "status" => true];
     }
 
     public function getOrderCreate($from = null, $to = null)
     {
         $q = DB::table('orders')
-        ->select(
-            DB::raw("COUNT(orders.id) as total"),
-            DB::raw("ABS(SUM(orders.deposit_amount)) as total_deposite")
-        );
+            ->select(
+                DB::raw("COUNT(orders.id) as total"),
+                DB::raw("ABS(SUM(orders.deposit_amount)) as total_deposite")
+            );
 
         if ($from) {
-            $q->where('created_at', '>=',$from);
+            $q->where('created_at', '>=', $from);
         }
         if ($to) {
             $q->where('created_at', '<=', $to);
         }
         return $q->first();
+    }
+    public function configFeePayTqVn($num, $warehouse)
+    {
+
+        if ($num == 0) {
+            return 0;
+        }
+        $stock = $warehouse == 1 ? 'HN' : 'SG';
+        $fee_check = DB::table('configs')->where('key', 'TRANSPORT_CN_VN_FEE')
+            ->pluck('value')
+            ->first();
+        $fee_check = json_decode($fee_check, true);
+        foreach ($fee_check as $key => $value) {
+            if ($num <= $value['min']) {
+                return [
+                    $fee_check[$key - 1][$stock],
+                    $fee_check[$key - 1]
+                ];
+            }
+            if ($key == sizeof($fee_check) - 1) {
+                return [
+                    $fee_check[$key][$stock],
+                    $fee_check[$key - 1]
+                ];
+            }
+        }
     }
 }

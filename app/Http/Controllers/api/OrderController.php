@@ -171,16 +171,22 @@ class OrderController extends Controller
     }
     public function updateOrderPacking(Request $request)
     {
-        try {
-            $model = new OrderModel();
-            $result =  $model->updatePacketOrder($request->all());
-            if ($result['status'] == false) {
-                return response()->json(["failed" => $result["message"], "status" => $result['status']], 422);
-            }
-            return response()->json(['success' => "Update status order success"], 200);
-        } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json(['error' => $th->getMessage()], 400);
+        $model = new OrderModel();
+        $result =  $model->updatePacketOrder($request->all());
+        if ($result['status'] == false) {
+            return response()->json(["failed" => $result["message"], "status" => $result['status']], 422);
         }
+        return response()->json(['success' => "Update status order success"], 200);
+    }
+    public function orderPricecaculation(Request $request)
+    {
+        $model = new OrderModel();
+        $kg = $request->kg;
+        $warehouse = $request->warehouse_id;
+        $result = $model->configFeePayTqVn($kg, $warehouse);
+
+        return response()->json([
+            'data' => $result
+        ], 200);
     }
 }

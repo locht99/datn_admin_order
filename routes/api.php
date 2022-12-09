@@ -94,4 +94,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('settings/fee', [SettingController::class, 'fee']);
     Route::get('get-data-config', [SettingController::class, 'getDataConfig']);
     Route::post('update-config', [SettingController::class, 'updateConfig']);
+    Route::post('get-kgOrder', [OrderController::class, 'orderPricecaculation']);
 });

@@ -2667,16 +2667,16 @@ input:checked + .toggle-bg {
   transition-delay: 100ms;
 }
 
+.duration-500 {
+  transition-duration: 500ms;
+}
+
 .duration-150 {
   transition-duration: 150ms;
 }
 
 .duration-300 {
   transition-duration: 300ms;
-}
-
-.duration-500 {
-  transition-duration: 500ms;
 }
 
 .duration-100 {

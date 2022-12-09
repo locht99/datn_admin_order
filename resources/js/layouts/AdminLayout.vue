@@ -1,10 +1,10 @@
 <template>
     <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative">
         <div
-            class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full"
+            class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full duration-500"
         >
             <aside
-                class="fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative"
+                class="fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-500"
             >
                 <div class="img mt-2 mb-4">
                     <img
