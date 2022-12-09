@@ -52,6 +52,13 @@
                 </li>
 
                 <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
+                    <router-link to="/manager" class="text-white">
+                        <font-awesome-icon icon="fa-solid fa-chart-pie" />
+                        Quản trị viên
+                    </router-link>
+                </li>
+
+                <li class="text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/report" class="text-white">
                         <font-awesome-icon icon="fa-solid fa-chart-pie" />
                         Báo cáo
