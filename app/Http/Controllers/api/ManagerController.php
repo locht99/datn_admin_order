@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class ManagerController extends Controller
 {
     public function getManager(){
-        $managers = DB::table('admins')->select('id', 'username', 'phone', 'role')->paginate(10);
+        $managers = DB::table('admins')->where('id', '!=', auth()->id())->select('id', 'username', 'phone', 'role')->paginate(10);
         return response()->json($managers);
     }
 
@@ -40,12 +40,16 @@ class ManagerController extends Controller
 
     public function postDataAdd(Request $request){
         try {
+            $admin = AdminModel::where('username', $request['username'])->first();
+            if($admin){
+                return response()->json(['error'=>'Tên tài khoản admin đã tồn tại']);
+            }
             $data = [
                 'partner_id' => 0,
                 'username' => $request['username'],
-                'password' => Hash::make('admin@123'),
+                'password' => Hash::make($request['password']),
                 'phone' => $request['phone'],
-                'role' => $request['role'],
+                'role' => 2,
             ];
             $res = AdminModel::query()->create($data);
             $data_resp = [

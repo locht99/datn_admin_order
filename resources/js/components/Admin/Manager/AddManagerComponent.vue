@@ -11,7 +11,7 @@
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                         <h3 class="text-3xl font-semibold">
-                            Chỉnh sửa thông tin quản trị viên
+                            Thêm mới quản trị viên
                         </h3>
                         <button
                             class="p-1 ml-auto bg-transparent border-0 opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -44,6 +44,20 @@
                                         </div>
                                         <div class="flex items-center w-full">
                                             <div class="w-[30%]">
+                                                <label for="">Mật khẩu</label>
+                                            </div>
+                                            <div class="w-[70%]">
+                                                <input name="admin_transactions_point" type="password"
+                                                    class="w-full border-gray-300 rounded my-2 px-2 py-1"
+                                                    v-model="v$.form.password.$model">
+                                                <div class="input-errors" v-for="(error, index) of v$.form.password.$errors"
+                                                    :key="index">
+                                                    <div class="error-msg">{{ error.$message }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center w-full">
+                                            <div class="w-[30%]">
                                                 <label for="">Số điện thoại</label>
                                             </div>
                                             <div class="w-[70%]">
@@ -62,15 +76,7 @@
                                                 <label for="">Vai trò</label>
                                             </div>
                                             <div class="w-[70%]">
-                                                <select name="" v-model="v$.form.role.$model" id="" class="w-full border-gray-300 rouned my-2 px-2 py-1 rounded">
-                                                    <option value="1">Admin tổng</option>
-                                                    <option value="2">Admin</option>
-                                                    <option value="3">Nhân viên</option>
-                                                </select>
-                                                <div class="input-errors"
-                                                    v-for="(error, index) of v$.form.role.$errors" :key="index">
-                                                    <div class="error-msg">{{ error.$message }}</div>
-                                                </div>
+                                                <input type="text" disabled value="Admin" class="w-full border-gray-300 rouned my-2 px-2 py-1 rounded" />
                                             </div>
                                         </div>
                                      
@@ -127,8 +133,9 @@ export default {
             form: {
                 id: '',
                 username: '',
+                password: '',
                 phone: Number,
-                role: "",
+                role: 2,
             },
             params: {}
 
@@ -140,12 +147,12 @@ export default {
                 username: {
                     required
                 },
+                password: {
+                    required
+                },
                 phone: {
                     required, decimal
                 },
-                role: {
-                    required
-                }
             }
         }
     },
@@ -185,14 +192,14 @@ export default {
             insert(this.params).then((response) => {
                 const { error, message } = response.data;
                 if (error) {
-                    this.$swal(message.phone[0]);
+                    this.$swal(error);
                 } else {
                     this.$swal('Thêm mới quản trị viên thành công');
                     this.$emit('showModal', true);
                     this.$emit('foobar');
                     this.form.username = '';
                     this.form.phone = '';
-                    this.form.role = '';
+                    this.form.password = ''
                 }
             }).finally(() => {
                 this.isLoading = false;

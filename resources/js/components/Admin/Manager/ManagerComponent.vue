@@ -10,16 +10,6 @@
                         + Quản trị viên mới
                     </button>
                 </div>
-                <div>
-                    <span
-                        class="text-[23px] cursor-pointer hover:bg-white px-4 rounded-full"
-                        @click="open_filter()"
-                    >
-                        <button>
-                            <font-awesome-icon icon="fas fa-sliders-h" />
-                        </button>
-                    </span>
-                </div>
             </div>
         </div>
         <div class="main mt-6">
@@ -64,13 +54,6 @@
                         @pagination-change-page="getAllManager"
                     ></Pagination>
         </div>
-        <Filter
-            v-on:filter_action="updateOpenFilter($event)"
-            v-on:values_filter="searchUsers($event)"
-            :filter="this.openFilter"
-            :styleFilter="this.styleFilter"
-            :userModule="true"
-        />
     </div>
     <EditManagerComponent v-if="showModalsUpdate" v-on:showModal="updateOpenModalEdit($event)" :showModalAction="showModalsUpdate"
         @foobar="getAllManager" :isLoadingEdit="isLoadingEdit" :item="item" @interface="getChildManager">
@@ -86,7 +69,6 @@
 <script>
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import Filter from "../Filter/FilterComponent";
 import { getAll, get } from "../../../services/Manager/manager.js";
 import Pagination from "../../pagination/Pagination.vue";
 import EditManagerComponent from './EditManagerComponent.vue';
@@ -100,14 +82,11 @@ export default {
             }
         },
   },
-    props: ["values_filter"],
     childInterface: {
         getUser: (item) => { }
     },
     data() {
         return {
-            openFilter: true,
-            styleFilter: "",
             page: 1,
             isLoading: false,
             isLoadingEdit: true,
@@ -123,7 +102,6 @@ export default {
 
     components: {
         Loading,
-        Filter,
         Pagination,
         EditManagerComponent,
         AddManagerComponent
@@ -133,15 +111,11 @@ export default {
     },  
 
     methods: {
-        open_filter() {
-            this.openFilter = !this.openFilter;
-            this.styleFilter = "translate-x-[-360px] duration-300 ";
-        },
         open_modal() {
             this.showModals = !this.showModals;
         },
-        updateOpenFilter(newVal) {
-            this.styleFilter = newVal;
+        updateOpenModal(event) {
+            this.showModals = !event;
         },
         updateOpenModalEdit(event) {
             this.showModalsUpdate = !event;

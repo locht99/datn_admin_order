@@ -2506,14 +2506,14 @@ input:checked + .toggle-bg {
   color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
-.text-blue-800 {
-  --tw-text-opacity: 1;
-  color: rgb(30 66 159 / var(--tw-text-opacity));
-}
-
 .text-\[\#FF3F3A\] {
   --tw-text-opacity: 1;
   color: rgb(255 63 58 / var(--tw-text-opacity));
+}
+
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 66 159 / var(--tw-text-opacity));
 }
 
 .text-blue-600 {
