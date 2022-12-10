@@ -162,11 +162,14 @@ class OrderController extends Controller
     {
         try {
             $model = new OrderModel();
-            $model->updatePacketOrder($request->all());
+            $result =  $model->updatePacketOrder($request->all());
+            if ($result['status'] == false) {
+                return response()->json(["failed" => $result["message"], "status" => $result['status']], 422);
+            }
             return response()->json(['success' => "Update status order success"], 200);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json(['error' => "Update status order failed, Please try again!"], 400);
+            return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 }

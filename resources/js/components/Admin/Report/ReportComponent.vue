@@ -32,18 +32,32 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Select date end">
                     </div>
-                    <button @click="getUserCreate"
+                    <button @click="getReport"
                         class="bg-[#E93B3B] hover:bg-orange-800 duration-300 text-white p-2.5 mx-4 rounded-lg">Save</button>
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 mb-12 mx-auto">
+        <div class="grid grid-cols-2 gap-12 mb-12 mx-auto">
             <div>
                 <Bar :chart-options="chartOptions" :chart-data="chartData" :chart-id="chartId"
                     :dataset-id-key="datasetIdKey" :plugins="plugins" :css-classes="cssClasses" :styles="styles"
                     :width="width" :height="height" />
             </div>
-            <div>
+            <div class="grid  grid-cols-2 place-items-center mx-auto gap-12">
+                <div class="text-center">
+                    <div><font-awesome-icon icon="fa-solid fa-cart-shopping" class="text-6xl text-yellow-300" /></div>
+                    <p class="text-blue-600 pt-4 text-xl">{{ total_order }}</p>
+                </div>
+                <div class="text-center">
+                    <div><font-awesome-icon icon="fa-solid fa-money-bill-trend-up" class="text-6xl text-green-500" /></div>
+                    <p class="text-blue-600 pt-4 text-xl">{{ formatPrice(total_deposite) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-12 mb-12 mx-auto">
+            <div class="col-span-2">
+                <Bar :chart-data="chartDataTrans" :plugins="plugins" :css-classes="cssClasses" :styles="styles"
+                    :width="width" :height="height" />
             </div>
         </div>
     </div>
@@ -52,7 +66,7 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -93,17 +107,20 @@ export default {
     data: () => ({
         is_loading: false,
         chartData: {},
+        chartDataTrans: {},
         chartOptions: {
             responsive: true
         },
         from: null,
         to: null,
+        total_order: null,
+        total_deposite: null
     }),
     methods: {
-        getUserCreate() {
+        getReport() {
             this.is_loading = true;
             axios
-                .get('/api/user-create', {
+                .get('/api/report', {
                     params: {
                         from: this.from,
                         to: this.to
@@ -116,32 +133,34 @@ export default {
                             datasets: [{
                                 label: 'User created',
                                 data: res.data.data,
-                                backgroundColor: "#f87979",
+                                backgroundColor: "#EC3434",
                             }],
-                            // options: {
-                            //     scales: {
-                            //         y: {
-                            //             min: 0,
-                            //             ticks: {
-                            //                 beginAtZero: true, display: true, callback: function (value, index, values) {
-                            //                     if (Math.floor(value) === value) {
-                            //                         return value
-                            //                     }
-                            //                 }
-                            //             },
-                            //         }
-                            //     }
-                            // }
                         }
+                        this.chartDataTrans = {
+                            labels: res.data.labelsTrans,
+                            datasets: [{
+                                label: 'Giao dịch nạp tiền',
+                                data: res.data.dataTrans,
+                                backgroundColor: "#0B2EDC",
+                            }],
+                        }
+                        this.total_order = res.data.dataOrder.total
+                        this.total_deposite = res.data.dataOrder.total_deposite
                         this.is_loading = true
                     }
                 })
                 .catch((error) => console.log(error))
                 .finally(() => (this.is_loading = false));
         },
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
     },
     created() {
-        this.getUserCreate()
+        this.getReport()
     }
 }
 </script>

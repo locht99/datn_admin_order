@@ -1,6 +1,7 @@
 <template>
     <div v-if="this.showModalAction"
         class="overflow-x-hidden overflow-y-auto  fade  fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <loading v-model:active="is_Loading" :color="backGroundcolor" />
         <div class="relative w-auto my-6 mx-auto">
             <!--content-->
             <form @submit="checkForm">
@@ -44,12 +45,11 @@
                                                                 :key="error.$uid">{{ error.$message }}</div>
                                                         </div>
                                                         <div>
-                                                            <input v-model="data_form.weight" type="number"
+                                                            <input disabled v-bind="data_form.weight"
+                                                                :value="this.data_order_transport.weight" type="number"
                                                                 placeholder="Tổng khối lượng"
                                                                 class="w-[90%] border-gray-300 rounded px-2 py-1">
-                                                            <div class="text-red-600"
-                                                                v-for="error of v$.data_form.weight.$errors"
-                                                                :key="error.$uid">{{ error.$message }}</div>
+
                                                         </div>
                                                         <div>
                                                             <input v-bind="data_form.code_order" type="text" disabled
@@ -238,6 +238,7 @@ export default {
         return {
             v$: useVuelidate(),
             showModal: this.showModalAction,
+            is_Loading: true,
             data_order_transport: [],
             order: {},
             info_user: [],
@@ -262,7 +263,6 @@ export default {
         return {
             data_form: {
                 name_product: { required: helpers.withMessage('Vui lòng nhập tên sản phẩm', required), $autoDirty: true },
-                weight: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập trọng lượng', required), $autoDirty: true },
                 length: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập chiều dài', required), $autoDirty: true },
                 height: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập chiều cao', required), $autoDirty: true },
                 width: { numeric: helpers.withMessage('Vui lòng nhập số', numeric), required: helpers.withMessage('Vui lòng nhập bề rộng', required), $autoDirty: true },
@@ -296,12 +296,13 @@ export default {
             this.$emit('showModal', this.showModalAction);
         },
         getIdOrder(item) {
-            this.order_id = item
-            getOrder(item).then((resp) => {
+            this.order_id = this.item
+            getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
                 let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
                 this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
                 getInfoUser(resp.data[0].address_id).then((res) => {
+                    this.is_Loading = false;
                     this.info_user = res.data[0]
                 })
             })
@@ -312,7 +313,9 @@ export default {
             });
         },
         createShipingOrder() {
+            this.is_Loading = true
             getCheckShip(this.order_id).then((response) => {
+                this.is_Loading = false
                 if (response.data.length > 0) {
                     this.$swal.fire(
                         {
@@ -322,7 +325,6 @@ export default {
                         }
                     )
                     this.toggleModal()
-                    return
                 } else {
                     this.v$.$touch();
                     if (!this.v$.$error) {
@@ -335,7 +337,7 @@ export default {
                             confirmButtonText: 'Tạo'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                this.isLoading = true;
+                                this.is_Loading = true
                                 this.data_or = {
                                     name_product: this.data_form.name_product,
                                     code_order: this.data_form.code_order,
@@ -361,7 +363,7 @@ export default {
                                         to_province_name: this.info_user.province,
                                         cod_amount: this.data_or.cod_amount,
                                         content: this.data_or.note,
-                                        weight: this.data_or.weight,
+                                        weight: this.data_order_transport.weight,
                                         length: this.data_or.length,
                                         width: this.data_or.weight,
                                         height: this.data_or.height,
@@ -407,6 +409,7 @@ export default {
                                                         order_id: this.data_order_transport.id,
                                                         tracking_status_name: "Chờ xác nhận (Vietnamese)"
                                                     }).then((resp) => {
+                                                        this.is_Loading = false
                                                         this.$swal.fire(
                                                             'Thông báo',
                                                             'Tạo đơn vận thành công',
@@ -415,20 +418,20 @@ export default {
                                                         )
                                                     })
                                                 }).catch((error) => {
-                                                    this.swalError()
+                                                    this.swalError(error.response.data.error)
                                                 })
                                             }).catch((error) => {
-                                                this.swalError()
+                                                this.swalError(error.response.data.code_message_value)
                                             })
                                         }).catch((error) => {
-                                            this.swalError()
+                                            this.swalError(error.response.data.code_message_value)
                                         })
 
                                     }).catch((error) => {
-                                        this.swalError()
+                                        this.swalError(error.response.data.error)
                                     })
                                 }).catch((error) => {
-                                    this.swalError()
+                                    this.swalError(error.response.data.code_message_value)
                                 })
                             }
                         });
@@ -443,12 +446,12 @@ export default {
                 currency: "VND",
             }).format(value);
         },
-        swalError() {
+        swalError(data) {
             this.$swal.fire(
                 {
                     icon: 'error',
                     title: 'Thông báo',
-                    text: 'Lỗi hệ thống vui lòng thử lại sau!',
+                    text: data,
                 }
             )
         }

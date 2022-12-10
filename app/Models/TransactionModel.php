@@ -81,4 +81,24 @@ class TransactionModel extends Model
 
         return $data;
     }
+
+    public function getTransactionCreate($from = null, $to = null)
+    {
+        $q = DB::table('transactions')
+        ->select(
+            DB::raw("ABS(SUM(transactions.point)) as total_money"),
+            DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as created_at")
+        )
+        ->where('transactions.type_id', config('const.transaction_type.top_up_user'))
+        ->orderBy('created_at')
+        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
+
+        if ($from) {
+            $q->where('created_at', '>=',$from);
+        }
+        if ($to) {
+            $q->where('created_at', '<=', $to);
+        }
+        return $q->get();
+    }
 }

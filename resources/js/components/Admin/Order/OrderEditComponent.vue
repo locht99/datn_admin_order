@@ -37,22 +37,31 @@
                                 <div class="mb-5">
                                     <label for="">Khối lượng</label>
                                     <br>
-                                    <a-input-number addon-after="Kg" @blur="insertFeeShipGlobal(kg)" v-model:value="kg"
-                                        addon-before="+"></a-input-number>
+                                    <a-input-number addon-after="Kg" min="0.1" @blur="insertFeeShipGlobal(kg)"
+                                        v-model:value="kg" addon-before="+"></a-input-number>
                                 </div>
                                 <div class="mb-5">
-                                    <label for="">Thành tiền</label>
-                                    <a-input addon-after="VNĐ" v-model:value="totalGlobalShipping"
-                                        :formatter="totalGlobalShipping => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
-                                        :parser="totalGlobalShipping => value.replace(/\$\s?|(,*)/g, '')" />
+                                    <label for="">Thành tiền
+                                         <a-popover >
+                                            <template #content>
+                                              <p>Nếu cân nặng của đơn hàng nhỏ hơn hoặc bằng 0.1 kg sẽ mặc định là 5000 VNĐ</p>
+                                            </template>
+                                            <font-awesome-icon icon="fas fa-info-circle" />
+                                        </a-popover>
+                                    </label>
+                                    <a-input-number addon-after="VNĐ" :disabled="true" class="w-full font-semibold"
+                                        v-model:value="totalGlobalShipping"
+                                        :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+                                        :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
                                 </div>
                                 <div class="mb-5">
-                                    <label for="">Số lượng khách muốn đặt hàng</label>
-                                    <a-input v-model:value="quantityPurchasedCustomer" />
+                                    <label for="">Số lượng khách đặt hàng</label>
+                                    <a-input-number min="0" style="width:100%"
+                                        v-model:value="quantityPurchasedCustomer" />
                                 </div>
                                 <div class="mb-5">
                                     <label for="">Số lượng mua được</label>
-                                    <a-input v-model:value="quantityPurchased" />
+                                    <a-input-number min="0" style="width:100%" v-model:value="quantityPurchased" />
                                 </div>
                             </div>
                         </a-card>
@@ -196,7 +205,12 @@ export default {
             }).format(value);
         },
         insertFeeShipGlobal(kg) {
-            this.totalGlobalShipping = kg * +this.globalFee;
+            console.log(kg);
+            if (kg <= 0.1) {
+                this.totalGlobalShipping = 5000;
+            } else {
+                this.totalGlobalShipping = kg * +this.globalFee;
+            }
         },
         getDetailCart() {
             // key:''
@@ -259,9 +273,12 @@ export default {
                 console.log(response);
                 message.success({ content: 'Cập nhật đơn hàng thành công!', key, duration: 2 });
 
-            }).finally(() => {
+            }).catch((error) => {
+                message.error({ content: error.response.data.failed, key, duration: 2 })
+            })
+                .finally(() => {
 
-            });
+                });
         },
     }
 }

@@ -67,7 +67,9 @@
                     <li class="mb-2" v-if="role == 1">
                        <router-link to="/config-payment">Thông tin thanh toán</router-link>
                     </li>
-                    <li class="mb-2">Thiết lập cửa hàng</li>
+                    <li class="mb-2">
+                        <router-link to="/settings">Thiết lập cửa hàng</router-link>
+                    </li>
               
                 </Dropdown>
 
