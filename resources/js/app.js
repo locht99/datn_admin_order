@@ -100,7 +100,6 @@ router.beforeEach((to, from, next) => {
     if (token) {
         getUser()
             .then((res) => {
-                console.log(res)
                 // Check page
                 if (to.matched.some((record) => record.meta.notLogin)) {
                     router.replace("/");
