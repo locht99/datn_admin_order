@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/my-app-7bb3f.appspot.com/o/d87a77e44d2e9470cd3f.jpg?alt=media&token=91ae9a66-9a99-46cf-bcd0-d3a78081adeb" type="image/x-icon"/>
 
         <!-- Styles -->
         <style>

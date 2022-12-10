@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\Auth\AdminController;
-
+use App\Http\Controllers\api\ManagerController;
 use App\Http\Controllers\api\Money\MoneyController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\Money\ChinaApiController;
@@ -52,14 +52,21 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
     //api tien hang
-    Route::middleware('role:1,2')->get('/get-money', [MoneyController::class, 'getMoneys']);
+    Route::middleware('role:1')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
     Route::middleware('role:1')->group(function(){
         Route::get('/get-users', [UserController::class, 'getUsers']);
         Route::get('/update-user', [UserController::class, 'updateUser']);
         Route::post('/update-user/', [UserController::class, 'postUpdateUser']);
         Route::get('get-user-detail/{id}', [UserController::class, 'getUserInfo']);
+
+        // api managers
+        Route::get('/get-manager', [ManagerController::class, 'getManager']);
+        Route::get('/update-manager', [ManagerController::class, 'getDataUpdate']);
+        Route::post('/update-manager', [ManagerController::class, 'postDataUpdate']);
+        Route::post('/add-manager', [ManagerController::class, 'postDataAdd']);
     });
+    
 
     // api china money
     Route::middleware('role:1,2')->group(function(){
