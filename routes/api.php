@@ -6,6 +6,7 @@ use App\Http\Controllers\api\Money\MoneyController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\Money\ChinaApiController;
 use App\Http\Controllers\api\Money\VietNameseController;
+use App\Http\Controllers\api\NotiController;
 use App\Http\Controllers\api\PacketController;
 use App\Http\Controllers\api\PartnerController;
 use App\Http\Controllers\api\ReportController;
@@ -51,6 +52,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/detail-order', [OrderController::class, 'detailOrder']);//detail
     Route::get('/detail-orderUpdate',[OrderController::class,'getDetailOrderUpdate']);
     Route::put('/update-orderpacket',[OrderController::class,'updateOrderPacking']);
+    //noti
+    Route::get('/get-noti',[NotiController::class,'getNoti']);
+    Route::post('/edit-noti',[NotiController::class,'editNoti']);
     //api tien hang
     Route::middleware('role:1')->get('/get-money', [MoneyController::class, 'getMoneys']);
     //api khach hang
