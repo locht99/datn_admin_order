@@ -188,7 +188,6 @@ export default {
             this.isLoading = true;
             update(this.form.id, form).then((response) => {
                 const { error, message } = response.data;
-                console.log(message);
                 if (error) {
                     this.$swal(message.phone[0]);
                 } else {

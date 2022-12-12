@@ -138,7 +138,6 @@ export default {
             this.isLoading = true;
             getTypeMoneyChina().then((response) => {
                 const { data } = response;
-                console.log(data);
                 this.chinese.type = data.admin_type_transactions_chinese;
             }).finally(() => {
                 this.isLoading = false;

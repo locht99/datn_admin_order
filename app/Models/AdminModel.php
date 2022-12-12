@@ -14,4 +14,14 @@ class AdminModel extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'admins';
+
+    protected $fillable = [
+        'partner_id',
+        'username',
+        'password',
+        'phone',
+        'role'
+    ];
+
+    public $timestamps = true;
 }

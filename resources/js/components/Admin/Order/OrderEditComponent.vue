@@ -55,7 +55,7 @@
                                         :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
                                 </div>
                                 <div class="mb-5">
-                                    <label for="">Số lượng khách muốn đặt hàng</label>
+                                    <label for="">Số lượng khách đặt hàng</label>
                                     <a-input-number min="0" style="width:100%"
                                         v-model:value="quantityPurchasedCustomer" />
                                 </div>
@@ -205,7 +205,6 @@ export default {
             }).format(value);
         },
         insertFeeShipGlobal(kg) {
-            console.log(kg);
             if (kg <= 0.1) {
                 this.totalGlobalShipping = 5000;
             } else {
@@ -270,7 +269,6 @@ export default {
                 global_shipping_fee: this.totalGlobalShipping
             }
             updateOrderPacket(params).then((response) => {
-                console.log(response);
                 message.success({ content: 'Cập nhật đơn hàng thành công!', key, duration: 2 });
 
             }).catch((error) => {

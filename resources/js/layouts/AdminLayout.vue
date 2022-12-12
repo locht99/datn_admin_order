@@ -36,7 +36,6 @@
                                 class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
                                 src="/images/avt.jpg"
                                 alt=""
-                                @click="boxUserInfo = !boxUserInfo"
                             />
                             <Transition name="slide-fade">
                                 <div v-if="boxUserInfo"
@@ -75,11 +74,7 @@ header .top .black_client i {
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
 export default {
-    data(){
-        return {
-            boxUserInfo: false
-        }
-    },
+    setup() {},
     components: {
         MenuComponentVue,
     },

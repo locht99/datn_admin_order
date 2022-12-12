@@ -35,8 +35,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
-                                v-model="data.weight" />
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1" v-model="data.weight" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 kg
@@ -51,8 +50,7 @@
                         </div>
                         <div class="flex col-span-7">
                             <input type="number" id="website-admin"
-                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1"
-                                v-model="data.volume" />
+                                class="rounded-l w-full text-sm border-gray-300 my-2 px-2 py-1" v-model="data.volume" />
                             <span
                                 class="inline-flex w-14 items-center text-sm text-gray-900 bg-gray-200 my-2 px-2 py-0.5 rounded-r border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 cm<sup>3</sup>
@@ -314,6 +312,7 @@ export default {
                 confirmButtonText: 'Tạo'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.is_loading = true
                     const user = JSON.parse(localStorage.getItem("user"));
                     var shipping = {
                         name: user["username"],
@@ -333,7 +332,7 @@ export default {
                     else {
                         shipping.ship_to = 'Ha Noi'
                     }
-                    axios.post("http://127.0.0.1:8001/api/create-shipping", shipping)
+                    axios.post("https://ship.dathangviettrung.site/api/create-shipping", shipping)
                         .then((res) => {
                             this.data.code = res.data.shipping_code
                             this.data.fee_service = res.data.fee_service
@@ -366,29 +365,20 @@ export default {
                                         });
                                     }
                                     if (res.data.success) {
-                                        this.$swal
-                                            .fire({
-                                                title: res.data.success,
-                                                showClass: {
-                                                    popup: "animate__animated animate__fadeInDown",
-                                                },
-                                                hideClass: {
-                                                    popup: "animate__animated animate__fadeOutUp",
-                                                },
-                                            })
-                                            .finally(() => {
-                                                window.location.assign("/bag");
-                                            });
+                                        this.is_Loading = false
+                                        this.$swal.fire(
+                                            'Thông báo',
+                                            res.data.success,
+                                            'success',
+                                        )
+                                    }
+                                    if (res.data.error) {
+                                        this.is_Loading = false
+                                        this.swalError(res.data.message)
                                     }
                                 })
                                 .catch((error) => {
-                                    this.$swal.fire(
-                                        {
-                                            icon: 'error',
-                                            title: 'Thông báo',
-                                            text: 'Lỗi vui lòng thử lại!',
-                                        }
-                                    )
+                                    this.swalError('Lỗi hệ thống vui lòng thử lại!')
                                 })
                                 .finally(() => (this.is_loading = false));
                         }).catch((error) => {
@@ -447,6 +437,15 @@ export default {
                 document.getElementById("warning").classList.remove("hidden");
                 document.getElementById("form-search-code").classList.add("hidden");
             }
+        },
+        swalError(data) {
+            this.$swal.fire(
+                {
+                    icon: 'error',
+                    title: 'Thông báo',
+                    text: data,
+                }
+            )
         }
     }
 };

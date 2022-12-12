@@ -140,7 +140,6 @@ export default {
             this.isLoading = true;
             insert(this.form).then((response)=>{
                 const {error,message} = response.data;
-                console.log(message);
                 if(error){
                     this.form.phone = '';
                     this.$swal(message.phone[0]);

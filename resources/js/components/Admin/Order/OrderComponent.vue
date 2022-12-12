@@ -160,7 +160,6 @@ export default {
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
-                    console.log(data);
                     this.data = data.orders.data;   
                     this.dataPagination = data.orders;
                     this.dataStatus = data.total_status
@@ -175,7 +174,6 @@ export default {
         },
         updateOpenFilter(newVal) {
             this.styleFilter = newVal;
-            console.log(newVal)
         },
         searchOrders(data) {
             this.params = data

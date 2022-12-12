@@ -49,8 +49,6 @@ export default {
     },
     mounted() {
         this.order_id = this.$route.params.id;
-        console.log(this.order_id);
-
     }
     // setup() {
     //     const currentRoute = computed(() => {
