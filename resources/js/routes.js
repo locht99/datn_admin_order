@@ -22,16 +22,15 @@ import ManagerComponent from './components/Admin/Manager/ManagerComponent.vue';
 import Report from './components/Admin/Report/ReportComponent.vue';
 import SettingFee from './components/Admin/SettingFee/FeeComponent.vue';
 import SettingFeeEdit from './components/Admin/SettingFee/EditFeeComponent.vue';
+import Noti from './components/Admin/Noti/NotiComponent.vue';
 
-const routes = [
-    {
+const routes = [{
         path: "/",
         component: AdminLayout,
         meta: {
-            auth:true
+            auth: true
         },
-        children: [
-            {
+        children: [{
                 path: "/",
                 component: Home,
                 meta: {
@@ -46,30 +45,30 @@ const routes = [
                 },
             },
             {
-                path:"pay-fist",
+                path: "pay-fist",
                 component: PayFist
             },
             {
-                path:"user",
+                path: "user",
                 component: User,
                 meta: {
                     just_superadmin: true
                 },
             },
             {
-                path:"user-detail/:id",
+                path: "user-detail/:id",
                 component: UserDetail
             },
             {
-                path:"Chinese-money",
-                component:ChineseMoney
+                path: "Chinese-money",
+                component: ChineseMoney
             },
             {
                 path: '/money-vietnamese',
                 component: ListMoneyVietNam
             },
             {
-                path:'/bag',
+                path: '/bag',
                 component: ListBag,
                 meta: {
                     employee: true
@@ -89,7 +88,7 @@ const routes = [
             },
             {
                 path: '/order',
-                component:Order,
+                component: Order,
                 meta: {
                     employee: true
                 },
@@ -99,8 +98,8 @@ const routes = [
                 component: OrderDetail
             },
             {
-                 path:'/order/edit/:id',
-                 component: OrderEdit
+                path: '/order/edit/:id',
+                component: OrderEdit
             },
             {
                 path: '/orderdetail/package',
@@ -108,7 +107,7 @@ const routes = [
             },
             {
                 path: '/orderdetail/fee',
-                component:Fee
+                component: Fee
             },
             {
                 path: '/orderdetail/status',
@@ -140,20 +139,23 @@ const routes = [
             {
                 path: '/settings/edit',
                 component: SettingFeeEdit
+            },
+            {
+                path: '/settings/noti',
+                component: Noti
             }
         ],
     },
     {
         path: "/login",
         component: Login,
-        meta:{
+        meta: {
             notLogin: true
         }
     },
 
     { path: "/:catchAll(.*)", redirect: "/" },
-    {"path":"/404","name":"/"}
+    { "path": "/404", "name": "/" }
 
 ]
 export default routes;
-
