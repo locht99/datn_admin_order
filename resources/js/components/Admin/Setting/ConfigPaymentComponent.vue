@@ -50,7 +50,6 @@ export default {
     method:{
         Actionchild($event){
         // this.showModalAction = !$event
-        console.log(11);
        }
     },
     

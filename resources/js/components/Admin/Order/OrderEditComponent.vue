@@ -205,7 +205,6 @@ export default {
             }).format(value);
         },
         insertFeeShipGlobal(kg) {
-            console.log(kg);
             if (kg <= 0.1) {
                 this.totalGlobalShipping = 5000;
             } else {
@@ -270,7 +269,6 @@ export default {
                 global_shipping_fee: this.totalGlobalShipping
             }
             updateOrderPacket(params).then((response) => {
-                console.log(response);
                 message.success({ content: 'Cập nhật đơn hàng thành công!', key, duration: 2 });
 
             }).catch((error) => {
