@@ -8,8 +8,8 @@
             >
                 <div class="img mt-2 mb-4">
                     <img
-                        class="w-20 m-auto rounded-full"
-                        src="/images/logo.png"
+                        class="w-[80%] m-auto"
+                        src="/images/order.png"
                         alt=""
                     />
                 </div>
@@ -40,7 +40,7 @@
                             />
                             <Transition name="slide-fade">
                                 <div v-if="boxUserInfo"
-                                  class="absolute top-14 right-0 w-60 rounded-lg shadow-md shadow-gray-400 bg-[#ff3f3a] text-white px-5 z-50">
+                                  class="bg-red-500 absolute right-0 w-60 rounded-lg shadow-md shadow-gray-400 text-white px-5">
                                   <ul>
                                     <li class="py-3">
                                       <router-link to="" @click="logout()" class="text-base font-semibold text-white text-decoration-none">Đăng xuất</router-link>
