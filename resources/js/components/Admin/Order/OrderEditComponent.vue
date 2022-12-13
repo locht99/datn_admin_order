@@ -43,11 +43,23 @@
                                     :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
                                     :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
                             </div>
+                            <div class="mb-5">
+                                <label for="">Thành tiền đóng gỗ
+                                    <a-popover>
+                                        <template #content>
+                                            <p>Nếu cân nặng của đơn hàng nhỏ hơn hoặc bằng 0.1 kg sẽ mặc định là
+                                                5000 VNĐ</p>
+                                        </template>
+                                        <font-awesome-icon icon="fas fa-info-circle" />
+                                    </a-popover>
+                                </label>
+                                <a-input-number addon-after="VNĐ" :disabled="true" class="w-full font-semibold"
+                                    v-model:value="wood"
+                                    :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+                                    :parser="value => value.replace(/\$\s?|(,*)/g, '')" />
+                            </div>
 
-                            <!-- <div class="w-full mb-3">
-                                <label for="">Link lấy mã vận đơn</label>
-                                <a-input v-model:value="value" class="w-full" placeholder="Link lấy mã vận đơn" />
-                            </div> -->
+
                         </a-card>
                     </div>
                 </a-col>
@@ -84,8 +96,36 @@
                 <a-col :span="8">
                     <div style="background: #ffff; padding: 20px">
                         <a-card title="Thành tiền đơn hàng" class="w-[100%]">
-                            <div class="w-[100%]">
-
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label for="" class="font-semibold">Tiền hàng</label>
+                                <p>{{ formatPrice(paramOrder.total_price) }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label class="font-semibold">Phí mua hàng</label>
+                                <p>{{ formatPrice(paramOrder.purchase_fee) }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label class="font-semibold">Phí kiểm hàng</label>
+                                <p>{{ formatPrice(paramOrder.inventory_fee) }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label for="" class="font-semibold">Phí đóng gỗ</label>
+                                <p>{{ formatPrice(paramOrder.opt_wood_packing == 1 ? paramOrder.wood_packing_fee
+                                        : paramOrder.separately_wood_packing_fee)
+                                }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label for="" class="font-semibold">Phí vận chuyển nội địa (TQ)</label>
+                                <p>{{ formatPrice(paramOrder.china_shipping_fee)
+                                }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label for="" class="font-semibold">Phí vận chuyển TQ->VN</label>
+                                <p>{{ formatPrice(paramOrder.global_shipping_fee) }}</p>
+                            </div>
+                            <div class="w-[100%] mb-3 flex justify-between">
+                                <label for="" class="font-semibold">Tổng tiền</label>
+                                <p>{{ formatPrice(paramOrder.total_price_order) }}</p>
                             </div>
                         </a-card>
                     </div>
@@ -98,6 +138,7 @@
                 <a-col :span="8" v-for="(item, index) in dataShop" :key="index">
                     <div style="background:#ffff;padding:20px">
                         <a-card :title="item.shop_name ? item.shop_name : item.shop_id" class="w-[100%]">
+
                             <div class="mb-3">
                                 <label for="">Phí ship</label>
                                 <CurrencyInput v-model="feeShipChina[index]" :options="{
@@ -107,10 +148,11 @@
                                     hideGroupingSeparatorOnFocus: false,
                                     hideNegligibleDecimalDigitsOnFocus: false,
                                 }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
+
                             </div>
                             <div>
                                 <label for="" class="font-semibold">Sản phẩm</label>
-                                <div v-for="(it) in this.data">
+                                <div v-for="(it) in data">
                                     <div class="w-full" v-if="(it.ShopIdProduct == item.shop_id)">
                                         <p>{{ it.ProductName }}</p>
                                         <div class="mb-3 w-full">
@@ -118,10 +160,17 @@
                                             <input v-model="it.quantity_bought" disabled
                                                 class="w-full border-gray-300 rounded my-2 px-2 py-1 border" />
                                             <label for="" class="w-full">Số lượng mua được</label>
-                                            <input v-model="it.quantity_received"
+                                            <input
+                                                @blur="checkPayQuantity(it.quantity_received, it.quantity_bought, it.id)"
+                                                v-model="it.quantity_received"
                                                 class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
+                                            <label for="">Ghi chú</label>
+
                                         </div>
                                     </div>
+                                </div>
+                                <div class="w-full">
+                                    <textarea cols="40" v-model="noteShop[index]" rows="5"></textarea>
                                 </div>
                             </div>
                         </a-card>
@@ -129,9 +178,7 @@
                 </a-col>
 
             </a-row>
-
             <div class="flex justify-end mr-4 pb-3" v-if="(responseError != 400)">
-
                 <a-button @click="updateOrderPacket()" type="danger">Lưu thay đổi</a-button>
             </div>
         </div>
@@ -202,7 +249,10 @@ export default {
             globalFee: 0,
             responseError: null,
             feeShipChina: [],
-            warehouse: null
+            warehouse: null,
+            paramOrder: {},
+            noteShop: [],
+            wood: null
         }
     },
     created() {
@@ -216,12 +266,33 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        checkPayQuantity(quantity, quantity_bought, id) {
+            if (quantity > quantity_bought) {
+                quantity = quantity_bought;
+                const existItem = this.data.find((item) => item.id == id);
+                // console.log(existItem);
+                existItem.quantity_received = quantity;
+                return this.$swal.fire("Số lượng mua không được vượt quá số lượng khách muốn đặt")
+            }
+        },
         insertFeeShipGlobal(kg) {
-            axios.post('/api/get-kgOrder', { kg: this.kg, warehouse_id: this.warehouse }).then((res) => {
+            let wood_packing = '';
+            if (this.option.seperatewoodpacking == 1) {
+                wood_packing = 'OWN_WOOD_FEE';
+            }
+            if (this.option.wood_packing == 1) {
+                wood_packing = 'WOOD_FEE';
+            }
+            // let wood_packing =  == 1 ? '' : '';
+            axios.post('/api/get-kgOrder', { kg: this.kg, warehouse_id: this.warehouse, wood_packing: wood_packing }).then((res) => {
                 const { data } = res.data;
                 if (kg <= 0.1) {
                     this.totalGlobalShipping = 5000;
+                    if (wood_packing != '') {
+                        this.wood = 5000;
+                    }
                 } else {
+                    this.wood = data[2];
                     this.totalGlobalShipping = kg * +data[0];
                 }
             }).catch((error) => {
@@ -236,12 +307,14 @@ export default {
 
             getOrderUpdate({ id: this.order_id }).then((response) => {
                 this.data = response.data[0];
-                console.log(this.data);
+                this.paramOrder = response.data[0][0];
+
                 this.dataShop = response.data[1];
                 this.globalFee = response.data[2].value;
                 // console.log(this.dataShop);
                 this.dataShop.map((item, index) => {
                     this.feeShipChina[index] = item.fee_ship;
+                    this.noteShop[index] = item.note
                 });
 
                 this.data.map((res) => {
@@ -261,6 +334,7 @@ export default {
                     this.quantityPurchasedCustomer = res.quantityreceive;
                     this.totalGlobalShipping = res.global_shipping_fee;
                     this.warehouse = res.id_warehouse;
+                    this.wood = res.wood_packing_fee ?? res.separately_wood_packing_fee
                 })
                 // console.log("Đóng gỗ", this.option.wood_packing, "Đóng gỗ riêng", this.option.seperatewoodpacking);
             }).catch((error) => {
@@ -299,7 +373,10 @@ export default {
                 code: this.shippingcode,
                 fee_ship: this.feeShipChina,
                 global_shipping_fee: this.totalGlobalShipping,
-                products: this.data
+                products: this.data,
+                noteShop: this.noteShop,
+                wood_packing_fee: this.option.wood_packing == 1 ? this.wood : 0,
+                seperately_wood_packing_fee: this.option.seperatewoodpacking == 1 ? this.wood : 0
             }
             console.log(params);
             updateOrderPacket(params).then((response) => {

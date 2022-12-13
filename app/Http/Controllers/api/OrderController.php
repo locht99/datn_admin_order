@@ -183,7 +183,8 @@ class OrderController extends Controller
         $model = new OrderModel();
         $kg = $request->kg;
         $warehouse = $request->warehouse_id;
-        $result = $model->configFeePayTqVn($kg, $warehouse);
+        $wood = $request->wood_packing;
+        $result = $model->configFeePayTqVn($kg, $warehouse, $wood);
 
         return response()->json([
             'data' => $result

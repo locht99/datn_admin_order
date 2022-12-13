@@ -107,8 +107,7 @@
 </template>
 
 <script>
-import { integer } from '@vuelidate/validators';
-import { forEach } from 'lodash';
+
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { getAllTransactions, getAllOrders } from "../../../services/Home/home.js";

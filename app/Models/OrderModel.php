@@ -252,13 +252,42 @@ class OrderModel extends Model
         $totalShip = 0;
         foreach ($order_detail as $index => $item) {
             $totalShip += $params["fee_ship"][$index];
-            DB::table("order_detail")->where("id", $item->id)->update(['fee_ship' => $params["fee_ship"][$index]]);
+            DB::table("order_detail")->where("id", $item->id)->update([
+                'fee_ship' => $params["fee_ship"][$index],
+                'note' => $params['noteShop'][$index]
+            ]);
         }
-        $totalPriceOrder = $itemOrder->total_price + $totalShip + $params['global_shipping_fee'] + $itemOrder->purchase_fee + $itemOrder->inventory_fee;
-        DB::table("orders")->where("order_code", $params["order_id"])->update(["china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'], 'total_price_order' => $totalPriceOrder]);
+        $quantity_received = 0;
+        $totalPriceShop = 0;
         foreach ($params['products'] as $item) {
+            $quantity_received += +$item["quantity_received"];
+            $totalPriceShop += $item['price'] * $item['quantity_received'];
+
             DB::table("order_products")->where("id", $item["id"])->update(["quantity_received" => $item["quantity_received"]]);
         }
+        // Lấy ra tổng tiền của sản phẩm 
+
+
+        $totalPrice =  $itemOrder->total_price;
+        $totalPuchaseFee = $this->getFeePurchase(
+            'PURCHASE_FEE',
+            $totalPriceShop
+        ) *  $totalPriceShop / 100;
+
+        if ($quantity_received == 0) {
+            $totalPriceOrder = $totalPrice + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
+        } else {
+            $totalPriceOrder = $totalPriceShop + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+        }
+        DB::table("orders")->where("order_code", $params["order_id"])->update([
+            "china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'],
+            "total_price" => $quantity_received == 0 ? $totalPrice : $totalPriceShop,
+            "total_price_order" => $totalPriceOrder,
+            "purchase_fee" => $totalPuchaseFee,
+            "separately_wood_packing_fee" => $params['seperately_wood_packing_fee'],
+            "wood_packing_fee" => $params["wood_packing_fee"]
+        ]);
+
         return ["data" => $resp, "status" => true];
     }
 
@@ -278,9 +307,9 @@ class OrderModel extends Model
         }
         return $q->first();
     }
-    public function configFeePayTqVn($num, $warehouse)
+    public function configFeePayTqVn($num, $warehouse, $wood_packing)
     {
-
+        // dd($warehouse);
         if ($num == 0) {
             return 0;
         }
@@ -289,19 +318,77 @@ class OrderModel extends Model
             ->pluck('value')
             ->first();
         $fee_check = json_decode($fee_check, true);
+        $fee_config_woodpacking = 0;
+        if ($wood_packing == "WOOD_FEE") {
+            $fee_config_woodpacking = $this->getFeeConfigNumber('WOOD_FEE');
+        }
+        if ($wood_packing == "OWN_WOOD_FEE") {
+            $fee_config_woodpacking = $this->getFeeConfigNumber('OWN_WOOD_FEE');
+        }
+        // dd($fee_config_woodpacking);
+        $fee_wood_packing = $fee_config_woodpacking * $num;
         foreach ($fee_check as $key => $value) {
             if ($num <= $value['min']) {
                 return [
                     $fee_check[$key - 1][$stock],
-                    $fee_check[$key - 1]
+                    $fee_check[$key - 1],
+                    $fee_wood_packing
                 ];
             }
             if ($key == sizeof($fee_check) - 1) {
                 return [
                     $fee_check[$key][$stock],
-                    $fee_check[$key - 1]
+                    $fee_check[$key - 1],
+                    $fee_wood_packing
                 ];
             }
         }
+    }
+
+
+    public function getFeePurchase($opt_fee, $num)
+    {
+        if ($num == 0) {
+            return 0;
+        }
+        $fee_check = DB::table('configs')->where('key', $opt_fee)
+            ->pluck('value')
+            ->first();
+        $fee_check = json_decode($fee_check, true);
+
+        foreach ($fee_check as $key => $value) {
+            if ($value['min'] >= $num) {
+                return $fee_check[$key - 1]['value'];
+            }
+            if ($key == sizeof($fee_check) - 1) {
+                return $fee_check[$key]['value'];
+            }
+        }
+    }
+
+    public  function getFeeConfig($opt_fee, $quantity)
+    {
+        if ($quantity == 0) {
+            return 0;
+        }
+        $fee_check = DB::table('configs')->where('key', $opt_fee)
+            ->pluck('value')
+            ->first();
+        $fee_check = json_decode($fee_check, true);
+        foreach ($fee_check as $key => $value) {
+            if ($value['min'] >= $quantity) {
+                return $fee_check[$key - 1]['value_1'];
+            }
+            if ($key == sizeof($fee_check) - 1) {
+                return $fee_check[$key]['value_1'];
+            }
+        }
+    }
+    public function getFeeConfigNumber($opt_fee)
+    {
+        $fee_check = DB::table('configs')->where('key', $opt_fee)
+            ->pluck('value')
+            ->first();
+        return $fee_check;
     }
 }
