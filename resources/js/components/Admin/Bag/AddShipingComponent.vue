@@ -242,7 +242,8 @@ export default {
             data_order_transport: [],
             order: {},
             info_user: [],
-            total_price_order: 0,
+            remaining_amount: 0,
+            total_order_price: 0,
             data_form: {
                 name_product: null,
                 code_order: null,
@@ -300,6 +301,7 @@ export default {
             getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
                 let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
+                this.total_order_price = parseInt(total)
                 this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
                 getInfoUser(resp.data[0].address_id).then((res) => {
                     this.is_Loading = false;
@@ -399,11 +401,12 @@ export default {
                                     createShiping(this.data_trans).then((response) => {
                                         getDetailOrderGhn(this.data_trans.order_code).then((resp_cod) => {
                                             getDetailOrderServiceGhn(this.data_trans.order_code).then((resp) => {
-                                                this.total_price_order = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
+                                                this.total = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
                                                 updatePriceOrder({
                                                     id_order: this.data_trans.order_id,
-                                                    total_price_order: this.total_price_order,
-                                                    express_shipping_fee: resp.data.data.payment[0].value
+                                                    remaining_amount: this.total_cod_amount,
+                                                    express_shipping_fee: resp.data.data.payment[0].value,
+                                                    total_order_price: this.total_order_price
                                                 }).then((resp) => {
                                                     createLogTracking({
                                                         order_id: this.data_order_transport.id,
