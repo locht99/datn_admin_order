@@ -270,7 +270,6 @@ export default {
             if (quantity > quantity_bought) {
                 quantity = quantity_bought;
                 const existItem = this.data.find((item) => item.id == id);
-                // console.log(existItem);
                 existItem.quantity_received = quantity;
                 return this.$swal.fire("Số lượng mua không được vượt quá số lượng khách muốn đặt")
             }
