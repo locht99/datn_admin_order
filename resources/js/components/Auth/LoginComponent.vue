@@ -21,11 +21,11 @@
                     >
                     <br />
                     <span class="text-lg font-bold"
-                        >Gọi hỗ trợ: 0123456789</span
+                        >Gọi hỗ trợ: 0383530895</span
                     >
                     <br />
                     <span class="text-lg font-bold"
-                        >Facebook: OrderViettrung</span
+                        >Facebook: Order Việt Trung</span
                     >
                     <br />
                 </div>

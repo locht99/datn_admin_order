@@ -34,7 +34,7 @@ const baseURL = '/api/';
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(VueAxios, axios);
-app.axios.defaults.baseURL = process.env.API_URL;
+app.axios.defaults.baseURL = 'https://admin.dathangviettrung.site/';
 app.axios.defaults.headers.common["Accept"] = "application/json";
 app.axios.defaults.headers.common["Content-Type"] =
     "application/json;charset=UTF-8";

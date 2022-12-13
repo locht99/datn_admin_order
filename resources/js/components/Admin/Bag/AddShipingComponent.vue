@@ -409,7 +409,6 @@ export default {
                                                         order_id: this.data_order_transport.id,
                                                         tracking_status_name: "Chờ xác nhận (Vietnamese)"
                                                     }).then((resp) => {
-                                                        this.is_Loading = false
                                                         this.$swal.fire(
                                                             'Thông báo',
                                                             'Tạo đơn vận thành công',
@@ -421,17 +420,18 @@ export default {
                                                     this.swalError(error.response.data.error)
                                                 })
                                             }).catch((error) => {
-                                                this.swalError(error.response.data.code_message_value)
+                                                this.swalError(error.response.data.message)
                                             })
                                         }).catch((error) => {
-                                            this.swalError(error.response.data.code_message_value)
+                                            this.swalError(error.response.data.message)
                                         })
 
                                     }).catch((error) => {
                                         this.swalError(error.response.data.error)
                                     })
                                 }).catch((error) => {
-                                    this.swalError(error.response.data.code_message_value)
+                                    this.is_Loading = false
+                                    this.swalError(error.response.data.message)
                                 })
                             }
                         });

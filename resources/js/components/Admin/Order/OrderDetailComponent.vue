@@ -49,8 +49,8 @@
                                         <p>Mã đặt hàng:</p>
                                         <p>
                                             {{
-                                                    data[0]?.order_code ??
-                                                    "Chưa xác định"
+                                            data[0]?.order_code ??
+                                            "Chưa xác định"
                                             }}
                                         </p>
                                     </div>
@@ -102,8 +102,10 @@
                                                 </p>
                                                 <div class="flex items-center">
                                                     <div>Mô tả</div>
-                                                    <div class="bg-blue-500 rounded text-white p-1 text-[10px] m-2">
-                                                        Xem chi tiết
+                                                    <div class="p-1 text-[10px] m-2 bg-blue-500 rounded">
+                                                        <a class=" text-white " :href="value.url" target="_blank">
+                                                            Xem chi tiết
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center">
@@ -118,17 +120,17 @@
                                                         <div class="cost border-b-2">
                                                             Giá:
                                                             {{
-                                                                    formatPrice(
-                                                                        value.price
-                                                                    )
+                                                            formatPrice(
+                                                            value.price
+                                                            )
                                                             }}
                                                         </div>
                                                         <div class="promotion">
                                                             Khuyến mãi:
                                                             {{
-                                                                    formatPrice(
-                                                                        value.promotion_price
-                                                                    )
+                                                            formatPrice(
+                                                            value.promotion_price
+                                                            )
                                                             }}
                                                         </div>
                                                     </div>
@@ -140,9 +142,9 @@
                                                         </div>
                                                         <div class="promotion font-bold">
                                                             {{
-                                                                    formatPrice(
-                                                                        value.price
-                                                                    )
+                                                            formatPrice(
+                                                            value.price
+                                                            )
                                                             }}
                                                         </div>
                                                     </div>
@@ -167,7 +169,7 @@
                                     <div class="font-bold">Đã trả</div>
                                     <div>
                                         {{
-                                                formatPrice(data[0]?.deposit_amount)
+                                        formatPrice(data[0]?.deposit_amount)
                                         }}
                                     </div>
                                 </div>
