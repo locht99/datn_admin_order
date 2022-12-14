@@ -148,16 +148,15 @@ class OrderController extends Controller
     }
     public function getDetailOrderUpdate(Request $request)
     {
-        try {
+        // try {
             $params = [
                 'id' => $request->id
             ];
             $order = DB::table("orders")->where("order_code", $request->id)->first();
-            $checkPacket = DB::table("admin_packets")->select('admin_packets.*')->leftJoin("admin_packet_items", "admin_packet_items.admin_packet_id", "=", "admin_packets.id")->where("order_id", $order->id)
-                ->first();
+            $checkPacket = DB::table('tracking_statuses')->where("order_id", $order->id)->first();
             $model = new OrderModel();
             if ($checkPacket) {
-                if ($checkPacket->tracking_status_name == "Gói hàng đã được gửi đi (China)") {
+                if ($checkPacket->tracking_status_name != "Chờ xác nhận (China)'") {
                     return response()->json([
                         "message" => "Đã tồn tại bao hàng không thể sửa"
                     ], 400);
@@ -166,8 +165,8 @@ class OrderController extends Controller
             $data = $model->getDetailOrderUpdate($params);
 
             return response()->json($data, Response::HTTP_OK);
-        } catch (\Throwable $th) {
-        }
+        // } catch (\Throwable $th) {
+        // }
     }
     public function updateOrderPacking(Request $request)
     {

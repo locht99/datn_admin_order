@@ -133,7 +133,7 @@ class OrderModel extends Model
                 "user_addresses.province",
                 "user_addresses.district",
                 "user_addresses.ward",
-                "user_addresses.note",
+                "user_addresses.note as addressdetail",
                 "user_addresses.phone",
                 'order_products.*',
                 'orders.created_at as created_at',
