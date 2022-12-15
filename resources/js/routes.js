@@ -46,7 +46,10 @@ const routes = [{
             },
             {
                 path: "pay-fist",
-                component: PayFist
+                component: PayFist,
+                meta: {
+                    just_superadmin: true
+                },
             },
             {
                 path: "user",
