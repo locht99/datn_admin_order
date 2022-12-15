@@ -1527,6 +1527,8 @@ input:checked + .toggle-bg {
   width: 16rem;
 }
 
+<<<<<<< HEAD
+=======
 .w-16 {
   width: 4rem;
 }
@@ -1535,6 +1537,7 @@ input:checked + .toggle-bg {
   width: 3rem;
 }
 
+>>>>>>> 05071c76efed86460e5eec76c982e356dfad0f7c
 .max-w-6xl {
   max-width: 72rem;
 }
