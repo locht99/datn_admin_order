@@ -34,7 +34,7 @@ const baseURL = '/api/';
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(VueAxios, axios);
-app.axios.defaults.baseURL = 'https://admin.dathangviettrung.site/';
+app.axios.defaults.baseURL = "https://admin.dathangviettrung.site/"
 app.axios.defaults.headers.common["Accept"] = "application/json";
 app.axios.defaults.headers.common["Content-Type"] =
     "application/json;charset=UTF-8";
@@ -105,8 +105,6 @@ router.beforeEach((to, from, next) => {
                     router.replace("/");
                     next();
                 } else if (to.matched.some((record) => record.meta.auth)) {
-                    next();
-                } else {
                     // Check permission
                     let role = res.data.data.role;
                     if (role == 1) {
@@ -141,6 +139,7 @@ router.beforeEach((to, from, next) => {
                         }
                         router.replace("/login");
                     }
+                    next();
                 }
             })
             .catch((err) => {
