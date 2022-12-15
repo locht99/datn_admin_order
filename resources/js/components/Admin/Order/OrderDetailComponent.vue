@@ -186,6 +186,14 @@
                                         }}
                                     </div>
                                 </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Còn lại</div>
+                                    <div>
+                                        {{
+                                                formatPrice(data[0]?.remaining_amount)
+                                        }}
+                                    </div>
+                                </div>
                                 <div class="price1 p-3 flex items-center bg-red-500 justify-between">
                                     <div class="font-bold text-white">
                                         Tổng tiền
