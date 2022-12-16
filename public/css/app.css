@@ -1194,10 +1194,6 @@ input:checked + .toggle-bg {
   margin-top: -1px;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1216,6 +1212,10 @@ input:checked + .toggle-bg {
 
 .mt-\[5px\] {
   margin-top: 5px;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .mt-14 {
@@ -1427,6 +1427,10 @@ input:checked + .toggle-bg {
   width: 230px;
 }
 
+.w-12 {
+  width: 3rem;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -1525,14 +1529,6 @@ input:checked + .toggle-bg {
 
 .w-64 {
   width: 16rem;
-}
-
-.w-16 {
-  width: 4rem;
-}
-
-.w-12 {
-  width: 3rem;
 }
 
 .max-w-6xl {

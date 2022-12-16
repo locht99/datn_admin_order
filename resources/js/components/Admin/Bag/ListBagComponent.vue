@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="overflow-hidden rounded-t-[13px] bg-white" v-if="packets.length > 0">
+                <div class="overflow-hidden rounded-t-[13px] bg-white" v-if="packets && packets.length > 0">
                     <table class="w-[100%] table-auto  border text-center">
                         <thead class="">
                             <tr class="bg-[#FF3F3A] uppercase leading-normal text-white">
