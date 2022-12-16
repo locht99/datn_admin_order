@@ -86,7 +86,7 @@
                                     0
                                 </td> -->
                                             <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
-                                                {{ item.point_vn }}
+                                                {{ formatPrice(item.point_vn) }}
                                             </td>
 
                                             <td class="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
@@ -134,10 +134,10 @@ export default {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title ='Danh sách tiền việt';
+                document.title = 'Danh sách tiền việt';
             }
         },
-  },
+    },
     components: {
         AddMoneyVietNam,
         Filter,
@@ -172,6 +172,12 @@ export default {
     },
 
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         open_filter() {
             this.openFiter = !this.openFilter;
             this.styleFilter = 'translate-x-[-360px] duration-300 ';
