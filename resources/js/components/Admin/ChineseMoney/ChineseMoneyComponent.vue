@@ -48,7 +48,7 @@
                         <td>{{item.order_code}}</td> -->
                         <td>{{item.type_name}}</td>
                         <td>{{item.content}}</td>
-                        <td >{{item.point_cn}}</td>
+                        <td >{{formatPrice(item.point_cn)}}</td>
                         
                     </tr>
 
@@ -117,6 +117,12 @@ export default {
         this.getAllChinese();
     },
     methods: {
+        formatPrice(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        },
         open_filter() {
             this.openFilter = !this.openFilter;
             getTypeMoneyChina().then((response) => {

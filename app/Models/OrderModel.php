@@ -133,7 +133,7 @@ class OrderModel extends Model
                 "user_addresses.province",
                 "user_addresses.district",
                 "user_addresses.ward",
-                "user_addresses.note",
+                "user_addresses.note as addressdetail",
                 "user_addresses.phone",
                 'order_products.*',
                 'orders.created_at as created_at',
@@ -229,6 +229,7 @@ class OrderModel extends Model
     {
 
         $itemOrder = DB::table("orders")->where("order_code", $params["order_id"])->first();
+        $deposit_amount = abs($itemOrder->deposit_amount);
         $order_detail = DB::table("order_detail")->where("order_id", $itemOrder->id)->get();
         $checkCode = DB::table("packets")->where("code", $params["code"])->first();
         // if()
@@ -259,6 +260,7 @@ class OrderModel extends Model
         }
         $quantity_received = 0;
         $totalPriceShop = 0;
+        $remaining_amount = 0;
         foreach ($params['products'] as $item) {
             $quantity_received += +$item["quantity_received"];
             $totalPriceShop += $item['price'] * $item['quantity_received'];
@@ -276,8 +278,10 @@ class OrderModel extends Model
 
         if ($quantity_received == 0) {
             $totalPriceOrder = $totalPrice + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
+            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
         } else {
             $totalPriceOrder = $totalPriceShop + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
         }
         DB::table("orders")->where("order_code", $params["order_id"])->update([
             "china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'],
@@ -285,7 +289,8 @@ class OrderModel extends Model
             "total_price_order" => $totalPriceOrder,
             "purchase_fee" => $totalPuchaseFee,
             "separately_wood_packing_fee" => $params['seperately_wood_packing_fee'],
-            "wood_packing_fee" => $params["wood_packing_fee"]
+            "wood_packing_fee" => $params["wood_packing_fee"],
+            "remaining_amount" => $remaining_amount
         ]);
 
         return ["data" => $resp, "status" => true];

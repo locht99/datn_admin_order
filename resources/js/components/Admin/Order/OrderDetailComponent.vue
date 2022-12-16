@@ -49,8 +49,8 @@
                                         <p>Mã đặt hàng:</p>
                                         <p>
                                             {{
-                                            data[0]?.order_code ??
-                                            "Chưa xác định"
+                                                    data[0]?.order_code ??
+                                                    "Chưa xác định"
                                             }}
                                         </p>
                                     </div>
@@ -59,11 +59,7 @@
                                         {{ data[0]?.code ?? "Chưa xác định" }}
                                     </div>
                                 </div>
-                                <!-- <div class="mb-3">
-                                    Shop đặt hàng:
-                                    <span v-for="item in listShop" :key="item.id">{{ item }}.
-                                    </span>
-                                </div> -->
+
                             </div>
                         </div>
                         <div class="w-[40%] p-3">
@@ -120,17 +116,17 @@
                                                         <div class="cost border-b-2">
                                                             Giá:
                                                             {{
-                                                            formatPrice(
-                                                            value.price
-                                                            )
+                                                                    formatPrice(
+                                                                        value.price
+                                                                    )
                                                             }}
                                                         </div>
                                                         <div class="promotion">
                                                             Khuyến mãi:
                                                             {{
-                                                            formatPrice(
-                                                            value.promotion_price
-                                                            )
+                                                                    formatPrice(
+                                                                        value.promotion_price
+                                                                    )
                                                             }}
                                                         </div>
                                                     </div>
@@ -142,9 +138,9 @@
                                                         </div>
                                                         <div class="promotion font-bold">
                                                             {{
-                                                            formatPrice(
-                                                            value.price
-                                                            )
+                                                                    formatPrice(
+                                                                        value.price
+                                                                    )
                                                             }}
                                                         </div>
                                                     </div>
@@ -162,14 +158,39 @@
                                     <div>{{ formatPrice(this.total_price) }}</div>
                                 </div>
                                 <div class="price1 p-3 flex items-center border-b justify-between">
-                                    <div class="font-bold">Phí dịch vụ (tạm tính)</div>
-                                    <div>{{ formatPrice(feeOrder) }}</div>
+                                    <div class="font-bold">Phí mua hàng</div>
+                                    <div>{{ formatPrice(this.fee.fee_purchase) }}</div>
+                                </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Phí kiểm hàng</div>
+                                    <div>{{ formatPrice(this.fee.fee_inventory) }}</div>
+                                </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Phí đóng gỗ</div>
+                                    <div>{{ formatPrice(this.fee.wood)
+                                    }}</div>
+                                </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Phí vận chuyển nội địa TQ</div>
+                                    <div>{{ formatPrice(this.fee.china_shipping_fee) }}</div>
+                                </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Phí vận chuyển TQ->VN</div>
+                                    <div>{{ formatPrice(this.fee.global_shipping_fee) }}</div>
                                 </div>
                                 <div class="price1 p-3 flex items-center border-b justify-between">
                                     <div class="font-bold">Đã trả</div>
                                     <div>
                                         {{
-                                        formatPrice(data[0]?.deposit_amount)
+                                                formatPrice(data[0]?.deposit_amount)
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                    <div class="font-bold">Còn lại</div>
+                                    <div>
+                                        {{
+                                                formatPrice(data[0]?.remaining_amount)
                                         }}
                                     </div>
                                 </div>
@@ -225,6 +246,13 @@ export default {
                 province: "",
                 ward: "",
                 note: ""
+            },
+            fee: {
+                fee_purchase: 0,
+                fee_inventory: 0,
+                global_shipping_fee: 0,
+                china_shipping_fee: 0,
+                wood: 0,
             }
         };
     },
@@ -242,20 +270,27 @@ export default {
             get({
                 id: this.order_id,
             }).then((res) => {
+                console.log(res.data);
                 this.isLoading = false;
                 this.data = res.data;
                 this.address.district = res.data[0].district;
                 this.address.province = res.data[0].province;
                 this.address.ward = res.data[0].ward;
-                this.address.note = res.data[0].note;
+                this.address.note = res.data[0].addressdetail;
 
                 this.data.forEach((item) => {
                     this.total_price = item.total_price;
                     this.price = item.total_price_order;
                     // this.feeOrder =item.express_shipping_fee+item.global_shipping_fee+item.inventory_fee+item.purchase_fee
-                    express_shipping_fee = item.express_shipping_fee;
-                    inventory_fee = item.global_shipping_fee;
-                    purchase_fee = item.purchase_fee;
+                    // express_shipping_fee = item.express_shipping_fee;
+                    // inventory_fee = item.global_shipping_fee;
+                    // purchase_fee = item.purchase_fee;
+                    this.fee.fee_inventory = item.inventory_fee;
+                    this.fee.fee_purchase = item.purchase_fee;
+                    this.fee.global_shipping_fee = item.global_shipping_fee;
+                    this.fee.china_shipping_fee = item.china_shipping_fee;
+                    this.fee.wood = item.seperately_wood_packing_fee ?? item.wood_packing_fee;
+                    // this.fee.wood_packing_fee = ;
                     if (item.source === "TAOBAO") {
                         this.listShop.push("taobao");
                     } else if (item.source === "1688") {
@@ -266,7 +301,7 @@ export default {
                     this.status_id = item.status_id
                 });
                 this.listShop = [...new Set(this.listShop)];
-                this.feeOrder = +express_shipping_fee + +inventory_fee + +purchase_fee;
+
             });
         },
         updateStatus(event) {
