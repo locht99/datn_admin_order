@@ -58,7 +58,7 @@
                     </router-link>
                 </li>
 
-                <li class="menu-item text-white my-2 py-2 pl-5 rounded-[10px]">
+                <li v-if="role == 1" class="menu-item text-white my-2 py-2 pl-5 rounded-[10px]">
                     <router-link to="/report" class="text-white">
                         <font-awesome-icon icon="fa-solid fa-chart-pie" />
                         Báo cáo

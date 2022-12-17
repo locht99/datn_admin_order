@@ -160,7 +160,7 @@
                                             <input v-model="it.quantity_bought" disabled
                                                 class="w-full border-gray-300 rounded my-2 px-2 py-1 border" />
                                             <label for="" class="w-full">Số lượng mua được</label>
-                                            <input
+                                            <input type="number"
                                                 @blur="checkPayQuantity(it.quantity_received, it.quantity_bought, it.id)"
                                                 v-model="it.quantity_received"
                                                 class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
@@ -292,7 +292,8 @@ export default {
                     }
                 } else {
                     this.wood = data[2];
-                    this.totalGlobalShipping = kg * +data[0];
+                    let totalShipping = kg * +data[0];
+                    this.totalGlobalShipping = totalShipping.toFixed(0)
                 }
             }).catch((error) => {
 
@@ -377,9 +378,10 @@ export default {
                 wood_packing_fee: this.option.wood_packing == 1 ? this.wood : 0,
                 seperately_wood_packing_fee: this.option.seperatewoodpacking == 1 ? this.wood : 0
             }
-            console.log(params);
+
             updateOrderPacket(params).then((response) => {
                 message.success({ content: 'Cập nhật đơn hàng thành công!', key, duration: 2 });
+                this.getDetailCart();
             }).catch((error) => {
                 this.shippingcode = '';
                 message.error({ content: error.response.data.failed, key, duration: 2 })
