@@ -67,25 +67,21 @@
                 <a-col :span="8">
                     <div style="background: #ffff; padding: 20px">
                         <a-card title="Dịch vụ" class="w-full">
+                           
                             <div class="mb-3">
-                                <a-checkbox v-model:checked="option.order_checking">Đã kiểm hàng</a-checkbox>
+                                <a-checkbox :disabled="true" v-model:checked="option.inventory">Kiểm hàng</a-checkbox>
+                            </div>
+                         
+                            <div class="mb-3">
+                                <a-checkbox :disabled="true" v-model:checked="option.wood_packing">Đóng gỗ</a-checkbox>
                             </div>
                             <div class="mb-3">
-                                <a-checkbox v-model:checked="option.inventory">Phí kiểm hàng</a-checkbox>
+                                <a-checkbox :disabled="true" v-model:checked="option.seperatewoodpacking">Đóng gỗ riêng</a-checkbox>
                             </div>
                             <div class="mb-3">
-                                <a-checkbox v-model:checked="option.autoshipping">Tự động giao hàng</a-checkbox>
-                            </div>
-                            <div class="mb-3">
-                                <a-checkbox v-model:checked="option.wood_packing">Phí đóng gỗ</a-checkbox>
-                            </div>
-                            <div class="mb-3">
-                                <a-checkbox v-model:checked="option.seperatewoodpacking">Phí đóng gỗ riêng</a-checkbox>
-                            </div>
-                            <div class="mb-3">
-                                <a-radio-group v-model:value="shipping">
+                                <a-radio-group :disabled="true" v-model:value="shipping">
                                     <a-radio :style="radioStyle" :value="0">Giao hàng tiết kiệm</a-radio>
-                                    <a-radio :style="radioStyle" :value="1">Giao hàng nhanh</a-radio>
+                                    <!-- <a-radio :style="radioStyle" :value="1">Giao hàng nhanh</a-radio> -->
                                 </a-radio-group>
                             </div>
 
