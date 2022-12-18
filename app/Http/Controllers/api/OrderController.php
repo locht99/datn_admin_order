@@ -150,22 +150,20 @@ class OrderController extends Controller
     public function getDetailOrderUpdate(Request $request)
     {
         // try {
-            $params = [
-                'id' => $request->id
-            ];
-            $order = DB::table("orders")->where("order_code", $request->id)->first();
-            $checkPacket = DB::table('tracking_statuses')->where("order_id", $order->id)->first();
-            $model = new OrderModel();
-            if ($checkPacket) {
-                if ($checkPacket->tracking_status_name != "Chờ xác nhận (China)'") {
-                    return response()->json([
-                        "message" => "Đã tồn tại bao hàng không thể sửa"
-                    ], 400);
-                }
-            }
-            $data = $model->getDetailOrderUpdate($params);
+        $params = [
+            'id' => $request->id
+        ];
+        $order = DB::table("orders")->where("order_code", $request->id)->first();
+        $checkPacket = DB::table('admin_packet_items')->where("order_id", $order->id)->first();
+        $model = new OrderModel();
+        if ($checkPacket) {
+            return response()->json([
+                "message" => "Đã tồn tại bao hàng không thể sửa"
+            ], 400);
+        }
+        $data = $model->getDetailOrderUpdate($params);
 
-            return response()->json($data, Response::HTTP_OK);
+        return response()->json($data, Response::HTTP_OK);
         // } catch (\Throwable $th) {
         // }
     }

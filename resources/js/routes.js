@@ -79,15 +79,24 @@ const routes = [{
             },
             {
                 path: '/bag/add',
-                component: AddBag
+                component: AddBag,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/detail-bag/:id',
-                component: DetailBag
+                component: DetailBag,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/bag/:id/edit',
-                component: EditBag
+                component: EditBag,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/order',
@@ -98,11 +107,17 @@ const routes = [{
             },
             {
                 path: '/orderdetail/:id',
-                component: OrderDetail
+                component: OrderDetail,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/order/edit/:id',
-                component: OrderEdit
+                component: OrderEdit,
+                meta: {
+                    employee: true
+                },
             },
             {
                 path: '/orderdetail/package',
@@ -133,7 +148,10 @@ const routes = [{
             },
             {
                 path: '/report',
-                component: Report
+                component: Report,
+                meta: {
+                    just_superadmin: true
+                }
             },
             {
                 path: '/settings',
@@ -145,7 +163,10 @@ const routes = [{
             },
             {
                 path: '/settings/noti',
-                component: Noti
+                component: Noti,
+                meta: {
+                    employee: true
+                }
             }
         ],
     },

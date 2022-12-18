@@ -42,7 +42,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('get-check-ship', [TransportVietnamController::class, 'getCheckShip']);
     Route::any('create-order-ghn', [TransportVietnamController::class, 'createOrderGhn']);
     Route::post('/update-price-order', [OrderController::class, 'updatePriceOrder']);
-    Route::get('/report', [ReportController::class, 'getReport']);
+    Route::middleware('role:1')->get('/report', [ReportController::class, 'getReport']);
     // api trang chu
     Route::any('/transactions', [\App\Http\Controllers\api\HomeController::class, 'getTransactions']);
     Route::any('/total-orders', [\App\Http\Controllers\api\HomeController::class, 'getTotalOders']);
