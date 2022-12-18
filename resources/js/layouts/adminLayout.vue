@@ -1,52 +1,41 @@
 <template>
     <div class="bg-[#f9f9f9] mx-auto overflow-hidden relative">
-        <div
-            class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full duration-500"
-        >
+        <div class="layout h-screen grid grid-cols-[230px,_1fr] bg-[#f9f9f9] w-full duration-500">
             <aside
-                class="fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-500"
-            >
-            <div class="img mt-2 mb-4">
-                    <img
-                        class="w-[80%] m-auto"
-                        src="/images/order.png"
-                        alt=""
-                    />
+                class="fixed w-[230px] bg-gradient-to-br from-[#e93c3b] to-[#f26435] h-full p-5 relative duration-500">
+                <div class="img mt-2 mb-4">
+                    <img class="w-[80%] m-auto" src="/images/order.png" alt="" />
                 </div>
                 <hr />
                 <menu-component-vue />
-                <div
-                    id="icon"
+                <div id="icon"
                     class="transition ease-in-out delay-50 text-center w-10 h-10 absolute top-10 right-[-20px] text-white bg-gradient-to-br from-[#e93c3b] to-[#f26435] text-2xl border-solid border-[4px] border-white rounded-full cursor-pointer"
-                    @click="aside_action"
-                >
+                    @click="aside_action">
                     <font-awesome-icon icon="fa-solid fa-angle-left" class="mt-1" />
                 </div>
             </aside>
             <section class="m-6 relative">
                 <header>
                     <div
-                        class="top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]"
-                    >
+                        class="top flex justify-between border-solid border-[1px] border-[#ededed] shadow-[0px_4px_4px_rgba(0, 0, 0, 0.25)] rounded-[10px] h-[60px]">
                         <div class="black_client">
                             <font-awesome-icon icon="fa-regular fa-moon" class="text-4xl ml-6 mt-3" />
                         </div>
-                        <div class="user">
-                            <img
-                                class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]"
-                                src="/images/avt.jpg"
-                                alt=""
-                            />
+                        <div class="user" @click="modelLogout()">
+                            <img class="w-[50px] h-[50px] rounded-full mr-[25px] mt-[5px]" src="/images/avt.jpg"
+                                alt="" />
                             <Transition name="slide-fade">
-                                <div v-if="boxUserInfo"
-                                  class="absolute top-14 right-0 w-60 rounded-lg shadow-md shadow-gray-400 bg-[#ff3f3a] text-white px-5 z-50">
-                                  <ul>
-                                    <li class="py-3">
-                                      <router-link to="" @click="logout()" class="text-base font-semibold text-white text-decoration-none">Đăng xuất</router-link>
-                                    </li>
-                                  </ul>
+                                <div v-if="this.boxUserInfo == true"
+                                    class="absolute top-14 right-0 w-60 rounded-lg shadow-md shadow-gray-400 bg-[#ff3f3a] text-white px-5 z-50">
+                                    <ul>
+                                        <li class="py-3">
+                                            <router-link to="" @click="logout()"
+                                                class="text-base font-semibold text-white text-decoration-none">Đăng
+                                                xuất</router-link>
+                                        </li>
+                                    </ul>
                                 </div>
-                              </Transition>
+                            </Transition>
                         </div>
                     </div>
                 </header>
@@ -54,10 +43,9 @@
                     <router-view></router-view>
                 </main>
                 <footer>
-                    <span class="text-[16px] absolute bottom-0 text-[#7e7373]"
-                        >© 2022 , hệ thống được thiết kế và vận hành bởi Order
-                        Việt Trung</span
-                    >
+                    <span class="text-[16px] absolute bottom-0 text-[#7e7373]">© 2022 , hệ thống được thiết kế và vận
+                        hành bởi Order
+                        Việt Trung</span>
                 </footer>
             </section>
         </div>
@@ -74,7 +62,12 @@ header .top .black_client i {
 <script>
 import MenuComponentVue from "../components/Admin/Menu/MenuComponent.vue";
 export default {
-    setup() {},
+    setup() { },
+    data() {
+        return {
+            boxUserInfo: false,
+        }
+    },
     components: {
         MenuComponentVue,
     },
@@ -102,6 +95,14 @@ export default {
                 localStorage.removeItem('token')
                 this.$router.replace("/login")
             }
+        },
+        modelLogout() {
+            if (this.boxUserInfo == false) {
+                this.boxUserInfo = true
+            } else {
+                this.boxUserInfo = false
+            }
+
         }
     },
 };
