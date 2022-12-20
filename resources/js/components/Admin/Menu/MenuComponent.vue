@@ -116,7 +116,6 @@ export default {
         var li = document.querySelectorAll('.menu-item');
 
         li.forEach(el => {  
-            console.log(el)
             el.addEventListener('click', function () {
                 li.forEach(el => {
                     el.style.backgroundColor = 'transparent'
