@@ -29,7 +29,7 @@ const router = createRouter({
 
 library.add(fas, fab, far);
 // window.Vue = Vue
-const baseURL = '/api/';
+const baseURL = 'https://admin.dathangviettrung.site/api/';
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
