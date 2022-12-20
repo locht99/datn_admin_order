@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = 'https://admin.dathangviettrung.site/api/';
+const URL = 'http://localhost:8000/api/';
 const config = axios.create({
     baseURL: URL,
     headers: {
