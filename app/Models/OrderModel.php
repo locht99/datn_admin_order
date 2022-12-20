@@ -250,9 +250,7 @@ class OrderModel extends Model
             'opt_separate_wood_packing' => $params['opt_separate_wood_packing'],
             'code' => $params['code']
         ]);
-        $totalShip = 0;
         foreach ($order_detail as $index => $item) {
-            $totalShip += $params["fee_ship"][$index];
             DB::table("order_detail")->where("id", $item->id)->update([
                 'fee_ship' => $params["fee_ship"][$index],
                 'note' => $params['noteShop'][$index]
@@ -277,14 +275,14 @@ class OrderModel extends Model
         ) *  $totalPriceShop / 100;
 
         if ($quantity_received == 0) {
-            $totalPriceOrder = $totalPrice + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
-            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
+            $totalPriceOrder = $totalPrice  + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
+            $remaining_amount = $deposit_amount  + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
         } else {
-            $totalPriceOrder = $totalPriceShop + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
-            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+            $totalPriceOrder = $totalPriceShop  + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+            $remaining_amount = $deposit_amount  + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
         }
         DB::table("orders")->where("order_code", $params["order_id"])->update([
-            "china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'],
+            'global_shipping_fee' => $params['global_shipping_fee'],
             "total_price" => $quantity_received == 0 ? $totalPrice : $totalPriceShop,
             "total_price_order" => $totalPriceOrder,
             "purchase_fee" => $totalPuchaseFee,
