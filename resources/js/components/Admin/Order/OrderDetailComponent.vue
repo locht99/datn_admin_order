@@ -97,6 +97,13 @@
                                                     {{ value.product_name }}
                                                 </p>
                                                 <div class="flex items-center">
+                                                    <div>Số lượng</div>
+                                                    <div class="p-1 m-2 ">
+                                                        {{ value.quantity_bought }}
+
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center">
                                                     <div>Mô tả</div>
                                                     <div class="p-1 text-[10px] m-2 bg-blue-500 rounded">
                                                         <a class=" text-white " :href="value.url" target="_blank">
@@ -139,7 +146,7 @@
                                                         <div class="promotion font-bold">
                                                             {{
                                                                     formatPrice(
-                                                                        value.price
+                                                                        value.price_table
                                                                     )
                                                             }}
                                                         </div>

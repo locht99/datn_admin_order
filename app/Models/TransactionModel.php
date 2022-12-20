@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -36,10 +37,10 @@ class TransactionModel extends Model
             )
             ->orderByDesc('transactions.created_at');
         if ($params['from']) {
-            $data->orWhereDate('transactions.created_at', '>=', $params['from']);
+            $data->orWhereDate('transactions.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
         }
         if ($params['to']) {
-            $data->orWhereDate('transactions.created_at', '<=', $params['to']);
+            $data->orWhereDate('transactions.created_at', '<=', Carbon::parse($params['to'])->toDateTimeString());
         }
         if ($params['username']) {
             $data->orWhere('users.username', $params['username']);
@@ -85,16 +86,16 @@ class TransactionModel extends Model
     public function getTransactionCreate($from = null, $to = null)
     {
         $q = DB::table('transactions')
-        ->select(
-            DB::raw("ABS(SUM(transactions.point)) as total_money"),
-            DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as created_at")
-        )
-        ->where('transactions.type_id', config('const.transaction_type.top_up_user'))
-        ->orderBy('created_at')
-        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
+            ->select(
+                DB::raw("ABS(SUM(transactions.point)) as total_money"),
+                DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as created_at")
+            )
+            ->where('transactions.type_id', config('const.transaction_type.top_up_user'))
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
 
         if ($from) {
-            $q->where('created_at', '>=',$from);
+            $q->where('created_at', '>=', $from);
         }
         if ($to) {
             $q->where('created_at', '<=', $to);
