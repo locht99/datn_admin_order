@@ -161,6 +161,7 @@
                                             <input type="number"
                                                 @blur="checkPayQuantity(it.quantity_received, it.quantity_bought, it.id)"
                                                 v-model="it.quantity_received"
+                                          
                                                 class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
                                             <label for="">Ghi chú</label>
 
