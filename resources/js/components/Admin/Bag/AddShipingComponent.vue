@@ -300,19 +300,19 @@ export default {
             this.order_id = this.item
             getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
-                let total =
-                    parseInt(resp.data[0].inventory_fee) +
-                    Math.abs(parseInt(resp.data[0].deposit_amount)) +
-                    parseInt(resp.data[0].global_shipping_fee) +
-                    parseInt(resp.data[0].wood_packing_fee) +
-                    parseInt(resp.data[0].separately_wood_packing_fee) +
-                    parseInt(resp.data[0].high_value_fee) +
-                    parseInt(resp.data[0].auto_shipping_fee) +
-                    parseInt(resp.data[0].express_shipping_fee) +
-                    parseInt(resp.data[0].saving_shipping_fee) +
-                    parseInt(resp.data[0].purchase_fee)
-                this.total_order_price = parseInt(total)
-                this.total_cod_amount = parseInt(total)
+                // let total =
+                //     parseInt(resp.data[0].inventory_fee) +
+                //     Math.abs(parseInt(resp.data[0].deposit_amount)) +
+                //     parseInt(resp.data[0].global_shipping_fee) +
+                //     parseInt(resp.data[0].wood_packing_fee) +
+                //     parseInt(resp.data[0].separately_wood_packing_fee) +
+                //     parseInt(resp.data[0].high_value_fee) +
+                //     parseInt(resp.data[0].auto_shipping_fee) +
+                //     parseInt(resp.data[0].express_shipping_fee) +
+                //     parseInt(resp.data[0].saving_shipping_fee) +
+                //     parseInt(resp.data[0].purchase_fee)
+                this.total_order_price = parseInt(resp.data[0].total_price_order);
+                this.total_cod_amount = parseInt(resp.data[0].remaining_amount);
                 getInfoUser(resp.data[0].address_id).then((res) => {
                     this.is_Loading = false;
                     this.info_user = res.data[0]

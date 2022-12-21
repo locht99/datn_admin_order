@@ -73,7 +73,7 @@ class OrderController extends Controller
                 ->update([
                     'remaining_amount' => $request->remaining_amount,
                     'express_shipping_fee' => $request->express_shipping_fee,
-                    'total_price_order' => $request->total_order_price
+                    'total_price_order' => $request->total_order_price + $request->express_shipping_fee
                 ]);
             return response()->json(['success' => "Cập nhật thành công"], 200);
         } catch (\Throwable $th) {
