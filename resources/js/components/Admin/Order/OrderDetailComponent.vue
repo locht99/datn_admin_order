@@ -277,7 +277,7 @@ export default {
             get({
                 id: this.order_id,
             }).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.isLoading = false;
                 this.data = res.data;
                 this.address.district = res.data[0].district;
