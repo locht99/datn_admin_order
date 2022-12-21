@@ -314,7 +314,7 @@ class OrderModel extends Model
             $q->where('created_at', '>=', $from);
         }
         if ($to) {
-            $q->where('created_at', '<=', $to);
+            $q->where('created_at', '<', $to);
         }
         return $q->first();
     }
@@ -401,5 +401,23 @@ class OrderModel extends Model
             ->pluck('value')
             ->first();
         return $fee_check;
+    }
+
+    public function getTotalRevenue($from = null, $to = null)
+    {
+        $q = DB::table('orders')
+        ->select(
+            DB::raw("ABS(SUM(orders.purchase_fee)) as revenue"),
+            DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as column_date")
+        )
+        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
+
+        if ($from) {
+            $q->where('created_at', '>=', $from);
+        }
+        if ($to) {
+            $q->where('created_at', '<', $to);
+        }
+        return $q->get();
     }
 }

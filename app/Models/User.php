@@ -108,14 +108,13 @@ class User extends Authenticatable
                 DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as created_at")
             )
             ->whereNotNull('created_at')
-            ->orderBy('created_at')
             ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
 
         if ($from) {
             $q->where('created_at', '>=',$from);
         }
         if ($to) {
-            $q->where('created_at', '<=', $to);
+            $q->where('created_at', '<', $to);
         }
         
         return $q->get();

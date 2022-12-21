@@ -28,11 +28,18 @@ class ReportController extends Controller
             $data = [];
             $labelsTrans = [];
             $dataTrans = [];
+            $labelsRevenue = [];
+            $dataRevenue = [];
             $from = $request->from??null;
             $to = $request->to??null;
+
+            $from = date_format(date_create($from), "Y-m-d H:i:s");
+            $to = date_format(date_create($to . '+1 day'), "Y-m-d H:i:s");
             $userCreated = $this->userModel->getUserCreate($from, $to);
             $orderCreate = $this->orderModel->getOrderCreate($from, $to);
             $transaction = $this->transactionModel->getTransactionCreate($from, $to);
+            $totalRevenue = $this->orderModel->getTotalRevenue($from, $to);
+            $totalMoney = 0;
 
             foreach ($userCreated as $value) {
                 $labels[] = $value->created_at;
@@ -44,12 +51,21 @@ class ReportController extends Controller
                 $dataTrans[] = $val->total_money;
             }
 
+            foreach ($totalRevenue as $val) {
+                $labelsRevenue[] = $val->column_date;
+                $dataRevenue[] = $val->revenue;
+                $totalMoney += $val->revenue;
+            }
+
             return response()->json([
                 'labels' => $labels,
                 'data'  => $data,
                 'dataOrder' => $orderCreate,
                 'labelsTrans' => $labelsTrans,
                 'dataTrans'  => $dataTrans,
+                'labelsRevenue' => $labelsRevenue,
+                'dataRevenue'  => $dataRevenue,
+                'totalRevenue'  => $totalMoney
             ], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => "error!!!"], 400);
