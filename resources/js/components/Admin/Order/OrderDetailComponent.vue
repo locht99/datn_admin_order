@@ -177,10 +177,10 @@
                                     <div>{{ formatPrice(this.fee.wood)
                                     }}</div>
                                 </div>
-                                <div class="price1 p-3 flex items-center border-b justify-between">
+                                <!-- <div class="price1 p-3 flex items-center border-b justify-between">
                                     <div class="font-bold">Phí vận chuyển nội địa TQ</div>
                                     <div>{{ formatPrice(this.fee.china_shipping_fee) }}</div>
-                                </div>
+                                </div> -->
                                 <div class="price1 p-3 flex items-center border-b justify-between">
                                     <div class="font-bold">Phí vận chuyển TQ->VN</div>
                                     <div>{{ formatPrice(this.fee.global_shipping_fee) }}</div>

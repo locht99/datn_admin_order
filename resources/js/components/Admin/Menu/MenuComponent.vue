@@ -115,7 +115,7 @@ export default {
     updated() {
         var li = document.querySelectorAll('.menu-item');
 
-        li.forEach(el => {  
+        li.forEach(el => {
             // console.log(el)
             el.addEventListener('click', function () {
                 li.forEach(el => {

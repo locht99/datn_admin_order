@@ -101,7 +101,7 @@
                                                                     {{ formatPrice(this.total_cod_amount) }}
                                                                 </p>
                                                             </div>
-                                                            <div>
+                                                            <div class="invisible">
                                                                 <label class="text-gray-500" for="">Tổng giá trị hàng
                                                                     hoá</label><br>
                                                                 <p
@@ -300,9 +300,19 @@ export default {
             this.order_id = this.item
             getOrder(this.item).then((resp) => {
                 this.data_order_transport = resp.data[0]
-                let total = +resp.data[0].purchase_fee + +resp.data[0].inventory_fee + +resp.data[0].total_price + +resp.data[0].global_shipping_fee + +resp.data[0].wood_packing_fee + +resp.data[0].separately_wood_packing_fee + +resp.data[0].high_value_fee + +resp.data[0].auto_shipping_fee + +resp.data[0].saving_shipping_fee + +resp.data[0].express_shipping_fee
+                let total =
+                    parseInt(resp.data[0].inventory_fee) +
+                    Math.abs(parseInt(resp.data[0].deposit_amount)) +
+                    parseInt(resp.data[0].global_shipping_fee) +
+                    parseInt(resp.data[0].wood_packing_fee) +
+                    parseInt(resp.data[0].separately_wood_packing_fee) +
+                    parseInt(resp.data[0].high_value_fee) +
+                    parseInt(resp.data[0].auto_shipping_fee) +
+                    parseInt(resp.data[0].express_shipping_fee) +
+                    parseInt(resp.data[0].saving_shipping_fee) +
+                    parseInt(resp.data[0].purchase_fee)
                 this.total_order_price = parseInt(total)
-                this.total_cod_amount = parseInt(total) + parseInt(resp.data[0].deposit_amount);
+                this.total_cod_amount = parseInt(total)
                 getInfoUser(resp.data[0].address_id).then((res) => {
                     this.is_Loading = false;
                     this.info_user = res.data[0]
@@ -404,7 +414,7 @@ export default {
                                                 this.total = resp.data.data.detail.main_service += resp_cod.data.data.cod_amount
                                                 updatePriceOrder({
                                                     id_order: this.data_trans.order_id,
-                                                    remaining_amount: this.total_cod_amount,
+                                                    remaining_amount: this.total,
                                                     express_shipping_fee: resp.data.data.payment[0].value,
                                                     total_order_price: this.total_order_price
                                                 }).then((resp) => {
