@@ -67,16 +67,18 @@
                 <a-col :span="8">
                     <div style="background: #ffff; padding: 20px">
                         <a-card title="Dịch vụ" class="w-full">
-                           
+
                             <div class="mb-3">
-                                <a-checkbox :disabled="true" v-model:checked="option.inventory">Kiểm hàng</a-checkbox>
+                                <a-checkbox :disabled="true" v-model:checked="option.order_checking">Kiểm
+                                    hàng</a-checkbox>
                             </div>
-                         
+
                             <div class="mb-3">
                                 <a-checkbox :disabled="true" v-model:checked="option.wood_packing">Đóng gỗ</a-checkbox>
                             </div>
                             <div class="mb-3">
-                                <a-checkbox :disabled="true" v-model:checked="option.seperatewoodpacking">Đóng gỗ riêng</a-checkbox>
+                                <a-checkbox :disabled="true" v-model:checked="option.seperatewoodpacking">Đóng gỗ
+                                    riêng</a-checkbox>
                             </div>
                             <div class="mb-3">
                                 <a-radio-group :disabled="true" v-model:value="shipping">
@@ -110,11 +112,11 @@
                                         : paramOrder.separately_wood_packing_fee)
                                 }}</p>
                             </div>
-                            <div class="w-[100%] mb-3 flex justify-between">
+                            <!-- <div class="w-[100%] mb-3 flex justify-between">
                                 <label for="" class="font-semibold">Phí vận chuyển nội địa (TQ)</label>
                                 <p>{{ formatPrice(paramOrder.china_shipping_fee)
                                 }}</p>
-                            </div>
+                            </div> -->
                             <div class="w-[100%] mb-3 flex justify-between">
                                 <label for="" class="font-semibold">Phí vận chuyển TQ->VN</label>
                                 <p>{{ formatPrice(paramOrder.global_shipping_fee) }}</p>
@@ -134,7 +136,7 @@
                 <a-col :span="8" v-for="(item, index) in dataShop" :key="index">
                     <div style="background:#ffff;padding:20px">
                         <a-card :title="item.shop_name ? item.shop_name : item.shop_id" class="w-[100%]">
-
+                            <!-- 
                             <div class="mb-3">
                                 <label for="">Phí ship</label>
                                 <CurrencyInput v-model="feeShipChina[index]" :options="{
@@ -145,7 +147,7 @@
                                     hideNegligibleDecimalDigitsOnFocus: false,
                                 }" class="w-full border-gray-300 rounded my-2 px-2 py-1"></CurrencyInput>
 
-                            </div>
+                            </div> -->
                             <div>
                                 <label for="" class="font-semibold">Sản phẩm</label>
                                 <div v-for="(it) in data">
@@ -159,6 +161,7 @@
                                             <input type="number"
                                                 @blur="checkPayQuantity(it.quantity_received, it.quantity_bought, it.id)"
                                                 v-model="it.quantity_received"
+                                          
                                                 class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
                                             <label for="">Ghi chú</label>
 
@@ -312,7 +315,7 @@ export default {
                     this.feeShipChina[index] = item.fee_ship;
                     this.noteShop[index] = item.note
                 });
-
+                console.log(this.data);
                 this.data.map((res) => {
                     this.order_code = res.order_code;
                     this.shippingcode = res.code;

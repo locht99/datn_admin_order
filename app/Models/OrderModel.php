@@ -250,19 +250,19 @@ class OrderModel extends Model
             'opt_separate_wood_packing' => $params['opt_separate_wood_packing'],
             'code' => $params['code']
         ]);
-        $totalShip = 0;
         foreach ($order_detail as $index => $item) {
-            $totalShip += $params["fee_ship"][$index];
             DB::table("order_detail")->where("id", $item->id)->update([
                 'fee_ship' => $params["fee_ship"][$index],
                 'note' => $params['noteShop'][$index]
             ]);
         }
         $quantity_received = 0;
+        $quantity_bought = 0;
         $totalPriceShop = 0;
         $remaining_amount = 0;
         foreach ($params['products'] as $item) {
             $quantity_received += +$item["quantity_received"];
+            $quantity_bought += +$item["quantity_bought"];
             $totalPriceShop += $item['price'] * $item['quantity_received'];
 
             DB::table("order_products")->where("id", $item["id"])->update(["quantity_received" => $item["quantity_received"]]);
@@ -271,26 +271,32 @@ class OrderModel extends Model
 
 
         $totalPrice =  $itemOrder->total_price;
+        $totalInventory = $itemOrder->inventory_fee;
+        if ($itemOrder->inventory_fee != 0) {
+            $feeInventory = $this->getFeeConfig('CHECKING_FEE', $quantity_received);
+            $totalInventory = $quantity_received * $feeInventory;
+        }
         $totalPuchaseFee = $this->getFeePurchase(
             'PURCHASE_FEE',
             $totalPriceShop
         ) *  $totalPriceShop / 100;
-
-        if ($quantity_received == 0) {
-            $totalPriceOrder = $totalPrice + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
-            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee;
+        if ($quantity_received <  $quantity_bought) {
+            
+            $totalPriceOrder = $totalPriceShop  + $params['global_shipping_fee'] + $totalInventory + $totalPuchaseFee;
+            $remaining_amount = $deposit_amount  + $params['global_shipping_fee'] + ($totalInventory / 2)  + ($totalPuchaseFee  / 2);
         } else {
-            $totalPriceOrder = $totalPriceShop + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
-            $remaining_amount = $deposit_amount + $totalShip + $params['global_shipping_fee'] + $itemOrder->inventory_fee + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+            $totalPriceOrder = $totalPriceShop  + $params['global_shipping_fee'] + $totalInventory + $totalPuchaseFee + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
+            $remaining_amount = $deposit_amount  + $params['global_shipping_fee'] + ($totalInventory / 2) + ($totalPuchaseFee / 2) + $params['seperately_wood_packing_fee'] + $params["wood_packing_fee"];
         }
         DB::table("orders")->where("order_code", $params["order_id"])->update([
-            "china_shipping_fee" => $totalShip, 'global_shipping_fee' => $params['global_shipping_fee'],
-            "total_price" => $quantity_received == 0 ? $totalPrice : $totalPriceShop,
+            'global_shipping_fee' => $params['global_shipping_fee'],
+            "total_price" =>  $totalPriceShop,
             "total_price_order" => $totalPriceOrder,
             "purchase_fee" => $totalPuchaseFee,
             "separately_wood_packing_fee" => $params['seperately_wood_packing_fee'],
             "wood_packing_fee" => $params["wood_packing_fee"],
-            "remaining_amount" => $remaining_amount
+            "remaining_amount" => $remaining_amount,
+            'inventory_fee' => $totalInventory
         ]);
 
         return ["data" => $resp, "status" => true];
@@ -371,7 +377,7 @@ class OrderModel extends Model
         }
     }
 
-    public  function getFeeConfig($opt_fee, $quantity)
+    public function getFeeConfig($opt_fee, $quantity)
     {
         if ($quantity == 0) {
             return 0;
