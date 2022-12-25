@@ -172,8 +172,9 @@
                                     <div class="font-bold">Phí kiểm hàng</div>
                                     <div>{{ formatPrice(this.fee.fee_inventory) }}</div>
                                 </div>
-                                <div class="price1 p-3 flex items-center border-b justify-between">
-                                    <div class="font-bold">Phí đóng gỗ</div>
+                                <div class="price1 p-3 flex items-center border-b justify-between"
+                                    v-if="this.fee.wood != 0">
+                                    <div class="font-bold">Phí đóng gỗ {{ this.fee.name_fee }}</div>
                                     <div>{{ formatPrice(this.fee.wood)
                                     }}</div>
                                 </div>
@@ -260,6 +261,7 @@ export default {
                 global_shipping_fee: 0,
                 china_shipping_fee: 0,
                 wood: 0,
+                name_fee: null
             }
         };
     },
@@ -296,8 +298,8 @@ export default {
                     this.fee.fee_purchase = item.purchase_fee;
                     this.fee.global_shipping_fee = item.global_shipping_fee;
                     this.fee.china_shipping_fee = item.china_shipping_fee;
-                    this.fee.wood = item.seperately_wood_packing_fee ?? item.wood_packing_fee;
-                    // this.fee.wood_packing_fee = ;
+                    this.fee.wood = item.separately_wood_packing_fee ? item.separately_wood_packing_fee : item.wood_packing_fee;
+                    this.fee.name_fee = item.separately_wood_packing_fee ? "riêng" : "";
                     if (item.source === "TAOBAO") {
                         this.listShop.push("taobao");
                     } else if (item.source === "1688") {
