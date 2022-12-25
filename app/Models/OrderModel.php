@@ -39,16 +39,16 @@ class OrderModel extends Model
             )
             ->orderBy('orders.created_at', 'desc');
         if ($params['from']) {
-            $data->orWhereDate('orders.created_at', '>=', $params['from']);
+            $data->whereDate('orders.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
         }
         if ($params['to']) {
-            $data->orWhereDate('orders.created_at', '>=', $params['to']);
+            $data->whereDate('orders.created_at', '<=', Carbon::parse($params['to'])->toDateTimeString());
         }
         if ($params['username']) {
-            $data->orWhere('users.username', 'like', "%{$params['username']}%");
+            $data->where('users.username', 'like', "%{$params['username']}%");
         }
         if ($params['phone']) {
-            $data->orWhere('users.phone', '=', $params['phone']);
+            $data->where('users.phone', 'like', '%' . $params['phone'] . '%');
         }
         $orders = $data->paginate(10);
         return $orders;
