@@ -8,8 +8,8 @@
             <div class="form">
                 <div class="head">
                     <div class="title text-white h-10 flex justify-between px-4">
-                        <h3 class="text-white">Tổng tiền nạp</h3>
-                        <h3 class="text-white">Tổng tiền: {{ formatPrice(this.totalTransactions) }}</h3>
+                        <h3 class="text-white">Tổng tiền giao dịch</h3>
+                        <!-- <h3 class="text-white">Tổng tiền: {{ formatPrice(this.totalTransactions) }}</h3> -->
                     </div>
                     <div class="filter px-2">
                         <form>

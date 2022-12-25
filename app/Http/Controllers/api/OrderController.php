@@ -88,6 +88,7 @@ class OrderController extends Controller
                 'to' => $request->to ? $request->to : null,
                 'username' => $request->username ? $request->username : null,
                 'status' => $request->status ? $request->status : null,
+                'order_code' => $request->order_code ? $request->order_code : null
             ];
             $model = new OrderModel();
             $orders = $model->getOrders($search);
