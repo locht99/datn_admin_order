@@ -49,9 +49,9 @@
                                         <p>Mã đặt hàng:</p>
                                         <p>
                                             {{
-                                                    data[0]?.order_code ??
-                                                    "Chưa xác định"
-                                            }}
+        data[0]?.order_code ??
+        "Chưa xác định"
+}}
                                         </p>
                                     </div>
                                     <div class="mb-3">
@@ -97,6 +97,12 @@
                                                     {{ value.product_name }}
                                                 </p>
                                                 <div class="flex items-center">
+                                                    <div>Thuộc tính</div>
+                                                    <div class="p-1 m-2 ">
+                                                        {{ value.properties }}
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center">
                                                     <div>Số lượng</div>
                                                     <div class="p-1 m-2 ">
                                                         {{ value.quantity_bought }}
@@ -123,18 +129,18 @@
                                                         <div class="cost border-b-2">
                                                             Giá:
                                                             {{
-                                                                    formatPrice(
-                                                                        value.price
-                                                                    )
-                                                            }}
+        formatPrice(
+            value.price
+        )
+}}
                                                         </div>
                                                         <div class="promotion">
                                                             Khuyến mãi:
                                                             {{
-                                                                    formatPrice(
-                                                                        value.promotion_price
-                                                                    )
-                                                            }}
+        formatPrice(
+            value.promotion_price
+        )
+}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,10 +151,10 @@
                                                         </div>
                                                         <div class="promotion font-bold">
                                                             {{
-                                                                    formatPrice(
-                                                                        value.price_table
-                                                                    )
-                                                            }}
+        formatPrice(
+            value.price_table
+        )
+}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,7 +182,7 @@
                                     v-if="this.fee.wood != 0">
                                     <div class="font-bold">Phí đóng gỗ {{ this.fee.name_fee }}</div>
                                     <div>{{ formatPrice(this.fee.wood)
-                                    }}</div>
+}}</div>
                                 </div>
                                 <!-- <div class="price1 p-3 flex items-center border-b justify-between">
                                     <div class="font-bold">Phí vận chuyển nội địa TQ</div>
@@ -190,16 +196,16 @@
                                     <div class="font-bold">Đã trả</div>
                                     <div>
                                         {{
-                                                formatPrice(data[0]?.deposit_amount)
-                                        }}
+        formatPrice(data[0]?.deposit_amount)
+}}
                                     </div>
                                 </div>
                                 <div class="price1 p-3 flex items-center border-b justify-between">
                                     <div class="font-bold">Còn lại</div>
                                     <div>
                                         {{
-                                                formatPrice(data[0]?.remaining_amount)
-                                        }}
+        formatPrice(data[0]?.remaining_amount)
+}}
                                     </div>
                                 </div>
                                 <div class="price1 p-3 flex items-center bg-red-500 justify-between">

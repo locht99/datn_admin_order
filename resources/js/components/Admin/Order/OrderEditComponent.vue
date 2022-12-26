@@ -109,11 +109,11 @@
                             <div class="w-[100%] mb-3 flex justify-between"
                                 v-if="paramOrder.opt_separate_wood_packing == 1 || paramOrder.opt_wood_packing == 1">
                                 <label for="" class="font-semibold">Phí đóng gỗ {{ paramOrder.opt_separate_wood_packing
-                                        == 1 ? "riêng" : ""
-                                }} </label>
+        == 1 ? "riêng" : ""
+}} </label>
                                 <p>{{ formatPrice(paramOrder.opt_wood_packing == 1 ? paramOrder.wood_packing_fee
-                                        : paramOrder.separately_wood_packing_fee)
-                                }}</p>
+        : paramOrder.separately_wood_packing_fee)
+}}</p>
                             </div>
                             <!-- <div class="w-[100%] mb-3 flex justify-between">
                                 <label for="" class="font-semibold">Phí vận chuyển nội địa (TQ)</label>
@@ -156,6 +156,7 @@
                                 <div v-for="(it) in data">
                                     <div class="w-full" v-if="(it.ShopIdProduct == item.shop_id)">
                                         <p>{{ it.ProductName }}</p>
+                                        <p>Thuộc tính: {{ it.properties }}</p>
                                         <div class="mb-3 w-full">
                                             <label for="" class="w-full">Số lượng khách muốn đặt</label>
                                             <input v-model="it.quantity_bought" disabled
