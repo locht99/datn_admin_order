@@ -106,8 +106,11 @@
                                 <label class="font-semibold">Phí kiểm hàng</label>
                                 <p>{{ formatPrice(paramOrder.inventory_fee) }}</p>
                             </div>
-                            <div class="w-[100%] mb-3 flex justify-between">
-                                <label for="" class="font-semibold">Phí đóng gỗ</label>
+                            <div class="w-[100%] mb-3 flex justify-between"
+                                v-if="paramOrder.opt_separate_wood_packing == 1 || paramOrder.opt_wood_packing == 1">
+                                <label for="" class="font-semibold">Phí đóng gỗ {{ paramOrder.opt_separate_wood_packing
+                                        == 1 ? "riêng" : ""
+                                }} </label>
                                 <p>{{ formatPrice(paramOrder.opt_wood_packing == 1 ? paramOrder.wood_packing_fee
                                         : paramOrder.separately_wood_packing_fee)
                                 }}</p>
@@ -161,7 +164,6 @@
                                             <input type="number"
                                                 @blur="checkPayQuantity(it.quantity_received, it.quantity_bought, it.id)"
                                                 v-model="it.quantity_received"
-                                          
                                                 class="w-full border border-gray-300 rounded my-2 px-2 py-1" />
                                             <label for="">Ghi chú</label>
 
@@ -251,7 +253,8 @@ export default {
             warehouse: null,
             paramOrder: {},
             noteShop: [],
-            wood: null
+            wood: null,
+            name_fee: null
         }
     },
     created() {
@@ -315,7 +318,6 @@ export default {
                     this.feeShipChina[index] = item.fee_ship;
                     this.noteShop[index] = item.note
                 });
-                console.log(this.data);
                 this.data.map((res) => {
                     this.order_code = res.order_code;
                     this.shippingcode = res.code;
@@ -333,9 +335,9 @@ export default {
                     this.quantityPurchasedCustomer = res.quantityreceive;
                     this.totalGlobalShipping = res.global_shipping_fee;
                     this.warehouse = res.id_warehouse;
-                    this.wood = res.wood_packing_fee ?? res.separately_wood_packing_fee
+                    this.wood = res.wood_packing_fee ? res.wood_packing_fee : res.separately_wood_packing_fee;
+                    this.name_fee = res.wood_packing_fee ? "" : "riêng";
                 })
-                // console.log("Đóng gỗ", this.option.wood_packing, "Đóng gỗ riêng", this.option.seperatewoodpacking);
             }).catch((error) => {
                 if (error.response.status == 400) {
                     this.responseError = 400;
