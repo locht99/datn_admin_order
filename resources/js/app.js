@@ -29,12 +29,12 @@ const router = createRouter({
 
 library.add(fas, fab, far);
 // window.Vue = Vue
-const baseURL = 'http://localhost:8000/api/';
+const baseURL = 'https://admin.dathangviettrung.site/api/';
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(VueAxios, axios);
-app.axios.defaults.baseURL = "http://localhost:8000"
+app.axios.defaults.baseURL = "https://admin.dathangviettrung.site"
 app.axios.defaults.headers.common["Accept"] = "application/json";
 app.axios.defaults.headers.common["Content-Type"] =
     "application/json;charset=UTF-8";
