@@ -37,16 +37,16 @@ class TransactionModel extends Model
             )
             ->orderByDesc('transactions.created_at');
         if ($params['from']) {
-            $data->orWhereDate('transactions.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
+            $data->whereDate('transactions.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
         }
         if ($params['to']) {
-            $data->orWhereDate('transactions.created_at', '<=', Carbon::parse($params['to'])->toDateTimeString());
+            $data->whereDate('transactions.created_at', '<=', Carbon::parse($params['to'])->toDateTimeString());
         }
         if ($params['username']) {
-            $data->orWhere('users.username', $params['username']);
+            $data->where('users.username', 'like', '%' .  $params['username'] . '%');
         }
         if ($params['phone']) {
-            $data->orWhere('users.phone', '=', $params['phone']);
+            $data->where('users.phone', 'like', '%' . $params['phone'] . '%');
         }
         $transactions = $data->paginate(10);
         return $transactions;

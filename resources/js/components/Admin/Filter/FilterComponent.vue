@@ -39,13 +39,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="filter-children" v-if="listOrder">
+                        <div class="label py-4">
+                            <label for="" class="w-full ml-2">Theo mã đơn hàng</label>
+                            <div class="flex mx-auto w-[90%] pb-3 mt-3 border-b ">
+                                <input v-model="order_code"
+                                    class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-medium"
+                                    type="text" placeholder="Mã đơn" aria-label="Full name">
+                            </div>
+                        </div>
+                    </div>
                     <div class="filter-children" v-if="orderModule">
                         <div class="label py-4">
                             <label for="" class="w-full ml-2">Theo loại</label>
                             <div class="flex mx-auto w-[90%] pb-3 mt-3 border-b ">
                                 <select class="w-full" v-model="status">
                                     <option selected disabled>Select Option</option>
-                                    <option v-for="(item, index) in this.data_status" :key="index" :value="item.id">{{ item.type_name }}
+                                    <option v-for="(item, index) in this.data_status" :key="index" :value="item.id">{{
+                                            item.type_name
+                                    }}
                                     </option>
                                 </select>
                             </div>
@@ -98,7 +110,8 @@ export default {
             username: null,
             phone: null,
             status: null,
-            data: []
+            data: [],
+            order_code: null
         }
     },
     components: {
@@ -107,20 +120,22 @@ export default {
         filter: Boolean,
         styleFilter: String,
         userModule: false,
-        orderModule: false
+        orderModule: false,
+        listOrder: false
     },
     created() {
         this.getAllTypeTransactions()
     },
 
     methods: {
-        getAllValueFilter(){
+        getAllValueFilter() {
             this.data = {
                 from: this.from,
                 to: this.to,
                 username: this.username,
                 status: this.status,
-                phone: this.phone
+                phone: this.phone,
+                order_code: this.order_code
             }
             this.$emit('values_filter', this.data)
             this.$emit('action_search')

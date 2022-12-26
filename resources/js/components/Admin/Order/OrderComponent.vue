@@ -39,11 +39,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                v-for="(item, index) in data"
-                                :key="index"
-                                class="hover:bg-gray-100 border-b h-[52px] font-[16px]"
-                            >
+                            <tr v-for="(item, index) in data" :key="index"
+                                class="hover:bg-gray-100 border-b h-[52px] font-[16px]">
                                 <td>{{ index + 1 + (this.page - 1) * 15 }}</td>
                                 <td>
                                     <router-link :to="{ path: 'orderdetail/' + item.order_code }"
@@ -52,7 +49,7 @@
                                 <td>{{ item.created_at }}</td>
                                 <td>{{ item.username }}</td>
                                 <td>{{ item.code }}</td>
-                                <td>{{formatPrice(item.global_shipping_fee)}}</td>
+                                <td>{{ formatPrice(item.global_shipping_fee) }}</td>
                                 <td>{{ formatPrice(item.total_price_order) }}</td>
                                 <td>{{ item.status_name }}</td>
                                 <td>
@@ -78,7 +75,7 @@
             </div>
         </div>
         <Filter v-on:filter_action="updateOpenFilter($event)" v-on:values_filter="searchOrders($event)"
-            :filter="this.openFilter" :styleFilter="this.styleFilter" />
+            :filter="this.openFilter" :styleFilter="this.styleFilter" :listOrder="true" />
     </div>
 </template>
 <script>
@@ -92,10 +89,10 @@ export default {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title ='Đơn Hàng';
+                document.title = 'Đơn Hàng';
             }
         },
-  },
+    },
     props: ["values_filter"],
     components: {
         Loading,
@@ -160,7 +157,7 @@ export default {
             getAll(this.params)
                 .then((res) => {
                     const { data } = res;
-                    this.data = data.orders.data;   
+                    this.data = data.orders.data;
                     this.dataPagination = data.orders;
                     this.dataStatus = data.total_status
                 })
@@ -188,7 +185,7 @@ export default {
         updateOpenModal(event) {
             this.showModals = !event;
         }
-        
+
     },
 };
 </script>

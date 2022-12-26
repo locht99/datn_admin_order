@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -38,16 +39,16 @@ class OrderModel extends Model
             )
             ->orderBy('orders.created_at', 'desc');
         if ($params['from']) {
-            $data->orWhereDate('orders.created_at', '>=', $params['from']);
+            $data->whereDate('orders.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
         }
         if ($params['to']) {
-            $data->orWhereDate('orders.created_at', '>=', $params['to']);
+            $data->whereDate('orders.created_at', '<=', Carbon::parse($params['to'])->toDateTimeString());
         }
         if ($params['username']) {
-            $data->orWhere('users.username', 'like', "%{$params['username']}%");
+            $data->where('users.username', 'like', "%{$params['username']}%");
         }
         if ($params['phone']) {
-            $data->orWhere('users.phone', '=', $params['phone']);
+            $data->where('users.phone', 'like', '%' . $params['phone'] . '%');
         }
         $orders = $data->paginate(10);
         return $orders;
@@ -87,16 +88,19 @@ class OrderModel extends Model
 
 
         if ($params['from']) {
-            $orders->orWhereDate('orders.created_at', '>=', $params['from']);
+            $orders->whereDate('orders.created_at', '>=', Carbon::parse($params['from'])->toDateTimeString());
         }
         if ($params['to']) {
-            $orders->orWhereDate('orders.created_at', '<=', $params['to']);
+            $orders->whereDate('orders.created_at', '<=',  Carbon::parse($params['to'])->toDateTimeString());
         }
         if ($params['username']) {
             $orders->Where('users.username', 'like', '%' . $params['username'] . '%');
         }
         if ($params['status']) {
             $orders->Where('order_statuses.id', '=', $params['status']);
+        }
+        if ($params['order_code']) {
+            $orders->where('orders.order_code', 'like', '%' . $params['order_code'] . '%');
         }
         $orders->orderBy('orders.created_at', 'Desc');
         $data = [
@@ -281,7 +285,7 @@ class OrderModel extends Model
             $totalPriceShop
         ) *  $totalPriceShop / 100;
         if ($quantity_received <  $quantity_bought) {
-            
+
             $totalPriceOrder = $totalPriceShop  + $params['global_shipping_fee'] + $totalInventory + $totalPuchaseFee;
             $remaining_amount = $deposit_amount  + $params['global_shipping_fee'] + ($totalInventory / 2)  + ($totalPuchaseFee  / 2);
         } else {
@@ -406,11 +410,11 @@ class OrderModel extends Model
     public function getTotalRevenue($from = null, $to = null)
     {
         $q = DB::table('orders')
-        ->select(
-            DB::raw("ABS(SUM(orders.purchase_fee)) as revenue"),
-            DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as column_date")
-        )
-        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
+            ->select(
+                DB::raw("ABS(SUM(orders.purchase_fee)) as revenue"),
+                DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as column_date")
+            )
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"));
 
         if ($from) {
             $q->where('created_at', '>=', $from);
