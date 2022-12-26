@@ -102,7 +102,7 @@
                                 <label class="font-semibold">Phí mua hàng</label>
                                 <p>{{ formatPrice(paramOrder.purchase_fee) }}</p>
                             </div>
-                            <div class="w-[100%] mb-3 flex justify-between">
+                            <div class="w-[100%] mb-3 flex justify-between" v-if="paramOrder.inventory_fee != 0">
                                 <label class="font-semibold">Phí kiểm hàng</label>
                                 <p>{{ formatPrice(paramOrder.inventory_fee) }}</p>
                             </div>
@@ -322,7 +322,7 @@ export default {
                 this.data.map((res) => {
                     this.order_code = res.order_code;
                     this.shippingcode = res.code;
-                    this.option.order_checking = res.opt_order_checking == 1 ? true : false;
+                    this.option.order_checking = res.inventory_fee != 0 ? true : false;
                     this.option.inventory = res.opt_inventory == 1 ? true : false;
                     this.option.autoshipping = res.opt_auto_shipping == 1 ? true : false;
                     this.option.wood_packing = res.opt_wood_packing;
